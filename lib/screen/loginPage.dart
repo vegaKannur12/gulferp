@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                               // height: size.height*0.3,
                               // width: size.height*0.3,
                             ),
-    
+
                             // Image.asset(
                             //   'asset/login.png',
                             //   // height: size.height*0.3,
@@ -109,10 +109,10 @@ class _LoginPageState extends State<LoginPage> {
                                   //             listen: false)
                                   //         .getProductDetails("CO1003");
                                   // print("fkjdfjdjfnzskfn;lg------${list}");
-    
+
                                   // Provider.of<Controller>(context, listen: false)
                                   //     .setfilter(false);
-    
+
                                   // Navigator.push(
                                   //   context,
                                   //   MaterialPageRoute(
@@ -120,35 +120,35 @@ class _LoginPageState extends State<LoginPage> {
                                   //             list: value.productList,
                                   //           )),
                                   // );
-    
+
                                   if (_formKey.currentState!.validate()) {
-                                    Provider.of<RegistrationController>(context,
-                                            listen: false)
-                                        .getLogin(controller1.text,
-                                            controller2.text, context);
-                                    result = await GulfErpDB.instance.selectStaff(
-                                        controller1.text, controller2.text);
-    
-                                    if (result.length == 0) {
-                                      visible.value = true;
-                                      print("visible===${visible.value}");
-                                    } else if (result[0] == "success" &&
-                                        result[1] != null) {
-                                      visible.value = false;
-                                      final prefs =
-                                          await SharedPreferences.getInstance();
-                                      await prefs.setString('sid', result[1]);
-                                      await prefs.setString(
-                                          'st_username', controller1.text);
-                                      await prefs.setString(
-                                          'st_pwd', controller2.text);
-    
+                                    // Provider.of<RegistrationController>(context,
+                                    //         listen: false)
+                                    //     .getLogin(controller1.text,
+                                    //         controller2.text, context);
+                                    // result = await MystockDB.instance.selectStaff(
+                                    //     controller1.text, controller2.text);
+
+                                    // if (result.length == 0) {
+                                    //   visible.value = true;
+                                    //   print("visible===${visible.value}");
+                                    // } else if (result[0] == "success" &&
+                                    //     result[1] != null) {
+                                    //   visible.value = false;
+                                    //   final prefs =
+                                    //       await SharedPreferences.getInstance();
+                                    //   await prefs.setString('sid', result[1]);
+                                    //   await prefs.setString(
+                                    //       'st_username', controller1.text);
+                                    //   await prefs.setString(
+                                    //       'st_pwd', controller2.text);
+
                                     // Navigator.push(
                                     //   context,
                                     //   MaterialPageRoute(
                                     //       builder: (context) => MainDashboard()),
                                     // );
-                                    }
+                                    // }
                                   }
                                 },
                                 label: Text(
@@ -356,7 +356,6 @@ class _LoginPageState extends State<LoginPage> {
   //   );
   // }
 }
-
 
 Future<bool> _onBackPressed(BuildContext context) async {
   return await showDialog(

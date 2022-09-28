@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gulferp/components/commonColor.dart';
 
 
-
 class CustomSnackbar {
   showSnackbar(BuildContext context, String content,String type) {
     ScaffoldMessenger. of(context).showSnackBar(

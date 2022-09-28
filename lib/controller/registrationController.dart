@@ -13,6 +13,8 @@ import 'package:gulferp/services/dbHelper.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../components/globalData.dart';
+
 class RegistrationController extends ChangeNotifier {
   bool isLoading = false;
   StaffDetails staffModel = StaffDetails();
