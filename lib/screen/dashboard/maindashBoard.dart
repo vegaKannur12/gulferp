@@ -89,6 +89,66 @@ class _MainDashboardState extends State<MainDashboard> {
                 ),
                 color: P_Settings.loginPagetheme,
               ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: ListTile(
+                    onTap: () {
+                      // Provider.of<Controller>(context, listen: false)
+                      //     .getTransactionList(context);
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) => TransactionPage()),
+                      // );
+                    },
+                    leading: CircleAvatar(
+                        radius: 20, child: Image.asset("asset/exchanging.png")),
+                    trailing: Icon(Icons.arrow_forward),
+                    title: Text(
+                      "Transaction",
+                      style: GoogleFonts.aBeeZee(
+                        textStyle: Theme.of(context).textTheme.bodyText2,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: P_Settings.loginPagetheme,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: ListTile(
+                    onTap: () {
+                      // Provider.of<Controller>(context, listen: false)
+                      //     .getTransactionList(context);
+                      // Provider.of<Controller>(context, listen: false)
+                      //     .setIssearch(false);
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(
+                      //       builder: (context) =>
+                      //           SearchScreen(type: "start")),
+                      // );
+                    },
+                    leading: CircleAvatar(
+                        radius: 20, child: Image.asset("asset/search.png")),
+                    trailing: Icon(Icons.arrow_forward),
+                    title: Text(
+                      "Search",
+                      style: GoogleFonts.aBeeZee(
+                        textStyle: Theme.of(context).textTheme.bodyText2,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: P_Settings.loginPagetheme,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
