@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
+import 'package:gulferp/controller/registrationController.dart';
+import 'package:gulferp/services/dbHelper.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 

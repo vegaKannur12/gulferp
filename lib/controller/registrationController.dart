@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gulferp/components/customSnackbar.dart';
 import 'package:gulferp/components/externalDir.dart';
+import 'package:gulferp/components/globalData.dart';
 import 'package:gulferp/components/network_connectivity.dart';
 import 'package:gulferp/model/loginModel.dart';
 import 'package:gulferp/model/registrationModel.dart';
-import 'package:gulferp/model/sideMenuModel.dart';
-import 'package:gulferp/model/staffDetailsModel.dart';
+import 'package:gulferp/model/staffDetails.dart';
 import 'package:gulferp/screen/loginPage.dart';
+import 'package:gulferp/services/dbHelper.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -105,10 +106,10 @@ class RegistrationController extends ChangeNotifier {
 
               print("fnjdxf----$user");
 
-              // await MystockDB.instance
-              //     .deleteFromTableCommonQuery("companyRegistrationTable", "");
-              // var res =
-              //     await MystockDB.instance.insertRegistrationDetails(regModel);
+              await GulfErpDB.instance
+                  .deleteFromTableCommonQuery("companyRegistrationTable", "");
+              var res =
+                  await GulfErpDB.instance.insertRegistrationDetails(regModel);
               // getMaxSerialNumber(os);
               // getMenuAPi(cid!, fp1, company_code, context);
               Navigator.push(
@@ -189,85 +190,85 @@ class RegistrationController extends ChangeNotifier {
   }
 
   //////////////////////////////////////////////////////////////////
-  Future<StaffDetails?> getStaffDetails(String cid, int index) async {
-    print("getStaffDetails...............${cid}");
-    var restaff;
-    try {
-      Uri url = Uri.parse("http://trafiqerp.in/order/fj/get_staff.php");
-      Map body = {
-        'cid': cid,
-      };
-      // isDownloaded = true;
-      // isCompleted = true;
-      isLoading = true;
-      notifyListeners();
-      http.Response response = await http.post(
-        url,
-        body: body,
-      );
-      List map = jsonDecode(response.body);
-      // await MystockDB.instance
-      //     .deleteFromTableCommonQuery("staffDetailsTable", "");
-      // print("map ${map}");
-      // for (var staff in map) {
-      //   staffModel = StaffDetails.fromJson(staff);
-      //   restaff = await MystockDB.instance.insertStaffDetails(staffModel);
-      // }
-      print("inserted staff ${restaff}");
-      // isDownloaded = false;
-      // isDown[index] = true;
-      isLoading = false;
-      notifyListeners();
-      return staffModel;
-    } catch (e) {
-      print(e);
-      return null;
-    }
-  }
+//   Future<StaffDetails?> getStaffDetails(String cid, int index) async {
+//     print("getStaffDetails...............${cid}");
+//     var restaff;
+//     try {
+//       Uri url = Uri.parse("http://trafiqerp.in/order/fj/get_staff.php");
+//       Map body = {
+//         'cid': cid,
+//       };
+//       // isDownloaded = true;
+//       // isCompleted = true;
+//       isLoading = true;
+//       notifyListeners();
+//       http.Response response = await http.post(
+//         url,
+//         body: body,
+//       );
+//       List map = jsonDecode(response.body);
+//       await MystockDB.instance
+//           .deleteFromTableCommonQuery("staffDetailsTable", "");
+//       print("map ${map}");
+//       for (var staff in map) {
+//         staffModel = StaffDetails.fromJson(staff);
+//         restaff = await MystockDB.instance.insertStaffDetails(staffModel);
+//       }
+//       print("inserted staff ${restaff}");
+//       // isDownloaded = false;
+//       // isDown[index] = true;
+//       isLoading = false;
+//       notifyListeners();
+//       return staffModel;
+//     } catch (e) {
+//       print(e);
+//       return null;
+//     }
+//   }
 
-//////////////////////////////////////////////////////////////////////////////
-  getMenuAPi(String company_code, String fp, String apk_key,
-      BuildContext context) async {
-    var res;
-    NetConnection.networkConnection(context).then((value) async {
-      if (value == true) {
-        print("company_code---fp-${company_code}---${fp}..${apk_key}");
+// //////////////////////////////////////////////////////////////////////////////
+//   getMenuAPi(String company_code, String fp, String apk_key,
+//       BuildContext context) async {
+//     var res;
+//     NetConnection.networkConnection(context).then((value) async {
+//       if (value == true) {
+//         print("company_code---fp-${company_code}---${fp}..${apk_key}");
 
-        try {
-          Uri url = Uri.parse("http://trafiqerp.in/order/fj/get_menu.php");
-          Map body = {
-            'apk_key': apk_key,
-            'company_code': company_code,
-            'fingerprint': fp,
-          };
-          print("body.........$body");
-          http.Response response = await http.post(
-            url,
-            body: body,
-          );
+//         try {
+//           Uri url = Uri.parse("http://trafiqerp.in/order/fj/get_menu.php");
+//           Map body = {
+//             'apk_key': apk_key,
+//             'company_code': company_code,
+//             'fingerprint': fp,
+//           };
+//           print("body.........$body");
+//           http.Response response = await http.post(
+//             url,
+//             body: body,
+//           );
 
-          print("bodymenuuuuuu ${body}");
-          var map = jsonDecode(response.body);
-          print("map menu ${map}");
-          SideMenu sidemenuModel = SideMenu.fromJson(map);
-          firstMenu = sidemenuModel.first;
-          print("menuitem----${sidemenuModel.menu![0].menu_name}");
-          print("firstMenu----$firstMenu");
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString("firstMenu", firstMenu!);
-          for (var menuItem in sidemenuModel.menu!) {
-            print("menuitem----${menuItem.menu_name}");
-            // res = await MystockDB.instance
-            //     .insertMenuTable(menuItem.menu_index!, menuItem.menu_name!);
-            // menuList.add(menuItem);
-          }
-          print("insertion----$res");
-          notifyListeners();
-        } catch (e) {
-          print(e);
-          return null;
-        }
-      }
-    });
-  }
+//           print("bodymenuuuuuu ${body}");
+//           var map = jsonDecode(response.body);
+//           print("map menu ${map}");
+//           SideMenu sidemenuModel = SideMenu.fromJson(map);
+//           firstMenu = sidemenuModel.first;
+//           print("menuitem----${sidemenuModel.menu![0].menu_name}");
+//           print("firstMenu----$firstMenu");
+//           SharedPreferences prefs = await SharedPreferences.getInstance();
+//           prefs.setString("firstMenu", firstMenu!);
+//           for (var menuItem in sidemenuModel.menu!) {
+//             print("menuitem----${menuItem.menu_name}");
+//             // res = await MystockDB.instance
+//             //     .insertMenuTable(menuItem.menu_index!, menuItem.menu_name!);
+//             // menuList.add(menuItem);
+//           }
+//           print("insertion----$res");
+//           notifyListeners();
+//         } catch (e) {
+//           print(e);
+//           return null;
+//         }
+//       }
+//     });
+//   }
 }

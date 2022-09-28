@@ -1,6 +1,9 @@
 // import 'package:flutter/material.dart';
+// import 'package:flutter_spinkit/flutter_spinkit.dart';
+// import 'package:mystock/components/commonColor.dart';
 // import 'package:provider/provider.dart';
 
+// import '../controller/controller.dart';
 
 // class AlertCommon {
 //   Future buildPopupDialog(BuildContext context, Size size, List splitted,
