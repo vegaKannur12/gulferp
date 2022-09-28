@@ -1,8 +1,18 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gulferp/components/customSnackbar.dart';
+import 'package:gulferp/components/externalDir.dart';
+import 'package:gulferp/components/network_connectivity.dart';
+import 'package:gulferp/model/loginModel.dart';
+import 'package:gulferp/model/registrationModel.dart';
+import 'package:gulferp/model/sideMenuModel.dart';
+import 'package:gulferp/model/staffDetailsModel.dart';
+import 'package:gulferp/screen/loginPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../components/globalData.dart';
 
 class RegistrationController extends ChangeNotifier {
   bool isLoading = false;
@@ -95,10 +105,10 @@ class RegistrationController extends ChangeNotifier {
 
               print("fnjdxf----$user");
 
-              await MystockDB.instance
-                  .deleteFromTableCommonQuery("companyRegistrationTable", "");
-              var res =
-                  await MystockDB.instance.insertRegistrationDetails(regModel);
+              // await MystockDB.instance
+              //     .deleteFromTableCommonQuery("companyRegistrationTable", "");
+              // var res =
+              //     await MystockDB.instance.insertRegistrationDetails(regModel);
               // getMaxSerialNumber(os);
               // getMenuAPi(cid!, fp1, company_code, context);
               Navigator.push(
@@ -160,10 +170,10 @@ class RegistrationController extends ChangeNotifier {
         isLoading = false;
         notifyListeners();
 
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MainDashboard()),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => MainDashboard()),
+        // );
       } else {
         CustomSnackbar snackbar = CustomSnackbar();
         snackbar.showSnackbar(context, "Incorrect Username or Password", "");
@@ -196,13 +206,13 @@ class RegistrationController extends ChangeNotifier {
         body: body,
       );
       List map = jsonDecode(response.body);
-      await MystockDB.instance
-          .deleteFromTableCommonQuery("staffDetailsTable", "");
-      print("map ${map}");
-      for (var staff in map) {
-        staffModel = StaffDetails.fromJson(staff);
-        restaff = await MystockDB.instance.insertStaffDetails(staffModel);
-      }
+      // await MystockDB.instance
+      //     .deleteFromTableCommonQuery("staffDetailsTable", "");
+      // print("map ${map}");
+      // for (var staff in map) {
+      //   staffModel = StaffDetails.fromJson(staff);
+      //   restaff = await MystockDB.instance.insertStaffDetails(staffModel);
+      // }
       print("inserted staff ${restaff}");
       // isDownloaded = false;
       // isDown[index] = true;

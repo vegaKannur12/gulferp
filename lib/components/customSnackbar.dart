@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mystock/components/commonColor.dart';
+import 'package:gulferp/components/commonColor.dart';
 
 
 class CustomSnackbar {
