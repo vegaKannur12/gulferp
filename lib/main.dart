@@ -6,6 +6,7 @@ import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/controller/registrationController.dart';
 import 'package:gulferp/screen/loginPage.dart';
+import 'package:gulferp/screen/splashScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -107,7 +108,7 @@ class _MyAppState extends State<MyApp> {
           //   ),
           // ),
         ),
-        home: LoginPage()
+        home: SplashScreen()
 
         //  AnimatedSplashScreen(
         //   backgroundColor: Colors.black,
