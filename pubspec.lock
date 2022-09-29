@@ -85,6 +85,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.16.0"
+  colour:
+    dependency: transitive
+    description:
+      name: colour
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.5"
+  colours:
+    dependency: "direct main"
+    description:
+      name: colours
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   connectivity_plus:
     dependency: "direct main"
     description:
@@ -576,6 +590,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.0.0"
+  pigment:
+    dependency: transitive
+    description:
+      name: pigment
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
   platform:
     dependency: transitive
     description:
@@ -618,6 +639,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.27.5"
+  scroll_snap_list:
+    dependency: "direct main"
+    description:
+      name: scroll_snap_list
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.1"
   scrollable_positioned_list:
     dependency: transitive
     description:

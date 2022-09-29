@@ -64,6 +64,8 @@ dependencies:
   sqflite: ^2.0.3+1
   badges: ^2.0.3
   pull_to_refresh: ^2.0.0
+  scroll_snap_list: ^0.9.1
+  colours: ^0.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
