@@ -306,100 +306,86 @@ class Bottomsheet {
                           ),
                         ),
                       ),
-                      value.qtyerror
-                          ? Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                child: Text(
-                                  "Quantity should be less than stock",
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                              ),
-                            )
-                          : Container(),
-                      // ValueListenableBuilder(
-                      //     valueListenable: visible,
-                      //     builder:
-                      //         (BuildContext context, bool v, Widget? child) {
-                      //       print("value===${visible.value}");
-                      //       return Visibility(
-                      //         visible: v,
-                      //         child: Text(
-                      //           "Incorrect Username or Password!!!",
-                      //           style: TextStyle(color: Colors.red),
+                      // value.qtyerror
+                      //     ? Padding(
+                      //         padding: const EdgeInsets.all(8.0),
+                      //         child: Container(
+                      //           child: Text(
+                      //             "Quantity should be less than stock",
+                      //             style: TextStyle(color: Colors.red),
+                      //           ),
                       //         ),
-                      //       );
-                      //     }),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            height: size.height * 0.05,
-                            width: size.width * 0.5,
-                            child: ElevatedButton(
-                                child: Text(
-                                  'Apply',
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                    primary: P_Settings.loginPagetheme,
-                                    textStyle: TextStyle(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.bold)),
-                                onPressed: () {
-                                  // value.setApplyClicked(true, index);
-                                  double qty =
-                                      double.parse(value.qty[index].text);
-                                  if (transval == -1) {
-                                    if (stock < qty) {
-                                      print("error");
-                                      value.qty[index].text = qtyf;
-                                      value.seterrorClicked(true, index);
-                                      value.setqtyErrormsg(true);
-                                    } else {
-                                      value.setqtyErrormsg(false);
-                                    }
-                                  }
-                                  print("value.qtyerror ----${value.qtyerror}");
+                      //       )
+                      //     : Container(),
 
-                                  if (value.qtyerror == false) {
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     Container(
+                      //       height: size.height * 0.05,
+                      //       width: size.width * 0.5,
+                      //       child: ElevatedButton(
+                      //           child: Text(
+                      //             'Apply',
+                      //           ),
+                      //           style: ElevatedButton.styleFrom(
+                      //               primary: P_Settings.loginPagetheme,
+                      //               textStyle: TextStyle(
+                      //                   fontSize: 17,
+                      //                   fontWeight: FontWeight.bold)),
+                      //           onPressed: () {
+                      //             // value.setApplyClicked(true, index);
+                      //             double qty =
+                      //                 double.parse(value.qty[index].text);
+                      //             if (transval == -1) {
+                      //               if (stock < qty) {
+                      //                 print("error");
+                      //                 value.qty[index].text = qtyf;
+                      //                 value.seterrorClicked(true, index);
+                      //                 value.setqtyErrormsg(true);
+                      //               } else {
+                      //                 value.setqtyErrormsg(false);
+                      //               }
+                      //             }
+                      //             print("value.qtyerror ----${value.qtyerror}");
 
+                      //             if (value.qtyerror == false) {
+                      //               // value.cartCountFun(
+                      //               //     int.parse(value.cartCount!));
 
-                                    // value.cartCountFun(
-                                    //     int.parse(value.cartCount!));
+                      //               // if (value.cartCountInc != null) {
+                      //               //   qty = value.cartCountInc! + 1;
+                      //               //   print("cart----$qty");
+                      //               // }
+                      //               Provider.of<Controller>(context,
+                      //                       listen: false)
+                      //                   .addDeletebagItem(
+                      //                       itemId,
+                      //                       srate1.toString(),
+                      //                       srate2.toString(),
+                      //                       value.qty[index].text,
+                      //                       "0",
+                      //                       "0",
+                      //                       context,
+                      //                       "save");
+                      //               Provider.of<Controller>(context,
+                      //                       listen: false)
+                      //                   .getbagData1(
+                      //                 context,
+                      //               );
+                      //               print(
+                      //                   "quantityyyyyy.....${value.qty[index].text}........");
+                      //               Navigator.pop(context);
+                      //             }
 
-                                    // if (value.cartCountInc != null) {
-                                    //   qty = value.cartCountInc! + 1;
-                                    //   print("cart----$qty");
-                                    // }
-                                    Provider.of<Controller>(context,
-                                            listen: false)
-                                        .addDeletebagItem(
-                                            itemId,
-                                            srate1.toString(),
-                                            srate2.toString(),
-                                            value.qty[index].text,
-                                            "0",
-                                            "0",
-                                            context,
-                                            "save");
-                                    Provider.of<Controller>(context,
-                                            listen: false)
-                                        .getbagData1(
-                                      context,
-                                    );
-                                    print(
-                                        "quantityyyyyy.....${value.qty[index].text}........");
-                                    Navigator.pop(context);
-                                  }
-
-                                  print("payment mode...........$payment_mode");
-                                }),
-                          ),
-                          SizedBox(
-                            width: size.width * 0.06,
-                          ),
-                        ],
-                      ),
+                      //             print("payment mode...........$payment_mode");
+                      //           }),
+                      //     ),
+                      //     SizedBox(
+                      //       width: size.width * 0.06,
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   ),
                 ),
