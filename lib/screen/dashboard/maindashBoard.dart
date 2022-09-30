@@ -21,10 +21,8 @@ class _MainDashboardState extends State<MainDashboard> {
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
         automaticallyImplyLeading: false,
+        title: Text("Dashboard"),
         actions: [
-          CircleAvatar(
-            child: Image.asset("asset/login.png"),
-          ),
           PopupMenuButton(
               // add icon, by default "3 dot" icon
               // icon: Icon(Icons.book)
@@ -59,6 +57,24 @@ class _MainDashboardState extends State<MainDashboard> {
         child: Column(
           children: [
             Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CircleAvatar(
+                    child: Image.asset("asset/login.png"),
+                  ),
+                  SizedBox(
+                    width: size.width * 0.03,
+                  ),
+                  _buildTitleAndSubtitle(context),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: size.height * 0.05,
+            ),
+            Padding(
               padding: const EdgeInsets.only(left: 50),
               child: Container(
                 height: size.height * 0.3,
@@ -71,8 +87,6 @@ class _MainDashboardState extends State<MainDashboard> {
                       children: [
                         // Text("heloooooooooo")
                         _buildParallaxBackground(context),
-                        _buildTitleAndSubtitle(context),
-                        // _buildGradient(),
                       ],
                     ),
                   ),
@@ -83,7 +97,7 @@ class _MainDashboardState extends State<MainDashboard> {
               height: size.height * 0.02,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 70, top: 50),
+              padding: const EdgeInsets.only(left: 10, right: 10, top: 50),
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
@@ -119,7 +133,7 @@ class _MainDashboardState extends State<MainDashboard> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 70, top: 10),
+              padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
