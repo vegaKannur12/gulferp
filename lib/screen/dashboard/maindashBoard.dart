@@ -17,11 +17,10 @@ class _MainDashboardState extends State<MainDashboard> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: P_Settings.loginPagetheme,
+      // backgroundColor: P_Settings.loginPagetheme,
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
         automaticallyImplyLeading: false,
-        title: Text("Dashboard"),
         actions: [
           PopupMenuButton(
               // add icon, by default "3 dot" icon
@@ -56,53 +55,64 @@ class _MainDashboardState extends State<MainDashboard> {
       body: Container(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    child: Image.asset("asset/login.png"),
-                  ),
-                  SizedBox(
-                    width: size.width * 0.03,
-                  ),
-                  _buildTitleAndSubtitle(context),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: size.height * 0.05,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 50),
-              child: Container(
-                height: size.height * 0.3,
-                width: double.infinity,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Stack(
-                      children: [
-                        // Text("heloooooooooo")
-                        _buildParallaxBackground(context),
-                      ],
-                    ),
+            Container(
+              height: size.height * 0.2,
+              alignment: Alignment.center,
+              child: ListTile(
+                leading: CircleAvatar(
+                  radius: 40,
+                  child: Image.asset("asset/login.png"),
+                ),
+                title: Text(
+                  "ANU",
+                  // value.staff_name.toString(),
+                  style: GoogleFonts.aBeeZee(
+                    textStyle: Theme.of(context).textTheme.bodyText2,
+                    fontSize: 23,
+                    fontWeight: FontWeight.bold,
+                    color: P_Settings.buttonColor,
                   ),
                 ),
+                subtitle: Text(
+                  "KNR",
+                  // value.branch_name.toString(),
+                  style: GoogleFonts.aBeeZee(
+                    textStyle: Theme.of(context).textTheme.bodyText2,
+                    fontSize: 14,
+                    // fontWeight: FontWeight.bold,
+                    color: P_Settings.buttonColor,
+                  ),
+                ),
+                dense: false,
               ),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 61, 61, 61),
+                image: DecorationImage(
+                  image: AssetImage("asset/liq2.jpg"),
+                  fit: BoxFit.cover,
+                ),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0)),
+                border: Border.all(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ),
+              // color:Color.fromARGB(255, 61, 61, 61),
             ),
             SizedBox(
               height: size.height * 0.02,
             ),
+            SizedBox(
+              height: size.height * 0.01,
+            ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10, top: 50),
+              padding: const EdgeInsets.only(left: 20, right: 30, top: 50),
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                color: Color.fromARGB(255, 61, 61, 61),
+                color: Colors.white,
                 child: ListTile(
                   onTap: () {
                     // Provider.of<Controller>(context, listen: false)
@@ -115,10 +125,10 @@ class _MainDashboardState extends State<MainDashboard> {
                     // );
                   },
                   leading: Image.asset("asset/transaction_card_payment.png",
-                      color: Colors.white, height: 30),
+                      color: Colors.red, height: 30),
                   trailing: Icon(
                     Icons.arrow_forward,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   title: Text(
                     "Transaction",
@@ -126,19 +136,19 @@ class _MainDashboardState extends State<MainDashboard> {
                       textStyle: Theme.of(context).textTheme.bodyText2,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colours.gainsboro,
+                      color: Colors.black,
                     ),
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
+              padding: const EdgeInsets.only(left: 20, right: 30, top: 10),
               child: Card(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15.0),
                 ),
-                color: Color.fromARGB(255, 61, 61, 61),
+                color: Colors.white,
                 child: ListTile(
                   onTap: () {
                     // Provider.of<Controller>(context, listen: false)
@@ -155,11 +165,11 @@ class _MainDashboardState extends State<MainDashboard> {
                   leading: Image.asset(
                     "asset/searchwhite.png",
                     height: 30,
-                    color: Colors.white,
+                    color: Colors.green,
                   ),
                   trailing: Icon(
                     Icons.arrow_forward,
-                    color: Colors.white,
+                    color: Colors.black,
                   ),
                   title: Text(
                     "Search",
@@ -167,7 +177,7 @@ class _MainDashboardState extends State<MainDashboard> {
                       textStyle: Theme.of(context).textTheme.bodyText2,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colours.gainsboro,
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -182,9 +192,9 @@ class _MainDashboardState extends State<MainDashboard> {
 
 Widget _buildParallaxBackground(BuildContext context) {
   return Image.network(
-    "https://st.depositphotos.com/1177973/4630/i/600/depositphotos_46301661-stock-photo-glasses-of-champagne-with-splash.jpg",
-    fit: BoxFit.contain,
-  );
+      "https://st.depositphotos.com/1177973/4630/i/600/depositphotos_46301661-stock-photo-glasses-of-champagne-with-splash.jpg",
+      fit: BoxFit.contain,
+      colorBlendMode: BlendMode.darken);
 }
 
 // Widget _buildGradient() {
@@ -201,36 +211,3 @@ Widget _buildParallaxBackground(BuildContext context) {
 //     ),
 //   );
 // }
-
-Widget _buildTitleAndSubtitle(BuildContext context) {
-  return Positioned(
-    left: 8,
-    bottom: 20,
-    child: Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          "anu",
-          // value.staff_name.toString(),
-          style: GoogleFonts.aBeeZee(
-            textStyle: Theme.of(context).textTheme.bodyText2,
-            fontSize: 23,
-            fontWeight: FontWeight.bold,
-            color: P_Settings.buttonColor,
-          ),
-        ),
-        Text(
-          "KNR",
-          // value.branch_name.toString(),
-          style: GoogleFonts.aBeeZee(
-            textStyle: Theme.of(context).textTheme.bodyText2,
-            fontSize: 14,
-            // fontWeight: FontWeight.bold,
-            color: P_Settings.buttonColor,
-          ),
-        ),
-      ],
-    ),
-  );
-}
