@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,13 +5,11 @@ import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/controller/registrationController.dart';
 import 'package:gulferp/screen/RegistrationScreen.dart';
-import 'package:gulferp/screen/dashboard/mainDashboard.dart';
 import 'package:gulferp/screen/dashboard/maindashBoard.dart';
 import 'package:gulferp/screen/loginPage.dart';
 import 'package:gulferp/screen/splashScreen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 // void requestPermission() async {
 //   var status = await Permission.storage.status;
