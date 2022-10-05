@@ -106,7 +106,7 @@ class _CustomerSelectionState extends State<CustomerSelection> {
                       indexBarMargin: EdgeInsets.all(10),
                       indexBarAlignment: Alignment.centerLeft,
                       indexBarItemHeight: 30,
-                      indexBarData: value.uniquelist,
+                      indexBarData: value.uniquecustomerlist,
                       indexBarOptions: IndexBarOptions(
                         needRebuild: true,
                         selectTextStyle: TextStyle(
@@ -152,22 +152,30 @@ class _CustomerSelectionState extends State<CustomerSelection> {
         Consumer<Controller>(
           builder: (context, value, child) {
             return Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(width: 1, color: Colors.grey),
-                ),
-              ),
-              height: size.height * 0.08,
+              // decoration: BoxDecoration(
+              //   border: Border(
+              //     bottom: BorderSide(width: 1, color: Colors.grey),
+              //   ),
+              // ),
+              // height: size.height * 0.05,
               margin: EdgeInsets.only(left: 40),
-              child: ListTile(
-                title: Text(item.customer.toString(),
-                    overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.aBeeZee(
-                      textStyle: Theme.of(context).textTheme.bodyText2,
-                      fontSize: 16,
-                      // fontWeight: FontWeight.bold,
-                      color: P_Settings.loginPagetheme,
-                    )),
+              child: Card(
+                child: ListTile(
+                  onTap: () {
+                    Provider.of<Controller>(context, listen: false)
+                        .setCustomerName(item.customer.toString());
+                    Navigator.pop(context);
+                  },
+                  leading: Icon(Icons.person),
+                  title: Text(item.customer.toString(),
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.aBeeZee(
+                        textStyle: Theme.of(context).textTheme.bodyText2,
+                        fontSize: 16,
+                        // fontWeight: FontWeight.bold,
+                        color: P_Settings.loginPagetheme,
+                      )),
+                ),
               ),
             );
           },
