@@ -123,7 +123,7 @@ class _SaleHomeState extends State<SaleHome> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 40.0, top: 10),
+                            padding: const EdgeInsets.only(left: 33.0, top: 10),
                             child: Container(
                                 child: OutlinedButton(
                               child: Text(

@@ -144,7 +144,7 @@ class RegistrationController extends ChangeNotifier {
     try {
       Uri url = Uri.parse("$urlgolabl/login.php");
       Map body = {'user': userName, 'pass': password};
-
+      print("login body---$body");
       isLoading = true;
       notifyListeners();
       http.Response response = await http.post(

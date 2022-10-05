@@ -67,17 +67,17 @@ class _CustomerSelectionState extends State<CustomerSelection> {
           } else {
             return Column(
               children: [
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Text(
-                //     "Select Item Category",
-                //     style: TextStyle(fontSize: 20),
-                //   ),
-                // ),
-                // Divider(),
-                SizedBox(
-                  height: size.height * 0.02,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "Customer List",
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
+                // Divider(),
+                // SizedBox(
+                //   height: size.height * 0.02,
+                // ),
 
                 Expanded(child: Consumer<Controller>(
                   builder: (context, value, child) {

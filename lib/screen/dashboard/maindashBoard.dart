@@ -22,6 +22,14 @@ class MainDashboard extends StatefulWidget {
 class _MainDashboardState extends State<MainDashboard> {
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Provider.of<Controller>(context, listen: false).userDetails();
+  }
+
   void _onRefresh() async {
     await Future.delayed(Duration(milliseconds: 1000));
     SharedPreferences prefs = await SharedPreferences.getInstance();
