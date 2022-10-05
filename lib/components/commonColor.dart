@@ -13,6 +13,8 @@ class P_Settings {
   /// [title] Project Title
   // static String get title => 'Order App';
   static Color get loginPagetheme => Colors.black;
+  static Color get choosecus => Colors.grey;
+
 
   static Color get bagText => Color.fromARGB(255, 80, 77, 77);
   static Color get historyPageText => Color.fromARGB(255, 102, 98, 98);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
+import 'package:gulferp/screen/customer/customerSelection.dart';
 import 'package:gulferp/screen/sale/saleItemSelection.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +39,9 @@ class _SaleHomeState extends State<SaleHome> {
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
       ),
+     
+     
+     
       body: Column(
         // crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -72,7 +76,7 @@ class _SaleHomeState extends State<SaleHome> {
             // ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 35.0),
+            padding: const EdgeInsets.only(left: 38.0),
             child: Row(
               children: [
                 Text(
@@ -103,7 +107,7 @@ class _SaleHomeState extends State<SaleHome> {
                 child: Container(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: P_Settings.loginPagetheme,
+                      primary: P_Settings.choosecus,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(2), // <-- Radius
                       ),
@@ -116,7 +120,23 @@ class _SaleHomeState extends State<SaleHome> {
                           fontWeight: FontWeight.bold,
                           color: P_Settings.buttonColor),
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      List<Map<String, dynamic>> list =
+                          await Provider.of<Controller>(context, listen: false)
+                              .getCustomerList("ss");
+                      if (list.length > 0) {
+                        Navigator.of(context).push(
+                          PageRouteBuilder(
+                              opaque: false, // set to false
+                              pageBuilder: (_, __, ___) => CustomerSelection(
+                                    list: list,
+                                    // remark: remrk.text,
+                                  )
+                              // OrderForm(widget.areaname,"return"),
+                              ),
+                        );
+                      }
+                    },
                   ),
                 ),
               ),

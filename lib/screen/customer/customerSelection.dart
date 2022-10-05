@@ -82,7 +82,7 @@ class _CustomerSelectionState extends State<CustomerSelection> {
 
                 Expanded(child: Consumer<Controller>(
                   builder: (context, value, child) {
-                    print("value------${value.filter}");
+                    // print("value------${value.filter}");
                     return AzListView(
                       data: items,
                       itemCount: items.length,
@@ -107,9 +107,7 @@ class _CustomerSelectionState extends State<CustomerSelection> {
                       indexBarMargin: EdgeInsets.all(10),
                       indexBarAlignment: Alignment.centerLeft,
                       indexBarItemHeight: 30,
-                      indexBarData: value.filter
-                          ? value.filtereduniquelist
-                          : value.uniquelist,
+                      indexBarData: value.uniquelist,
                       indexBarOptions: IndexBarOptions(
                         needRebuild: true,
                         selectTextStyle: TextStyle(
@@ -163,65 +161,6 @@ class _CustomerSelectionState extends State<CustomerSelection> {
               height: size.height * 0.08,
               margin: EdgeInsets.only(left: 40),
               child: ListTile(
-                trailing: value.qty[index].text == "0"
-                    ? IconButton(
-                        onPressed: () {
-                          // int qty;
-                          // value.setqtyErrormsg(false);
-                          value.qty[index].selection = TextSelection(
-                              baseOffset: 0,
-                              extentOffset: value.qty[index].value.text.length);
-                          showsheet.showSheet(
-                            context,
-                            index,
-                            item.itemId!,
-                            item.catId!,
-                            item.batchCode!,
-                            item.itemName!,
-                            item.itemImg!,
-                            double.parse(item.sRate1!),
-                            double.parse(item.sRate2!),
-                            double.parse(item.stock!),
-                            value.qty[index].text,
-                          );
-                        },
-                        icon: Icon(
-                          Icons.add,
-                          size: 20,
-                        ))
-                    : GestureDetector(
-                        onTap: () {
-                          // value.setqtyErrormsg(false);
-                          value.qty[index].selection = TextSelection(
-                              baseOffset: 0,
-                              extentOffset: value.qty[index].value.text.length);
-                          showsheet.showSheet(
-                            context,
-                            index,
-                            item.itemId!,
-                            item.catId!,
-                            item.batchCode!,
-                            item.itemName!,
-                            item.itemImg!,
-                            double.parse(item.sRate1!),
-                            double.parse(item.sRate2!),
-                            double.parse(item.stock!),
-                            // widget.transVal,
-                            value.qty[index].text,
-                            // item.itemImg!
-                          );
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 18.0),
-                          child: Text(
-                            value.qty[index].text,
-                            style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.red),
-                          ),
-                        ),
-                      ),
                 title: Text(item.itemName!,
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.aBeeZee(
@@ -230,57 +169,6 @@ class _CustomerSelectionState extends State<CustomerSelection> {
                       // fontWeight: FontWeight.bold,
                       color: P_Settings.loginPagetheme,
                     )),
-                subtitle: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Flexible(
-                      child: Container(
-                          // width: size.width * 0.,
-                          child: Text("MOP:${item.sRate1},")),
-                    ),
-                    Flexible(
-                      child: Container(
-                          // width: size.width * 0.3,
-                          child: Text(" MRP:${item.sRate1},")),
-                    ),
-                    Flexible(
-                      child: Container(
-                          // width: size.width * 0.3,
-                          child: Text(" Stock:${item.stock}")),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // Provider.of<Controller>(context, listen: false)
-                        //     .getinfoList(context, item.itemId!);
-                        // infoshowsheet.showInfoSheet(
-                        //   context,
-                        // );
-                      },
-                      child: Icon(
-                        Icons.info,
-                        size: 19,
-                      ),
-                    )
-                  ],
-                ),
-                // onTap: () {
-                //   value.setqtyErrormsg(false);
-
-                //   showsheet.showSheet(
-                //       context,
-                //       index,
-                //       item.itemId!,
-                //       item.catId!,
-                //       item.batchCode!,
-                //       item.itemName!,
-                //       item.itemImg!,
-                //       double.parse(item.sRate1!),
-                //       double.parse(item.sRate2!),
-                //       double.parse(item.stock!),
-                //       widget.transVal,
-                //       value.qty[index].text);
-                // }
-                // widget.onClickedItem(item.title!),
               ),
             );
           },
