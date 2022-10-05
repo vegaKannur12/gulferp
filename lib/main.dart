@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/controller/registrationController.dart';
+import 'package:gulferp/screen/bag/cartBag.dart';
 import 'package:gulferp/screen/dashboard/maindashBoard.dart';
 import 'package:gulferp/screen/sale/saleHome.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +63,13 @@ class _MyAppState extends State<MyApp> {
           //   ),
           // ),
         ),
-        home: SaleHome()
+        home: BagPage(
+          transId: '0',
+          transType: "",
+          transVal: 0,
+          branchId: "",
+          remark: "",
+        )
 
         //  AnimatedSplashScreen(
         //   backgroundColor: Colors.black,
