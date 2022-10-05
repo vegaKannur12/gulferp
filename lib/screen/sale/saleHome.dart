@@ -41,6 +41,7 @@ class _SaleHomeState extends State<SaleHome> {
       ),
       body: Consumer<Controller>(
         builder: (context, value, child) {
+          print("hdjshdjshd-----${value.cusName1}");
           return Column(
             // crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -122,7 +123,7 @@ class _SaleHomeState extends State<SaleHome> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(left: 20.0, top: 10),
+                            padding: const EdgeInsets.only(left: 40.0, top: 10),
                             child: Container(
                                 child: OutlinedButton(
                               child: Text(
@@ -197,7 +198,7 @@ class _SaleHomeState extends State<SaleHome> {
                           Padding(
                             padding: const EdgeInsets.only(left: 18.0, top: 10),
                             child: Text(
-                              value.cusName1.toString() == null
+                              value.cusName1 == null
                                   ? "customer"
                                   : value.cusName1.toString(),
                               // "customer",
