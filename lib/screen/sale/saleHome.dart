@@ -41,6 +41,7 @@ class _SaleHomeState extends State<SaleHome> {
       // ),
       body: Consumer<Controller>(
         builder: (context, value, child) {
+          print("hdjshdjshd-----${value.cusName1}");
           return Column(
             // crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -199,7 +200,7 @@ class _SaleHomeState extends State<SaleHome> {
                                     padding: const EdgeInsets.only(
                                         left: 18.0, top: 10),
                                     child: Text(
-                                      value.cusName1.toString() == null
+                                      value.cusName1 == null
                                           ? "customer"
                                           : value.cusName1.toString(),
                                       // "customer",
