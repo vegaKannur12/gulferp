@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
           //   ),
           // ),
         ),
-        home: SaleHome()
+        home: MainDashboard()
 
         //  AnimatedSplashScreen(
         //   backgroundColor: Colors.black,

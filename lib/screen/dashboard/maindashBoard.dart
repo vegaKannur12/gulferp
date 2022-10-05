@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/screen/loginPage.dart';
+import 'package:gulferp/screen/sale/saleHome.dart';
 import 'package:gulferp/screen/searchPage/searchPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:colours/colours.dart';
@@ -121,14 +122,14 @@ class _MainDashboardState extends State<MainDashboard> {
                   // Provider.of<Controller>(context, listen: false)
                   //     .getTransactionList(context);
 
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (context) => TransactionPage()),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SaleHome()),
+                  );
                 },
-                leading: Image.asset("asset/transaction_card_payment.png",
-                    color: Colors.red, height: 30),
+                leading: Image.asset("asset/sale.png",
+                    // color: Colors.red, 
+                    height: 30),
                 trailing: Icon(
                   Icons.arrow_forward,
                   color: Colors.black,
@@ -163,8 +164,9 @@ class _MainDashboardState extends State<MainDashboard> {
                   //       builder: (context) => TransactionPage()),
                   // );
                 },
-                leading: Image.asset("asset/transaction_card_payment.png",
-                    color: Colors.red, height: 30),
+                leading: Image.asset("asset/package.png",
+                    // color: Colors.red,
+                     height: 30),
                 trailing: Icon(
                   Icons.arrow_forward,
                   color: Colors.black,
@@ -199,8 +201,9 @@ class _MainDashboardState extends State<MainDashboard> {
                   //       builder: (context) => TransactionPage()),
                   // );
                 },
-                leading: Image.asset("asset/transaction_card_payment.png",
-                    color: Colors.red, height: 30),
+                leading: Image.asset("asset/unloading.png",
+                    // color: Colors.red,
+                     height: 30),
                 trailing: Icon(
                   Icons.arrow_forward,
                   color: Colors.black,

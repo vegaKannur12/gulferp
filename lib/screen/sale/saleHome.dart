@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
+import 'package:gulferp/screen/sale/saleItemSelection.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -38,8 +39,12 @@ class _SaleHomeState extends State<SaleHome> {
         backgroundColor: P_Settings.loginPagetheme,
       ),
       body: Column(
+        // crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(
+            height: size.height * 0.2,
+          ),
           Padding(
             padding: const EdgeInsets.only(left: 25, right: 55),
             child: TextField(
@@ -103,12 +108,29 @@ class _SaleHomeState extends State<SaleHome> {
                         borderRadius: BorderRadius.circular(2), // <-- Radius
                       ),
                     ),
-                    child: Text("Choose Customer"),
+                    child: Text(
+                      "Choose Customer",
+                      style: GoogleFonts.aBeeZee(
+                          textStyle: Theme.of(context).textTheme.bodyText2,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: P_Settings.buttonColor),
+                    ),
                     onPressed: () {},
                   ),
                 ),
               ),
-              // Text("customer")
+              Padding(
+                padding: const EdgeInsets.only(left: 18.0),
+                child: Text(
+                  "customer",
+                  style: GoogleFonts.aBeeZee(
+                      textStyle: Theme.of(context).textTheme.bodyText2,
+                      fontSize: 16,
+                      fontStyle: FontStyle.italic,
+                      color: P_Settings.loginPagetheme),
+                ),
+              )
             ],
           ),
           Padding(
@@ -156,8 +178,31 @@ class _SaleHomeState extends State<SaleHome> {
                   borderRadius: BorderRadius.circular(2), // <-- Radius
                 ),
               ),
-              child: Text("Next"),
-              onPressed: () {},
+              child: Text(
+                "Next",
+                style: GoogleFonts.aBeeZee(
+                    textStyle: Theme.of(context).textTheme.bodyText2,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: P_Settings.buttonColor),
+              ),
+              onPressed: () async {
+                List<Map<String, dynamic>> list =
+                    await Provider.of<Controller>(context, listen: false)
+                        .getProductDetails();
+                if (list.length > 0) {
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                        opaque: false, // set to false
+                        pageBuilder: (_, __, ___) => SaleItemSelection(
+                              list: list,
+                              remark: remrk.text,
+                            )
+                        // OrderForm(widget.areaname,"return"),
+                        ),
+                  );
+                }
+              },
             ),
           ),
         ],
