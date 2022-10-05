@@ -25,5 +25,7 @@ class P_Settings {
   static Color get homeappbarColor => Colors.purple;
   static Color get editclr => Colors.green;
   static Color get delete => Color.fromARGB(255, 160, 49, 41);
+  static Color get redclr => Colors.red;
+
   static Color get dropdown => Color.fromARGB(255, 236, 235, 236);
 }
