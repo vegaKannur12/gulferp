@@ -8,6 +8,7 @@ import 'package:gulferp/components/network_connectivity.dart';
 import 'package:gulferp/model/loginModel.dart';
 import 'package:gulferp/model/registrationModel.dart';
 import 'package:gulferp/model/staffDetails.dart';
+import 'package:gulferp/screen/dashboard/maindashBoard.dart';
 import 'package:gulferp/screen/loginPage.dart';
 import 'package:gulferp/services/dbHelper.dart';
 import 'package:http/http.dart' as http;
@@ -155,7 +156,10 @@ class RegistrationController extends ChangeNotifier {
       LoginModel loginModel;
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      if (map != null) {
+      if (map == null || map.length == 0) {
+        CustomSnackbar snackbar = CustomSnackbar();
+        snackbar.showSnackbar(context, "Incorrect Username or Password", "");
+      } else {
         prefs.setString("st_uname", userName);
         prefs.setString("st_pwd", password);
 
@@ -171,13 +175,10 @@ class RegistrationController extends ChangeNotifier {
         isLoading = false;
         notifyListeners();
 
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(builder: (context) => MainDashboard()),
-        // );
-      } else {
-        CustomSnackbar snackbar = CustomSnackbar();
-        snackbar.showSnackbar(context, "Incorrect Username or Password", "");
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MainDashboard()),
+        );
       }
 
       // print("stafff-------${loginModel.staffName}");

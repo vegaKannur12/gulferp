@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/screen/RegistrationScreen.dart';
-import 'package:gulferp/screen/dashboard/mainDashboard.dart';
 import 'package:gulferp/screen/loginPage.dart';
-
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'dashboard/maindashBoard.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -25,19 +25,6 @@ class _SplashScreenState extends State<SplashScreen> {
       cid = prefs.getString("cid");
       st_uname = prefs.getString("st_uname");
       st_pwd = prefs.getString("st_pwd");
-
-      // print("st-----$st_uname---$st_pwd");
-      // print("continueClicked $continueClicked");
-
-      // if (com_cid != null) {
-      //   Provider.of<Controller>(context, listen: false).cid = com_cid;
-      // }
-      // if (firstMenu != null) {
-      //   Provider.of<Controller>(context, listen: false).menu_index = firstMenu;
-      //   print(Provider.of<Controller>(context, listen: false).menu_index);
-      // }
-      // print("versof----$versof");
-
       Navigator.push(
           context,
           PageRouteBuilder(
@@ -68,23 +55,6 @@ class _SplashScreenState extends State<SplashScreen> {
     //       .getCategoryReport(com_cid!);
     //   Provider.of<Controller>(context, listen: false).adminDashboard(com_cid!);
     // }
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // Provider.of<Controller>(context, listen: false).fetchMenusFromMenuTable();
-    // Provider.of<Controller>(context, listen: false)
-    //     .verifyRegistration(context, "splash");
-    shared();
-    navigate();
-  }
-
-  @override
-  void dispose() {
-    // _controller.dispose();
-    super.dispose();
   }
 
   @override

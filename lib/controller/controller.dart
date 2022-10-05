@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 class Controller extends ChangeNotifier {
   bool isLoading = false;
   bool filter = false;
+  String? routeName;
 
   String? cartCount;
   List<bool> errorClicked = [];
@@ -17,6 +18,8 @@ class Controller extends ChangeNotifier {
   List<String> filtereduniquelist = [];
 
   List<Map<String, dynamic>> filteredproductList = [];
+  List<Map<String, dynamic>> routeList = [];
+
 
   List<String> productbar = [];
   List<String> filteredproductbar = [];
@@ -184,5 +187,54 @@ class Controller extends ChangeNotifier {
     notifyListeners();
   }
  ///////////////////////////////////////////////////
- 
+ getRouteList(BuildContext context, String page, String brId) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          // BranchModel brnachModel = BranchModel();
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          // branch_id = prefs.getString("branch_id");
+          Uri url = Uri.parse("$urlgolabl/branch_list.php");
+          Map body = {
+            // 'branch_id': branch_id,
+          };
+          isLoading = true;
+          // notifyListeners();
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          // print("body ${body}");
+          var map = jsonDecode(response.body);
+          print("branchlist-----$map");
+          routeList.clear();
+          // productbar.clear();
+          for (var item in map) {
+            // brnachModel = BranchModel.fromJson(item);
+            // routeList.add(brnachModel);
+          }
+
+          if (page == "history") {
+            for (var i = 0; i < routeList.length; i++) {
+              // if (routeList[i].uID == brId) {
+              //   routeName = routeList[i].branchName;
+              // }
+            }
+            // print("brId------${branchist[i].branchName}");
+          }
+
+          isLoading = false;
+          notifyListeners();
+          return routeList;
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print(e);
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
 }

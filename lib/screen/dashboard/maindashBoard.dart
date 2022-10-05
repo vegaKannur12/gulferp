@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/screen/loginPage.dart';
+import 'package:gulferp/screen/searchPage/searchPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:colours/colours.dart';
 
@@ -21,7 +22,6 @@ class _MainDashboardState extends State<MainDashboard> {
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
         automaticallyImplyLeading: false,
-        title: Text("Dashboard"),
         actions: [
           PopupMenuButton(
               // add icon, by default "3 dot" icon
@@ -53,164 +53,222 @@ class _MainDashboardState extends State<MainDashboard> {
           }),
         ],
       ),
-      body: Container(
-        child: Stack(
-          children: [
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 20),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.start,
-            //     children: [
-            //       CircleAvatar(
-            //         child: Image.asset("asset/login.png"),
-            //       ),
-            //       SizedBox(
-            //         width: size.width * 0.03,
-            //       ),
-            //       _buildTitleAndSubtitle(context),
-            //     ],
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: size.height * 0.05,
-            // ),
-            Container(
-              height: size.height*0.4,
-              color: P_Settings.loginPagetheme,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 50),
-                child: Column(
-                  children: [
-                    Container(
-                      height: size.height * 0.3,
-                      width: double.infinity,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Stack(
-                            children: [
-                              // Text("heloooooooooo")
-                              _buildParallaxBackground(context),
-                            ],
-                          ),
-                        ),
+      body: Column(
+        children: [
+          Container(
+            child: Stack(
+              children: [
+                Container(
+                  height: size.height * 0.2,
+                  alignment: Alignment.center,
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 40,
+                      child: Image.asset("asset/login.png"),
+                    ),
+                    title: Text(
+                      "ANU",
+                      // value.staff_name.toString(),
+                      style: GoogleFonts.aBeeZee(
+                        textStyle: Theme.of(context).textTheme.bodyText2,
+                        fontSize: 23,
+                        fontWeight: FontWeight.bold,
+                        color: P_Settings.buttonColor,
                       ),
                     ),
-                    SizedBox(
-                      height: size.height * 0.02,
+                    subtitle: Text(
+                      "KNR",
+                      // value.branch_name.toString(),
+                      style: GoogleFonts.aBeeZee(
+                        textStyle: Theme.of(context).textTheme.bodyText2,
+                        fontSize: 14,
+                        // fontWeight: FontWeight.bold,
+                        color: P_Settings.buttonColor,
+                      ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: Row(
-                    //     // mainAxisAlignment: MainAxisAlignment.start,
-                    //     children: [
-                    //       CircleAvatar(
-                    //         child: Image.asset("asset/login.png"),
-                    //       ),
-                    //       SizedBox(
-                    //         width: size.width * 0.03,
-                    //       ),
-                    //       _buildTitleAndSubtitle(context),
-                    //     ],
-                    //   ),
-                    // ),
-                  ],
+                    dense: false,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 61, 61, 61),
+                    image: DecorationImage(
+                      image: AssetImage("asset/liq2.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(30.0),
+                        bottomRight: Radius.circular(30.0)),
+                    border: Border.all(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                  ),
+                  // color:Color.fromARGB(255, 61, 61, 61),
                 ),
-              ),
+              ],
             ),
+          ),
+          SizedBox(
+            height: size.height * 0.03,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 30, top: 50),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              color: Colors.grey[200],
+              child: ListTile(
+                onTap: () {
+                  // Provider.of<Controller>(context, listen: false)
+                  //     .getTransactionList(context);
 
-            Positioned(
-              left: 10,
-              top: 100,
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => TransactionPage()),
+                  // );
+                },
+                leading: Image.asset("asset/transaction_card_payment.png",
+                    color: Colors.red, height: 30),
+                trailing: Icon(
+                  Icons.arrow_forward,
+                  color: Colors.black,
                 ),
-                color: Color.fromARGB(255, 61, 61, 61),
-                child: ListTile(
-                  onTap: () {
-                    // Provider.of<Controller>(context, listen: false)
-                    //     .getTransactionList(context);
-            
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => TransactionPage()),
-                    // );
-                  },
-                  leading: Image.asset("asset/transaction_card_payment.png",
-                      color: Colors.yellow, height: 30),
-                  trailing: Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    "Transaction",
-                    style: GoogleFonts.aBeeZee(
-                      textStyle: Theme.of(context).textTheme.bodyText2,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colours.gainsboro,
-                    ),
+                title: Text(
+                  "Sale",
+                  style: GoogleFonts.aBeeZee(
+                    textStyle: Theme.of(context).textTheme.bodyText2,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 30, top: 10),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              color: Colors.grey[200],
+              child: ListTile(
+                onTap: () {
+                  // Provider.of<Controller>(context, listen: false)
+                  //     .getTransactionList(context);
+
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => TransactionPage()),
+                  // );
+                },
+                leading: Image.asset("asset/transaction_card_payment.png",
+                    color: Colors.red, height: 30),
+                trailing: Icon(
+                  Icons.arrow_forward,
+                  color: Colors.black,
                 ),
-                color: Color.fromARGB(255, 61, 61, 61),
-                child: ListTile(
-                  onTap: () {
-                    // Provider.of<Controller>(context, listen: false)
-                    //     .getTransactionList(context);
-                    // Provider.of<Controller>(context, listen: false)
-                    //     .setIssearch(false);
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) =>
-                    //           SearchScreen(type: "start")),
-                    // );
-                  },
-                  leading: Image.asset(
-                    "asset/searchwhite.png",
-                    height: 30,
-                    color: Colors.green,
-                  ),
-                  trailing: Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    "Search",
-                    style: GoogleFonts.aBeeZee(
-                      textStyle: Theme.of(context).textTheme.bodyText2,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colours.gainsboro,
-                    ),
+                title: Text(
+                  "Sale Return",
+                  style: GoogleFonts.aBeeZee(
+                    textStyle: Theme.of(context).textTheme.bodyText2,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
                   ),
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 30, top: 10),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              color: Colors.grey[200],
+              child: ListTile(
+                onTap: () {
+                  // Provider.of<Controller>(context, listen: false)
+                  //     .getTransactionList(context);
+
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => TransactionPage()),
+                  // );
+                },
+                leading: Image.asset("asset/transaction_card_payment.png",
+                    color: Colors.red, height: 30),
+                trailing: Icon(
+                  Icons.arrow_forward,
+                  color: Colors.black,
+                ),
+                title: Text(
+                  "Vehicle Unloading",
+                  style: GoogleFonts.aBeeZee(
+                    textStyle: Theme.of(context).textTheme.bodyText2,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 30, top: 10),
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              color: Colors.grey[200],
+              child: ListTile(
+                onTap: () {
+                  // Provider.of<Controller>(context, listen: false)
+                  //     .getTransactionList(context);
+                  // Provider.of<Controller>(context, listen: false)
+                  //     .setIssearch(false);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => SearchScreen(type: "start")),
+                  );
+                },
+                leading: Image.asset(
+                  "asset/searchwhite.png",
+                  height: 30,
+                  color: Colors.green,
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward,
+                  color: Colors.black,
+                ),
+                title: Text(
+                  "Search",
+                  style: GoogleFonts.aBeeZee(
+                    textStyle: Theme.of(context).textTheme.bodyText2,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-Widget _buildParallaxBackground(BuildContext context) {
-  return Image.network(
-    "https://st.depositphotos.com/1177973/4630/i/600/depositphotos_46301661-stock-photo-glasses-of-champagne-with-splash.jpg",
-    fit: BoxFit.contain,
-  );
-}
+// Widget _buildParallaxBackground(BuildContext context) {
+//   return Image.network(
+//       "https://st.depositphotos.com/1177973/4630/i/600/depositphotos_46301661-stock-photo-glasses-of-champagne-with-splash.jpg",
+//       fit: BoxFit.contain,
+//       colorBlendMode: BlendMode.darken);
+// }
 
 // Widget _buildGradient() {
 //   return Positioned.fill(
@@ -226,32 +284,3 @@ Widget _buildParallaxBackground(BuildContext context) {
 //     ),
 //   );
 // }
-
-Widget _buildTitleAndSubtitle(BuildContext context) {
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Text(
-        "anu",
-        // value.staff_name.toString(),
-        style: GoogleFonts.aBeeZee(
-          textStyle: Theme.of(context).textTheme.bodyText2,
-          fontSize: 23,
-          fontWeight: FontWeight.bold,
-          color: P_Settings.buttonColor,
-        ),
-      ),
-      Text(
-        "KNR",
-        // value.branch_name.toString(),
-        style: GoogleFonts.aBeeZee(
-          textStyle: Theme.of(context).textTheme.bodyText2,
-          fontSize: 14,
-          // fontWeight: FontWeight.bold,
-          color: P_Settings.buttonColor,
-        ),
-      ),
-    ],
-  );
-}

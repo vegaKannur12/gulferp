@@ -4,38 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/controller/registrationController.dart';
-import 'package:gulferp/screen/RegistrationScreen.dart';
 import 'package:gulferp/screen/dashboard/maindashBoard.dart';
-import 'package:gulferp/screen/loginPage.dart';
-import 'package:gulferp/screen/splashScreen.dart';
+import 'package:gulferp/screen/sale/saleHome.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-// void requestPermission() async {
-//   var status = await Permission.storage.status;
-//   // var statusbl= await Permission.bluetooth.status;
-
-//   var status1 = await Permission.manageExternalStorage.status;
-
-//   if (!status1.isGranted) {
-//     await Permission.storage.request();
-//   }
-//   if (!status1.isGranted) {
-//     var status = await Permission.manageExternalStorage.request();
-//     if (status.isGranted) {
-//       await Permission.bluetooth.request();
-//     } else {
-//       openAppSettings();
-//     }
-//     // await Permission.app
-//   }
-//   if (!status1.isRestricted) {
-//     await Permission.manageExternalStorage.request();
-//   }
-//   if (!status1.isPermanentlyDenied) {
-//     await Permission.manageExternalStorage.request();
-//   }
-// }
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,23 +25,6 @@ void main() {
 
   // configLoading();
 }
-
-// void configLoading() {
-//   EasyLoading.instance
-//     ..displayDuration = const Duration(milliseconds: 2000)
-//     ..indicatorType = EasyLoadingIndicatorType.fadingCircle
-//     ..loadingStyle = EasyLoadingStyle.dark
-//     ..indicatorSize = 45.0
-//     ..radius = 10.0
-//     ..progressColor = Colors.yellow
-//     ..backgroundColor = Colors.green
-//     ..indicatorColor = Colors.yellow
-//     ..textColor = Colors.yellow
-//     ..maskColor = Colors.blue.withOpacity(0.5)
-//     ..userInteractions = true
-//     ..dismissOnTap = false;
-//   // ..customAnimation = CustomAnimation();
-// }
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -108,7 +62,7 @@ class _MyAppState extends State<MyApp> {
           //   ),
           // ),
         ),
-        home: MainDashboard()
+        home: SaleHome()
 
         //  AnimatedSplashScreen(
         //   backgroundColor: Colors.black,
