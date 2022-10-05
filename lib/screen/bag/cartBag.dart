@@ -114,11 +114,11 @@ class _BagPageState extends State<BagPage> {
             children: [
               Expanded(
                 child: ListView.builder(
-                  itemExtent: 100,
+                  itemExtent: 135,
                   itemCount: 1,
                   itemBuilder: (BuildContext context, int index) {
-                    return listItemFunction("1", "fjidxjfijdx", 100, 200, 2,
-                        size, index, "c001", 0.0, "", 5.0, 10.0, "");
+                    return listItemFunction("1", "Vega Soft", 100, 200, 2, size,
+                        index, "c001", 0.0, "", 5.0, 10.0, "");
                     // value.bagList[index]["item_id"],
                     // value.bagList[index]["item_name"],
                     // double.parse(value.bagList[index]["s_rate_1"]),
@@ -192,7 +192,7 @@ class _BagPageState extends State<BagPage> {
     return Consumer<Controller>(
       builder: (context, value, child) {
         return Container(
-          height: size.height * 0.17,
+          height: size.height * 0.19,
           child: Padding(
             padding:
                 const EdgeInsets.only(left: 2, right: 2, top: 8, bottom: 8),
@@ -264,18 +264,20 @@ class _BagPageState extends State<BagPage> {
                                     children: [
                                       Flexible(
                                         flex: 5,
-                                        child: Text("${itemName}",
-                                            overflow: TextOverflow.ellipsis,
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
+                                        child: Text(
+                                          "${itemName}",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
 
-                                              // fontWeight: FontWeight.bold,
-                                              color: P_Settings.loginPagetheme,
-                                            )),
+                                            // fontWeight: FontWeight.bold,
+                                            color: P_Settings.loginPagetheme,
+                                          ),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -288,34 +290,55 @@ class _BagPageState extends State<BagPage> {
                                       children: [
                                         Text(
                                           "Rate 1:",
-                                          style: TextStyle(fontSize: 13),
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 13,
+                                            color: P_Settings.loginPagetheme,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: size.width * 0.02,
                                         ),
                                         Text(
                                           "\u{20B9}${srate1.toStringAsFixed(2)}",
-                                          style: TextStyle(
-                                              color: P_Settings.bagText,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15),
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.bold,
+                                            color: P_Settings.loginPagetheme,
+                                          ),
                                         ),
                                         SizedBox(width: size.width * 0.02),
                                         Text(
                                           "Rate 2 :",
-                                          style: TextStyle(fontSize: 13),
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 13,
+                                            color: P_Settings.loginPagetheme,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: size.width * 0.025,
                                         ),
                                         Container(
-                                            child: Text(
-                                          "\u{20B9}${srate2.toStringAsFixed(2)}",
-                                          style: TextStyle(
-                                              color: P_Settings.bagText,
+                                          child: Text(
+                                            "\u{20B9}${srate2.toStringAsFixed(2)}",
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 15,
                                               fontWeight: FontWeight.bold,
-                                              fontSize: 15),
-                                        )),
+                                              color: P_Settings.loginPagetheme,
+                                            ),
+                                          ),
+                                        ),
 
                                         // Flexible(
                                         //   child:
@@ -332,7 +355,13 @@ class _BagPageState extends State<BagPage> {
                                       children: [
                                         Text(
                                           "Qty :",
-                                          style: TextStyle(fontSize: 13),
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 13,
+                                            color: P_Settings.loginPagetheme,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: size.width * 0.02,
@@ -340,6 +369,14 @@ class _BagPageState extends State<BagPage> {
                                         Container(
                                           child: Text(
                                             qty.toString(),
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: P_Settings.loginPagetheme,
+                                            ),
                                           ),
                                         ),
                                         SizedBox(
@@ -347,7 +384,13 @@ class _BagPageState extends State<BagPage> {
                                         ),
                                         Text(
                                           "Tax :",
-                                          style: TextStyle(fontSize: 13),
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 13,
+                                            color: P_Settings.loginPagetheme,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: size.width * 0.02,
@@ -355,6 +398,14 @@ class _BagPageState extends State<BagPage> {
                                         Container(
                                           child: Text(
                                             tax.toString(),
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: P_Settings.loginPagetheme,
+                                            ),
                                           ),
                                         ),
                                         SizedBox(
@@ -362,7 +413,13 @@ class _BagPageState extends State<BagPage> {
                                         ),
                                         Text(
                                           "Dis :",
-                                          style: TextStyle(fontSize: 13),
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 13,
+                                            color: P_Settings.loginPagetheme,
+                                          ),
                                         ),
                                         SizedBox(
                                           width: size.width * 0.02,
@@ -370,103 +427,17 @@ class _BagPageState extends State<BagPage> {
                                         Container(
                                           child: Text(
                                             discount.toString(),
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: P_Settings.loginPagetheme,
+                                            ),
                                           ),
                                         ),
                                         Spacer(),
-                                        Flexible(
-                                          child: IconButton(
-                                            onPressed: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (ctx) => AlertDialog(
-                                                  content: Text(
-                                                      "Do you want to delete ($itemName) ???"),
-                                                  actions: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        ElevatedButton(
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                                  primary: P_Settings
-                                                                      .loginPagetheme),
-                                                          onPressed: () async {
-                                                            // var response = await Provider.of<
-                                                            //             Controller>(
-                                                            //         context,
-                                                            //         listen: false)
-                                                            //     .addDeletebagItem(
-                                                            //         item_id,
-                                                            //         srate1
-                                                            //             .toString(),
-                                                            //         srate2
-                                                            //             .toString(),
-                                                            //         qty.toString(),
-                                                            //         "2",
-                                                            //         cart_id,
-                                                            //         context,
-                                                            //         "delete");
-                                        
-                                                            // Provider.of<Controller>(
-                                                            //         context,
-                                                            //         listen: false)
-                                                            //     .getbagData1(context);
-                                        
-                                                            // Provider.of<Controller>(
-                                                            //         context,
-                                                            //         listen: false)
-                                                            //     .getProductList(
-                                                            //         widget
-                                                            //             .custmerId);
-                                                            // Provider.of<Controller>(
-                                                            //         context,
-                                                            //         listen: false)
-                                                            //     .calculateorderTotal(
-                                                            //         widget.os,
-                                                            //         widget
-                                                            //             .custmerId);
-                                                            // Provider.of<Controller>(
-                                                            //         context,
-                                                            //         listen: false)
-                                                            //     .countFromTable(
-                                                            //   "orderBagTable",
-                                                            //   widget.os,
-                                                            //   widget.custmerId,
-                                                            // );
-                                                            Navigator.of(ctx)
-                                                                .pop();
-                                                          },
-                                                          child: Text("Ok"),
-                                                        ),
-                                                        SizedBox(
-                                                          width:
-                                                              size.width * 0.01,
-                                                        ),
-                                                        ElevatedButton(
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                                  primary: P_Settings
-                                                                      .loginPagetheme),
-                                                          onPressed: () {
-                                                            Navigator.of(ctx)
-                                                                .pop();
-                                                          },
-                                                          child: Text("Cancel"),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                            icon: Icon(
-                                              Icons.delete,
-                                              size: 17,
-                                            ),
-                                            color: P_Settings.loginPagetheme,
-                                          ),
-                                        ),
                                       ],
                                     ),
                                   ),
@@ -481,27 +452,164 @@ class _BagPageState extends State<BagPage> {
                     //   thickness: 1,
                     //   color: Color.fromARGB(255, 182, 179, 179),
                     // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(bottom: 5),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.end,
+                    //     children: [
+                    //       Text(
+                    //         "Total price : ",
+                    //         style: TextStyle(fontSize: 13),
+                    //       ),
+                    //       Flexible(
+                    //         child: Text("900",
+                    //           // "\u{20B9}${double.parse(totalamount).toStringAsFixed(2)}",
+                    //           style: TextStyle(
+                    //               fontWeight: FontWeight.bold,
+                    //               fontSize: 14,
+                    //               color: Color.fromARGB(255, 184, 36, 25)),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                    Divider(
+                      thickness: 2,
+                    ),
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 5),
+                      padding: const EdgeInsets.only(top: 2, bottom: 1),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          // Text(
-                          //   "Total price : ",
-                          //   style: TextStyle(fontSize: 13),
-                          // ),
-                          // Flexible(
-                          //   child: Text(
-                          //     "\u{20B9}${double.parse(totalamount).toStringAsFixed(2)}",
-                          //     style: TextStyle(
-                          //         fontWeight: FontWeight.bold,
-                          //         fontSize: 14,
-                          //         color: Color.fromARGB(255, 184, 36, 25)),
-                          //   ),
-                          // ),
+                          Container(
+                            height: size.height * 0.022,
+                            color: Colors.transparent,
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (ctx) => AlertDialog(
+                                    content: Text(
+                                        "Do you want to delete ($itemName) ???"),
+                                    actions: <Widget>[
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                primary:
+                                                    P_Settings.loginPagetheme),
+                                            onPressed: () async {
+                                              // var response = await Provider.of<
+                                              //             Controller>(
+                                              //         context,
+                                              //         listen: false)
+                                              //     .addDeletebagItem(
+                                              //         item_id,
+                                              //         srate1
+                                              //             .toString(),
+                                              //         srate2
+                                              //             .toString(),
+                                              //         qty.toString(),
+                                              //         "2",
+                                              //         cart_id,
+                                              //         context,
+                                              //         "delete");
+
+                                              // Provider.of<Controller>(
+                                              //         context,
+                                              //         listen: false)
+                                              //     .getbagData1(context);
+
+                                              // Provider.of<Controller>(
+                                              //         context,
+                                              //         listen: false)
+                                              //     .getProductList(
+                                              //         widget
+                                              //             .custmerId);
+                                              // Provider.of<Controller>(
+                                              //         context,
+                                              //         listen: false)
+                                              //     .calculateorderTotal(
+                                              //         widget.os,
+                                              //         widget
+                                              //             .custmerId);
+                                              // Provider.of<Controller>(
+                                              //         context,
+                                              //         listen: false)
+                                              //     .countFromTable(
+                                              //   "orderBagTable",
+                                              //   widget.os,
+                                              //   widget.custmerId,
+                                              // );
+                                              Navigator.of(ctx).pop();
+                                            },
+                                            child: Text("Ok"),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.01,
+                                          ),
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                primary:
+                                                    P_Settings.loginPagetheme),
+                                            onPressed: () {
+                                              Navigator.of(ctx).pop();
+                                            },
+                                            child: Text("Cancel"),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                              icon: Icon(
+                                Icons.close,
+                                size: 15,
+                                color: P_Settings.redclr,
+                              ),
+                              //icon data for elevated button
+                              label: Text(
+                                "Remove",
+                                style:
+                                    TextStyle(color: P_Settings.loginPagetheme),
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                primary: Colors.transparent, // Background color
+                              ),
+                              //label text
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            "Total price : ",
+                            style: GoogleFonts.aBeeZee(
+                              textStyle: Theme.of(context).textTheme.bodyText2,
+                              fontSize: 13,
+                             
+                              color: P_Settings.loginPagetheme,
+                            ),
+                          ),
+                          Flexible(
+                              child: Text(
+                            "\u{20B9}${srate1.toStringAsFixed(2)}",
+                            style: GoogleFonts.aBeeZee(
+                              textStyle: Theme.of(context).textTheme.bodyText2,
+                              fontSize: 15,
+                               fontWeight: FontWeight.bold,
+                              color: P_Settings.redclr,
+                            ),
+                          )),
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: size.height * 0.01,
+                    )
                   ],
                 ),
               ),

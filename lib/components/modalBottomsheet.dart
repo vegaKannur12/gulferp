@@ -19,7 +19,7 @@ class Bottomsheet {
       double srate1,
       double srate2,
       double stock,
-      int transval,
+   
       String qtyf) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;

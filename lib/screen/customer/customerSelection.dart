@@ -1,40 +1,26 @@
 import 'package:azlistview/azlistview.dart';
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
-import 'package:gulferp/components/modalBottomsheet.dart';
 import 'package:gulferp/controller/controller.dart';
-
 import 'package:provider/provider.dart';
 
-class ItemSelection extends StatefulWidget {
-  List<Map<String, dynamic>> list;
-  // int transVal;
-  // String transType;
+import '../../components/modalBottomsheet.dart';
 
-  ItemSelection({
-    required this.list,
-    //  required this.transVal, required this.transType
-  });
+class CustomerSelection extends StatefulWidget {
+  List<Map<String, dynamic>> list;
+  CustomerSelection({required this.list});
 
   @override
-  State<ItemSelection> createState() => _ItemSelectionState();
+  State<CustomerSelection> createState() => _CustomerSelectionState();
 }
 
-class _ItemSelectionState extends State<ItemSelection> {
-  String? selected;
+class _CustomerSelectionState extends State<CustomerSelection> {
   List<_AZItem> items = [];
-  List<String> uniqueList = [];
   Bottomsheet showsheet = Bottomsheet();
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
-  String? staff_id;
-  var itemstest = [
-    'kg',
-    'pcs',
-  ];
-  // List<String> items = [];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -67,35 +53,12 @@ class _ItemSelectionState extends State<ItemSelection> {
     setState(() {});
   }
 
-  // void setBarData(List<Map<String, dynamic>> items) {
-  //   print("cjncn----${items}");
-  //   this.items = items
-  //       .map(
-  //         (item) => _AZItem(
-  //           title: item["item"].toUpperCase(),
-  //           tag: item["item"][0].toUpperCase(),
-  //         ),
-  //       )
-  //       .toList();
-  //   SuspensionUtil.sortListBySuspensionTag(this.items);
-  //   SuspensionUtil.setShowSuspensionStatus(this.items);
-  //   setState(() {});
-  // }
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //       onPressed: () {
-      //         Provider.of<Controller>(context, listen: false)
-      //             .setfilter(false);
-      //         Navigator.pop(context);
-      //       },
-      //       icon: Icon(Icons.arrow_back)),
-      //   backgroundColor: P_Settings.loginPagetheme,
-      // ),
+      appBar: AppBar(backgroundColor: P_Settings.loginPagetheme),
       body: Consumer<Controller>(
         builder: (context, value, child) {
           if (value.isLoading) {
@@ -116,63 +79,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                 SizedBox(
                   height: size.height * 0.02,
                 ),
-                Container(
-                  width: size.width * 0.9,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                        color: P_Settings.loginPagetheme,
-                        style: BorderStyle.solid,
-                        width: 0.3),
-                  ),
-                  child: DropdownButton<String>(
-                    isExpanded: true,
-                    value: selected,
-                    // isDense: true,
-                    hint: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("Select Item Category"),
-                    ),
-                    // isExpanded: true,
-                    autofocus: false,
-                    underline: SizedBox(),
-                    elevation: 0,
-                    items: value.itemCategoryList
-                        .map((item) => DropdownMenuItem<String>(
-                            value: item.catId.toString(),
-                            child: Container(
-                              width: size.width * 0.9,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  item.catName.toString(),
-                                  style: TextStyle(fontSize: 14),
-                                ),
-                              ),
-                            )))
-                        .toList(),
-                    onChanged: (item) {
-                      print("clicked");
-                      if (item != null) {
-                        setState(() {
-                          Provider.of<Controller>(context, listen: false)
-                              .setfilter(true);
-                          selected = item;
-                        });
 
-                        Provider.of<Controller>(context, listen: false)
-                            .filterProduct(selected!);
-
-                        initList(value.filteredproductList);
-
-                        Provider.of<Controller>(context, listen: false)
-                            .setbardata();
-                        print("se;ected---$item");
-                      }
-                    },
-                  ),
-                ),
-                Divider(),
                 Expanded(child: Consumer<Controller>(
                   builder: (context, value, child) {
                     print("value------${value.filter}");
@@ -264,19 +171,19 @@ class _ItemSelectionState extends State<ItemSelection> {
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);
-                          // showsheet.showSheet(
-                          //     context,
-                          //     index,
-                          //     item.itemId!,
-                          //     item.catId!,
-                          //     item.batchCode!,
-                          //     item.itemName!,
-                          //     item.itemImg!,
-                          //     double.parse(item.sRate1!),
-                          //     double.parse(item.sRate2!),
-                          //     double.parse(item.stock!),
-                          //     widget.transVal,
-                          //     value.qty[index].text);
+                          showsheet.showSheet(
+                            context,
+                            index,
+                            item.itemId!,
+                            item.catId!,
+                            item.batchCode!,
+                            item.itemName!,
+                            item.itemImg!,
+                            double.parse(item.sRate1!),
+                            double.parse(item.sRate2!),
+                            double.parse(item.stock!),
+                            value.qty[index].text,
+                          );
                         },
                         icon: Icon(
                           Icons.add,
@@ -288,19 +195,21 @@ class _ItemSelectionState extends State<ItemSelection> {
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);
-                          // showsheet.showSheet(
-                          //     context,
-                          //     index,
-                          //     item.itemId!,
-                          //     item.catId!,
-                          //     item.batchCode!,
-                          //     item.itemName!,
-                          //     item.itemImg!,
-                          //     double.parse(item.sRate1!),
-                          //     double.parse(item.sRate2!),
-                          //     double.parse(item.stock!),
-                          //     widget.transVal,
-                          //     value.qty[index].text);
+                          showsheet.showSheet(
+                            context,
+                            index,
+                            item.itemId!,
+                            item.catId!,
+                            item.batchCode!,
+                            item.itemName!,
+                            item.itemImg!,
+                            double.parse(item.sRate1!),
+                            double.parse(item.sRate2!),
+                            double.parse(item.stock!),
+                            // widget.transVal,
+                            value.qty[index].text,
+                            // item.itemImg!
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 18.0),
@@ -322,17 +231,23 @@ class _ItemSelectionState extends State<ItemSelection> {
                       color: P_Settings.loginPagetheme,
                     )),
                 subtitle: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
-                        width: size.width * 0.2,
-                        child: Text("SR1:${item.sRate1}")),
-                    Container(
-                        width: size.width * 0.2,
-                        child: Text("SR2:${item.sRate1}")),
-                    Container(
-                        width: size.width * 0.2,
-                        child: Text("Stock:${item.stock}")),
+                    Flexible(
+                      child: Container(
+                          // width: size.width * 0.,
+                          child: Text("MOP:${item.sRate1},")),
+                    ),
+                    Flexible(
+                      child: Container(
+                          // width: size.width * 0.3,
+                          child: Text(" MRP:${item.sRate1},")),
+                    ),
+                    Flexible(
+                      child: Container(
+                          // width: size.width * 0.3,
+                          child: Text(" Stock:${item.stock}")),
+                    ),
                     GestureDetector(
                       onTap: () {
                         // Provider.of<Controller>(context, listen: false)

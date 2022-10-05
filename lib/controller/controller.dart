@@ -15,18 +15,23 @@ class Controller extends ChangeNotifier {
   String? cartCount;
   List<bool> errorClicked = [];
   List<String> uniquelist = [];
+  List<String> uniquecustomerlist = [];
+
   List<String> filtereduniquelist = [];
 
   List<Map<String, dynamic>> filteredproductList = [];
   List<Map<String, dynamic>> routeList = [];
 
-
   List<String> productbar = [];
+  List<String> customerbar = [];
+
   List<String> filteredproductbar = [];
 
   bool isProdLoading = false;
   String urlgolabl = Globaldata.apiglobal;
   List<Map<String, dynamic>> productList = [];
+  List<Map<String, dynamic>> customerList = [];
+
   List<Map<String, dynamic>> bagList = [];
   List<Map<String, dynamic>> historyList = [];
 
@@ -146,6 +151,76 @@ class Controller extends ChangeNotifier {
     }
   }
 
+  ////////////////////////////////////////////////////////////////////////////
+  Future<List<Map<String, dynamic>>> getCustomerList(String routeId) async {
+    // print("sid.......$branchid........${sid}");
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      // String? branch_id = prefs.getString("branch_id");
+      // String? staff_name = prefs.getString("staff_name");
+      // String? branch_name = prefs.getString("branch_name");
+      // String? branch_prefix = prefs.getString("branch_prefix");
+      // String? user_id = prefs.getString("user_id");
+      // print("kjn---------------$branch_id----$user_id-");
+      Uri url = Uri.parse("$urlgolabl/products_list.php");
+
+      Map body = {'route_id': routeId};
+      print("body----${body}");
+      // isDownloaded = true;
+      isProdLoading = true;
+      notifyListeners();
+
+      http.Response response = await http.post(
+        url,
+        body: body,
+      );
+
+      isProdLoading = false;
+      notifyListeners();
+
+      print("body ${body}");
+      var map = jsonDecode(response.body);
+
+      print("nmnmkzd-------${map}");
+      customerList.clear();
+      customerbar.clear();
+
+      // cartCount = map["cart_count"].toString();
+
+      notifyListeners();
+      // print("map["product_list"]")
+      for (var pro in map["product_list"]) {
+        print("pro------$pro");
+        customerbar.add(pro["item_name"][0]);
+        customerList.add(pro);
+      }
+      // qty =
+      //     List.generate(productList.length, (index) => TextEditingController());
+      // errorClicked = List.generate(productList.length, (index) => false);
+
+      // print("qty------$qty");
+
+      // for (int i = 0; i < productList.length; i++) {
+      //   print("qty------${productList[i]["qty"]}");
+      //   qty[i].text = productList[i]["qty"].toString();
+      // }
+      notifyListeners();
+      var seen = Set<String>();
+      uniquecustomerlist =
+          customerbar.where((customerbar) => seen.add(customerbar)).toList();
+      uniquecustomerlist.sort();
+      print("productDetailsTable--map ${customerList}");
+      print("productbar--map ${uniquecustomerlist}");
+
+      return customerList;
+      /////////////// insert into local db /////////////////////
+    } catch (e) {
+      print(e);
+      // return null;
+      return [];
+    }
+  }
+
   /////////////////////////////////////////////////////////////////////////////
   filterProduct(String selected) {
     print("productzszscList----$productList");
@@ -163,14 +238,16 @@ class Controller extends ChangeNotifier {
     print("filsfns----$filteredproductList");
     notifyListeners();
   }
+
   ////////////////////////////////////////////////////////////
-    setfilter(bool fff) {
+  setfilter(bool fff) {
     print("filter----$filter");
     filter = fff;
     notifyListeners();
   }
+
   ///////////////////////////////////////////////////////////
-    setbardata() {
+  setbardata() {
     filter = true;
     isLoading = true;
     notifyListeners();
@@ -186,8 +263,9 @@ class Controller extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
- ///////////////////////////////////////////////////
- getRouteList(BuildContext context, String page, String brId) async {
+
+  ///////////////////////////////////////////////////
+  getRouteList(BuildContext context, String page, String brId) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
