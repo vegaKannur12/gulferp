@@ -7,6 +7,7 @@ import 'package:gulferp/controller/registrationController.dart';
 import 'package:gulferp/screen/bag/cartBag.dart';
 import 'package:gulferp/screen/dashboard/maindashBoard.dart';
 import 'package:gulferp/screen/sale/saleHome.dart';
+import 'package:gulferp/screen/splashScreen.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -63,7 +64,7 @@ class _MyAppState extends State<MyApp> {
           //   ),
           // ),
         ),
-        home: SaleHome()
+        home: MainDashboard()
 
         //  AnimatedSplashScreen(
         //   backgroundColor: Colors.black,

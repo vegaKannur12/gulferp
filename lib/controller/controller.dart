@@ -14,7 +14,7 @@ class Controller extends ChangeNotifier {
   String? routeName;
   String? staff_name;
   String? branch_name;
-
+   String? cusName1;
   String? cartCount;
   List<bool> errorClicked = [];
   List<String> uniquelist = [];
@@ -223,6 +223,13 @@ class Controller extends ChangeNotifier {
       // return null;
       return [];
     }
+  }
+
+  setCustomerName(String cusName){
+  cusName1=cusName;
+
+  print("cysujkjj------$cusName1");
+  notifyListeners();
   }
 
   /////////////////////////////////////////////////////////////////////////////
