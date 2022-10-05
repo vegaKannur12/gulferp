@@ -39,9 +39,6 @@ class _SaleHomeState extends State<SaleHome> {
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
       ),
-     
-     
-     
       body: Column(
         // crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -123,7 +120,7 @@ class _SaleHomeState extends State<SaleHome> {
                     onPressed: () async {
                       List<Map<String, dynamic>> list =
                           await Provider.of<Controller>(context, listen: false)
-                              .getCustomerList("ss");
+                              .getCustomerList(selected!);
                       if (list.length > 0) {
                         Navigator.of(context).push(
                           PageRouteBuilder(
@@ -256,34 +253,31 @@ class _SaleHomeState extends State<SaleHome> {
               autofocus: true,
               underline: SizedBox(),
               elevation: 0,
-              items: <String>['A', 'B', 'C', 'D'].map((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
-              // items: value.routeList
-              //     .map((item) => DropdownMenuItem<String>(
-              //         value: item.uID.toString(),
-              //         child: Row(
-              //           mainAxisAlignment: MainAxisAlignment.start,
-              //           children: [
-              //             Padding(
-              //               padding: const EdgeInsets.all(8.0),
-              //               child: Text(
-              //                 item.branchName.toString(),
-              //                 style: TextStyle(fontSize: 14),
-              //               ),
-              //             ),
-              //           ],
-              //         )))
-              //     .toList(),
+
+              items: value.routeList
+                  .map((item) => DropdownMenuItem<String>(
+                      value: item.rId.toString(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              item.route.toString(),
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                        ],
+                      )))
+                  .toList(),
               onChanged: (item) {
                 print("clicked");
                 if (item != null) {
                   setState(() {
                     selected = item;
                   });
+
+                  print("route id-----$selected");
                 }
               },
             ),

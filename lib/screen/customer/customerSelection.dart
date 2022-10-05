@@ -36,15 +36,14 @@ class _CustomerSelectionState extends State<CustomerSelection> {
     this.items = items
         .map(
           (item) => _AZItem(
-            tag: item["item_name"][0].toUpperCase(),
-            itemId: item["item_id"],
-            catId: item["cat_id"],
-            itemName: item["item_name"].toUpperCase(),
-            batchCode: item["batch_code"],
-            itemImg: item["item_img"],
-            sRate1: item["s_rate_1"],
-            sRate2: item["s_rate_2"],
-            stock: item["stock"],
+            tag: item["Customer"][0].toUpperCase(),
+            address: item["Address"],
+            customer: item["Customer"],
+            fLD3001: item["FLD3001"],
+            email: item["Email"],
+            outstanding: item["Outstanding"],
+            phone: item["Phone"],
+            route: item["Route"],
           ),
         )
         .toList();
@@ -161,7 +160,7 @@ class _CustomerSelectionState extends State<CustomerSelection> {
               height: size.height * 0.08,
               margin: EdgeInsets.only(left: 40),
               child: ListTile(
-                title: Text(item.itemName!,
+                title: Text(item.customer.toString(),
                     overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.aBeeZee(
                       textStyle: Theme.of(context).textTheme.bodyText2,
@@ -195,26 +194,23 @@ class _CustomerSelectionState extends State<CustomerSelection> {
 
 class _AZItem extends ISuspensionBean {
   String? tag;
-  String? itemId;
-  String? catId;
-  String? itemName;
-  String? batchCode;
-  String? itemImg;
-  String? sRate1;
-  String? sRate2;
-  String? stock;
+  String? fLD3001;
+  String? customer;
+  Null? phone;
+  String? address;
+  String? email;
+  String? route;
+  String? outstanding;
 
-  _AZItem({
-    this.tag,
-    this.itemId,
-    this.catId,
-    this.itemName,
-    this.batchCode,
-    this.itemImg,
-    this.sRate1,
-    this.sRate2,
-    this.stock,
-  });
+  _AZItem(
+      {this.tag,
+      this.fLD3001,
+      this.customer,
+      this.phone,
+      this.address,
+      this.email,
+      this.route,
+      this.outstanding});
 
   @override
   String getSuspensionTag() => tag!;

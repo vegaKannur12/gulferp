@@ -121,8 +121,8 @@ class _MainDashboardState extends State<MainDashboard> {
                       color: Colors.grey[200],
                       child: ListTile(
                         onTap: () {
-                          // Provider.of<Controller>(context, listen: false)
-                          //     .getTransactionList(context);
+                          Provider.of<Controller>(context, listen: false)
+                              .getRouteList(context);
 
                           Navigator.push(
                             context,
