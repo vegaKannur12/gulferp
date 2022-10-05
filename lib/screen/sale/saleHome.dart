@@ -39,18 +39,15 @@ class _SaleHomeState extends State<SaleHome> {
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
       ),
-     
-     
-     
       body: Column(
         // crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SizedBox(
-            height: size.height * 0.2,
+            height: size.height * 0.05,
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 25, right: 55),
+            padding: const EdgeInsets.only(left: 75, right: 55),
             child: TextField(
               enabled: false,
               decoration: InputDecoration(
@@ -76,7 +73,7 @@ class _SaleHomeState extends State<SaleHome> {
             // ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 38.0),
+            padding: const EdgeInsets.only(left: 38.0, top: 50),
             child: Row(
               children: [
                 Text(
@@ -98,16 +95,19 @@ class _SaleHomeState extends State<SaleHome> {
               ],
             ),
           ),
+          SizedBox(
+            height: size.height * 0.01,
+          ),
           dropDownRoute(size),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 38.0),
+                padding: const EdgeInsets.only(left: 38.0, top: 10),
                 child: Container(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: P_Settings.choosecus,
+                      primary: P_Settings.loginPagetheme,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(2), // <-- Radius
                       ),
@@ -116,7 +116,7 @@ class _SaleHomeState extends State<SaleHome> {
                       "Choose Customer",
                       style: GoogleFonts.aBeeZee(
                           textStyle: Theme.of(context).textTheme.bodyText2,
-                          fontSize: 16,
+                          fontSize: 12,
                           fontWeight: FontWeight.bold,
                           color: P_Settings.buttonColor),
                     ),
@@ -141,7 +141,7 @@ class _SaleHomeState extends State<SaleHome> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 18.0),
+                padding: const EdgeInsets.only(left: 18.0, top: 10),
                 child: Text(
                   "customer",
                   style: GoogleFonts.aBeeZee(
@@ -154,7 +154,7 @@ class _SaleHomeState extends State<SaleHome> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(top: 40.0),
             child: Container(
               width: size.height * 0.4,
               child: TextFormField(
@@ -187,10 +187,10 @@ class _SaleHomeState extends State<SaleHome> {
             ),
           ),
           SizedBox(
-            height: size.height * 0.03,
+            height: size.height * 0.07,
           ),
           Container(
-            width: size.width * 0.4,
+            width: size.width * 0.5,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 primary: P_Settings.loginPagetheme,
