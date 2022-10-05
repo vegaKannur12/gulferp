@@ -111,8 +111,6 @@ class _MainDashboardState extends State<MainDashboard> {
                     ),
                     color: P_Settings.loginPagetheme,
                   ),
-
-                
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 20, right: 30, top: 50),
@@ -275,10 +273,15 @@ class _MainDashboardState extends State<MainDashboard> {
                       : Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ListTile(
+                            leading: Image.asset(
+                              "asset/loading.png",
+                              height: 30,
+                              // color: Colors.green,
+                            ),
                             visualDensity:
                                 VisualDensity(horizontal: 0, vertical: -4),
                             title: Text(
-                              "Stock Approval",
+                              "Vehicle Loading",
                               style: GoogleFonts.aBeeZee(
                                 textStyle:
                                     Theme.of(context).textTheme.bodyText2,
