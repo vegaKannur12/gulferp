@@ -11,6 +11,8 @@ class Controller extends ChangeNotifier {
   bool isLoading = false;
   bool filter = false;
   String? routeName;
+  String? staff_name;
+  String? branch_name;
 
   String? cartCount;
   List<bool> errorClicked = [];
@@ -20,6 +22,7 @@ class Controller extends ChangeNotifier {
   List<String> filtereduniquelist = [];
 
   List<Map<String, dynamic>> filteredproductList = [];
+  List<Map<String, dynamic>> loadingList=[];
   List<Map<String, dynamic>> routeList = [];
 
   List<String> productbar = [];
@@ -239,6 +242,16 @@ class Controller extends ChangeNotifier {
     notifyListeners();
   }
 
+    userDetails() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? staff_nam = prefs.getString("staff_name");
+    String? branch_nam = prefs.getString("branch_name");
+
+    staff_name = staff_nam;
+    branch_name = branch_nam;
+    notifyListeners();
+  }
+
   ////////////////////////////////////////////////////////////
   setfilter(bool fff) {
     print("filter----$filter");
@@ -306,6 +319,51 @@ class Controller extends ChangeNotifier {
           isLoading = false;
           notifyListeners();
           return routeList;
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print(e);
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+  //////////////////////////////////////////////////
+    getvehicleLoadingList(BuildContext context) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          // branch_id = prefs.getString("branch_id");
+
+          Uri url = Uri.parse("$urlgolabl/stock_approve_list.php");
+          Map body = {
+            // 'branch_id': branch_id,
+          };
+          print("mbody-----$body");
+          // isDownloaded = true;
+          isLoading = true;
+          notifyListeners();
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+          var map = jsonDecode(response.body);
+          print("stock approval list-----------------$map");
+
+          isLoading = false;
+          notifyListeners();
+          loadingList.clear();
+          if (map != null) {
+            for (var item in map) {
+              loadingList.add(item);
+            }
+          }
+
+          print("stock_approve_list---$loadingList");
+          notifyListeners();
+
           /////////////// insert into local db /////////////////////
         } catch (e) {
           print(e);
