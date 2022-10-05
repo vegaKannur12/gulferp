@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gulferp/components/globalData.dart';
 import 'package:gulferp/model/itemCategoryModel.dart';
+import 'package:gulferp/model/routeModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/network_connectivity.dart';
@@ -22,8 +23,8 @@ class Controller extends ChangeNotifier {
   List<String> filtereduniquelist = [];
 
   List<Map<String, dynamic>> filteredproductList = [];
-  List<Map<String, dynamic>> loadingList=[];
-  List<Map<String, dynamic>> routeList = [];
+  List<Map<String, dynamic>> loadingList = [];
+  List<RouteModel> routeList = [];
 
   List<String> productbar = [];
   List<String> customerbar = [];
@@ -156,7 +157,7 @@ class Controller extends ChangeNotifier {
 
   ////////////////////////////////////////////////////////////////////////////
   Future<List<Map<String, dynamic>>> getCustomerList(String routeId) async {
-    // print("sid.......$branchid........${sid}");
+    print("routeId.......$routeId.");
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       // String? branch_id = prefs.getString("branch_id");
@@ -165,9 +166,9 @@ class Controller extends ChangeNotifier {
       // String? branch_prefix = prefs.getString("branch_prefix");
       // String? user_id = prefs.getString("user_id");
       // print("kjn---------------$branch_id----$user_id-");
-      Uri url = Uri.parse("$urlgolabl/products_list.php");
+      Uri url = Uri.parse("$urlgolabl/customer_list.php");
 
-      Map body = {'route_id': routeId};
+      Map body = {'r_id': routeId};
       print("body----${body}");
       // isDownloaded = true;
       isProdLoading = true;
@@ -184,7 +185,7 @@ class Controller extends ChangeNotifier {
       print("body ${body}");
       var map = jsonDecode(response.body);
 
-      print("nmnmkzd-------${map}");
+      print("customer list-------${map}");
       customerList.clear();
       customerbar.clear();
 
@@ -192,10 +193,10 @@ class Controller extends ChangeNotifier {
 
       notifyListeners();
       // print("map["product_list"]")
-      for (var pro in map["product_list"]) {
-        print("pro------$pro");
-        customerbar.add(pro["item_name"][0]);
-        customerList.add(pro);
+      for (var item in map) {
+        print("pro------$item");
+        customerbar.add(item["Customer"][0]);
+        customerList.add(item);
       }
       // qty =
       //     List.generate(productList.length, (index) => TextEditingController());
@@ -242,7 +243,7 @@ class Controller extends ChangeNotifier {
     notifyListeners();
   }
 
-    userDetails() async {
+  userDetails() async {
     final prefs = await SharedPreferences.getInstance();
     String? staff_nam = prefs.getString("staff_name");
     String? branch_nam = prefs.getString("branch_name");
@@ -278,14 +279,14 @@ class Controller extends ChangeNotifier {
   }
 
   ///////////////////////////////////////////////////
-  getRouteList(BuildContext context, String page, String brId) async {
+  getRouteList(BuildContext context) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
-          // BranchModel brnachModel = BranchModel();
+          RouteModel routemodel = RouteModel();
           SharedPreferences prefs = await SharedPreferences.getInstance();
           // branch_id = prefs.getString("branch_id");
-          Uri url = Uri.parse("$urlgolabl/branch_list.php");
+          Uri url = Uri.parse("$urlgolabl/route_list.php");
           Map body = {
             // 'branch_id': branch_id,
           };
@@ -303,18 +304,18 @@ class Controller extends ChangeNotifier {
           routeList.clear();
           // productbar.clear();
           for (var item in map) {
-            // brnachModel = BranchModel.fromJson(item);
-            // routeList.add(brnachModel);
+            routemodel = RouteModel.fromJson(item);
+            routeList.add(routemodel);
           }
 
-          if (page == "history") {
-            for (var i = 0; i < routeList.length; i++) {
-              // if (routeList[i].uID == brId) {
-              //   routeName = routeList[i].branchName;
-              // }
-            }
-            // print("brId------${branchist[i].branchName}");
-          }
+          // if (page == "history") {
+          //   for (var i = 0; i < routeList.length; i++) {
+          //     // if (routeList[i].uID == brId) {
+          //     //   routeName = routeList[i].branchName;
+          //     // }
+          //   }
+          //   // print("brId------${branchist[i].branchName}");
+          // }
 
           isLoading = false;
           notifyListeners();
@@ -328,8 +329,9 @@ class Controller extends ChangeNotifier {
       }
     });
   }
+
   //////////////////////////////////////////////////
-    getvehicleLoadingList(BuildContext context) async {
+  getvehicleLoadingList(BuildContext context) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {

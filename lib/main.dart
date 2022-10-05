@@ -63,14 +63,7 @@ class _MyAppState extends State<MyApp> {
           //   ),
           // ),
         ),
-        home: SaleHome(),
-        // home: BagPage(
-        //   transId: '0',
-        //   transType: "",
-        //   transVal: 0,
-        //   branchId: "",
-        //   remark: "",
-        // )
+        home: SaleHome()
 
         //  AnimatedSplashScreen(
         //   backgroundColor: Colors.black,
