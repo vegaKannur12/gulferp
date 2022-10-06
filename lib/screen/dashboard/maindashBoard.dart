@@ -28,6 +28,8 @@ class _MainDashboardState extends State<MainDashboard> {
     // TODO: implement initState
     super.initState();
     Provider.of<Controller>(context, listen: false).userDetails();
+    Provider.of<Controller>(context, listen: false).getvehicleLoadingList(context);
+
   }
 
   void _onRefresh() async {
@@ -134,7 +136,7 @@ class _MainDashboardState extends State<MainDashboard> {
 
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SaleHome(formType: "1",)),
+                            MaterialPageRoute(builder: (context) => SaleHome(formType: "1",type: "Sale",)),
                           );
                         },
                         leading: Image.asset("asset/sale.png",
@@ -171,7 +173,7 @@ class _MainDashboardState extends State<MainDashboard> {
 
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SaleHome(formType: "2",)),
+                            MaterialPageRoute(builder: (context) => SaleHome(formType: "2",type: "Sale Return")),
                           );
                         },
                         leading: Image.asset("asset/package.png",
@@ -278,23 +280,30 @@ class _MainDashboardState extends State<MainDashboard> {
                   value.loadingList.length == 0
                       ? Container()
                       : Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            leading: Image.asset(
-                              "asset/loading.png",
-                              height: 30,
-                              // color: Colors.green,
-                            ),
-                            visualDensity:
-                                VisualDensity(horizontal: 0, vertical: -4),
-                            title: Text(
-                              "Vehicle Loading",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
+                           padding:
+                        const EdgeInsets.only(left: 20, right: 30, top: 10),
+                          child: Card(
+                             shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Colors.grey[200],
+                            child: ListTile(
+                              leading: Image.asset(
+                                "asset/loading.png",
+                                height: 30,
+                                // color: Colors.green,
+                              ),
+                              visualDensity:
+                                  VisualDensity(horizontal: 0, vertical: -4),
+                              title: Text(
+                                "Vehicle Loading",
+                                style: GoogleFonts.aBeeZee(
+                                  textStyle:
+                                      Theme.of(context).textTheme.bodyText2,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: P_Settings.loginPagetheme,
+                                ),
                               ),
                             ),
                           ),
@@ -313,7 +322,7 @@ class _MainDashboardState extends State<MainDashboard> {
                             itemCount: value.loadingList.length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding:const EdgeInsets.only(left: 20, right: 30, top: 10),
                                 child: Card(
                                   child: ListTile(
                                     onTap: () {
@@ -367,35 +376,33 @@ class _MainDashboardState extends State<MainDashboard> {
                                         ),
                                       ],
                                     ),
-                                    subtitle: Flexible(
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "Branch : ",
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 15,
-                                              // fontWeight: FontWeight.bold,
-                                              color: Colors.grey[700],
-                                            ),
+                                    subtitle: Row(
+                                      children: [
+                                        Text(
+                                          "Branch : ",
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 15,
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.grey[700],
                                           ),
-                                          Text(
-                                            value.loadingList[index]
-                                                    ["from_branch"]
-                                                .toString(),
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 15,
-                                              // fontWeight: FontWeight.bold,
-                                              color: P_Settings.loginPagetheme,
-                                            ),
+                                        ),
+                                        Text(
+                                          value.loadingList[index]
+                                                  ["from_branch"]
+                                              .toString(),
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 15,
+                                            // fontWeight: FontWeight.bold,
+                                            color: P_Settings.loginPagetheme,
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
