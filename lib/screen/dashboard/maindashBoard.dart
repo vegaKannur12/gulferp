@@ -5,6 +5,7 @@ import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/screen/loginPage.dart';
 import 'package:gulferp/screen/sale/saleHome.dart';
 import 'package:gulferp/screen/searchPage/searchPage.dart';
+import 'package:gulferp/screen/vehicle%20Loading/vehicleLoading.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,8 +29,8 @@ class _MainDashboardState extends State<MainDashboard> {
     // TODO: implement initState
     super.initState();
     Provider.of<Controller>(context, listen: false).userDetails();
-    Provider.of<Controller>(context, listen: false).getvehicleLoadingList(context);
-
+    Provider.of<Controller>(context, listen: false)
+        .getvehicleLoadingList(context);
   }
 
   void _onRefresh() async {
@@ -136,7 +137,11 @@ class _MainDashboardState extends State<MainDashboard> {
 
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SaleHome(formType: "1",type: "Sale",)),
+                            MaterialPageRoute(
+                                builder: (context) => SaleHome(
+                                      formType: "1",
+                                      type: "Sale",
+                                    )),
                           );
                         },
                         leading: Image.asset("asset/sale.png",
@@ -173,7 +178,9 @@ class _MainDashboardState extends State<MainDashboard> {
 
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SaleHome(formType: "2",type: "Sale Return")),
+                            MaterialPageRoute(
+                                builder: (context) => SaleHome(
+                                    formType: "2", type: "Sale Return")),
                           );
                         },
                         leading: Image.asset("asset/package.png",
@@ -280,13 +287,13 @@ class _MainDashboardState extends State<MainDashboard> {
                   value.loadingList.length == 0
                       ? Container()
                       : Padding(
-                           padding:
-                        const EdgeInsets.only(left: 20, right: 30, top: 10),
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 30, top: 10),
                           child: Card(
-                             shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      color: Colors.grey[200],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            color: Colors.grey[200],
                             child: ListTile(
                               leading: Image.asset(
                                 "asset/loading.png",
@@ -322,25 +329,27 @@ class _MainDashboardState extends State<MainDashboard> {
                             itemCount: value.loadingList.length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding:const EdgeInsets.only(left: 20, right: 30, top: 10),
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 30, top: 10),
                                 child: Card(
                                   child: ListTile(
                                     onTap: () {
                                       Provider.of<Controller>(context,
                                               listen: false)
-                                          .getvehicleLoadingList(
+                                          .getvehicleLoadingInfo(
                                         context,
+                                        value.loadingList[index]["os_id"],
                                       );
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //       builder: (context) =>
-                                      //           StockApprovalPage(
-                                      //             os_id:
-                                      //                 value.stock_approve_list[
-                                      //                     index]["os_id"],
-                                      //           )),
-                                      // );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                VehicleLoading(
+                                                  os_id:
+                                                      value.loadingList[index]
+                                                          ["os_id"],
+                                                )),
+                                      );
                                     },
                                     trailing: Icon(Icons.arrow_forward),
                                     title: Row(
