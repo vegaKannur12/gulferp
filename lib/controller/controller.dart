@@ -57,7 +57,7 @@ class Controller extends ChangeNotifier {
   int? qtyinc;
 
 /////////////////////////////////////////////////////////////////
-  getItemCategory(BuildContext context) async {
+ getItemCategory(BuildContext context) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -70,10 +70,9 @@ class Controller extends ChangeNotifier {
           http.Response response = await http.post(
             url,
           );
-
-          // print("body ${body}");
           ItemCategoryModel itemCategory;
           List map = jsonDecode(response.body);
+          print("dropdwn------$map");
           productList.clear();
           productbar.clear();
           itemCategoryList.clear();
@@ -82,9 +81,16 @@ class Controller extends ChangeNotifier {
             itemCategoryList.add(itemCategory);
           }
 
+          dropdwnVal = itemCategoryList[0].catName.toString();
+          notifyListeners();
+
+          // notifyListeners();
+
           isLoading = false;
           notifyListeners();
-          return itemCategoryList;
+          print("sdhjz-----$dropdwnVal");
+
+          return dropdwnVal;
           /////////////// insert into local db /////////////////////
         } catch (e) {
           print(e);
