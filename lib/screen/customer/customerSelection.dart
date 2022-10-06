@@ -11,7 +11,8 @@ import '../../components/modalBottomsheet.dart';
 class CustomerSelection extends StatefulWidget {
   List<Map<String, dynamic>> list;
   String? selected;
-  CustomerSelection({required this.list, this.selected});
+  String? selectedRoute;
+  CustomerSelection({required this.list, this.selected, this.selectedRoute});
 
   @override
   State<CustomerSelection> createState() => _CustomerSelectionState();
@@ -70,15 +71,29 @@ class _CustomerSelectionState extends State<CustomerSelection> {
             return Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top:18.0),
-                  child: Text(
-                    "Customer List",
-                    style: GoogleFonts.aBeeZee(
-                      textStyle: Theme.of(context).textTheme.bodyText2,
-                      fontSize: 21,
-                      fontWeight: FontWeight.bold,
-                      color: P_Settings.loginPagetheme,
-                    ),
+                  padding: const EdgeInsets.only(top: 18.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Customer List of ",
+                        style: GoogleFonts.aBeeZee(
+                          textStyle: Theme.of(context).textTheme.bodyText2,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: P_Settings.loginPagetheme,
+                        ),
+                      ),
+                      Text(
+                        "${widget.selectedRoute.toString()}",
+                        style: GoogleFonts.aBeeZee(
+                          textStyle: Theme.of(context).textTheme.bodyText2,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      )
+                    ],
                   ),
                 ),
                 Divider(

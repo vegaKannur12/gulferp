@@ -5,6 +5,7 @@ import 'package:gulferp/model/itemCategoryModel.dart';
 import 'package:gulferp/model/productListModel.dart';
 import 'package:gulferp/model/routeModel.dart';
 import 'package:gulferp/screen/dashboard/maindashBoard.dart';
+import 'package:gulferp/screen/sale/saleHome.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/network_connectivity.dart';
@@ -36,7 +37,8 @@ class Controller extends ChangeNotifier {
 
   List<String> productbar = [];
   List<String> customerbar = [];
-
+  String? fromDate;
+  String? todate;
   List<String> filteredproductbar = [];
 
   bool isProdLoading = false;
@@ -671,6 +673,229 @@ class Controller extends ChangeNotifier {
           // return null;
           return [];
         }
+      }
+    });
+  }
+  ////////////////////////////////////////////
+
+  setDate(String date1, String date2) {
+    fromDate = date1;
+    todate = date2;
+    print("gtyy----$fromDate----$todate");
+    notifyListeners();
+  }
+
+  ////////////////////////////////////////////
+  historyData(BuildContext context, String trans_id, String action,
+      String fromDate, String tillDate) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          user_id = prefs.getString("user_id");
+          print("history---------------$branch_id----$user_id------$trans_id");
+          Uri url = Uri.parse("$urlgolabl/transaction_list.php");
+          Map body = {
+            'staff_id': user_id,
+            'branch_id': branch_id,
+            'trans_id': trans_id,
+            'from_date': fromDate,
+            'till_date': tillDate
+          };
+          print("history body-----$body");
+          if (action != "delete") {
+            isLoading = true;
+            notifyListeners();
+          }
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          print("history response-----------------${map}");
+
+          if (action != "delete") {
+            isLoading = false;
+            notifyListeners();
+          }
+
+          historyList.clear();
+          if (map != null) {
+            for (var item in map) {
+              historyList.add(item);
+            }
+          }
+
+          print("history list data........${historyList}");
+          // isLoading = false;
+          notifyListeners();
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print("error...$e");
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+
+  //////////////////////////////////////////////////////////////////////
+  saveCartDetails(BuildContext context, String transid, String to_branch_id,
+      String remark, String event, String os_id, String action,String form_type) async {
+    List<Map<String, dynamic>> jsonResult = [];
+    Map<String, dynamic> itemmap = {};
+    Map<String, dynamic> resultmmap = {};
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    branch_id = prefs.getString("branch_id");
+    user_id = prefs.getString("user_id");
+
+    print(
+        "datas------$transid---$to_branch_id----$remark------$branch_id----$user_id");
+    print("action........$action");
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        print("bagList-----$bagList");
+        Uri url = Uri.parse("$urlgolabl/save_transaction.php");
+
+        jsonResult.clear();
+        itemmap.clear();
+
+        bagList.map((e) {
+          itemmap["item_id"] = e["item_id"];
+          itemmap["qty"] = e["qty"];
+          itemmap["s_rate"] = e["s_rate_1"];
+          print("itemmap----$itemmap");
+          jsonResult.add(e);
+        }).toList();
+
+        // for (var i = 0; i < bagList.length; i++) {
+        //   print("bagList[i]-------------${bagList[i]}");
+        //   itemmap["item_id"] = bagList[i]["item_id"];
+        //   itemmap["qty"] = bagList[i]["qty"];
+        //   itemmap["s_rate_1"] = bagList[i]["s_rate_1"];
+        //   itemmap["s_rate_2"] = bagList[i]["s_rate_2"];
+        //   print("itemmap----$itemmap");
+        //   jsonResult.add(itemmap);
+        // }
+
+        print("jsonResult----$jsonResult");
+
+        Map masterMap = {
+          "to_branch_id": to_branch_id,
+          "remark": remark,
+          "staff_id": user_id,
+          "branch_id": branch_id,
+          "event": event,
+          "os_id": os_id,
+          "form_type":form_type,
+          "details": jsonResult
+        };
+
+        // var jsonBody = jsonEncode(masterMap);
+        print("resultmap----$masterMap");
+        // var body = {'json_data': masterMap};
+        // print("body-----$body");
+
+        var jsonEnc = jsonEncode(masterMap);
+
+        print("jsonEnc-----$jsonEnc");
+        isLoading = true;
+        notifyListeners();
+        http.Response response = await http.post(
+          url,
+          body: {'json_data': jsonEnc},
+        );
+
+        var map = jsonDecode(response.body);
+        isLoading = false;
+        notifyListeners();
+        print("json cart------$map");
+
+        if (action == "delete" && map["err_status"] == 0) {
+          // print("hist-----------$historyList");
+          historyData(context, transid, "delete", "", "");
+        }
+
+        if (action == "save") {
+          print("savedd");
+          return showDialog(
+              context: context,
+              builder: (ct) {
+                Size size = MediaQuery.of(ct).size;
+
+                Future.delayed(Duration(seconds: 2), () {
+                  Navigator.of(ct).pop(true);
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                        opaque: false, // set to false
+                        pageBuilder: (_, __, ___) => SaleHome(formType: form_type,type: "",)
+                        // OrderForm(widget.areaname,"return"),
+                        ),
+                  );
+                });
+                return AlertDialog(
+                    content: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        '${map['msg']}',
+                        style: TextStyle(color: P_Settings.loginPagetheme),
+                      ),
+                    ),
+                    Icon(
+                      Icons.done,
+                      color: Colors.green,
+                    )
+                  ],
+                ));
+              });
+        } else if (action == "delete") {
+          print("heloooooo");
+
+          return showDialog(
+              context: context,
+              builder: (BuildContext mycontext) {
+                Size size = MediaQuery.of(mycontext).size;
+
+                Future.delayed(Duration(seconds: 2), () {
+                  Navigator.of(mycontext).pop();
+
+                  Navigator.pop(context);
+                  // Navigator.of(mycontext).pop(false);
+                  // Navigator.of(dialogContex).pop(true);
+
+                  // Navigator.of(context).push(
+                  //   PageRouteBuilder(
+                  //       opaque: false, // set to false
+                  //       pageBuilder: (_, __, ___) => MainDashboard()
+                  //       // OrderForm(widget.areaname,"return"),
+                  //       ),
+                  // );
+                });
+                return AlertDialog(
+                    content: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        '${map['msg']}',
+                        style: TextStyle(color: P_Settings.loginPagetheme),
+                      ),
+                    ),
+                    Icon(
+                      Icons.done,
+                      color: Colors.green,
+                    )
+                  ],
+                ));
+              });
+        } else {}
       }
     });
   }
