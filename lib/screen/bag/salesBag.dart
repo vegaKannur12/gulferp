@@ -116,36 +116,119 @@ class _BagPageState extends State<BagPage> {
                     ),
                   ),
                   Container(
-                      height: size.height * 0.05,
-                      width: size.width * 0.5,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: P_Settings.loginPagetheme,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(2), // <-- Radius
+                    height: size.height * 0.07,
+                    color: Colors.yellow,
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            // print(
+                            //     "............................${value.orderTotal2}");
+                            // sheet.sheet(
+                            //     context,
+                            //     value.orderTotal2[1].toString(),
+                            //     value.orderTotal2[0].toString(),
+                            //     value.orderTotal2[3].toString(),
+                            //     value.orderTotal2[2].toString(),
+                            //     value.orderTotal2[4].toString(),
+                            //     value.orderTotal2[5].toString(),
+                            //     value.orderTotal2[10]);
+                          },
+                          child: Container(
+                            width: size.width * 0.5,
+                            height: size.height * 0.07,
+                            color: Colors.yellow,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(" Sales Total  : ",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
+                                Flexible(
+                                  child: Text(
+                                      "\u{20B9}${value.salesTotal.toStringAsFixed(2)}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16)),
+                                )
+                              ],
                             ),
                           ),
-                          onPressed: () async {
-                            // Provider.of<Controller>(context, listen: false)
-                            //     .saveCartDetails(
-                            //         context,
-                            //         widget.transId,
-                            //         widget.branchId!,
-                            //         widget.remark!,
-                            //         "0",
-                            //         "0",
-                            //         "save");
-                          },
-                          child: Text(
-                            "Save",
-                            style: GoogleFonts.aBeeZee(
-                              textStyle: Theme.of(context).textTheme.bodyText2,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: P_Settings.buttonColor,
+                        ),
+                        GestureDetector(
+                          onTap: (() async {
+                            // paysheet.showpaymentSheet(
+                            //     context,
+                            //     widget.areaId,
+                            //     widget.areaname,
+                            //     widget.custmerId,
+                            //     s[0],
+                            //     s[1],
+                            //     " ",
+                            //     " ",
+                            //     value.orderTotal2[11]);
+                          }),
+                          child: Container(
+                            width: size.width * 0.5,
+                            height: size.height * 0.07,
+                            color: P_Settings.loginPagetheme,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Save",
+                                  style: GoogleFonts.aBeeZee(
+                                    textStyle:
+                                        Theme.of(context).textTheme.bodyText2,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: P_Settings.buttonColor,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.01,
+                                ),
+                                Icon(Icons.shopping_basket)
+                              ],
                             ),
-                          ))),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                  // Container(
+                  //   height: size.height * 0.05,
+                  //   width: size.width * 0.5,
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //       primary: P_Settings.loginPagetheme,
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(2), // <-- Radius
+                  //       ),
+                  //     ),
+                  //     onPressed: () async {
+                  //       // Provider.of<Controller>(context, listen: false)
+                  //       //     .saveCartDetails(
+                  //       //         context,
+                  //       //         widget.transId,
+                  //       //         widget.branchId!,
+                  //       //         widget.remark!,
+                  //       //         "0",
+                  //       //         "0",
+                  //       //         "save");
+                  //     },
+                  //     child: Text(
+                  //       "Save",
+                  //       style: GoogleFonts.aBeeZee(
+                  //         textStyle: Theme.of(context).textTheme.bodyText2,
+                  //         fontSize: 17,
+                  //         fontWeight: FontWeight.bold,
+                  //         color: P_Settings.buttonColor,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               );
             }

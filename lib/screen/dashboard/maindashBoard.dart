@@ -289,29 +289,34 @@ class _MainDashboardState extends State<MainDashboard> {
                       : Padding(
                           padding: const EdgeInsets.only(
                               left: 20, right: 30, top: 10),
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            color: Colors.grey[200],
-                            child: ListTile(
-                              leading: Image.asset(
-                                "asset/loading.png",
-                                height: 30,
-                                // color: Colors.green,
-                              ),
-                              visualDensity:
-                                  VisualDensity(horizontal: 0, vertical: -4),
-                              title: Text(
-                                "Vehicle Loading",
-                                style: GoogleFonts.aBeeZee(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyText2,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: P_Settings.loginPagetheme,
+                          child: ListTile(
+                            // leading: Image.asset(
+                            //   "asset/loading.png",
+                            //   height: 30,
+                            //   // color: Colors.green,
+                            // ),
+                            visualDensity:
+                                VisualDensity(horizontal: 0, vertical: -4),
+                            title: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "Vehicle Loading",
+                                      style: GoogleFonts.aBeeZee(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold,
+                                        color: P_Settings.loginPagetheme,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
+                                Divider()
+                              ],
                             ),
                           ),
                         ),
@@ -332,6 +337,10 @@ class _MainDashboardState extends State<MainDashboard> {
                                 padding: const EdgeInsets.only(
                                     left: 20, right: 30, top: 10),
                                 child: Card(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  color: Colors.grey[200],
                                   child: ListTile(
                                     onTap: () {
                                       Provider.of<Controller>(context,
@@ -351,7 +360,10 @@ class _MainDashboardState extends State<MainDashboard> {
                                                 )),
                                       );
                                     },
-                                    trailing: Icon(Icons.arrow_forward),
+                                    trailing: Icon(
+                                      Icons.arrow_forward,
+                                      color: P_Settings.loginPagetheme,
+                                    ),
                                     title: Row(
                                       children: [
                                         Text(

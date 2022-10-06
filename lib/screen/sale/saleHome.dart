@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/customer/customerSelection.dart';
+import 'package:gulferp/screen/history/history.dart';
 import 'package:gulferp/screen/sale/saleItemSelection.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,7 @@ import 'package:provider/provider.dart';
 class SaleHome extends StatefulWidget {
   String formType;
   String type;
-  SaleHome({required this.formType,required this.type});
+  SaleHome({required this.formType, required this.type});
 
   @override
   State<SaleHome> createState() => _SaleHomeState();
@@ -20,7 +21,7 @@ class _SaleHomeState extends State<SaleHome> {
   DateTime now = DateTime.now();
   String? selected;
   ValueNotifier<bool> visible = ValueNotifier(false);
-
+  List splitted = [];
   TextEditingController remrk = TextEditingController();
 
   // DateFind dateFind = DateFind();
@@ -43,6 +44,25 @@ class _SaleHomeState extends State<SaleHome> {
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
         title: Text(widget.type),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Provider.of<Controller>(context, listen: false)
+                    .historyList
+                    .clear();
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HistoryPage(
+                            form_type: widget.formType,
+                          )),
+                );
+              },
+              icon: Container(
+                  height: size.height * 0.03,
+                  child: Image.asset("asset/history.png")))
+        ],
       ),
       body: SingleChildScrollView(
         child: Consumer<Controller>(
@@ -61,8 +81,8 @@ class _SaleHomeState extends State<SaleHome> {
                       // child: Text("data"),
                     ),
                     Padding(
-                      padding:
-                          const EdgeInsets.only(top: 100.0, left: 25, right: 25),
+                      padding: const EdgeInsets.only(
+                          top: 100.0, left: 25, right: 25),
                       child: Card(
                         elevation: 4.0,
                         child: Center(
@@ -90,8 +110,8 @@ class _SaleHomeState extends State<SaleHome> {
                                   ),
                                 ),
                                 Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 40.0, top: 30),
+                                  padding: const EdgeInsets.only(
+                                      left: 40.0, top: 30),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
@@ -175,13 +195,14 @@ class _SaleHomeState extends State<SaleHome> {
                                             visible.value = true;
                                           } else {
                                             visible.value = false;
-      
-                                            list = await Provider.of<Controller>(
-                                                    context,
-                                                    listen: false)
-                                                .getCustomerList(selected!);
+
+                                            list =
+                                                await Provider.of<Controller>(
+                                                        context,
+                                                        listen: false)
+                                                    .getCustomerList(selected!);
                                           }
-      
+
                                           print("list-----$list");
                                           if (list.length > 0) {
                                             Navigator.of(context).push(
@@ -190,7 +211,9 @@ class _SaleHomeState extends State<SaleHome> {
                                                   pageBuilder: (_, __, ___) =>
                                                       CustomerSelection(
                                                         list: list,
-                                                        selected: selected,
+                                                        selected: splitted[0],
+                                                        selectedRoute:
+                                                            splitted[1],
                                                         // remark: remrk.text,
                                                       )
                                                   // OrderForm(widget.areaname,"return"),
@@ -265,7 +288,8 @@ class _SaleHomeState extends State<SaleHome> {
                                     child: TextFormField(
                                       controller: remrk,
                                       scrollPadding: EdgeInsets.only(
-                                          bottom: topInsets + size.height * 0.34),
+                                          bottom:
+                                              topInsets + size.height * 0.34),
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.note_add,
@@ -321,7 +345,7 @@ class _SaleHomeState extends State<SaleHome> {
                                       Provider.of<Controller>(context,
                                               listen: false)
                                           .getItemCategory(context);
-      
+
                                       List<Map<String, dynamic>> list =
                                           await Provider.of<Controller>(context,
                                                   listen: false)
@@ -352,7 +376,7 @@ class _SaleHomeState extends State<SaleHome> {
                     ),
                   ],
                 ),
-      
+
                 // Padding(
               ],
             );
@@ -391,7 +415,7 @@ class _SaleHomeState extends State<SaleHome> {
 
               items: value.routeList
                   .map((item) => DropdownMenuItem<String>(
-                      value: item.rId.toString(),
+                      value: "${item.rId},${item.route}",
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -411,12 +435,14 @@ class _SaleHomeState extends State<SaleHome> {
                   setState(() {
                     selected = item;
                   });
+
+                  splitted = selected!.split(",");
                   if (selected != null) {
                     visible.value = false;
                   } else {
                     visible.value = true;
                   }
-                  print("route id-----$selected");
+                  print("route id-----${splitted[0]}");
                 }
               },
             ),
