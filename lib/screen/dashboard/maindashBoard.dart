@@ -134,7 +134,7 @@ class _MainDashboardState extends State<MainDashboard> {
 
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SaleHome()),
+                            MaterialPageRoute(builder: (context) => SaleHome(formType: "1",)),
                           );
                         },
                         leading: Image.asset("asset/sale.png",
@@ -166,14 +166,13 @@ class _MainDashboardState extends State<MainDashboard> {
                       color: Colors.grey[200],
                       child: ListTile(
                         onTap: () {
-                          // Provider.of<Controller>(context, listen: false)
-                          //     .getTransactionList(context);
+                          Provider.of<Controller>(context, listen: false)
+                              .getRouteList(context);
 
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => TransactionPage()),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SaleHome(formType: "2",)),
+                          );
                         },
                         leading: Image.asset("asset/package.png",
                             // color: Colors.red,

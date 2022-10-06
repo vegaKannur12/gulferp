@@ -11,13 +11,11 @@ import 'package:provider/provider.dart';
 
 class ItemSelection extends StatefulWidget {
   List<Map<String, dynamic>> list;
-  // int transVal;
-  // String transType;
+  String formType;
 
-  ItemSelection({
-    required this.list,
-    //  required this.transVal, required this.transType
-  });
+  ItemSelection({required this.list, required this.formType
+      //  required this.transVal, required this.transType
+      });
 
   @override
   State<ItemSelection> createState() => _ItemSelectionState();
@@ -27,6 +25,8 @@ class _ItemSelectionState extends State<ItemSelection> {
   String? selected;
   List<_AZItem> items = [];
   List<String> uniqueList = [];
+  List splitted = [];
+
   Bottomsheet showsheet = Bottomsheet();
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
   String? staff_id;
@@ -128,10 +128,14 @@ class _ItemSelectionState extends State<ItemSelection> {
                   child: DropdownButton<String>(
                     isExpanded: true,
                     value: selected,
+                    // value: selected,
                     // isDense: true,
                     hint: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text("Select Item Category"),
+                      child: Text(value.dropdwnString == null ||
+                              value.dropdwnString!.isEmpty
+                          ? value.dropdwnVal.toString()
+                          : value.dropdwnString.toString()),
                     ),
                     // isExpanded: true,
                     autofocus: false,
@@ -139,7 +143,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                     elevation: 0,
                     items: value.itemCategoryList
                         .map((item) => DropdownMenuItem<String>(
-                            value: item.catId.toString(),
+                            value: "${item.catId},${item.catName}",
                             child: Container(
                               width: size.width * 0.9,
                               child: Padding(
@@ -155,20 +159,17 @@ class _ItemSelectionState extends State<ItemSelection> {
                       print("clicked");
                       if (item != null) {
                         setState(() {
-                          Provider.of<Controller>(context, listen: false)
-                              .setfilter(true);
                           selected = item;
                         });
-
-                        Provider.of<Controller>(context, listen: false)
-                            .filterProduct(selected!);
-
-                        initList(value.filteredproductList);
-
-                        Provider.of<Controller>(context, listen: false)
-                            .setbardata();
+                        splitted = selected!.split(',');
+                        print("splitted---$splitted");
+                        // Provider.of<Controller>(context, listen: false)
+                        //     .filterProduct(selected!);
                         print("se;ected---$item");
                       }
+                      Provider.of<Controller>(context, listen: false)
+                          .getProductDetails(
+                              splitted[0], splitted[1], widget.formType);
                     },
                   ),
                 ),

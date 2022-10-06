@@ -10,19 +10,11 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class BagPage extends StatefulWidget {
-  int transVal;
-  String transType;
-  String transId;
   String? branchId;
-  String? remark;
   String? type;
 
   BagPage({
-    required this.transVal,
-    required this.transType,
-    required this.transId,
     this.branchId,
-    this.remark,
     required this.type,
   });
 
@@ -440,21 +432,19 @@ class _BagPageState extends State<BagPage> {
                                                 primary:
                                                     P_Settings.loginPagetheme),
                                             onPressed: () async {
-                                              // var response = await Provider.of<
-                                              //             Controller>(
-                                              //         context,
-                                              //         listen: false)
-                                              //     .addDeletebagItem(
-                                              //         item_id,
-                                              //         srate1
-                                              //             .toString(),
-                                              //         srate2
-                                              //             .toString(),
-                                              //         qty.toString(),
-                                              //         "2",
-                                              //         cart_id,
-                                              //         context,
-                                              //         "delete");
+                                              var response =
+                                                  await Provider.of<Controller>(
+                                                          context,
+                                                          listen: false)
+                                                      .addDeletebagItem(
+                                                          item_id,
+                                                          srate1.toString(),
+                                                          srate2.toString(),
+                                                          qty.toString(),
+                                                          "2",
+                                                          cart_id,
+                                                          context,
+                                                          "delete");
 
                                               // Provider.of<Controller>(
                                               //         context,

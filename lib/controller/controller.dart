@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/components/globalData.dart';
 import 'package:gulferp/model/itemCategoryModel.dart';
 import 'package:gulferp/model/routeModel.dart';
@@ -12,8 +13,13 @@ class Controller extends ChangeNotifier {
   bool isLoading = false;
   bool filter = false;
   String? routeName;
+  String? dropdwnVal;
+  String? dropdwnString;
+  String? branch_id;
   String? staff_name;
   String? branch_name;
+  String? branch_prefix;
+  String? user_id;
   String? cusName1;
   String? cartCount;
   List<bool> errorClicked = [];
@@ -86,19 +92,25 @@ class Controller extends ChangeNotifier {
   }
 
   //////////////////////////////////////////////////////////////
-  Future<List<Map<String, dynamic>>> getProductDetails() async {
-    // print("sid.......$branchid........${sid}");
+  Future<List<Map<String, dynamic>>> getProductDetails(
+      String cat_id, String catName, String form_type) async {
+    print("cat_id.......$cat_id---$catName");
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? branch_id = prefs.getString("branch_id");
-      String? staff_name = prefs.getString("staff_name");
-      String? branch_name = prefs.getString("branch_name");
-      String? branch_prefix = prefs.getString("branch_prefix");
-      String? user_id = prefs.getString("user_id");
+      branch_id = prefs.getString("branch_id");
+      staff_name = prefs.getString("staff_name");
+      branch_name = prefs.getString("branch_name");
+      branch_prefix = prefs.getString("branch_prefix");
+      user_id = prefs.getString("user_id");
       print("kjn---------------$branch_id----$user_id-");
-      Uri url = Uri.parse("$urlgolabl/products_list.php");
+      Uri url = Uri.parse("$urlgolabl/products_list2.php");
 
-      Map body = {'staff_id': user_id, 'branch_id': branch_id};
+      Map body = {
+        'staff_id': user_id,
+        'branch_id': branch_id,
+        'cat_id': cat_id,
+        'form_type': form_type
+      };
       print("body----${body}");
       // isDownloaded = true;
       isProdLoading = true;
@@ -145,8 +157,11 @@ class Controller extends ChangeNotifier {
       uniquelist.sort();
       print("productDetailsTable--map ${productList}");
       print("productbar--map ${uniquelist}");
-
+      dropdwnString = catName.toString();
+      print("catName-----$dropdwnVal");
+      notifyListeners();
       return productList;
+
       /////////////// insert into local db /////////////////////
     } catch (e) {
       print(e);
@@ -433,5 +448,65 @@ class Controller extends ChangeNotifier {
 //       }
 //     });
 //   }
+
+///////////////////////////////save cart///////////////////////////////
+   Future addDeletebagItem(
+      String itemId,
+      String srate1,
+      String srate2,
+      String qty,
+      String event,
+      String cart_id,
+      BuildContext context,
+      String action) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          user_id = prefs.getString("user_id");
+          print("kjn---------------$branch_id----$user_id-");
+          Uri url = Uri.parse("$urlgolabl/save_cart.php");
+          Map body = {
+            'staff_id': user_id,
+            'branch_id': branch_id,
+            'item_id': itemId,
+            'qty': qty,
+            'event': event,
+            'cart_id': cart_id
+          };
+          print("body-----$body");
+          if (action != "delete") {
+            isLoading = true;
+            notifyListeners();
+          }
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          // print("delete response-----------------$map");
+          if (action != "delete") {
+            isLoading = false;
+            notifyListeners();
+          }
+          print("delete response-----------------${map}");
+          cartCount = map["cart_count"];
+          var res = map["msg"];
+          if (res == "Bag deleted Successfully") {
+            // getbagData1(context);
+          }
+          return res;
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print(e);
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
 
 }
