@@ -85,6 +85,7 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
                               branchId: "25",
                               type: "Sales Cart",
                               form_type: widget.formType,
+                              count:2
                             );
                           }));
                   // Navigator.push(
