@@ -10,7 +10,8 @@ import '../../components/modalBottomsheet.dart';
 
 class CustomerSelection extends StatefulWidget {
   List<Map<String, dynamic>> list;
-  CustomerSelection({required this.list});
+  String? selected;
+  CustomerSelection({required this.list, this.selected});
 
   @override
   State<CustomerSelection> createState() => _CustomerSelectionState();
@@ -26,7 +27,8 @@ class _CustomerSelectionState extends State<CustomerSelection> {
     // TODO: implement initState
     super.initState();
     print("dgjxfkjgkg-----${widget.list}");
-
+    Provider.of<Controller>(context, listen: false)
+        .getCustomerList(widget.selected!);
     initList(widget.list);
   }
 
@@ -67,17 +69,26 @@ class _CustomerSelectionState extends State<CustomerSelection> {
           } else {
             return Column(
               children: [
-                // Padding(
-                //   padding: const EdgeInsets.all(8.0),
-                //   child: Text(
-                //     "Select Item Category",
-                //     style: TextStyle(fontSize: 20),
-                //   ),
-                // ),
-                // Divider(),
-                SizedBox(
-                  height: size.height * 0.02,
+                Padding(
+                  padding: const EdgeInsets.only(top:18.0),
+                  child: Text(
+                    "Customer List",
+                    style: GoogleFonts.aBeeZee(
+                      textStyle: Theme.of(context).textTheme.bodyText2,
+                      fontSize: 21,
+                      fontWeight: FontWeight.bold,
+                      color: P_Settings.loginPagetheme,
+                    ),
+                  ),
                 ),
+                Divider(
+                  thickness: 2,
+                  indent: 50,
+                  endIndent: 50,
+                ),
+                // SizedBox(
+                //   height: size.height * 0.02,
+                // ),
 
                 Expanded(child: Consumer<Controller>(
                   builder: (context, value, child) {
@@ -166,15 +177,76 @@ class _CustomerSelectionState extends State<CustomerSelection> {
                         .setCustomerName(item.customer.toString());
                     Navigator.pop(context);
                   },
-                  leading: Icon(Icons.person),
-                  title: Text(item.customer.toString(),
-                      overflow: TextOverflow.ellipsis,
-                      style: GoogleFonts.aBeeZee(
-                        textStyle: Theme.of(context).textTheme.bodyText2,
-                        fontSize: 16,
-                        // fontWeight: FontWeight.bold,
-                        color: P_Settings.loginPagetheme,
-                      )),
+                  leading: CircleAvatar(
+                    child: Icon(Icons.person),
+                  ),
+                  title: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.customer.toString(),
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.aBeeZee(
+                              textStyle: Theme.of(context).textTheme.bodyText2,
+                              fontSize: 16,
+                              // fontWeight: FontWeight.bold,
+                              color: P_Settings.loginPagetheme,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.place,
+                              size: 13,
+                              color: Colors.red,
+                            ),
+                            SizedBox(
+                              width: size.width * 0.01,
+                            ),
+                            Flexible(
+                              child: Text(
+                                item.address.toString(),
+                                style: GoogleFonts.aBeeZee(
+                                  textStyle:
+                                      Theme.of(context).textTheme.bodyText2,
+                                  fontSize: 16,
+                                  // fontWeight: FontWeight.bold,
+                                  color: P_Settings.loginPagetheme,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Row(
+                          children: [
+                            Icon(Icons.phone, size: 13, color: Colors.green),
+                            SizedBox(
+                              width: size.width * 0.01,
+                            ),
+                            Text(
+                              item.phone.toString(),
+                              style: GoogleFonts.aBeeZee(
+                                textStyle:
+                                    Theme.of(context).textTheme.bodyText2,
+                                fontSize: 16,
+                                // fontWeight: FontWeight.bold,
+                                color: P_Settings.loginPagetheme,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             );

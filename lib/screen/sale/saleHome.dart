@@ -17,6 +17,8 @@ class SaleHome extends StatefulWidget {
 class _SaleHomeState extends State<SaleHome> {
   DateTime now = DateTime.now();
   String? selected;
+  ValueNotifier<bool> visible = ValueNotifier(false);
+
   TextEditingController remrk = TextEditingController();
 
   // DateFind dateFind = DateFind();
@@ -36,9 +38,9 @@ class _SaleHomeState extends State<SaleHome> {
     double topInsets = MediaQuery.of(context).viewInsets.top;
 
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: P_Settings.loginPagetheme,
-      // ),
+      appBar: AppBar(
+        backgroundColor: P_Settings.loginPagetheme,
+      ),
       body: Consumer<Controller>(
         builder: (context, value, child) {
           print("hdjshdjshd-----${value.cusName1}");
@@ -50,14 +52,13 @@ class _SaleHomeState extends State<SaleHome> {
                 children: [
                   Container(
                     alignment: Alignment.topLeft,
-                    height: size.height * 0.35,
+                    height: size.height * 0.2,
                     color: P_Settings.loginPagetheme,
-                    child: Text("data"),
-                  
+                    // child: Text("data"),
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(top: 200.0, left: 25, right: 25),
+                        const EdgeInsets.only(top: 100.0, left: 25, right: 25),
                     child: Card(
                       elevation: 4.0,
                       child: Center(
@@ -117,6 +118,35 @@ class _SaleHomeState extends State<SaleHome> {
                                 height: size.height * 0.02,
                               ),
                               dropDownRoute(size),
+                              ValueListenableBuilder(
+                                  valueListenable: visible,
+                                  builder: (BuildContext context, bool v,
+                                      Widget? child) {
+                                    print("value===${visible.value}");
+                                    return Visibility(
+                                      visible: v,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 6, bottom: 2.0, left: 40),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Please choose  Customer",
+                                              style: GoogleFonts.aBeeZee(
+                                                  textStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2,
+                                                  fontSize: 15,
+                                                  // fontWeight: FontWeight.bold,
+                                                  color: Colors.red),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
@@ -136,11 +166,18 @@ class _SaleHomeState extends State<SaleHome> {
                                             color: P_Settings.loginPagetheme),
                                       ),
                                       onPressed: () async {
-                                        List<Map<String, dynamic>> list =
-                                            await Provider.of<Controller>(
-                                                    context,
-                                                    listen: false)
-                                                .getCustomerList(selected!);
+                                        List<Map<String, dynamic>> list = [];
+                                        if (selected == null) {
+                                          visible.value = true;
+                                        } else {
+                                          visible.value = false;
+
+                                          list = await Provider.of<Controller>(
+                                                  context,
+                                                  listen: false)
+                                              .getCustomerList(selected!);
+                                        }
+
                                         print("list-----$list");
                                         if (list.length > 0) {
                                           Navigator.of(context).push(
@@ -149,6 +186,7 @@ class _SaleHomeState extends State<SaleHome> {
                                                 pageBuilder: (_, __, ___) =>
                                                     CustomerSelection(
                                                       list: list,
+                                                      selected: selected,
                                                       // remark: remrk.text,
                                                     )
                                                 // OrderForm(widget.areaname,"return"),
@@ -217,7 +255,7 @@ class _SaleHomeState extends State<SaleHome> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 40, right: 40, top: 40.0),
+                                    left: 40, right: 40, top: 10.0),
                                 child: Container(
                                   width: size.height * 0.4,
                                   child: TextFormField(
@@ -362,7 +400,11 @@ class _SaleHomeState extends State<SaleHome> {
                   setState(() {
                     selected = item;
                   });
-
+                  if (selected != null) {
+                    visible.value = false;
+                  } else {
+                    visible.value = true;
+                  }
                   print("route id-----$selected");
                 }
               },

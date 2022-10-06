@@ -122,10 +122,10 @@ class _LoginPageState extends State<LoginPage> {
                                   // );
 
                                   if (_formKey.currentState!.validate()) {
-                                    // Provider.of<RegistrationController>(context,
-                                    //         listen: false)
-                                    //     .getLogin(controller1.text,
-                                    //         controller2.text, context);
+                                    Provider.of<RegistrationController>(context,
+                                            listen: false)
+                                        .getLogin(controller1.text,
+                                            controller2.text, context);
                                     // result = await MystockDB.instance.selectStaff(
                                     //     controller1.text, controller2.text);
 

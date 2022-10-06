@@ -171,7 +171,7 @@ class Controller extends ChangeNotifier {
       Map body = {'r_id': routeId};
       print("body----${body}");
       // isDownloaded = true;
-      isProdLoading = true;
+      isLoading = true;
       notifyListeners();
 
       http.Response response = await http.post(
@@ -179,7 +179,7 @@ class Controller extends ChangeNotifier {
         body: body,
       );
 
-      isProdLoading = false;
+      isLoading = false;
       notifyListeners();
 
       print("body ${body}");
@@ -257,6 +257,8 @@ class Controller extends ChangeNotifier {
 
     staff_name = staff_nam;
     branch_name = branch_nam;
+
+    print("staff_name----$staff_name---$branch_name");
     notifyListeners();
   }
 
