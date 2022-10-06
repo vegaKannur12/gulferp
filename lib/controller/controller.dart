@@ -54,9 +54,10 @@ class Controller extends ChangeNotifier {
   // List<TransactionTypeModel> transactionist = [];
 
   List<ItemCategoryModel> itemCategoryList = [];
+  int? qtyinc;
 
 /////////////////////////////////////////////////////////////////
-  getItemCategory(BuildContext context) async {
+ getItemCategory(BuildContext context) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -150,6 +151,7 @@ class Controller extends ChangeNotifier {
         productbar.add(pro["item_name"][0]);
         productList.add(pro);
       }
+      print("product list data..........$productList.............");
       qty =
           List.generate(productList.length, (index) => TextEditingController());
       errorClicked = List.generate(productList.length, (index) => false);
@@ -249,7 +251,6 @@ class Controller extends ChangeNotifier {
       return [];
     }
   }
-
   //////////////////////////////////////////////////////////////////////////
   Future addDeletebagItem(
       String itemId,
@@ -298,7 +299,7 @@ class Controller extends ChangeNotifier {
           cartCount = map["cart_count"];
           var res = map["msg"];
           if (res == "Bag deleted Successfully") {
-            getbagData1(context);
+            getbagData1(context,form_type);
           }
           return res;
           /////////////// insert into local db /////////////////////
@@ -312,18 +313,19 @@ class Controller extends ChangeNotifier {
   }
 
   /////////////////////////////////////////////////////////////////
-  getbagData1(BuildContext context) async {
+  getbagData1(BuildContext context, String form_type) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           branch_id = prefs.getString("branch_id");
           user_id = prefs.getString("user_id");
-          print("kjn---------------$branch_id----$user_id-");
+          print("kjn-----------$form_type----$branch_id----$user_id-");
           Uri url = Uri.parse("$urlgolabl/cart_list.php");
           Map body = {
             'staff_id': user_id,
             'branch_id': branch_id,
+            'form_type': form_type,
           };
           print("cart body-----$body");
 
@@ -367,6 +369,13 @@ class Controller extends ChangeNotifier {
 
     print("cysujkjj------$cusName1");
     notifyListeners();
+  }
+
+  ////////////////
+  setQty(int qty) {
+    qtyinc = qty;
+    print("qty.......$qty");
+    // notifyListeners();
   }
 
   /////////////////////////////////////////////////////////////////////////////

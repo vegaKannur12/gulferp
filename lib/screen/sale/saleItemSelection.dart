@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
+import 'package:gulferp/screen/bag/salesBag.dart';
 import 'package:provider/provider.dart';
 
 import '../itemSelectionCommon.dart';
@@ -75,19 +76,17 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
                 onPressed: () async {
                   // await Provider.of<Controller>(context, listen: false)
                   //     .getbagData1(context);
-                  // Navigator.push(
-                  //     context,
-                  //     PageRouteBuilder(
-                  //         opaque: false, // set to false
-                  //         pageBuilder: (_, __, ___) {
-                  //           return BagPage(
-                  //             transVal: widget.transVal,
-                  //             transType: widget.transType,
-                  //             transId: widget.transId,
-                  //             branchId: widget.branchId!,
-                  //             remark: widget.remark,
-                  //           );
-                  //         }));
+                  Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                          opaque: false, // set to false
+                          pageBuilder: (_, __, ___) {
+                            return BagPage(
+                              branchId: "25",
+                              type: "Sales Cart",
+                              form_type: widget.formType,
+                            );
+                          }));
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(

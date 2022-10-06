@@ -143,22 +143,23 @@ class Bottomsheet {
                                 ),
                               ),
                               Spacer(),
+                              
                               Container(
                                 width: size.width * 0.2,
                                 child: TextField(
                                   autofocus: true,
                                   onTap: () {
-                                    // Provider.of<Controller>(context,
-                                    //         listen: false)
-                                    //     .addDeletebagItem(
-                                    //         itemId,
-                                    //         srate1.toString(),
-                                    //         srate2.toString(),
-                                    //         value.qty[index].text,
-                                    //         "0",
-                                    //         "0",
-                                    //         context,
-                                    //         "save");
+                                    Provider.of<Controller>(context,
+                                            listen: false)
+                                        .addDeletebagItem(
+                                            itemId,
+                                            srate1.toString(),
+                                            value.qty[index].text,
+                                            "0",
+                                            "0",
+                                            context,
+                                            "save",
+                                            formType);
 
                                     print(
                                         "quantity......${value.qty[index].value.text}");
@@ -186,17 +187,17 @@ class Bottomsheet {
                                   // minLines: 1,
                                   keyboardType: TextInputType.number,
                                   onSubmitted: (values) {
-                                    // Provider.of<Controller>(context,
-                                    //         listen: false)
-                                    //     .addDeletebagItem(
-                                    //         itemId,
-                                    //         srate1.toString(),
-                                    //         srate2.toString(),
-                                    //         value.qty[index].text,
-                                    //         "0",
-                                    //         "0",
-                                    //         context,
-                                    //         "save");
+                                    Provider.of<Controller>(context,
+                                            listen: false)
+                                        .addDeletebagItem(
+                                            itemId,
+                                            srate1.toString(),
+                                            value.qty[index].text,
+                                            "0",
+                                            "0",
+                                            context,
+                                            "save",
+                                            formType);
                                     print("values----$values");
                                     double valueqty = 0.0;
                                     // value.discount_amount[index].text=;
@@ -334,9 +335,7 @@ class Bottomsheet {
                                           formType);
                                   Provider.of<Controller>(context,
                                           listen: false)
-                                      .getbagData1(
-                                    context,
-                                  );
+                                      .getbagData1(context, formType);
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");
                                   Navigator.pop(context);
