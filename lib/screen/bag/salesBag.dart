@@ -15,13 +15,16 @@ class BagPage extends StatefulWidget {
   String transId;
   String? branchId;
   String? remark;
+  String? type;
 
-  BagPage(
-      {required this.transVal,
-      required this.transType,
-      required this.transId,
-      this.branchId,
-      this.remark});
+  BagPage({
+    required this.transVal,
+    required this.transType,
+    required this.transId,
+    this.branchId,
+    this.remark,
+    required this.type,
+  });
 
   @override
   State<BagPage> createState() => _BagPageState();
@@ -58,18 +61,7 @@ class _BagPageState extends State<BagPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    List bagList1 = [
-      "1",
-      "fjidxjfijdx",
-      100,
-      200,
-      2,
-      size,
-      "c001",
-      0.0,
-      "",
-      ""
-    ];
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -82,7 +74,7 @@ class _BagPageState extends State<BagPage> {
           icon: Icon(Icons.arrow_back),
         ),
         title: Text(
-          widget.transType.toString(),
+          widget.type.toString(),
           style: GoogleFonts.aBeeZee(
             textStyle: Theme.of(context).textTheme.bodyText2,
             fontSize: 18,
@@ -118,7 +110,7 @@ class _BagPageState extends State<BagPage> {
                   itemCount: 1,
                   itemBuilder: (BuildContext context, int index) {
                     return listItemFunction("1", "Vega Soft", 100, 200, 2, size,
-                        index, "c001", 0.0, "", 5.0, 10.0, "");
+                        index, "c001", 0.0, "", "");
                     // value.bagList[index]["item_id"],
                     // value.bagList[index]["item_name"],
                     // double.parse(value.bagList[index]["s_rate_1"]),
@@ -183,8 +175,6 @@ class _BagPageState extends State<BagPage> {
       String? batch_code,
       double stock,
       String cart_id,
-      double tax,
-      double discount,
       String img) {
     print("qty number-----$itemName----------$srate1----$srate2-----$qty");
     // _controller.text = qty.toString();
@@ -382,60 +372,8 @@ class _BagPageState extends State<BagPage> {
                                         SizedBox(
                                           width: size.width * 0.045,
                                         ),
-                                        Text(
-                                          "Tax :",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 13,
-                                            color: P_Settings.loginPagetheme,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.02,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            tax.toString(),
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: P_Settings.loginPagetheme,
-                                            ),
-                                          ),
-                                        ),
                                         SizedBox(
                                           width: size.width * 0.08,
-                                        ),
-                                        Text(
-                                          "Dis :",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 13,
-                                            color: P_Settings.loginPagetheme,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.02,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            discount.toString(),
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: P_Settings.loginPagetheme,
-                                            ),
-                                          ),
                                         ),
                                         Spacer(),
                                       ],
@@ -590,7 +528,6 @@ class _BagPageState extends State<BagPage> {
                             style: GoogleFonts.aBeeZee(
                               textStyle: Theme.of(context).textTheme.bodyText2,
                               fontSize: 13,
-                             
                               color: P_Settings.loginPagetheme,
                             ),
                           ),
@@ -600,7 +537,7 @@ class _BagPageState extends State<BagPage> {
                             style: GoogleFonts.aBeeZee(
                               textStyle: Theme.of(context).textTheme.bodyText2,
                               fontSize: 15,
-                               fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.bold,
                               color: P_Settings.redclr,
                             ),
                           )),

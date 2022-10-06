@@ -65,7 +65,14 @@ class _MyAppState extends State<MyApp> {
           //   ),
           // ),
         ),
-        home: MainDashboard()
+        home: BagPage(
+          transId: '',
+          transType: "",
+          branchId: '',
+          transVal: 0,
+          remark: '',
+          type: 'Sale Cart',
+        )
 
         //  AnimatedSplashScreen(
         //   backgroundColor: Colors.black,

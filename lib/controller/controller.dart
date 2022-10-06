@@ -14,7 +14,7 @@ class Controller extends ChangeNotifier {
   String? routeName;
   String? staff_name;
   String? branch_name;
-   String? cusName1;
+  String? cusName1;
   String? cartCount;
   List<bool> errorClicked = [];
   List<String> uniquelist = [];
@@ -225,11 +225,11 @@ class Controller extends ChangeNotifier {
     }
   }
 
-  setCustomerName(String cusName){
-  cusName1=cusName;
+  setCustomerName(String cusName) {
+    cusName1 = cusName;
 
-  print("cysujkjj------$cusName1");
-  notifyListeners();
+    print("cysujkjj------$cusName1");
+    notifyListeners();
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -384,4 +384,54 @@ class Controller extends ChangeNotifier {
       }
     });
   }
+
+  //////////////////// get bag list from api///////////////////
+// getbagData1(BuildContext context) async {
+//     NetConnection.networkConnection(context).then((value) async {
+//       if (value == true) {
+//         try {
+//           SharedPreferences prefs = await SharedPreferences.getInstance();
+//           branch_id = prefs.getString("branch_id");
+//           user_id = prefs.getString("user_id");
+//           print("kjn---------------$branch_id----$user_id-");
+//           Uri url = Uri.parse("$urlgolabl/cart_list.php");
+//           Map body = {
+//             'staff_id': user_id,
+//             'branch_id': branch_id,
+//           };
+//           print("cart body-----$body");
+
+//           isLoading = true;
+//           notifyListeners();
+
+//           http.Response response = await http.post(
+//             url,
+//             body: body,
+//           );
+
+//           var map = jsonDecode(response.body);
+//           print("cart response-----------------${map}");
+
+//           ProductListModel productListModel;
+//           bagList.clear();
+//           if (map != null) {
+//             for (var item in map) {
+//               productListModel = ProductListModel.fromJson(item);
+//               bagList.add(item);
+//             }
+//           }
+//           print("bag list data........${bagList.length}");
+//           isLoading = false;
+//           notifyListeners();
+
+//           /////////////// insert into local db /////////////////////
+//         } catch (e) {
+//           print("error...$e");
+//           // return null;
+//           return [];
+//         }
+//       }
+//     });
+//   }
+
 }
