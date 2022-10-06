@@ -17,10 +17,9 @@ class Bottomsheet {
       String itemName,
       String itemImg,
       double srate1,
-      double srate2,
       double stock,
-   
-      String qtyf) {
+      String qtyf,
+      String formType) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
     CustomSnackbar snackbar = CustomSnackbar();
@@ -246,36 +245,7 @@ class Bottomsheet {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 10),
-                        child: ListTile(
-                          title: Row(
-                            children: [
-                              Text(
-                                "SRate 2",
-                                style: GoogleFonts.aBeeZee(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyText2,
-                                  fontSize: 17,
-                                  // fontWeight: FontWeight.bold,
-                                  color: P_Settings.loginPagetheme,
-                                ),
-                              ),
-                              Spacer(),
-                              Text(
-                                '\u{20B9}${srate2.toString()}',
-                                style: GoogleFonts.aBeeZee(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyText2,
-                                  fontSize: 17,
-                                  // fontWeight: FontWeight.bold,
-                                  color: P_Settings.loginPagetheme,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+
                       Padding(
                         padding: EdgeInsets.only(left: 10.0, right: 10),
                         child: ListTile(
@@ -318,74 +288,69 @@ class Bottomsheet {
                       //       )
                       //     : Container(),
 
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     Container(
-                      //       height: size.height * 0.05,
-                      //       width: size.width * 0.5,
-                      //       child: ElevatedButton(
-                      //           child: Text(
-                      //             'Apply',
-                      //           ),
-                      //           style: ElevatedButton.styleFrom(
-                      //               primary: P_Settings.loginPagetheme,
-                      //               textStyle: TextStyle(
-                      //                   fontSize: 17,
-                      //                   fontWeight: FontWeight.bold)),
-                      //           onPressed: () {
-                      //             // value.setApplyClicked(true, index);
-                      //             double qty =
-                      //                 double.parse(value.qty[index].text);
-                      //             if (transval == -1) {
-                      //               if (stock < qty) {
-                      //                 print("error");
-                      //                 value.qty[index].text = qtyf;
-                      //                 value.seterrorClicked(true, index);
-                      //                 value.setqtyErrormsg(true);
-                      //               } else {
-                      //                 value.setqtyErrormsg(false);
-                      //               }
-                      //             }
-                      //             print("value.qtyerror ----${value.qtyerror}");
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: size.height * 0.05,
+                            width: size.width * 0.5,
+                            child: ElevatedButton(
+                                child: Text(
+                                  'Apply',
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                    primary: P_Settings.loginPagetheme,
+                                    textStyle: TextStyle(
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold)),
+                                onPressed: () {
+                                  // value.setApplyClicked(true, index);
+                                  double qty =
+                                      double.parse(value.qty[index].text);
+                                  // if (transval == -1) {
+                                  //   if (stock < qty) {
+                                  //     print("error");
+                                  //     value.qty[index].text = qtyf;
+                                  //     value.seterrorClicked(true, index);
+                                  //     value.setqtyErrormsg(true);
+                                  //   } else {
+                                  //     value.setqtyErrormsg(false);
+                                  //   }
+                                  // }
+                                  // print("value.qtyerror ----${value.qtyerror}");
 
-                      //             if (value.qtyerror == false) {
-                      //               // value.cartCountFun(
-                      //               //     int.parse(value.cartCount!));
+                                  // if (value.qtyerror == false) {
 
-                      //               // if (value.cartCountInc != null) {
-                      //               //   qty = value.cartCountInc! + 1;
-                      //               //   print("cart----$qty");
-                      //               // }
-                      //               Provider.of<Controller>(context,
-                      //                       listen: false)
-                      //                   .addDeletebagItem(
-                      //                       itemId,
-                      //                       srate1.toString(),
-                      //                       srate2.toString(),
-                      //                       value.qty[index].text,
-                      //                       "0",
-                      //                       "0",
-                      //                       context,
-                      //                       "save");
-                      //               Provider.of<Controller>(context,
-                      //                       listen: false)
-                      //                   .getbagData1(
-                      //                 context,
-                      //               );
-                      //               print(
-                      //                   "quantityyyyyy.....${value.qty[index].text}........");
-                      //               Navigator.pop(context);
-                      //             }
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .addDeletebagItem(
+                                          itemId,
+                                          srate1.toString(),
+                                          value.qty[index].text,
+                                          "0",
+                                          "0",
+                                          context,
+                                          "save",
+                                          formType);
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .getbagData1(
+                                    context,
+                                  );
+                                  print(
+                                      "quantityyyyyy.....${value.qty[index].text}........");
+                                  Navigator.pop(context);
+                                }
 
-                      //             print("payment mode...........$payment_mode");
-                      //           }),
-                      //     ),
-                      //     SizedBox(
-                      //       width: size.width * 0.06,
-                      //     ),
-                      //   ],
-                      // ),
+                                // }
+
+                                ),
+                          ),
+                          SizedBox(
+                            width: size.width * 0.06,
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                 ),

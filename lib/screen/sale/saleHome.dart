@@ -324,6 +324,7 @@ class _SaleHomeState extends State<SaleHome> {
                                                 listen: false)
                                             .getProductDetails(
                                                 "0", "", widget.formType);
+                                    print("list------$list");
                                     if (list.length > 0) {
                                       Navigator.of(context).push(
                                         PageRouteBuilder(
