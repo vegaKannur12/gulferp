@@ -57,8 +57,8 @@ class _BagPageState extends State<BagPage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            // Provider.of<Controller>(context, listen: false)
-            //     .getProductDetails("0", "");
+            Provider.of<Controller>(context, listen: false)
+                .getProductDetails("0", "", widget.form_type);
 
             Navigator.pop(context);
           },
@@ -217,7 +217,7 @@ class _BagPageState extends State<BagPage> {
                               height: size.height * 0.3,
                               width: size.width * 0.2,
                               child: Image.network(
-                                "https://media.istockphoto.com/vectors/default-image-icon-vector-missing-picture-page-for-website-design-or-vector-id1357365823?k=20&m=1357365823&s=612x612&w=0&h=ZH0MQpeUoSHM3G2AWzc8KkGYRg4uP_kuu0Za8GFxdFc=",
+                                "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg",
                                 fit: BoxFit.fill,
                               ),
                               //  Image.network(
@@ -348,31 +348,6 @@ class _BagPageState extends State<BagPage> {
                         ],
                       ),
                     ),
-                    // Divider(
-                    //   thickness: 1,
-                    //   color: Color.fromARGB(255, 182, 179, 179),
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(bottom: 5),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.end,
-                    //     children: [
-                    //       Text(
-                    //         "Total price : ",
-                    //         style: TextStyle(fontSize: 13),
-                    //       ),
-                    //       Flexible(
-                    //         child: Text("900",
-                    //           // "\u{20B9}${double.parse(totalamount).toStringAsFixed(2)}",
-                    //           style: TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               fontSize: 14,
-                    //               color: Color.fromARGB(255, 184, 36, 25)),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     Divider(
                       thickness: 2,
                     ),

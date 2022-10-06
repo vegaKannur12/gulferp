@@ -55,9 +55,31 @@ class Controller extends ChangeNotifier {
 
   List<ItemCategoryModel> itemCategoryList = [];
   int? qtyinc;
+  bool flag = false;
+  double taxable_rate = 0.0;
+  bool boolCustomerSet = false;
+  double salesTotal = 0.0;
+  String? packName;
+  double tax = 0.0;
+  double gross = 0.0;
+  double gross_tot = 0.0;
+  double roundoff = 0.0;
+  double dis_tot = 0.0;
+  double cess_tot = 0.0;
+  double tax_tot = 0.0;
+  double cgst_amt = 0.0;
+  double cgst_per = 0.0;
+  double sgst_amt = 0.0;
+  double sgst_per = 0.0;
+  double igst_amt = 0.0;
+  double igst_per = 0.0;
+  double disc_per = 0.0;
+  double cess = 0.0;
+  double disc_amt = 0.0;
+  double net_amt = 0.0;
 
 /////////////////////////////////////////////////////////////////
- getItemCategory(BuildContext context) async {
+  getItemCategory(BuildContext context) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -250,6 +272,7 @@ class Controller extends ChangeNotifier {
       return [];
     }
   }
+
   //////////////////////////////////////////////////////////////////////////
   Future addDeletebagItem(
       String itemId,
@@ -260,6 +283,7 @@ class Controller extends ChangeNotifier {
       BuildContext context,
       String action,
       String form_type) async {
+    print("Quantity............$qty");
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -298,7 +322,7 @@ class Controller extends ChangeNotifier {
           cartCount = map["cart_count"];
           var res = map["msg"];
           if (res == "Bag deleted Successfully") {
-            getbagData1(context,form_type);
+            getbagData1(context, form_type);
           }
           return res;
           /////////////// insert into local db /////////////////////
@@ -347,7 +371,13 @@ class Controller extends ChangeNotifier {
               bagList.add(item);
             }
           }
-          print("bag list data........${bagList.length}");
+          // qty =
+          //     List.generate(bagList.length, (index) => TextEditingController());
+          print("bag list data........${bagList}");
+          for (int i = 0; i < bagList.length; i++) {
+            print("qty------${productList[i]["qty"]}");
+            qty[i].text = bagList[i]["qty"].toString();
+          }
           isLoading = false;
           notifyListeners();
 
@@ -665,5 +695,106 @@ class Controller extends ChangeNotifier {
         }
       }
     });
+  }
+
+  ////////////////////////////////////////////////////
+  String rawCalculation(
+      double rate,
+      double qty,
+      double disc_per,
+      double disc_amount,
+      double tax_per,
+      double cess_per,
+      String method,
+      int state_status,
+      int index,
+      bool onSub,
+      String? disCalc) {
+    flag = false;
+
+    print(
+        "attribute----$rate----$qty-$state_status---$disCalc --$disc_per--$disc_amount--$tax_per--$cess_per--$method");
+    if (method == "0") {
+      /////////////////////////////////method=="0" - excluisive , method=1 - inclusive
+      taxable_rate = rate;
+    } else if (method == "1") {
+      double percnt = tax_per + cess_per;
+      taxable_rate = rate * (1 - (percnt / (100 + percnt)));
+      print("exclusive tax....$percnt...$taxable_rate");
+    }
+    print("exclusive tax......$taxable_rate");
+    // qty=qty+1;
+    gross = taxable_rate * qty;
+    print("gros----$gross");
+
+    if (disCalc == "disc_amt") {
+      disc_per = (disc_amount / gross) * 100;
+      disc_amt = disc_amount;
+      // print("discount_prercent---$disc_amount---${discount_prercent.length}");
+      if (onSub) {
+        // discount_prercent[index].text = disc_per.toStringAsFixed(4);
+      }
+      print("disc_per----$disc_per");
+    }
+
+    if (disCalc == "disc_per") {
+      print("yes hay---$disc_per");
+      disc_amt = (gross * disc_per) / 100;
+      if (onSub) {
+        // discount_amount[index].text = disc_amt.toStringAsFixed(2);
+      }
+      print("disc-amt----$disc_amt");
+    }
+
+    if (disCalc == "qty") {
+      // disc_amt = double.parse(discount_amount[index].text);
+      // disc_per = double.parse(discount_prercent[index].text);
+      print("disc-amt qty----$disc_amt...$disc_per");
+    }
+
+    // if (disCalc == "rate") {
+    //   rateController[index].text = taxable_rate.toStringAsFixed(2);
+    //   // disc_amt = double.parse(discount_amount[index].text);
+    //   // disc_per = double.parse(discount_prercent[index].text);
+    //   print("disc-amt qty----$disc_amt...$disc_per");
+    // }
+
+    if (state_status == 0) {
+      ///////state_status=0--loacal///////////state_status=1----inter-state
+      cgst_per = tax_per / 2;
+      sgst_per = tax_per / 2;
+      igst_per = 0;
+    } else {
+      cgst_per = 0;
+      sgst_per = 0;
+      igst_per = tax_per;
+    }
+
+    if (disCalc == "") {
+      print("inside nothingg.....");
+      disc_per = (disc_amount / taxable_rate) * 100;
+      disc_amt = disc_amount;
+      print("rsr....$disc_per....$disc_amt..");
+    }
+
+    tax = (gross - disc_amt) * (tax_per / 100);
+    print("tax....$tax....$gross... $disc_amt...$tax_per");
+    if (tax < 0) {
+      tax = 0.00;
+    }
+    cgst_amt = (gross - disc_amt) * (cgst_per / 100);
+    sgst_amt = (gross - disc_amt) * (sgst_per / 100);
+    igst_amt = (gross - disc_amt) * (igst_per / 100);
+    cess = (gross - disc_amt) * (cess_per / 100);
+    net_amt = ((gross - disc_amt) + tax + cess);
+    if (net_amt < 0) {
+      net_amt = 0.00;
+    }
+    print("netamount.cal...$net_amt");
+
+    print(
+        "disc_per calcu mod=0..$tax..$gross... $disc_amt...$tax_per-----$net_amt");
+    notifyListeners();
+    return "success";
   }
 }

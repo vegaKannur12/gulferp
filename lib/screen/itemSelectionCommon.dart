@@ -50,15 +50,15 @@ class _ItemSelectionState extends State<ItemSelection> {
     this.items = items
         .map(
           (item) => _AZItem(
-            tag: item["item_name"][0].toUpperCase(),
-            itemId: item["item_id"],
-            catId: item["cat_id"],
-            itemName: item["item_name"].toUpperCase(),
-            batchCode: item["batch_code"],
-            itemImg: item["item_img"],
-            sRate1: item["s_rate_fix"],
-            stock: item["stock"],
-          ),
+              tag: item["item_name"][0].toUpperCase(),
+              itemId: item["item_id"],
+              catId: item["cat_id"],
+              itemName: item["item_name"].toUpperCase(),
+              batchCode: item["batch_code"],
+              itemImg: item["item_img"],
+              sRate1: item["s_rate_fix"],
+              stock: item["stock"],
+              gst: item["gst"]),
         )
         .toList();
     SuspensionUtil.sortListBySuspensionTag(this.items);
@@ -274,7 +274,8 @@ class _ItemSelectionState extends State<ItemSelection> {
                               item.itemImg!,
                               double.parse(item.sRate1!),
                               double.parse(item.stock!),
-                              value.qty[index].text,widget.formType);
+                              value.qty[index].text,
+                              widget.formType);
                         },
                         icon: Icon(
                           Icons.add,
@@ -320,14 +321,23 @@ class _ItemSelectionState extends State<ItemSelection> {
                       color: P_Settings.loginPagetheme,
                     )),
                 subtitle: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                        width: size.width * 0.2,
+                        // width: size.width * 0.2,
                         child: Text("SRate:${item.sRate1}")),
-                    Container(
-                        width: size.width * 0.2,
-                        child: Text("Stock:${item.stock}")),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 18.0),
+                      child: Container(
+                          // width: size.width * 0.2,
+                          child: Text("Stock:${item.stock}")),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 18.0),
+                      child: Container(
+                          // width: size.width * 0.2,
+                          child: Text("GST:${item.gst}")),
+                    ),
                     // GestureDetector(
                     //   onTap: () {
                     //     // Provider.of<Controller>(context, listen: false)
@@ -394,18 +404,20 @@ class _AZItem extends ISuspensionBean {
   String? itemImg;
   String? sRate1;
   String? stock;
+  String? gst;
 
-  _AZItem({
-    this.tag,
-    this.itemId,
-    this.catId,
-    this.itemName,
-    this.batchCode,
-    this.itemImg,
-    this.sRate1,
-    this.stock,
-  });
+  _AZItem(
+      {this.tag,
+      this.itemId,
+      this.catId,
+      this.itemName,
+      this.batchCode,
+      this.itemImg,
+      this.sRate1,
+      this.stock,
+      this.gst});
 
   @override
   String getSuspensionTag() => tag!;
 }
+
