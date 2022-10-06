@@ -1,7 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/bag/salesBag.dart';
@@ -13,7 +12,8 @@ class SaleItemSelection extends StatefulWidget {
   List<Map<String, dynamic>> list;
   String? remark;
   String formType;
-  SaleItemSelection({required this.list, this.remark, required this.formType});
+  String g_type;
+  SaleItemSelection({required this.list, this.remark, required this.formType,required this.g_type});
 
   @override
   State<SaleItemSelection> createState() => _SaleItemSelectionState();
@@ -85,7 +85,7 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
                               branchId: "25",
                               type: "Sales Cart",
                               form_type: widget.formType,
-                              count:2
+                              gtype: widget.g_type,
                             );
                           }));
                   // Navigator.push(

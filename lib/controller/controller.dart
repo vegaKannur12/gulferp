@@ -13,8 +13,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
+  bool? fromDb;
   bool isLoading = false;
   bool filter = false;
+  String? gtype;
   String? routeName;
   String? dropdwnVal;
   String? dropdwnString;
@@ -30,7 +32,8 @@ class Controller extends ChangeNotifier {
   List<String> uniquecustomerlist = [];
 
   List<String> filtereduniquelist = [];
-
+  List<TextEditingController> discount_prercent = [];
+  List<TextEditingController> discount_amount = [];
   List<Map<String, dynamic>> filteredproductList = [];
   List<Map<String, dynamic>> loadingList = [];
   List<RouteModel> routeList = [];
@@ -382,15 +385,21 @@ class Controller extends ChangeNotifier {
               bagList.add(item);
             }
           }
+
+          discount_prercent =
+              List.generate(bagList.length, (index) => TextEditingController());
+          discount_amount =
+              List.generate(bagList.length, (index) => TextEditingController());
           for (int i = 0; i < bagList.length; i++) {
             print("qty------${productList[i]["qty"]}");
             qty[i].text = bagList[i]["net_total"].toString();
           }
 
           print("bag list data........${bagList}");
+          item_count = bagList.length;
           bagList.forEach((item) {
             print("items in baglist.length..........${item.length}");
-            item_count = item.length;
+
             net_tot += double.parse(item["net_total"]);
             gro_tot += double.parse(item["gross"]);
             dis_tot += double.parse(item["disc_amt"]);

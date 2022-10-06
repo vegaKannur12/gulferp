@@ -12,8 +12,9 @@ import 'package:provider/provider.dart';
 class ItemSelection extends StatefulWidget {
   List<Map<String, dynamic>> list;
   String formType;
+  String? gtype;
 
-  ItemSelection({required this.list, required this.formType
+  ItemSelection({required this.list, required this.formType,this.gtype
       //  required this.transVal, required this.transType
       });
 
@@ -275,7 +276,9 @@ class _ItemSelectionState extends State<ItemSelection> {
                               double.parse(item.sRate1!),
                               double.parse(item.stock!),
                               value.qty[index].text,
-                              widget.formType);
+                              widget.formType
+                              
+                              );
                         },
                         icon: Icon(
                           Icons.add,

@@ -360,7 +360,9 @@ class _SaleHomeState extends State<SaleHome> {
                                                   SaleItemSelection(
                                                       list: list,
                                                       remark: remrk.text,
-                                                      formType: widget.formType)
+                                                      formType: widget.formType,
+                                                      g_type:value.gtype!,
+                                                      )
                                               // OrderForm(widget.areaname,"return"),
                                               ),
                                         );

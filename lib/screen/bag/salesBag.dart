@@ -14,10 +14,12 @@ class BagPage extends StatefulWidget {
   String? branchId;
   String? type;
   String form_type;
+ String gtype;
   BagPage({
     this.branchId,
     required this.type,
     required this.form_type,
+   required this.gtype
   });
 
   @override
