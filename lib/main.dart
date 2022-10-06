@@ -66,7 +66,7 @@ class _MyAppState extends State<MyApp> {
           //   ),
           // ),
         ),
-        home: SaleItemSelection(list: [],formType: '',remark: '',)
+        home: LoginPage()
         // BagPage(type: "sales cart",branchId: "25",)
         //  AnimatedSplashScreen(
         //   backgroundColor: Colors.black,

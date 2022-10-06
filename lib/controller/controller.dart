@@ -52,6 +52,7 @@ class Controller extends ChangeNotifier {
   // List<TransactionTypeModel> transactionist = [];
 
   List<ItemCategoryModel> itemCategoryList = [];
+  int? qtyinc;
 
 /////////////////////////////////////////////////////////////////
   getItemCategory(BuildContext context) async {
@@ -67,9 +68,10 @@ class Controller extends ChangeNotifier {
           http.Response response = await http.post(
             url,
           );
+
+          // print("body ${body}");
           ItemCategoryModel itemCategory;
           List map = jsonDecode(response.body);
-          print("dropdwn------$map");
           productList.clear();
           productbar.clear();
           itemCategoryList.clear();
@@ -78,16 +80,9 @@ class Controller extends ChangeNotifier {
             itemCategoryList.add(itemCategory);
           }
 
-          dropdwnVal = itemCategoryList[0].catName.toString();
-          notifyListeners();
-
-          // notifyListeners();
-
           isLoading = false;
           notifyListeners();
-          print("sdhjz-----$dropdwnVal");
-
-          return dropdwnVal;
+          return itemCategoryList;
           /////////////// insert into local db /////////////////////
         } catch (e) {
           print(e);
@@ -147,6 +142,7 @@ class Controller extends ChangeNotifier {
         productbar.add(pro["item_name"][0]);
         productList.add(pro);
       }
+      print("product list data..........$productList.............");
       qty =
           List.generate(productList.length, (index) => TextEditingController());
       errorClicked = List.generate(productList.length, (index) => false);
@@ -246,81 +242,22 @@ class Controller extends ChangeNotifier {
       return [];
     }
   }
-
   //////////////////////////////////////////////////////////////////////////
-  Future addDeletebagItem(
-      String itemId,
-      String srate1,
-      String qty,
-      String event,
-      String cart_id,
-      BuildContext context,
-      String action,
-      String form_type) async {
-    NetConnection.networkConnection(context).then((value) async {
-      if (value == true) {
-        try {
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          branch_id = prefs.getString("branch_id");
-          user_id = prefs.getString("user_id");
-          print("kjn---------------$branch_id----$user_id-");
-          Uri url = Uri.parse("$urlgolabl/save_cart.php");
-          Map body = {
-            'staff_id': user_id,
-            'branch_id': branch_id,
-            'item_id': itemId,
-            'qty': qty,
-            'event': event,
-            'cart_id': cart_id,
-            'form_type': form_type
-          };
-          print("body-----$body");
-          if (action != "delete") {
-            isLoading = true;
-            notifyListeners();
-          }
-
-          http.Response response = await http.post(
-            url,
-            body: body,
-          );
-
-          var map = jsonDecode(response.body);
-          // print("delete response-----------------$map");
-          if (action != "delete") {
-            isLoading = false;
-            notifyListeners();
-          }
-          print("delete response-----------------${map}");
-          cartCount = map["cart_count"];
-          var res = map["msg"];
-          if (res == "Bag deleted Successfully") {
-            getbagData1(context);
-          }
-          return res;
-          /////////////// insert into local db /////////////////////
-        } catch (e) {
-          print(e);
-          // return null;
-          return [];
-        }
-      }
-    });
-  }
 
   /////////////////////////////////////////////////////////////////
-  getbagData1(BuildContext context) async {
+  getbagData1(BuildContext context, String form_type) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           branch_id = prefs.getString("branch_id");
           user_id = prefs.getString("user_id");
-          print("kjn---------------$branch_id----$user_id-");
+          print("kjn-----------$form_type----$branch_id----$user_id-");
           Uri url = Uri.parse("$urlgolabl/cart_list.php");
           Map body = {
             'staff_id': user_id,
             'branch_id': branch_id,
+            'form_type': form_type,
           };
           print("cart body-----$body");
 
@@ -363,6 +300,13 @@ class Controller extends ChangeNotifier {
 
     print("cysujkjj------$cusName1");
     notifyListeners();
+  }
+
+  ////////////////
+  setQty(int qty) {
+    qtyinc = qty;
+    print("qty.......$qty");
+    // notifyListeners();
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -568,15 +512,15 @@ class Controller extends ChangeNotifier {
 //   }
 
 ///////////////////////////////save cart///////////////////////////////
-   Future addDeletebagItem(
+  Future addDeletebagItem(
       String itemId,
       String srate1,
-      String srate2,
       String qty,
       String event,
       String cart_id,
       BuildContext context,
-      String action) async {
+      String action,
+      String form_type) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -591,7 +535,8 @@ class Controller extends ChangeNotifier {
             'item_id': itemId,
             'qty': qty,
             'event': event,
-            'cart_id': cart_id
+            'cart_id': cart_id,
+            'form_type': form_type
           };
           print("body-----$body");
           if (action != "delete") {
@@ -626,5 +571,4 @@ class Controller extends ChangeNotifier {
       }
     });
   }
-
 }

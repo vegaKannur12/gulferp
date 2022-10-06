@@ -12,10 +12,11 @@ import 'package:provider/provider.dart';
 class BagPage extends StatefulWidget {
   String? branchId;
   String? type;
-
+  String form_type;
   BagPage({
     this.branchId,
     required this.type,
+    required this.form_type,
   });
 
   @override
@@ -39,9 +40,7 @@ class _BagPageState extends State<BagPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // Provider.of<Controller>(context, listen: false).getbagData1(
-    //   context,
-    // );
+    Provider.of<Controller>(context, listen: false).getbagData1(context, "1");
     EasyLoading.addStatusCallback((status) {
       print('EasyLoading Status $status');
       if (status == EasyLoadingStatus.dismiss) {
@@ -76,83 +75,83 @@ class _BagPageState extends State<BagPage> {
         ),
         backgroundColor: P_Settings.loginPagetheme,
       ),
-      body: Consumer<Controller>(builder: (context, value, child) {
-        if (value.isLoading) {
-          return SpinKitFadingCircle(
-            color: P_Settings.loginPagetheme,
-          );
-        } else {
-          // if (value.bagList.length == 0) {
-          //   //  return  Text("knkjzsnjkzdn");
-          //   return Center(
-          //     child: Container(
-          //         height: size.height * 0.2,
-          //         child: Lottie.asset(
-          //           'asset/emptycart.json',
-          //           // height: size.height*0.3,
-          //           // width: size.height*0.3,
-          //         )),
-          //   );
-          // } else {
-          return Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemExtent: 135,
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int index) {
-                    return listItemFunction("1", "Vega Soft", 100, 200, 2, size,
-                        index, "c001", 0.0, "", "");
-                    // value.bagList[index]["item_id"],
-                    // value.bagList[index]["item_name"],
-                    // double.parse(value.bagList[index]["s_rate_1"]),
-                    // double.parse(value.bagList[index]["s_rate_2"]),
-                    // int.parse(value.bagList[index]["qty"]),
-                    // size,
-                    // index,
-                    // value.bagList[index]["batch_code"],
-                    // double.parse(value.bagList[index]["stock"]),
-                    // value.bagList[index]["cart_id"],
-                    // value.bagList[index]["item_img"]);
-                  },
-                ),
-              ),
-              Container(
-                  height: size.height * 0.05,
-                  width: size.width * 0.5,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: P_Settings.loginPagetheme,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2), // <-- Radius
-                        ),
-                      ),
-                      onPressed: () async {
-                        // Provider.of<Controller>(context, listen: false)
-                        //     .saveCartDetails(
-                        //         context,
-                        //         widget.transId,
-                        //         widget.branchId!,
-                        //         widget.remark!,
-                        //         "0",
-                        //         "0",
-                        //         "save");
+      body: Consumer<Controller>(
+        builder: (context, value, child) {
+          if (value.isLoading) {
+            return SpinKitFadingCircle(
+              color: P_Settings.loginPagetheme,
+            );
+          } else {
+            if (value.bagList.length == 0) {
+              //  return  Text("knkjzsnjkzdn");
+              return Center(
+                child: Container(
+                    height: size.height * 0.2,
+                    child: Lottie.asset(
+                      'asset/emptycart.json',
+                      // height: size.height*0.3,
+                      // width: size.height*0.3,
+                    )),
+              );
+            } else {
+              return Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemExtent: 135,
+                      itemCount: value.bagList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return listItemFunction(
+                            value.bagList[index]["item_id"],
+                            value.bagList[index]["item_name"],
+                            double.parse(value.bagList[index]["s_rate_fix"]),
+                            int.parse(value.bagList[index]["qty"]),
+                            size,
+                            index,
+                            value.bagList[index]["batch_code"],
+                            double.parse(value.bagList[index]["stock"]),
+                            value.bagList[index]["cart_id"],
+                            value.bagList[index]["item_img"]);
                       },
-                      child: Text(
-                        "Save",
-                        style: GoogleFonts.aBeeZee(
-                          textStyle: Theme.of(context).textTheme.bodyText2,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                          color: P_Settings.buttonColor,
-                        ),
-                      ))),
-            ],
-          );
-        }
-      }
-          // },
-          ),
+                    ),
+                  ),
+                  Container(
+                      height: size.height * 0.05,
+                      width: size.width * 0.5,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: P_Settings.loginPagetheme,
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(2), // <-- Radius
+                            ),
+                          ),
+                          onPressed: () async {
+                            // Provider.of<Controller>(context, listen: false)
+                            //     .saveCartDetails(
+                            //         context,
+                            //         widget.transId,
+                            //         widget.branchId!,
+                            //         widget.remark!,
+                            //         "0",
+                            //         "0",
+                            //         "save");
+                          },
+                          child: Text(
+                            "Save",
+                            style: GoogleFonts.aBeeZee(
+                              textStyle: Theme.of(context).textTheme.bodyText2,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: P_Settings.buttonColor,
+                            ),
+                          ))),
+                ],
+              );
+            }
+          }
+        },
+      ),
     );
   }
 
@@ -160,7 +159,6 @@ class _BagPageState extends State<BagPage> {
       String item_id,
       String itemName,
       double srate1,
-      double srate2,
       int qty,
       Size size,
       int index,
@@ -168,7 +166,7 @@ class _BagPageState extends State<BagPage> {
       double stock,
       String cart_id,
       String img) {
-    print("qty number-----$itemName----------$srate1----$srate2-----$qty");
+    print("qty number-----$itemName----------$srate1--------$qty");
     // _controller.text = qty.toString();
 
     return Consumer<Controller>(
@@ -190,21 +188,19 @@ class _BagPageState extends State<BagPage> {
                       baseOffset: 0,
                       extentOffset: value.qty[index].value.text.length);
                   print("quantity in cart..........$qty");
-                  // Provider.of<Controller>(context, listen: false).setQty(qty);
-                  // showsheet.showSheet(
-                  //     context,
-                  //     index,
-                  //     item_id,
-                  //     cart_id,
-                  //     batch_code!,
-                  //     itemName,
-                  //     "",
-                  //     srate1,
-                  //     srate2,
-                  //     stock,
-                  //     0,
-                  //     qty.toString(),
-                  //     img);
+                  Provider.of<Controller>(context, listen: false).setQty(qty);
+                  showsheet.showSheet(
+                      context,
+                      index,
+                      item_id,
+                      cart_id,
+                      batch_code!,
+                      itemName,
+                      "",
+                      srate1,
+                      stock,
+                      qty.toString(),
+                      widget.form_type);
                 },
                 title: Column(
                   children: [
@@ -220,11 +216,11 @@ class _BagPageState extends State<BagPage> {
                             child: Container(
                               height: size.height * 0.3,
                               width: size.width * 0.2,
-                              // child: Image.network(
-                              //       imgGlobal +
-                              //           value.productList![index]["pi_files"],
-                              //     ),
-                              // child: Image.network(
+                              child: Image.network(
+                                "https://media.istockphoto.com/vectors/default-image-icon-vector-missing-picture-page-for-website-design-or-vector-id1357365823?k=20&m=1357365823&s=612x612&w=0&h=ZH0MQpeUoSHM3G2AWzc8KkGYRg4uP_kuu0Za8GFxdFc=",
+                                fit: BoxFit.fill,
+                              ),
+                              //  Image.network(
                               //   imgGlobal + img,
                               //   fit: BoxFit.fill,
                               // ),
@@ -253,7 +249,7 @@ class _BagPageState extends State<BagPage> {
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2,
-                                            fontSize: 16,
+                                            fontSize: 14,
                                             fontWeight: FontWeight.bold,
 
                                             // fontWeight: FontWeight.bold,
@@ -295,32 +291,6 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                         ),
                                         SizedBox(width: size.width * 0.02),
-                                        Text(
-                                          "Rate 2 :",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 13,
-                                            color: P_Settings.loginPagetheme,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.025,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            "\u{20B9}${srate2.toStringAsFixed(2)}",
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: P_Settings.loginPagetheme,
-                                            ),
-                                          ),
-                                        ),
 
                                         // Flexible(
                                         //   child:
@@ -439,17 +409,17 @@ class _BagPageState extends State<BagPage> {
                                                       .addDeletebagItem(
                                                           item_id,
                                                           srate1.toString(),
-                                                          srate2.toString(),
                                                           qty.toString(),
                                                           "2",
                                                           cart_id,
                                                           context,
-                                                          "delete");
+                                                          "delete",
+                                                          widget.form_type);
 
-                                              // Provider.of<Controller>(
-                                              //         context,
-                                              //         listen: false)
-                                              //     .getbagData1(context);
+                                              Provider.of<Controller>(context,
+                                                      listen: false)
+                                                  .getbagData1(context,
+                                                      widget.form_type);
 
                                               // Provider.of<Controller>(
                                               //         context,
@@ -523,7 +493,7 @@ class _BagPageState extends State<BagPage> {
                           ),
                           Flexible(
                               child: Text(
-                            "\u{20B9}${srate1.toStringAsFixed(2)}",
+                            "\u{20B9}${(srate1 * qty).toStringAsFixed(2)}",
                             style: GoogleFonts.aBeeZee(
                               textStyle: Theme.of(context).textTheme.bodyText2,
                               fontSize: 15,

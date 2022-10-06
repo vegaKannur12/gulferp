@@ -42,318 +42,320 @@ class _SaleHomeState extends State<SaleHome> {
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
       ),
-      body: Consumer<Controller>(
-        builder: (context, value, child) {
-          print("hdjshdjshd-----${value.cusName1}");
-          return Column(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    alignment: Alignment.topLeft,
-                    height: size.height * 0.2,
-                    color: P_Settings.loginPagetheme,
-                    // child: Text("data"),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 100.0, left: 25, right: 25),
-                    child: Card(
-                      elevation: 4.0,
-                      child: Center(
-                        child: Container(
-                          height: size.height * 0.55,
-                          alignment: Alignment.center,
-                          child: Column(
-                            children: [
-                              TextField(
-                                enabled: false,
-                                textAlignVertical: TextAlignVertical.center,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.fromLTRB(
-                                      20.0, 10.0, 20.0, 10.0),
-                                  prefixIcon: Icon(
-                                    Icons.date_range,
-                                    color: Colors.red,
-                                  ),
-                                  labelText: "Entry date  :  $todaydate",
-                                  labelStyle: TextStyle(
+      body: SingleChildScrollView(
+        child: Consumer<Controller>(
+          builder: (context, value, child) {
+            print("hdjshdjshd-----${value.cusName1}");
+            return Column(
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      alignment: Alignment.topLeft,
+                      height: size.height * 0.2,
+                      color: P_Settings.loginPagetheme,
+                      // child: Text("data"),
+                    ),
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: 100.0, left: 25, right: 25),
+                      child: Card(
+                        elevation: 4.0,
+                        child: Center(
+                          child: Container(
+                            height: size.height * 0.55,
+                            alignment: Alignment.center,
+                            child: Column(
+                              children: [
+                                TextField(
+                                  enabled: false,
+                                  textAlignVertical: TextAlignVertical.center,
+                                  decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    contentPadding: EdgeInsets.fromLTRB(
+                                        20.0, 10.0, 20.0, 10.0),
+                                    prefixIcon: Icon(
+                                      Icons.date_range,
                                       color: Colors.red,
-                                      fontSize: 15 //<-- SEE HERE
-                                      ),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 40.0, top: 30),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Inv No : ",
-                                      style: GoogleFonts.aBeeZee(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
                                     ),
-                                    Text(
-                                      "ERTYU",
-                                      style: GoogleFonts.aBeeZee(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
+                                    labelText: "Entry date  :  $todaydate",
+                                    labelStyle: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 15 //<-- SEE HERE
+                                        ),
+                                  ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: size.height * 0.02,
-                              ),
-                              dropDownRoute(size),
-                              ValueListenableBuilder(
-                                  valueListenable: visible,
-                                  builder: (BuildContext context, bool v,
-                                      Widget? child) {
-                                    print("value===${visible.value}");
-                                    return Visibility(
-                                      visible: v,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 6, bottom: 2.0, left: 40),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Please choose  Customer",
-                                              style: GoogleFonts.aBeeZee(
-                                                  textStyle: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText2,
-                                                  fontSize: 15,
-                                                  // fontWeight: FontWeight.bold,
-                                                  color: Colors.red),
-                                            ),
-                                          ],
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 40.0, top: 30),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Inv No : ",
+                                        style: GoogleFonts.aBeeZee(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                    );
-                                  }),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 40.0, top: 10),
-                                    child: Container(
-                                        child: OutlinedButton(
+                                      Text(
+                                        "ERTYU",
+                                        style: GoogleFonts.aBeeZee(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.02,
+                                ),
+                                dropDownRoute(size),
+                                ValueListenableBuilder(
+                                    valueListenable: visible,
+                                    builder: (BuildContext context, bool v,
+                                        Widget? child) {
+                                      print("value===${visible.value}");
+                                      return Visibility(
+                                        visible: v,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 6, bottom: 2.0, left: 40),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Please choose  Customer",
+                                                style: GoogleFonts.aBeeZee(
+                                                    textStyle: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText2,
+                                                    fontSize: 15,
+                                                    // fontWeight: FontWeight.bold,
+                                                    color: Colors.red),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 40.0, top: 10),
+                                      child: Container(
+                                          child: OutlinedButton(
+                                        child: Text(
+                                          'Choose Customer',
+                                          style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                              color: P_Settings.loginPagetheme),
+                                        ),
+                                        onPressed: () async {
+                                          List<Map<String, dynamic>> list = [];
+                                          if (selected == null) {
+                                            visible.value = true;
+                                          } else {
+                                            visible.value = false;
+      
+                                            list = await Provider.of<Controller>(
+                                                    context,
+                                                    listen: false)
+                                                .getCustomerList(selected!);
+                                          }
+      
+                                          print("list-----$list");
+                                          if (list.length > 0) {
+                                            Navigator.of(context).push(
+                                              PageRouteBuilder(
+                                                  opaque: false, // set to false
+                                                  pageBuilder: (_, __, ___) =>
+                                                      CustomerSelection(
+                                                        list: list,
+                                                        selected: selected,
+                                                        // remark: remrk.text,
+                                                      )
+                                                  // OrderForm(widget.areaname,"return"),
+                                                  ),
+                                            );
+                                          }
+                                        },
+                                      )
+                                          //  ElevatedButton(
+                                          //   style: ElevatedButton.styleFrom(
+                                          //     primary: P_Settings.dimclr,
+                                          //     shape: RoundedRectangleBorder(
+                                          //       borderRadius:
+                                          //           BorderRadius.circular(2), // <-- Radius
+                                          //     ),
+                                          //   ),
+                                          //   child: Text(
+                                          //     "Choose Customer",
+                                          //     style: GoogleFonts.aBeeZee(
+                                          //         textStyle:
+                                          //             Theme.of(context).textTheme.bodyText2,
+                                          //         fontSize: 12,
+                                          //         fontWeight: FontWeight.bold,
+                                          //         color: P_Settings.loginPagetheme),
+                                          //   ),
+                                          //   onPressed: () async {
+                                          //     List<Map<String, dynamic>> list =
+                                          //         await Provider.of<Controller>(context,
+                                          //                 listen: false)
+                                          //             .getCustomerList("ss");
+                                          //     if (list.length > 0) {
+                                          //       Navigator.of(context).push(
+                                          //         PageRouteBuilder(
+                                          //             opaque: false, // set to false
+                                          //             pageBuilder: (_, __, ___) =>
+                                          //                 CustomerSelection(
+                                          //                   list: list,
+                                          //                   // remark: remrk.text,
+                                          //                 )
+                                          //             // OrderForm(widget.areaname,"return"),
+                                          //             ),
+                                          //       );
+                                          //     }
+                                          //   },
+                                          // ),
+                                          ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 18.0, top: 10),
                                       child: Text(
-                                        'Choose Customer',
+                                        value.cusName1 == null
+                                            ? "customer"
+                                            : value.cusName1.toString(),
+                                        // "customer",
                                         style: GoogleFonts.aBeeZee(
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            fontStyle: FontStyle.italic,
                                             color: P_Settings.loginPagetheme),
                                       ),
-                                      onPressed: () async {
-                                        List<Map<String, dynamic>> list = [];
-                                        if (selected == null) {
-                                          visible.value = true;
-                                        } else {
-                                          visible.value = false;
-
-                                          list = await Provider.of<Controller>(
-                                                  context,
-                                                  listen: false)
-                                              .getCustomerList(selected!);
-                                        }
-
-                                        print("list-----$list");
-                                        if (list.length > 0) {
-                                          Navigator.of(context).push(
-                                            PageRouteBuilder(
-                                                opaque: false, // set to false
-                                                pageBuilder: (_, __, ___) =>
-                                                    CustomerSelection(
-                                                      list: list,
-                                                      selected: selected,
-                                                      // remark: remrk.text,
-                                                    )
-                                                // OrderForm(widget.areaname,"return"),
-                                                ),
-                                          );
-                                        }
-                                      },
                                     )
-                                        //  ElevatedButton(
-                                        //   style: ElevatedButton.styleFrom(
-                                        //     primary: P_Settings.dimclr,
-                                        //     shape: RoundedRectangleBorder(
-                                        //       borderRadius:
-                                        //           BorderRadius.circular(2), // <-- Radius
-                                        //     ),
-                                        //   ),
-                                        //   child: Text(
-                                        //     "Choose Customer",
-                                        //     style: GoogleFonts.aBeeZee(
-                                        //         textStyle:
-                                        //             Theme.of(context).textTheme.bodyText2,
-                                        //         fontSize: 12,
-                                        //         fontWeight: FontWeight.bold,
-                                        //         color: P_Settings.loginPagetheme),
-                                        //   ),
-                                        //   onPressed: () async {
-                                        //     List<Map<String, dynamic>> list =
-                                        //         await Provider.of<Controller>(context,
-                                        //                 listen: false)
-                                        //             .getCustomerList("ss");
-                                        //     if (list.length > 0) {
-                                        //       Navigator.of(context).push(
-                                        //         PageRouteBuilder(
-                                        //             opaque: false, // set to false
-                                        //             pageBuilder: (_, __, ___) =>
-                                        //                 CustomerSelection(
-                                        //                   list: list,
-                                        //                   // remark: remrk.text,
-                                        //                 )
-                                        //             // OrderForm(widget.areaname,"return"),
-                                        //             ),
-                                        //       );
-                                        //     }
-                                        //   },
-                                        // ),
-                                        ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 40, right: 40, top: 10.0),
+                                  child: Container(
+                                    width: size.height * 0.4,
+                                    child: TextFormField(
+                                      controller: remrk,
+                                      scrollPadding: EdgeInsets.only(
+                                          bottom: topInsets + size.height * 0.34),
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.note_add,
+                                            color: Colors.grey,
+                                          ),
+                                          contentPadding: EdgeInsets.zero,
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            borderSide: BorderSide(
+                                              color: Colors.grey,
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                          hintStyle: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.grey[700],
+                                          ),
+                                          hintText: "Enter remark"),
+                                    ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 18.0, top: 10),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.05,
+                                ),
+                                Container(
+                                  width: size.width * 0.35,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      primary: P_Settings.loginPagetheme,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            2), // <-- Radius
+                                      ),
+                                    ),
                                     child: Text(
-                                      value.cusName1 == null
-                                          ? "customer"
-                                          : value.cusName1.toString(),
-                                      // "customer",
+                                      "Next",
                                       style: GoogleFonts.aBeeZee(
                                           textStyle: Theme.of(context)
                                               .textTheme
                                               .bodyText2,
                                           fontSize: 16,
-                                          fontStyle: FontStyle.italic,
-                                          color: P_Settings.loginPagetheme),
+                                          fontWeight: FontWeight.bold,
+                                          color: P_Settings.buttonColor),
                                     ),
-                                  )
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 40, right: 40, top: 10.0),
-                                child: Container(
-                                  width: size.height * 0.4,
-                                  child: TextFormField(
-                                    controller: remrk,
-                                    scrollPadding: EdgeInsets.only(
-                                        bottom: topInsets + size.height * 0.34),
-                                    decoration: InputDecoration(
-                                        prefixIcon: Icon(
-                                          Icons.note_add,
-                                          color: Colors.grey,
-                                        ),
-                                        contentPadding: EdgeInsets.zero,
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: Colors.grey, width: 1.0),
-                                          borderRadius:
-                                              BorderRadius.circular(5.0),
-                                        ),
-                                        enabledBorder: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(5),
-                                          borderSide: BorderSide(
-                                            color: Colors.grey,
-                                            width: 1.0,
-                                          ),
-                                        ),
-                                        hintStyle: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.grey[700],
-                                        ),
-                                        hintText: "Enter remark"),
+                                    onPressed: () async {
+                                      Provider.of<Controller>(context,
+                                              listen: false)
+                                          .getItemCategory(context);
+      
+                                      List<Map<String, dynamic>> list =
+                                          await Provider.of<Controller>(context,
+                                                  listen: false)
+                                              .getProductDetails(
+                                                  "0", "", widget.formType);
+                                      print("list------$list");
+                                      if (list.length > 0) {
+                                        Navigator.of(context).push(
+                                          PageRouteBuilder(
+                                              opaque: false, // set to false
+                                              pageBuilder: (_, __, ___) =>
+                                                  SaleItemSelection(
+                                                      list: list,
+                                                      remark: remrk.text,
+                                                      formType: widget.formType)
+                                              // OrderForm(widget.areaname,"return"),
+                                              ),
+                                        );
+                                      }
+                                    },
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                height: size.height * 0.05,
-                              ),
-                              Container(
-                                width: size.width * 0.35,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    primary: P_Settings.loginPagetheme,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          2), // <-- Radius
-                                    ),
-                                  ),
-                                  child: Text(
-                                    "Next",
-                                    style: GoogleFonts.aBeeZee(
-                                        textStyle: Theme.of(context)
-                                            .textTheme
-                                            .bodyText2,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: P_Settings.buttonColor),
-                                  ),
-                                  onPressed: () async {
-                                    Provider.of<Controller>(context,
-                                            listen: false)
-                                        .getItemCategory(context);
-
-                                    List<Map<String, dynamic>> list =
-                                        await Provider.of<Controller>(context,
-                                                listen: false)
-                                            .getProductDetails(
-                                                "0", "", widget.formType);
-                                    print("list------$list");
-                                    if (list.length > 0) {
-                                      Navigator.of(context).push(
-                                        PageRouteBuilder(
-                                            opaque: false, // set to false
-                                            pageBuilder: (_, __, ___) =>
-                                                SaleItemSelection(
-                                                    list: list,
-                                                    remark: remrk.text,
-                                                    formType: widget.formType)
-                                            // OrderForm(widget.areaname,"return"),
-                                            ),
-                                      );
-                                    }
-                                  },
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-
-              // Padding(
-            ],
-          );
-        },
+                  ],
+                ),
+      
+                // Padding(
+              ],
+            );
+          },
+        ),
       ),
     );
   }
