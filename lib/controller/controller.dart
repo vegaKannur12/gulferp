@@ -57,7 +57,7 @@ class Controller extends ChangeNotifier {
   int? qtyinc;
 
 /////////////////////////////////////////////////////////////////
- getItemCategory(BuildContext context) async {
+  getItemCategory(BuildContext context) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -121,7 +121,7 @@ class Controller extends ChangeNotifier {
         'cat_id': cat_id,
         'form_type': form_type
       };
-      
+
       print("body----${body}");
       // isDownloaded = true;
       isProdLoading = true;
@@ -251,6 +251,7 @@ class Controller extends ChangeNotifier {
       return [];
     }
   }
+
   //////////////////////////////////////////////////////////////////////////
   Future addDeletebagItem(
       String itemId,
@@ -299,7 +300,7 @@ class Controller extends ChangeNotifier {
           cartCount = map["cart_count"];
           var res = map["msg"];
           if (res == "Bag deleted Successfully") {
-            getbagData1(context,form_type);
+            getbagData1(context, form_type);
           }
           return res;
           /////////////// insert into local db /////////////////////
@@ -348,7 +349,13 @@ class Controller extends ChangeNotifier {
               bagList.add(item);
             }
           }
-          print("bag list data........${bagList.length}");
+          // qty =
+          //     List.generate(bagList.length, (index) => TextEditingController());
+          print("bag list data........${bagList}");
+          for (int i = 0; i < bagList.length; i++) {
+            print("qty------${productList[i]["qty"]}");
+            qty[i].text = bagList[i]["qty"].toString();
+          }
           isLoading = false;
           notifyListeners();
 
