@@ -13,7 +13,8 @@ class SaleItemSelection extends StatefulWidget {
   List<Map<String, dynamic>> list;
   String? remark;
   String formType;
-  SaleItemSelection({required this.list, this.remark, required this.formType});
+  String? g_type;
+  SaleItemSelection({required this.list, this.remark, required this.formType,this.g_type});
 
   @override
   State<SaleItemSelection> createState() => _SaleItemSelectionState();
@@ -144,6 +145,7 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
               return ItemSelection(
                 list: list,
                 formType: widget.formType,
+                gtype: widget.g_type,
                 // transVal: widget.transVal,
                 // transType: widget.transType,
               );
