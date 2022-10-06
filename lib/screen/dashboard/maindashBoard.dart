@@ -38,8 +38,8 @@ class _MainDashboardState extends State<MainDashboard> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? cid = prefs.getString("cid");
     Provider.of<Controller>(context, listen: false).userDetails();
-    // Provider.of<Controller>(context, listen: false)
-    //     .getStockApprovalList(context);
+    Provider.of<Controller>(context, listen: false)
+        .getvehicleLoadingList(context);
     _refreshController.refreshCompleted();
   }
 
