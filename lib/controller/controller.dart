@@ -12,9 +12,14 @@ class Controller extends ChangeNotifier {
   bool isLoading = false;
   bool filter = false;
   String? routeName;
+  String? dropdwnVal;
+  String? dropdwnString;
+  String? branch_id;
   String? staff_name;
   String? branch_name;
-   String? cusName1;
+  String? branch_prefix;
+  String? user_id;
+  String? cusName1;
   String? cartCount;
   List<bool> errorClicked = [];
   List<String> uniquelist = [];
@@ -86,19 +91,25 @@ class Controller extends ChangeNotifier {
   }
 
   //////////////////////////////////////////////////////////////
-  Future<List<Map<String, dynamic>>> getProductDetails() async {
-    // print("sid.......$branchid........${sid}");
+  Future<List<Map<String, dynamic>>> getProductDetails(
+      String cat_id, String catName, String form_type) async {
+    print("cat_id.......$cat_id---$catName");
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      String? branch_id = prefs.getString("branch_id");
-      String? staff_name = prefs.getString("staff_name");
-      String? branch_name = prefs.getString("branch_name");
-      String? branch_prefix = prefs.getString("branch_prefix");
-      String? user_id = prefs.getString("user_id");
+      branch_id = prefs.getString("branch_id");
+      staff_name = prefs.getString("staff_name");
+      branch_name = prefs.getString("branch_name");
+      branch_prefix = prefs.getString("branch_prefix");
+      user_id = prefs.getString("user_id");
       print("kjn---------------$branch_id----$user_id-");
-      Uri url = Uri.parse("$urlgolabl/products_list.php");
+      Uri url = Uri.parse("$urlgolabl/products_list2.php");
 
-      Map body = {'staff_id': user_id, 'branch_id': branch_id};
+      Map body = {
+        'staff_id': user_id,
+        'branch_id': branch_id,
+        'cat_id': cat_id,
+        'form_type': form_type
+      };
       print("body----${body}");
       // isDownloaded = true;
       isProdLoading = true;
@@ -145,8 +156,11 @@ class Controller extends ChangeNotifier {
       uniquelist.sort();
       print("productDetailsTable--map ${productList}");
       print("productbar--map ${uniquelist}");
-
+      dropdwnString = catName.toString();
+      print("catName-----$dropdwnVal");
+      notifyListeners();
       return productList;
+
       /////////////// insert into local db /////////////////////
     } catch (e) {
       print(e);
@@ -225,11 +239,11 @@ class Controller extends ChangeNotifier {
     }
   }
 
-  setCustomerName(String cusName){
-  cusName1=cusName;
+  setCustomerName(String cusName) {
+    cusName1 = cusName;
 
-  print("cysujkjj------$cusName1");
-  notifyListeners();
+    print("cysujkjj------$cusName1");
+    notifyListeners();
   }
 
   /////////////////////////////////////////////////////////////////////////////

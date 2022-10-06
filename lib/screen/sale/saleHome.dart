@@ -8,7 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SaleHome extends StatefulWidget {
-  const SaleHome({Key? key}) : super(key: key);
+  String formType;
+  SaleHome({required this.formType});
 
   @override
   State<SaleHome> createState() => _SaleHomeState();
@@ -314,19 +315,24 @@ class _SaleHomeState extends State<SaleHome> {
                                         color: P_Settings.buttonColor),
                                   ),
                                   onPressed: () async {
+                                    Provider.of<Controller>(context,
+                                            listen: false)
+                                        .getItemCategory(context);
+
                                     List<Map<String, dynamic>> list =
                                         await Provider.of<Controller>(context,
                                                 listen: false)
-                                            .getProductDetails();
+                                            .getProductDetails(
+                                                "0", "", widget.formType);
                                     if (list.length > 0) {
                                       Navigator.of(context).push(
                                         PageRouteBuilder(
                                             opaque: false, // set to false
                                             pageBuilder: (_, __, ___) =>
                                                 SaleItemSelection(
-                                                  list: list,
-                                                  remark: remrk.text,
-                                                )
+                                                    list: list,
+                                                    remark: remrk.text,
+                                                    formType: widget.formType)
                                             // OrderForm(widget.areaname,"return"),
                                             ),
                                       );
