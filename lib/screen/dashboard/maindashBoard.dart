@@ -5,6 +5,7 @@ import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/screen/loginPage.dart';
 import 'package:gulferp/screen/sale/saleHome.dart';
 import 'package:gulferp/screen/searchPage/searchPage.dart';
+import 'package:gulferp/screen/vehicle%20Loading/vehicleLoading.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,6 +29,8 @@ class _MainDashboardState extends State<MainDashboard> {
     // TODO: implement initState
     super.initState();
     Provider.of<Controller>(context, listen: false).userDetails();
+    Provider.of<Controller>(context, listen: false)
+        .getvehicleLoadingList(context);
   }
 
   void _onRefresh() async {
@@ -35,8 +38,8 @@ class _MainDashboardState extends State<MainDashboard> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? cid = prefs.getString("cid");
     Provider.of<Controller>(context, listen: false).userDetails();
-    // Provider.of<Controller>(context, listen: false)
-    //     .getStockApprovalList(context);
+    Provider.of<Controller>(context, listen: false)
+        .getvehicleLoadingList(context);
     _refreshController.refreshCompleted();
   }
 
@@ -134,7 +137,11 @@ class _MainDashboardState extends State<MainDashboard> {
 
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SaleHome(formType: "1",)),
+                            MaterialPageRoute(
+                                builder: (context) => SaleHome(
+                                      formType: "1",
+                                      type: "Sale",
+                                    )),
                           );
                         },
                         leading: Image.asset("asset/sale.png",
@@ -171,7 +178,9 @@ class _MainDashboardState extends State<MainDashboard> {
 
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SaleHome(formType: "2",)),
+                            MaterialPageRoute(
+                                builder: (context) => SaleHome(
+                                    formType: "2", type: "Sale Return")),
                           );
                         },
                         leading: Image.asset("asset/package.png",
@@ -278,23 +287,30 @@ class _MainDashboardState extends State<MainDashboard> {
                   value.loadingList.length == 0
                       ? Container()
                       : Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            leading: Image.asset(
-                              "asset/loading.png",
-                              height: 30,
-                              // color: Colors.green,
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 30, top: 10),
+                          child: Card(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
                             ),
-                            visualDensity:
-                                VisualDensity(horizontal: 0, vertical: -4),
-                            title: Text(
-                              "Vehicle Loading",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
+                            color: Colors.grey[200],
+                            child: ListTile(
+                              leading: Image.asset(
+                                "asset/loading.png",
+                                height: 30,
+                                // color: Colors.green,
+                              ),
+                              visualDensity:
+                                  VisualDensity(horizontal: 0, vertical: -4),
+                              title: Text(
+                                "Vehicle Loading",
+                                style: GoogleFonts.aBeeZee(
+                                  textStyle:
+                                      Theme.of(context).textTheme.bodyText2,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: P_Settings.loginPagetheme,
+                                ),
                               ),
                             ),
                           ),
@@ -313,25 +329,27 @@ class _MainDashboardState extends State<MainDashboard> {
                             itemCount: value.loadingList.length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.only(
+                                    left: 20, right: 30, top: 10),
                                 child: Card(
                                   child: ListTile(
                                     onTap: () {
                                       Provider.of<Controller>(context,
                                               listen: false)
-                                          .getvehicleLoadingList(
+                                          .getvehicleLoadingInfo(
                                         context,
+                                        value.loadingList[index]["os_id"],
                                       );
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //       builder: (context) =>
-                                      //           StockApprovalPage(
-                                      //             os_id:
-                                      //                 value.stock_approve_list[
-                                      //                     index]["os_id"],
-                                      //           )),
-                                      // );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                VehicleLoading(
+                                                  os_id:
+                                                      value.loadingList[index]
+                                                          ["os_id"],
+                                                )),
+                                      );
                                     },
                                     trailing: Icon(Icons.arrow_forward),
                                     title: Row(
@@ -367,35 +385,33 @@ class _MainDashboardState extends State<MainDashboard> {
                                         ),
                                       ],
                                     ),
-                                    subtitle: Flexible(
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "Branch : ",
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 15,
-                                              // fontWeight: FontWeight.bold,
-                                              color: Colors.grey[700],
-                                            ),
+                                    subtitle: Row(
+                                      children: [
+                                        Text(
+                                          "Branch : ",
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 15,
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.grey[700],
                                           ),
-                                          Text(
-                                            value.loadingList[index]
-                                                    ["from_branch"]
-                                                .toString(),
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 15,
-                                              // fontWeight: FontWeight.bold,
-                                              color: P_Settings.loginPagetheme,
-                                            ),
+                                        ),
+                                        Text(
+                                          value.loadingList[index]
+                                                  ["from_branch"]
+                                              .toString(),
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 15,
+                                            // fontWeight: FontWeight.bold,
+                                            color: P_Settings.loginPagetheme,
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),

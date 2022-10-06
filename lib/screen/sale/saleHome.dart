@@ -9,7 +9,8 @@ import 'package:provider/provider.dart';
 
 class SaleHome extends StatefulWidget {
   String formType;
-  SaleHome({required this.formType});
+  String type;
+  SaleHome({required this.formType,required this.type});
 
   @override
   State<SaleHome> createState() => _SaleHomeState();
@@ -41,6 +42,7 @@ class _SaleHomeState extends State<SaleHome> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
+        title: Text(widget.type),
       ),
       body: SingleChildScrollView(
         child: Consumer<Controller>(

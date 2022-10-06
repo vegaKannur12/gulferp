@@ -4,6 +4,7 @@ import 'package:gulferp/components/globalData.dart';
 import 'package:gulferp/model/itemCategoryModel.dart';
 import 'package:gulferp/model/productListModel.dart';
 import 'package:gulferp/model/routeModel.dart';
+import 'package:gulferp/screen/dashboard/maindashBoard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/network_connectivity.dart';
@@ -42,7 +43,8 @@ class Controller extends ChangeNotifier {
   String urlgolabl = Globaldata.apiglobal;
   List<Map<String, dynamic>> productList = [];
   List<Map<String, dynamic>> customerList = [];
-
+  List<Map<String, dynamic>> vehicle_loading_masterlist = [];
+  List<Map<String, dynamic>> vehicle_loading_detaillist = [];
   List<Map<String, dynamic>> bagList = [];
   List<Map<String, dynamic>> historyList = [];
 
@@ -243,6 +245,65 @@ class Controller extends ChangeNotifier {
     }
   }
   //////////////////////////////////////////////////////////////////////////
+  Future addDeletebagItem(
+      String itemId,
+      String srate1,
+      String qty,
+      String event,
+      String cart_id,
+      BuildContext context,
+      String action,
+      String form_type) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          user_id = prefs.getString("user_id");
+          print("kjn---------------$branch_id----$user_id-");
+          Uri url = Uri.parse("$urlgolabl/save_cart.php");
+          Map body = {
+            'staff_id': user_id,
+            'branch_id': branch_id,
+            'item_id': itemId,
+            'qty': qty,
+            'event': event,
+            'cart_id': cart_id,
+            'form_type': form_type
+          };
+          print("body-----$body");
+          if (action != "delete") {
+            isLoading = true;
+            notifyListeners();
+          }
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          print("save_cart---------------$map");
+          if (action != "delete") {
+            isLoading = false;
+            notifyListeners();
+          }
+          print("delete response-----------------${map}");
+          cartCount = map["cart_count"];
+          var res = map["msg"];
+          if (res == "Bag deleted Successfully") {
+            getbagData1(context,form_type);
+          }
+          return res;
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print(e);
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
 
   /////////////////////////////////////////////////////////////////
   getbagData1(BuildContext context, String form_type) async {
@@ -293,6 +354,7 @@ class Controller extends ChangeNotifier {
       }
     });
   }
+
 ////////////////////////////////////////////////////////////////////
 
   setCustomerName(String cusName) {
@@ -422,11 +484,11 @@ class Controller extends ChangeNotifier {
       if (value == true) {
         try {
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          // branch_id = prefs.getString("branch_id");
+          branch_id = prefs.getString("branch_id");
 
           Uri url = Uri.parse("$urlgolabl/stock_approve_list.php");
           Map body = {
-            // 'branch_id': branch_id,
+            'branch_id': branch_id,
           };
           print("mbody-----$body");
           // isDownloaded = true;
@@ -462,106 +524,133 @@ class Controller extends ChangeNotifier {
     });
   }
 
-  //////////////////// get bag list from api///////////////////
-// getbagData1(BuildContext context) async {
-//     NetConnection.networkConnection(context).then((value) async {
-//       if (value == true) {
-//         try {
-//           SharedPreferences prefs = await SharedPreferences.getInstance();
-//           branch_id = prefs.getString("branch_id");
-//           user_id = prefs.getString("user_id");
-//           print("kjn---------------$branch_id----$user_id-");
-//           Uri url = Uri.parse("$urlgolabl/cart_list.php");
-//           Map body = {
-//             'staff_id': user_id,
-//             'branch_id': branch_id,
-//           };
-//           print("cart body-----$body");
+  //////////////////////////////////////////////////////////////////////
+  getvehicleLoadingInfo(BuildContext context, String osId) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
 
-//           isLoading = true;
-//           notifyListeners();
+          Uri url = Uri.parse("$urlgolabl/stock_approve_info.php");
+          Map body = {
+            'os_id': osId,
+          };
+          print("getvehicleLoadingInfo body-----$body");
+          // isDownloaded = true;
+          isLoading = true;
+          notifyListeners();
 
-//           http.Response response = await http.post(
-//             url,
-//             body: body,
-//           );
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+          var map = jsonDecode(response.body);
+          print("stockinfo----------$map");
 
-//           var map = jsonDecode(response.body);
-//           print("cart response-----------------${map}");
+          isLoading = false;
+          notifyListeners();
+          // ProductListModel productListModel;
+          if (map != null) {
+            vehicle_loading_masterlist.clear();
+            for (var item in map["master"]) {
+              print("haiiiiii----$item");
+              vehicle_loading_masterlist.add(item);
+            }
+            vehicle_loading_detaillist.clear();
+            for (var item in map["detail"]) {
+              print("sd---$item");
+              vehicle_loading_detaillist.add(item);
+            }
+          }
 
-//           ProductListModel productListModel;
-//           bagList.clear();
-//           if (map != null) {
-//             for (var item in map) {
-//               productListModel = ProductListModel.fromJson(item);
-//               bagList.add(item);
-//             }
-//           }
-//           print("bag list data........${bagList.length}");
-//           isLoading = false;
-//           notifyListeners();
+          print("stock_approve_detaillist--$vehicle_loading_detaillist---");
+          notifyListeners();
 
-//           /////////////// insert into local db /////////////////////
-//         } catch (e) {
-//           print("error...$e");
-//           // return null;
-//           return [];
-//         }
-//       }
-//     });
-//   }
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print(e);
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
 
-///////////////////////////////save cart///////////////////////////////
-  Future addDeletebagItem(
-      String itemId,
-      String srate1,
-      String qty,
-      String event,
-      String cart_id,
-      BuildContext context,
-      String action,
-      String form_type) async {
+  ///////////////////////////////////////////////////////////////////
+  saveVehicleLoadingList(BuildContext context, String osId) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           branch_id = prefs.getString("branch_id");
           user_id = prefs.getString("user_id");
-          print("kjn---------------$branch_id----$user_id-");
-          Uri url = Uri.parse("$urlgolabl/save_cart.php");
+
+          Uri url = Uri.parse("$urlgolabl/save_stock_approve.php");
           Map body = {
             'staff_id': user_id,
             'branch_id': branch_id,
-            'item_id': itemId,
-            'qty': qty,
-            'event': event,
-            'cart_id': cart_id,
-            'form_type': form_type
+            'os_id': osId
           };
-          print("body-----$body");
-          if (action != "delete") {
-            isLoading = true;
-            notifyListeners();
-          }
+          print("dmbody-----$body");
+          // isDownloaded = true;
+          isLoading = true;
+          notifyListeners();
 
           http.Response response = await http.post(
             url,
             body: body,
           );
-
           var map = jsonDecode(response.body);
-          // print("delete response-----------------$map");
-          if (action != "delete") {
-            isLoading = false;
-            notifyListeners();
+          print("stock approval save----------------$map");
+
+          isLoading = false;
+          notifyListeners();
+
+          if (map["err_status"] == 0) {
+            return showDialog(
+                context: context,
+                builder: (context) {
+                  Size size = MediaQuery.of(context).size;
+
+                  Future.delayed(Duration(seconds: 2), () {
+                    Navigator.of(context).pop(true);
+                    getvehicleLoadingList(context);
+                    Navigator.of(context).push(
+                      PageRouteBuilder(
+                          opaque: false, // set to false
+                          pageBuilder: (_, __, ___) => MainDashboard()
+                          // OrderForm(widget.areaname,"return"),
+                          ),
+                    );
+                  });
+                  return AlertDialog(
+                      content: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        map["msg"].toString(),
+                        style: TextStyle(color: P_Settings.loginPagetheme),
+                      ),
+                      Icon(
+                        Icons.done,
+                        color: Colors.green,
+                      )
+                    ],
+                  ));
+                });
           }
-          print("delete response-----------------${map}");
-          cartCount = map["cart_count"];
-          var res = map["msg"];
-          if (res == "Bag deleted Successfully") {
-            // getbagData1(context);
-          }
-          return res;
+
+          // stock_approve_list.clear();
+          // if (map != null) {
+          //   for (var item in map) {
+          //     stock_approve_list.add(item);
+          //   }
+          // }
+
+          // print("stock_approve_list---$stock_approve_list");
+          notifyListeners();
+
           /////////////// insert into local db /////////////////////
         } catch (e) {
           print(e);
