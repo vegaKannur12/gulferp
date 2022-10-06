@@ -15,6 +15,8 @@ import 'package:http/http.dart' as http;
 class Controller extends ChangeNotifier {
   bool isLoading = false;
   bool filter = false;
+  List<TextEditingController> discount_prercent = [];
+  List<TextEditingController> discount_amount = [];
   String? routeName;
   String? dropdwnVal;
   String? dropdwnString;
@@ -374,8 +376,10 @@ class Controller extends ChangeNotifier {
               bagList.add(item);
             }
           }
-          // qty =
-          //     List.generate(bagList.length, (index) => TextEditingController());
+          discount_prercent =
+              List.generate(bagList.length, (index) => TextEditingController());
+          discount_amount =
+              List.generate(bagList.length, (index) => TextEditingController());
           print("bag list data........${bagList}");
           for (int i = 0; i < bagList.length; i++) {
             print("qty------${productList[i]["qty"]}");

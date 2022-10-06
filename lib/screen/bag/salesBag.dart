@@ -6,6 +6,7 @@ import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/components/globalData.dart';
 import 'package:gulferp/components/modalBottomsheet.dart';
 import 'package:gulferp/controller/controller.dart';
+import 'package:gulferp/screen/sale/saleDetailsBottomSheet.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +25,7 @@ class BagPage extends StatefulWidget {
 }
 
 class _BagPageState extends State<BagPage> {
+  SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
   String imgGlobal = Globaldata.imageurl;
   Bottomsheet showsheet = Bottomsheet();
   String? selected;
@@ -102,16 +104,26 @@ class _BagPageState extends State<BagPage> {
                       itemCount: value.bagList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return listItemFunction(
-                            value.bagList[index]["item_id"],
-                            value.bagList[index]["item_name"],
-                            double.parse(value.bagList[index]["s_rate_fix"]),
-                            int.parse(value.bagList[index]["qty"]),
-                            size,
-                            index,
-                            value.bagList[index]["batch_code"],
-                            double.parse(value.bagList[index]["stock"]),
-                            value.bagList[index]["cart_id"],
-                            value.bagList[index]["item_img"]);
+                          value.bagList[index]["item_id"],
+                          value.bagList[index]["item_name"],
+                          double.parse(value.bagList[index]["s_rate_fix"]),
+                          int.parse(value.bagList[index]["qty"]),
+                          size,
+                          index,
+                          value.bagList[index]["batch_code"],
+                          double.parse(value.bagList[index]["stock"]),
+                          value.bagList[index]["cart_id"],
+                          value.bagList[index]["item_img"],
+                          double.parse(value.bagList[index]["disc_amt"]),
+                          double.parse(value.bagList[index]["tax"]),
+                          double.parse(value.bagList[index]["tax"]),
+                          double.parse(value.bagList[index]["cess_per"]),
+                          double.parse(value.bagList[index]["cess_amt"]),
+                          double.parse(value.bagList[index]["gross"]),
+                          double.parse(value.bagList[index]["net_total"]),
+                          double.parse(value.bagList[index]["disc_per"]),
+                          double.parse(value.bagList[index]["disc_amt"]),
+                        );
                       },
                     ),
                   ),
@@ -248,7 +260,14 @@ class _BagPageState extends State<BagPage> {
       String? batch_code,
       double stock,
       String cart_id,
-      String img) {
+      String img,
+      double discount,
+      double tax_per,
+      double tax_amt,
+      double cess_per,
+      double cess_amt,
+      double gross,
+      double net_amt,double disc_per,double disc_amt) {
     print("qty number-----$itemName----------$srate1--------$qty");
     // _controller.text = qty.toString();
 
@@ -272,7 +291,7 @@ class _BagPageState extends State<BagPage> {
                       extentOffset: value.qty[index].value.text.length);
                   print("quantity in cart..........$qty");
                   Provider.of<Controller>(context, listen: false).setQty(qty);
-                  showsheet.showSheet(
+                  saleDetais.showSheet(
                       context,
                       index,
                       item_id,
@@ -283,7 +302,23 @@ class _BagPageState extends State<BagPage> {
                       srate1,
                       stock,
                       qty.toString(),
-                      widget.form_type);
+                      widget.form_type,
+                      tax_per,
+                      tax_amt,
+                      cess_per,
+                      cess_amt,disc_per,disc_amt);
+                  // showsheet.showSheet(
+                  //     context,
+                  //     index,
+                  //     item_id,
+                  //     cart_id,
+                  //     batch_code!,
+                  //     itemName,
+                  //     "",
+                  //     srate1,
+                  //     stock,
+                  //     qty.toString(),
+                  //     widget.form_type);
                 },
                 title: Column(
                   children: [

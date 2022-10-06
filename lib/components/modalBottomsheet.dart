@@ -9,17 +9,18 @@ import 'package:provider/provider.dart';
 
 class Bottomsheet {
   showSheet(
-      BuildContext context,
-      int index,
-      String itemId,
-      String catId,
-      String batchocde,
-      String itemName,
-      String itemImg,
-      double srate1,
-      double stock,
-      String qtyf,
-      String formType) {
+    BuildContext context,
+    int index,
+    String itemId,
+    String catId,
+    String batchocde,
+    String itemName,
+    String itemImg,
+    double srate1,
+    double stock,
+    String qtyf,
+    String formType,
+  ) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
     CustomSnackbar snackbar = CustomSnackbar();
@@ -129,12 +130,46 @@ class Bottomsheet {
                       ),
                       // Divider(indent: 50, endIndent: 50, thickness: 1.4),
                       Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 10),
-                        child: ListTile(
-                          title: Row(
-                            children: [
-                              Text(
-                                "Qty ",
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Qty ",
+                              style: GoogleFonts.aBeeZee(
+                                textStyle:
+                                    Theme.of(context).textTheme.bodyText2,
+                                fontSize: 17,
+                                // fontWeight: FontWeight.bold,
+                                color: P_Settings.loginPagetheme,
+                              ),
+                            ),
+                            Spacer(),
+                            Container(
+                              width: size.width * 0.2,
+                              child: TextField(
+                                autofocus: true,
+                                onTap: () {
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .addDeletebagItem(
+                                          itemId,
+                                          srate1.toString(),
+                                          value.qty[index].text,
+                                          "0",
+                                          "0",
+                                          context,
+                                          "save",
+                                          formType);
+
+                                  print(
+                                      "quantity......${value.qty[index].text}");
+                                  value.qty[index].selection = TextSelection(
+                                      baseOffset: 0,
+                                      extentOffset:
+                                          value.qty[index].value.text.length);
+                                },
+
+                                // autofocus: true,
                                 style: GoogleFonts.aBeeZee(
                                   textStyle:
                                       Theme.of(context).textTheme.bodyText2,
@@ -142,139 +177,100 @@ class Bottomsheet {
                                   // fontWeight: FontWeight.bold,
                                   color: P_Settings.loginPagetheme,
                                 ),
-                              ),
-                              Spacer(),
-                              Container(
-                                width: size.width * 0.2,
-                                child: TextField(
-                                  autofocus: true,
-                                  onTap: () {
-                                    Provider.of<Controller>(context,
-                                            listen: false)
-                                        .addDeletebagItem(
-                                            itemId,
-                                            srate1.toString(),
-                                            value.qty[index].text,
-                                            "0",
-                                            "0",
-                                            context,
-                                            "save",
-                                            formType);
-
-                                    print(
-                                        "quantity......${value.qty[index].text}");
-                                    value.qty[index].selection = TextSelection(
-                                        baseOffset: 0,
-                                        extentOffset:
-                                            value.qty[index].value.text.length);
-                                  },
-
-                                  // autofocus: true,
-                                  style: GoogleFonts.aBeeZee(
-                                    textStyle:
-                                        Theme.of(context).textTheme.bodyText2,
-                                    fontSize: 17,
-                                    // fontWeight: FontWeight.bold,
-                                    color: P_Settings.loginPagetheme,
-                                  ),
-                                  decoration: InputDecoration(
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.all(0),
-                                    //border: InputBorder.none
-                                  ),
-
-                                  // maxLines: 1,
-                                  // minLines: 1,
-                                  keyboardType: TextInputType.number,
-                                  onSubmitted: (values) {
-                                    Provider.of<Controller>(context,
-                                            listen: false)
-                                        .addDeletebagItem(
-                                            itemId,
-                                            srate1.toString(),
-                                            value.qty[index].text,
-                                            "0",
-                                            "1",
-                                            context,
-                                            "save",
-                                            formType);
-                                    print("values----$values");
-                                    double valueqty = 0.0;
-                                    // value.discount_amount[index].text=;
-                                    if (values.isNotEmpty) {
-                                      print("emtyyyy");
-                                      valueqty = double.parse(values);
-                                    } else {
-                                      valueqty = 0.00;
-                                    }
-                                  },
-                                  textAlign: TextAlign.right,
-                                  controller: value.qty[index],
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  contentPadding: EdgeInsets.all(0),
+                                  //border: InputBorder.none
                                 ),
+
+                                // maxLines: 1,
+                                // minLines: 1,
+                                keyboardType: TextInputType.number,
+                                onSubmitted: (values) {
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .addDeletebagItem(
+                                          itemId,
+                                          srate1.toString(),
+                                          value.qty[index].text,
+                                          "0",
+                                          "1",
+                                          context,
+                                          "save",
+                                          formType);
+                                  print("values----$values");
+                                  double valueqty = 0.0;
+                                  // value.discount_amount[index].text=;
+                                  if (values.isNotEmpty) {
+                                    print("emtyyyy");
+                                    valueqty = double.parse(values);
+                                  } else {
+                                    valueqty = 0.00;
+                                  }
+                                },
+                                textAlign: TextAlign.right,
+                                controller: value.qty[index],
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 10),
-                        child: ListTile(
-                          title: Row(
-                            children: [
-                              Text(
-                                "SRate 1",
-                                style: GoogleFonts.aBeeZee(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyText2,
-                                  fontSize: 17,
-                                  // fontWeight: FontWeight.bold,
-                                  color: P_Settings.loginPagetheme,
-                                ),
-                              ),
-                              Spacer(),
-                              Text(
-                                '\u{20B9}${srate1.toString()}',
-                                style: GoogleFonts.aBeeZee(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyText2,
-                                  fontSize: 17,
-                                  // fontWeight: FontWeight.bold,
-                                  color: P_Settings.loginPagetheme,
-                                ),
-                              )
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
 
                       Padding(
-                        padding: EdgeInsets.only(left: 10.0, right: 10),
-                        child: ListTile(
-                          title: Row(
-                            children: [
-                              Text(
-                                "Stock",
-                                style: GoogleFonts.aBeeZee(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyText2,
-                                  fontSize: 17,
-                                  // fontWeight: FontWeight.bold,
-                                  color: P_Settings.loginPagetheme,
-                                ),
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            Text(
+                              "SRate",
+                              style: GoogleFonts.aBeeZee(
+                                textStyle:
+                                    Theme.of(context).textTheme.bodyText2,
+                                fontSize: 17,
+                                // fontWeight: FontWeight.bold,
+                                color: P_Settings.loginPagetheme,
                               ),
-                              Spacer(),
-                              Text(
-                                '${stock.toString()}',
-                                style: GoogleFonts.aBeeZee(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyText2,
-                                  fontSize: 17,
-                                  // fontWeight: FontWeight.bold,
-                                  color: P_Settings.loginPagetheme,
-                                ),
-                              )
-                            ],
-                          ),
+                            ),
+                            Spacer(),
+                            Text(
+                              '\u{20B9}${srate1.toString()}',
+                              style: GoogleFonts.aBeeZee(
+                                textStyle:
+                                    Theme.of(context).textTheme.bodyText2,
+                                fontSize: 17,
+                                // fontWeight: FontWeight.bold,
+                                color: P_Settings.loginPagetheme,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            Text(
+                              "Stock",
+                              style: GoogleFonts.aBeeZee(
+                                textStyle:
+                                    Theme.of(context).textTheme.bodyText2,
+                                fontSize: 17,
+                                // fontWeight: FontWeight.bold,
+                                color: P_Settings.loginPagetheme,
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              '${stock.toString()}',
+                              style: GoogleFonts.aBeeZee(
+                                textStyle:
+                                    Theme.of(context).textTheme.bodyText2,
+                                fontSize: 17,
+                                // fontWeight: FontWeight.bold,
+                                color: P_Settings.loginPagetheme,
+                              ),
+                            )
+                          ],
                         ),
                       ),
                       // value.qtyerror
@@ -305,11 +301,10 @@ class Bottomsheet {
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold)),
                                 onPressed: () {
-                                  
                                   // value.setApplyClicked(true, index);
                                   double qty =
                                       double.parse(value.qty[index].text);
-                                      // Provider.of<Controller>(context, listen: false).rawCalculation(srate1, qty, 0, 0, tax_per, cess_per, method, state_status, index, onSub, disCalc)
+                                  // Provider.of<Controller>(context, listen: false).rawCalculation(srate1, qty, 0, 0, tax_per, cess_per, method, state_status, index, onSub, disCalc)
                                   // if (transval == -1) {
                                   //   if (stock < qty) {
                                   //     print("error");

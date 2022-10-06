@@ -276,7 +276,9 @@ class _ItemSelectionState extends State<ItemSelection> {
                               double.parse(item.sRate1!),
                               double.parse(item.stock!),
                               value.qty[index].text,
-                              widget.formType);
+                              widget.formType
+                              
+                              );
                         },
                         icon: Icon(
                           Icons.add,
