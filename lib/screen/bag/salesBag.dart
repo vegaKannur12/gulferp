@@ -14,10 +14,12 @@ class BagPage extends StatefulWidget {
   String? branchId;
   String? type;
   String form_type;
+  String? gtype;
   BagPage({
     this.branchId,
     required this.type,
     required this.form_type,
+    this.gtype
   });
 
   @override
@@ -107,7 +109,7 @@ class _BagPageState extends State<BagPage> {
                           value.bagList[index]["item_id"],
                           value.bagList[index]["item_name"],
                           double.parse(value.bagList[index]["s_rate_fix"]),
-                          int.parse(value.bagList[index]["qty"]),
+                          double.parse(value.bagList[index]["qty"]),
                           size,
                           index,
                           value.bagList[index]["batch_code"],
@@ -115,7 +117,6 @@ class _BagPageState extends State<BagPage> {
                           value.bagList[index]["cart_id"],
                           value.bagList[index]["item_img"],
                           double.parse(value.bagList[index]["disc_amt"]),
-                          double.parse(value.bagList[index]["tax"]),
                           double.parse(value.bagList[index]["tax"]),
                           double.parse(value.bagList[index]["cess_per"]),
                           double.parse(value.bagList[index]["cess_amt"]),
@@ -254,7 +255,7 @@ class _BagPageState extends State<BagPage> {
       String item_id,
       String itemName,
       double srate1,
-      int qty,
+      double qty,
       Size size,
       int index,
       String? batch_code,
@@ -263,11 +264,12 @@ class _BagPageState extends State<BagPage> {
       String img,
       double discount,
       double tax_per,
-      double tax_amt,
       double cess_per,
       double cess_amt,
       double gross,
-      double net_amt,double disc_per,double disc_amt) {
+      double net_amt,
+      double disc_per,
+      double disc_amt) {
     print("qty number-----$itemName----------$srate1--------$qty");
     // _controller.text = qty.toString();
 
@@ -286,9 +288,20 @@ class _BagPageState extends State<BagPage> {
               ),
               child: ListTile(
                 onTap: () {
+                  double gross = srate1 * qty;
+                  print("gross calc===$gross");
+                  value.qty[index].text = qty.toStringAsFixed(2);
+
+                  value.discount_prercent[index].text =
+                      disc_per.toStringAsFixed(4);
+                  value.discount_amount[index].text =
+                      disc_amt.toStringAsFixed(2);
+                  Provider.of<Controller>(context, listen: false).fromDb = true;
                   value.qty[index].selection = TextSelection(
                       baseOffset: 0,
                       extentOffset: value.qty[index].value.text.length);
+                  Provider.of<Controller>(context, listen: false)
+                      .rawCalculation(srate1,qty,disc_per,disc_amt,tax_per,cess_per,"0",int.parse(widget.gtype!),index,false,"");
                   print("quantity in cart..........$qty");
                   Provider.of<Controller>(context, listen: false).setQty(qty);
                   saleDetais.showSheet(
@@ -304,9 +317,11 @@ class _BagPageState extends State<BagPage> {
                       qty.toString(),
                       widget.form_type,
                       tax_per,
-                      tax_amt,
                       cess_per,
-                      cess_amt,disc_per,disc_amt);
+                      cess_amt,
+                      disc_per,
+                      disc_amt,
+                      gross);
                   // showsheet.showSheet(
                   //     context,
                   //     index,

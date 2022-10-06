@@ -19,10 +19,12 @@ class SaleDetailsBottomSheet {
     String qtyf,
     String formType,
     double tax_per,
-    double tax_amt,
+    
     double cess_per,
     double cess_amt,
-    double disc_per,double disc_amt
+    double disc_per,
+    double disc_amt,
+    double gross,
   ) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
@@ -37,7 +39,7 @@ class SaleDetailsBottomSheet {
         return Consumer<Controller>(
           builder: (context, value, child) {
             // value.qty[index].text=qty.toString();
-
+            //  print("valusghjh-----${value.fromDb}");
             return SingleChildScrollView(
               child: Center(
                 child: Padding(
@@ -152,33 +154,6 @@ class SaleDetailsBottomSheet {
                               child: TextField(
                                 // autofocus: true,
                                 onTap: () {
-                                  print("values----$values");
-                                  double valueqty = 0.0;
-                                  // value.discount_amount[index].text=;
-                                  if (values.isNotEmpty) {
-                                    print("emtyyyy");
-                                    valueqty = double.parse(values);
-                                  } else {
-                                    valueqty = 0.00;
-                                  }
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .fromDb = false;
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .rawCalculation(
-                                          srate1,
-                                          valueqty,
-                                          dis_per,
-                                          dis_amt,
-                                          tax_per,
-                                          0.0,
-                                          value.settingsList1[1]['set_value']
-                                              .toString(),
-                                          0,
-                                          index,
-                                          true,
-                                          "qty");
                                   value.qty[index].selection = TextSelection(
                                       baseOffset: 0,
                                       extentOffset:
@@ -203,19 +178,44 @@ class SaleDetailsBottomSheet {
                                 // minLines: 1,
                                 keyboardType: TextInputType.number,
                                 onSubmitted: (values) {
+                                  double valueqty = 0.0;
+                                  // value.discount_amount[index].text=;
+                                  if (values.isNotEmpty) {
+                                    print("emtyyyy");
+                                    valueqty = double.parse(values);
+                                  } else {
+                                    valueqty = 0.00;
+                                  }
                                   Provider.of<Controller>(context,
                                           listen: false)
-                                      .addDeletebagItem(
-                                          itemId,
-                                          srate1.toString(),
-                                          value.qty[index].text,
+                                      .fromDb = false;
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .rawCalculation(
+                                          srate1,
+                                          valueqty,
+                                          disc_per,
+                                          disc_amt,
+                                          tax_per,
+                                          0.0,
                                           "0",
-                                          "1",
-                                          context,
-                                          "save",
-                                          formType);
+                                          0,
+                                          index,
+                                          true,
+                                          "qty");
+                                  // Provider.of<Controller>(context,
+                                  //         listen: false)
+                                  //     .addDeletebagItem(
+                                  //         itemId,
+                                  //         srate1.toString(),
+                                  //         value.qty[index].text,
+                                  //         "0",
+                                  //         "1",
+                                  //         context,
+                                  //         "save",
+                                  //         formType);
                                   print("values----$values");
-                                  double valueqty = 0.0;
+                                  // double valueqty = 0.0;
                                   // value.discount_amount[index].text=;
                                   if (values.isNotEmpty) {
                                     print("emtyyyy");
@@ -316,7 +316,9 @@ class SaleDetailsBottomSheet {
                             ),
                             Spacer(),
                             Text(
-                              "\u{20B9}${value.gross.toStringAsFixed(2)}",
+                              value.fromDb!
+                                  ? "\u{20B9}${gross.toStringAsFixed(2)}"
+                                  : "\u{20B9}${value.gross.toStringAsFixed(2)}",
                               style: GoogleFonts.aBeeZee(
                                 textStyle:
                                     Theme.of(context).textTheme.bodyText2,
@@ -382,9 +384,9 @@ class SaleDetailsBottomSheet {
                                   } else {
                                     valuediscper = 0.00;
                                   }
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .fromDb = false;
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .fromDb = false;
 
                                   Provider.of<Controller>(context,
                                           listen: false)
@@ -466,9 +468,9 @@ class SaleDetailsBottomSheet {
                                   } else {
                                     valuediscamt = 0.0000;
                                   }
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .fromDb = false;
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .fromDb = false;
                                   print(
                                       "discount amount..........$valuediscamt");
                                   Provider.of<Controller>(context,
@@ -537,7 +539,7 @@ class SaleDetailsBottomSheet {
                               ),
                             ),
                             Spacer(),
-                            tax_amt < 0.00
+                           value.tax < 0.00
                                 ? Text(
                                     "\u{20B9}0.00",
                                   )
@@ -613,6 +615,37 @@ class SaleDetailsBottomSheet {
                                   )
                           ],
                         ),
+                      ),
+                      Divider(
+                        thickness: 1,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Row(children: [
+                          Text(
+                            "Net Amount",
+                            style: TextStyle(
+                                color:  Colors.red, fontSize: 15),
+                          ),
+                          Spacer(),
+                          // net_amt < 0.00
+                          //     ? Text("\u{20B9}0.00",
+                          //         style: TextStyle(
+                          //             color: Colors.red,
+                          //             fontWeight: FontWeight.bold,
+                          //             fontSize: 15))
+                          //     : 
+                              Text(
+                                  // value.fromDb!
+                                      // ? "\u{20B9}${net_amt.toStringAsFixed(2)}"
+                                      // : 
+                                      "\u{20B9}${value.net_amt.toStringAsFixed(2)}",
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                        ]),
                       ),
 
                       Row(

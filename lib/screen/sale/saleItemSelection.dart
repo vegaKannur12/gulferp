@@ -34,7 +34,7 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
     list = await Provider.of<Controller>(context, listen: false)
         .getProductDetails("0", "", widget.formType);
 
-    print("listttt----${list}");
+    print("g_type----${widget.g_type}");
   }
 
   @override
@@ -86,6 +86,7 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
                               branchId: "25",
                               type: "Sales Cart",
                               form_type: widget.formType,
+                              gtype: widget.g_type,
                             );
                           }));
                   // Navigator.push(

@@ -47,6 +47,7 @@ class _CustomerSelectionState extends State<CustomerSelection> {
             outstanding: item["Outstanding"],
             phone: item["Phone"],
             route: item["Route"],
+            gtype: item["g_type"]
           ),
         )
         .toList();
@@ -296,6 +297,7 @@ class _AZItem extends ISuspensionBean {
   String? email;
   String? route;
   String? outstanding;
+  String? gtype;
 
   _AZItem(
       {this.tag,
@@ -305,7 +307,7 @@ class _AZItem extends ISuspensionBean {
       this.address,
       this.email,
       this.route,
-      this.outstanding});
+      this.outstanding,this.gtype});
 
   @override
   String getSuspensionTag() => tag!;

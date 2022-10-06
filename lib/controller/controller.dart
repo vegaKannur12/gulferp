@@ -14,6 +14,8 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   bool isLoading = false;
+  bool? fromDb;
+
   bool filter = false;
   List<TextEditingController> discount_prercent = [];
   List<TextEditingController> discount_amount = [];
@@ -58,7 +60,7 @@ class Controller extends ChangeNotifier {
   // List<TransactionTypeModel> transactionist = [];
 
   List<ItemCategoryModel> itemCategoryList = [];
-  int? qtyinc;
+  double? qtyinc;
   bool flag = false;
   double taxable_rate = 0.0;
   bool boolCustomerSet = false;
@@ -408,7 +410,7 @@ class Controller extends ChangeNotifier {
   }
 
   ////////////////
-  setQty(int qty) {
+  setQty(double qty) {
     qtyinc = qty;
     print("qty.......$qty");
     // notifyListeners();
@@ -711,7 +713,7 @@ class Controller extends ChangeNotifier {
     print("gtyy----$fromDate----$todate");
     notifyListeners();
   }
-
+/////////////////////////////////////////////////
   String rawCalculation(
       double rate,
       double qty,
@@ -788,6 +790,7 @@ class Controller extends ChangeNotifier {
       print("inside nothingg.....");
       disc_per = (disc_amount / taxable_rate) * 100;
       disc_amt = disc_amount;
+     
       print("rsr....$disc_per....$disc_amt..");
     }
 
