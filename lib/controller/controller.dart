@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/components/globalData.dart';
 import 'package:gulferp/model/itemCategoryModel.dart';
+import 'package:gulferp/model/productListModel.dart';
 import 'package:gulferp/model/routeModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -66,10 +67,9 @@ class Controller extends ChangeNotifier {
           http.Response response = await http.post(
             url,
           );
-
-          // print("body ${body}");
           ItemCategoryModel itemCategory;
           List map = jsonDecode(response.body);
+          print("dropdwn------$map");
           productList.clear();
           productbar.clear();
           itemCategoryList.clear();
@@ -78,9 +78,16 @@ class Controller extends ChangeNotifier {
             itemCategoryList.add(itemCategory);
           }
 
+          dropdwnVal = itemCategoryList[0].catName.toString();
+          notifyListeners();
+
+          // notifyListeners();
+
           isLoading = false;
           notifyListeners();
-          return itemCategoryList;
+          print("sdhjz-----$dropdwnVal");
+
+          return dropdwnVal;
           /////////////// insert into local db /////////////////////
         } catch (e) {
           print(e);
@@ -239,6 +246,117 @@ class Controller extends ChangeNotifier {
       return [];
     }
   }
+
+  //////////////////////////////////////////////////////////////////////////
+  Future addDeletebagItem(
+      String itemId,
+      String srate1,
+      String qty,
+      String event,
+      String cart_id,
+      BuildContext context,
+      String action,
+      String form_type) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          user_id = prefs.getString("user_id");
+          print("kjn---------------$branch_id----$user_id-");
+          Uri url = Uri.parse("$urlgolabl/save_cart.php");
+          Map body = {
+            'staff_id': user_id,
+            'branch_id': branch_id,
+            'item_id': itemId,
+            'qty': qty,
+            'event': event,
+            'cart_id': cart_id,
+            'form_type': form_type
+          };
+          print("body-----$body");
+          if (action != "delete") {
+            isLoading = true;
+            notifyListeners();
+          }
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          // print("delete response-----------------$map");
+          if (action != "delete") {
+            isLoading = false;
+            notifyListeners();
+          }
+          print("delete response-----------------${map}");
+          cartCount = map["cart_count"];
+          var res = map["msg"];
+          if (res == "Bag deleted Successfully") {
+            getbagData1(context);
+          }
+          return res;
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print(e);
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+
+  /////////////////////////////////////////////////////////////////
+  getbagData1(BuildContext context) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          user_id = prefs.getString("user_id");
+          print("kjn---------------$branch_id----$user_id-");
+          Uri url = Uri.parse("$urlgolabl/cart_list.php");
+          Map body = {
+            'staff_id': user_id,
+            'branch_id': branch_id,
+          };
+          print("cart body-----$body");
+
+          isLoading = true;
+          notifyListeners();
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          print("cart response-----------------${map}");
+
+          ProductListModel productListModel;
+          bagList.clear();
+          if (map != null) {
+            for (var item in map) {
+              productListModel = ProductListModel.fromJson(item);
+              bagList.add(item);
+            }
+          }
+          print("bag list data........${bagList.length}");
+          isLoading = false;
+          notifyListeners();
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print("error...$e");
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+////////////////////////////////////////////////////////////////////
 
   setCustomerName(String cusName) {
     cusName1 = cusName;

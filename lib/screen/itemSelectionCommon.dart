@@ -56,8 +56,7 @@ class _ItemSelectionState extends State<ItemSelection> {
             itemName: item["item_name"].toUpperCase(),
             batchCode: item["batch_code"],
             itemImg: item["item_img"],
-            sRate1: item["s_rate_1"],
-            sRate2: item["s_rate_2"],
+            sRate1: item["s_rate_fix"],
             stock: item["stock"],
           ),
         )
@@ -265,19 +264,17 @@ class _ItemSelectionState extends State<ItemSelection> {
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);
-                          // showsheet.showSheet(
-                          //     context,
-                          //     index,
-                          //     item.itemId!,
-                          //     item.catId!,
-                          //     item.batchCode!,
-                          //     item.itemName!,
-                          //     item.itemImg!,
-                          //     double.parse(item.sRate1!),
-                          //     double.parse(item.sRate2!),
-                          //     double.parse(item.stock!),
-                          //     widget.transVal,
-                          //     value.qty[index].text);
+                          showsheet.showSheet(
+                              context,
+                              index,
+                              item.itemId!,
+                              item.catId!,
+                              item.batchCode!,
+                              item.itemName!,
+                              item.itemImg!,
+                              double.parse(item.sRate1!),
+                              double.parse(item.stock!),
+                              value.qty[index].text,widget.formType);
                         },
                         icon: Icon(
                           Icons.add,
@@ -327,26 +324,23 @@ class _ItemSelectionState extends State<ItemSelection> {
                   children: [
                     Container(
                         width: size.width * 0.2,
-                        child: Text("SR1:${item.sRate1}")),
-                    Container(
-                        width: size.width * 0.2,
-                        child: Text("SR2:${item.sRate1}")),
+                        child: Text("SRate:${item.sRate1}")),
                     Container(
                         width: size.width * 0.2,
                         child: Text("Stock:${item.stock}")),
-                    GestureDetector(
-                      onTap: () {
-                        // Provider.of<Controller>(context, listen: false)
-                        //     .getinfoList(context, item.itemId!);
-                        // infoshowsheet.showInfoSheet(
-                        //   context,
-                        // );
-                      },
-                      child: Icon(
-                        Icons.info,
-                        size: 19,
-                      ),
-                    )
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     // Provider.of<Controller>(context, listen: false)
+                    //     //     .getinfoList(context, item.itemId!);
+                    //     // infoshowsheet.showInfoSheet(
+                    //     //   context,
+                    //     // );
+                    //   },
+                    //   child: Icon(
+                    //     Icons.info,
+                    //     size: 19,
+                    //   ),
+                    // )
                   ],
                 ),
                 // onTap: () {
@@ -399,7 +393,6 @@ class _AZItem extends ISuspensionBean {
   String? batchCode;
   String? itemImg;
   String? sRate1;
-  String? sRate2;
   String? stock;
 
   _AZItem({
@@ -410,7 +403,6 @@ class _AZItem extends ISuspensionBean {
     this.batchCode,
     this.itemImg,
     this.sRate1,
-    this.sRate2,
     this.stock,
   });
 

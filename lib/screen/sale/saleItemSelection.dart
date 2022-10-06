@@ -26,18 +26,20 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    itemList() async {
-      list = await Provider.of<Controller>(context, listen: false)
-          .getProductDetails("0","",widget.formType);
+    itemList();
+  }
 
-      print("listttt----$list");
-    }
+  itemList() async {
+    list = await Provider.of<Controller>(context, listen: false)
+        .getProductDetails("0", "", widget.formType);
+
+    print("listttt----${list}");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-            appBar: AppBar(
+      appBar: AppBar(
         // title: Text(
         //   // widget.transType.toString(),
         //   style: GoogleFonts.aBeeZee(
