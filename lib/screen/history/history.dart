@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 
 class HistoryPage extends StatefulWidget {
   String form_type;
-HistoryPage({required this.form_type});
+  HistoryPage({required this.form_type});
 
   @override
   State<HistoryPage> createState() => _HistoryPageState();
@@ -221,12 +221,13 @@ class _HistoryPageState extends State<HistoryPage> {
                     : value.historyList.length == 0
                         ? Center(
                             child: Container(
-                                height: size.height * 0.2,
-                                child: Lottie.asset(
-                                  'asset/historyjson.json',
-                                  // height: size.height*0.3,
-                                  // width: size.height*0.3,
-                                )),
+                                height: size.height * 0.7,
+                                alignment: Alignment.center,
+                                child: Lottie.asset('asset/historyjson.json',
+                                    height: 200
+                                    // height: size.height*0.3,
+                                    // width: size.height*0.3,
+                                    )),
                           )
                         : Container(
                             height: size.height * 0.7,
@@ -302,7 +303,13 @@ class _HistoryPageState extends State<HistoryPage> {
                                             color: P_Settings.delete,
                                           ),
                                           onPressed: () {
-                                            popup.buildPopupDialog(context, size, splitted, index, todaydate!,widget.form_type);
+                                            popup.buildPopupDialog(
+                                                context,
+                                                size,
+                                                splitted,
+                                                index,
+                                                todaydate!,
+                                                widget.form_type);
                                             // showDialog(
                                             //   context: context,
                                             //   builder: (ctx) => AlertDialog(
@@ -520,7 +527,7 @@ class _HistoryPageState extends State<HistoryPage> {
   //                 splitted = selectedtransaction!.split(',');
 
   //                 print("splitted-----${splitted}");
-               
+
   //                 // String tf;
 
   //                 // if (value.fromDate == null) {
