@@ -351,7 +351,7 @@ class _SaleHomeState extends State<SaleHome> {
                                                   listen: false)
                                               .getProductDetails(
                                                   "0", "", widget.formType);
-                                      print("list------$list");
+                                      print("value.gtype------${value.gtype1}");
                                       if (list.length > 0) {
                                         Navigator.of(context).push(
                                           PageRouteBuilder(
@@ -361,7 +361,7 @@ class _SaleHomeState extends State<SaleHome> {
                                                       list: list,
                                                       remark: remrk.text,
                                                       formType: widget.formType,
-                                                      g_type:value.gtype!,
+                                                      g_type: value.gtype1!,
                                                       )
                                               // OrderForm(widget.areaname,"return"),
                                               ),
