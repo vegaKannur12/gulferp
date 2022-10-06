@@ -23,7 +23,8 @@ class Bottomsheet {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
     CustomSnackbar snackbar = CustomSnackbar();
-    print("bottom sheet value----$itemName----------$srate1----$qtyf-----");
+    print(
+        "bottom sheet value--$index--$itemName----------$srate1----$qtyf-----");
     // CommonPopup salepopup = CommonPopup();
     return showModalBottomSheet<void>(
       isScrollControlled: true,
@@ -143,7 +144,6 @@ class Bottomsheet {
                                 ),
                               ),
                               Spacer(),
-                              
                               Container(
                                 width: size.width * 0.2,
                                 child: TextField(
@@ -162,7 +162,7 @@ class Bottomsheet {
                                             formType);
 
                                     print(
-                                        "quantity......${value.qty[index].value.text}");
+                                        "quantity......${value.qty[index].text}");
                                     value.qty[index].selection = TextSelection(
                                         baseOffset: 0,
                                         extentOffset:
@@ -194,7 +194,7 @@ class Bottomsheet {
                                             srate1.toString(),
                                             value.qty[index].text,
                                             "0",
-                                            "0",
+                                            "1",
                                             context,
                                             "save",
                                             formType);
@@ -305,9 +305,11 @@ class Bottomsheet {
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold)),
                                 onPressed: () {
+                                  
                                   // value.setApplyClicked(true, index);
                                   double qty =
                                       double.parse(value.qty[index].text);
+                                      // Provider.of<Controller>(context, listen: false).rawCalculation(srate1, qty, 0, 0, tax_per, cess_per, method, state_status, index, onSub, disCalc)
                                   // if (transval == -1) {
                                   //   if (stock < qty) {
                                   //     print("error");

@@ -58,7 +58,7 @@ class _BagPageState extends State<BagPage> {
         leading: IconButton(
           onPressed: () {
             Provider.of<Controller>(context, listen: false)
-                .getProductDetails("0", "",widget.form_type);
+                .getProductDetails("0", "", widget.form_type);
 
             Navigator.pop(context);
           },
@@ -116,36 +116,119 @@ class _BagPageState extends State<BagPage> {
                     ),
                   ),
                   Container(
-                      height: size.height * 0.05,
-                      width: size.width * 0.5,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: P_Settings.loginPagetheme,
-                            shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(2), // <-- Radius
+                    height: size.height * 0.07,
+                    color: Colors.yellow,
+                    child: Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            // print(
+                            //     "............................${value.orderTotal2}");
+                            // sheet.sheet(
+                            //     context,
+                            //     value.orderTotal2[1].toString(),
+                            //     value.orderTotal2[0].toString(),
+                            //     value.orderTotal2[3].toString(),
+                            //     value.orderTotal2[2].toString(),
+                            //     value.orderTotal2[4].toString(),
+                            //     value.orderTotal2[5].toString(),
+                            //     value.orderTotal2[10]);
+                          },
+                          child: Container(
+                            width: size.width * 0.5,
+                            height: size.height * 0.07,
+                            color: Colors.yellow,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(" Sales Total  : ",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15)),
+                                Flexible(
+                                  child: Text(
+                                      "\u{20B9}${value.salesTotal.toStringAsFixed(2)}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16)),
+                                )
+                              ],
                             ),
                           ),
-                          onPressed: () async {
-                            // Provider.of<Controller>(context, listen: false)
-                            //     .saveCartDetails(
-                            //         context,
-                            //         widget.transId,
-                            //         widget.branchId!,
-                            //         widget.remark!,
-                            //         "0",
-                            //         "0",
-                            //         "save");
-                          },
-                          child: Text(
-                            "Save",
-                            style: GoogleFonts.aBeeZee(
-                              textStyle: Theme.of(context).textTheme.bodyText2,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
-                              color: P_Settings.buttonColor,
+                        ),
+                        GestureDetector(
+                          onTap: (() async {
+                            // paysheet.showpaymentSheet(
+                            //     context,
+                            //     widget.areaId,
+                            //     widget.areaname,
+                            //     widget.custmerId,
+                            //     s[0],
+                            //     s[1],
+                            //     " ",
+                            //     " ",
+                            //     value.orderTotal2[11]);
+                          }),
+                          child: Container(
+                            width: size.width * 0.5,
+                            height: size.height * 0.07,
+                            color: P_Settings.loginPagetheme,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Save",
+                                  style: GoogleFonts.aBeeZee(
+                                    textStyle:
+                                        Theme.of(context).textTheme.bodyText2,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: P_Settings.buttonColor,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.01,
+                                ),
+                                Icon(Icons.shopping_basket)
+                              ],
                             ),
-                          ))),
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                  // Container(
+                  //   height: size.height * 0.05,
+                  //   width: size.width * 0.5,
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //       primary: P_Settings.loginPagetheme,
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(2), // <-- Radius
+                  //       ),
+                  //     ),
+                  //     onPressed: () async {
+                  //       // Provider.of<Controller>(context, listen: false)
+                  //       //     .saveCartDetails(
+                  //       //         context,
+                  //       //         widget.transId,
+                  //       //         widget.branchId!,
+                  //       //         widget.remark!,
+                  //       //         "0",
+                  //       //         "0",
+                  //       //         "save");
+                  //     },
+                  //     child: Text(
+                  //       "Save",
+                  //       style: GoogleFonts.aBeeZee(
+                  //         textStyle: Theme.of(context).textTheme.bodyText2,
+                  //         fontSize: 17,
+                  //         fontWeight: FontWeight.bold,
+                  //         color: P_Settings.buttonColor,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               );
             }
@@ -217,7 +300,7 @@ class _BagPageState extends State<BagPage> {
                               height: size.height * 0.3,
                               width: size.width * 0.2,
                               child: Image.network(
-                                "https://media.istockphoto.com/vectors/default-image-icon-vector-missing-picture-page-for-website-design-or-vector-id1357365823?k=20&m=1357365823&s=612x612&w=0&h=ZH0MQpeUoSHM3G2AWzc8KkGYRg4uP_kuu0Za8GFxdFc=",
+                                "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg",
                                 fit: BoxFit.fill,
                               ),
                               //  Image.network(
@@ -348,31 +431,6 @@ class _BagPageState extends State<BagPage> {
                         ],
                       ),
                     ),
-                    // Divider(
-                    //   thickness: 1,
-                    //   color: Color.fromARGB(255, 182, 179, 179),
-                    // ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(bottom: 5),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.end,
-                    //     children: [
-                    //       Text(
-                    //         "Total price : ",
-                    //         style: TextStyle(fontSize: 13),
-                    //       ),
-                    //       Flexible(
-                    //         child: Text("900",
-                    //           // "\u{20B9}${double.parse(totalamount).toStringAsFixed(2)}",
-                    //           style: TextStyle(
-                    //               fontWeight: FontWeight.bold,
-                    //               fontSize: 14,
-                    //               color: Color.fromARGB(255, 184, 36, 25)),
-                    //         ),
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                     Divider(
                       thickness: 2,
                     ),
