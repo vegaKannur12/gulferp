@@ -716,7 +716,7 @@ class Controller extends ChangeNotifier {
 /////////////////////////////////////////////////
   String rawCalculation(
       double rate,
-      double qty,
+      double qtyw,
       double disc_per,
       double disc_amount,
       double tax_per,
@@ -740,7 +740,7 @@ class Controller extends ChangeNotifier {
     }
     print("exclusive tax......$taxable_rate");
     // qty=qty+1;
-    gross = taxable_rate * qty;
+    gross = taxable_rate * qtyw;
     print("gros----$gross");
 
     if (disCalc == "disc_amt") {
@@ -763,6 +763,7 @@ class Controller extends ChangeNotifier {
     }
 
     if (disCalc == "qty") {
+      qty[index].text=qtyw.toString();
       // disc_amt = double.parse(discount_amount[index].text);
       // disc_per = double.parse(discount_prercent[index].text);
       print("disc-amt qty----$disc_amt...$disc_per");
