@@ -203,11 +203,11 @@ class Controller extends ChangeNotifier {
         discount_prercent[i].text = productList[i]["disc_per"].toString();
         discount_amount[i].text = productList[i]["disc_amt"].toString();
         print("qty------${productList[i]["qty"]}");
-        if (productList[i]["qty"] == "0") {
-          qty[i].text = "1";
-        } else {
+        // if (productList[i]["qty"] == "0") {
+        //   qty[i].text = "1";
+        // } else {
           qty[i].text = productList[i]["qty"].toString();
-        }
+        // }
       }
       notifyListeners();
       var seen = Set<String>();
@@ -378,7 +378,7 @@ class Controller extends ChangeNotifier {
           //   getbagData1(context, form_type);
           // }
           var err_status = map["err_status"];
-          if (err_status == 0) {
+          if (err_status == 0 && res == "Bag deleted Successfully") {
             getbagData1(context, form_type);
           }
           notifyListeners();
