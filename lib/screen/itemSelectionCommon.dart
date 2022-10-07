@@ -348,8 +348,8 @@ class _ItemSelectionState extends State<ItemSelection> {
                               double.parse(value.qty[index].text);
                           // print("srate1------$srate1---$qty");
                           print("gross calc===$gross");
-                         value.discount_prercent[index].text = "0.00";
-                            value.discount_amount[index].text = "0.00";
+                        //  value.discount_prercent[index].text = "0.00";
+                        //     value.discount_amount[index].text = "0.00";
                           print("disPerClicked-----${value.disPerClicked}----${value.disamtClicked}");
                           // if (value.disPerClicked && value.disamtClicked) {
                           // }else{

@@ -14,9 +14,8 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   bool? fromDb;
-  bool disPerClicked=false;
-  bool disamtClicked=false;
-
+  bool disPerClicked = false;
+  bool disamtClicked = false;
 
   bool isLoading = false;
   bool filter = false;
@@ -194,17 +193,18 @@ class Controller extends ChangeNotifier {
       qty =
           List.generate(productList.length, (index) => TextEditingController());
       errorClicked = List.generate(productList.length, (index) => false);
-
+      discount_prercent =
+          List.generate(productList.length, (index) => TextEditingController());
+      discount_amount =
+          List.generate(productList.length, (index) => TextEditingController());
       print("qty------$qty");
 
       for (int i = 0; i < productList.length; i++) {
         print("qty------${productList[i]["qty"]}");
         qty[i].text = productList[i]["qty"].toString();
+        discount_prercent[i].text = productList[i]["disc_per"].toString();
+        discount_amount[i].text = productList[i]["disc_amt"].toString();
       }
-      discount_prercent =
-          List.generate(productList.length, (index) => TextEditingController());
-      discount_amount =
-          List.generate(productList.length, (index) => TextEditingController());
       notifyListeners();
       var seen = Set<String>();
       uniquelist =
