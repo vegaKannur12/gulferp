@@ -88,11 +88,11 @@ class Controller extends ChangeNotifier {
   double net_amt = 0.0;
 
   int item_count = 0;
-  double net_tot = 0.0;
-  double gro_tot = 0.0;
-  double disc_tot = 0.0;
-  double tax_total = 0.0;
-  double cess_total = 0.0;
+  double? net_tot;
+  double? gro_tot;
+  double? disc_tot;
+  double? tax_total;
+  double? cess_total;
 
 /////////////////////////////////////////////////////////////////
   getItemCategory(BuildContext context) async {
@@ -376,6 +376,7 @@ class Controller extends ChangeNotifier {
       }
     });
   }
+
   /////////////////////////////////////////////////////////////////
   getbagData1(BuildContext context, String form_type) async {
     NetConnection.networkConnection(context).then((value) async {
@@ -420,21 +421,38 @@ class Controller extends ChangeNotifier {
           for (int i = 0; i < bagList.length; i++) {
             print("qty------${productList[i]["qty"]}");
             qty[i].text = bagList[i]["net_total"].toString();
+            discount_prercent[i].text = bagList[i]["disc_per"].toString();
+            discount_amount[i].text = bagList[i]["disc_amt"].toString();
           }
 
           print("bag list data........${bagList}");
           item_count = bagList.length;
-          bagList.forEach((item) {
-            print("items in baglist.length..........${item.length}");
+          net_tot = 0.0;
+          gro_tot = 0.0;
+          disc_tot = 0.0;
+          tax_total = 0.0;
+          cess_total = 0.0;
 
-            net_tot += double.parse(item["net_total"]);
-            gro_tot += double.parse(item["gross"]);
-            dis_tot += double.parse(item["disc_amt"]);
-            cess_total += double.parse(item["cess_amt"]);
-            tax_total += double.parse(item["taxable"]);
-            print(
-                "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          });
+          for (int i = 0; i < bagList.length; i++) {
+            net_tot = net_tot! + double.parse(bagList[i]["net_total"]);
+            gro_tot = gro_tot! + double.parse(bagList[i]["gross"]);
+            disc_tot = disc_tot! + double.parse(bagList[i]["disc_amt"]);
+            cess_total = cess_total! + double.parse(bagList[i]["cess_amt"]);
+            tax_total = tax_total! + double.parse(bagList[i]["taxable"]);
+          }
+          print(
+              "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
+          // bagList.forEach((item) {
+          //   print("items in baglist.length..........${item.length}");
+
+          //   net_tot += double.parse(item["net_total"]);
+          //   gro_tot += double.parse(item["gross"]);
+          //   dis_tot += double.parse(item["disc_amt"]);
+          //   cess_total += double.parse(item["cess_amt"]);
+          //   tax_total += double.parse(item["taxable"]);
+          //   print(
+          //       "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
+          // });
 
           isLoading = false;
           notifyListeners();
@@ -837,6 +855,8 @@ class Controller extends ChangeNotifier {
       sgst_per = 0;
       igst_per = tax_per;
     }
+
+    print("cgst-per , sgst-per------------$cgst_per---$sgst_per--$igst_per");
 
     if (disCalc == "") {
       print("inside nothingg.....");

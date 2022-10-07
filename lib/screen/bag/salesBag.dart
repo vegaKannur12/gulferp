@@ -124,6 +124,9 @@ class _BagPageState extends State<BagPage> {
                           double.parse(value.bagList[index]["net_total"]),
                           double.parse(value.bagList[index]["disc_per"]),
                           double.parse(value.bagList[index]["disc_amt"]),
+                          double.parse(value.bagList[index]["cgst_amt"]),
+                          double.parse(value.bagList[index]["sgst_amt"]),
+                          double.parse(value.bagList[index]["igst_amt"]),
                         );
                       },
                     ),
@@ -288,9 +291,12 @@ class _BagPageState extends State<BagPage> {
       double gross,
       double net_amt,
       double disc_per,
-      double disc_amt) {
+      double disc_amt,
+      double cgst_amt,
+      double sgst_amt,
+      double igst_amt) {
     print("qty number-----$itemName----------$srate1--------$qty");
-    // _controller.text = qty.toString();
+    double tax_amt = cgst_amt + sgst_amt + igst_amt;
 
     return Consumer<Controller>(
       builder: (context, value, child) {
@@ -504,24 +510,24 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                         ],
                                       ),
-                                      // Row(
-                                      //   children: [
-                                      //     Text(
-                                      //       "Tax  :",
-                                      //       style: TextStyle(fontSize: 13),
-                                      //     ),
-                                      //     SizedBox(
-                                      //       width: size.width * 0.03,
-                                      //     ),
-                                      //     Container(
-                                      //       child: Text(
-                                      //         " \u{20B9}${tax_amt.toStringAsFixed(2)}",
-                                      //         textAlign: TextAlign.right,
-                                      //         style: TextStyle(fontSize: 13),
-                                      //       ),
-                                      //     ),
-                                      //   ],
-                                      // ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Tax  :",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.03,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              " \u{20B9}${tax_amt.toStringAsFixed(2)}",
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),

@@ -63,6 +63,7 @@ class _ItemSelectionState extends State<ItemSelection> {
             stock: item["stock"],
             gst: item["gst"],
             cess_per: item["cess"],
+            taxable: item["taxable"]
           ),
         )
         .toList();
@@ -318,7 +319,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.disc_per,
                               value.disc_amt,
                               gross,
-                              0,
+                              double.parse( item.taxable!),
                               int.parse(widget.gtype!));
                           // showsheet.showSheet(
                           //     context,
@@ -511,7 +512,7 @@ class _AZItem extends ISuspensionBean {
   String? stock;
   String? gst;
   String? cess_per;
-  // String taxable;
+  String? taxable;
 
   _AZItem(
       {this.tag,
@@ -523,7 +524,7 @@ class _AZItem extends ISuspensionBean {
       this.sRate1,
       this.stock,
       this.gst,
-      this.cess_per});
+      this.cess_per,this.taxable});
 
   @override
   String getSuspensionTag() => tag!;

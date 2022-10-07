@@ -717,12 +717,12 @@ class SaleDetailsBottomSheet {
                                               .discount_amount[index].text),
                                           taxable,
                                           value.cgst_amt,
-                                          value.cgst_per,
                                           value.sgst_amt,
-                                          value.sgst_per,
                                           value.igst_amt,
+                                          value.cgst_per,
+                                          value.sgst_per,
                                           value.igst_per,
-                                          value.net_tot);
+                                          value.net_amt);
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");
                                   Navigator.pop(context);
