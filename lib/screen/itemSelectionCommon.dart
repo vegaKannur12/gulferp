@@ -261,7 +261,7 @@ class _ItemSelectionState extends State<ItemSelection> {
               height: size.height * 0.08,
               margin: EdgeInsets.only(left: 40),
               child: ListTile(
-                trailing: value.qty[index].text == "1"
+                trailing: value.qty[index].text == "0"
                     ? IconButton(
                         onPressed: () {
                           // int qty;
