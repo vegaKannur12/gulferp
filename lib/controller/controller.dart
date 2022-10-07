@@ -14,6 +14,10 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   bool? fromDb;
+  bool disPerClicked=false;
+  bool disamtClicked=false;
+
+
   bool isLoading = false;
   bool filter = false;
   String? gtype1;
@@ -197,6 +201,10 @@ class Controller extends ChangeNotifier {
         print("qty------${productList[i]["qty"]}");
         qty[i].text = productList[i]["qty"].toString();
       }
+      discount_prercent =
+          List.generate(productList.length, (index) => TextEditingController());
+      discount_amount =
+          List.generate(productList.length, (index) => TextEditingController());
       notifyListeners();
       var seen = Set<String>();
       uniquelist =
@@ -751,7 +759,7 @@ class Controller extends ChangeNotifier {
     flag = false;
 
     print(
-        "attribute----$rate----$qty-$state_status---$disCalc --$disc_per--$disc_amount--$tax_per--$cess_per--$method");
+        "attribute----$rate----$qtyw-$state_status---$disCalc --$disc_per--$disc_amount--$tax_per--$cess_per--$method");
     if (method == "0") {
       /////////////////////////////////method=="0" - excluisive , method=1 - inclusive
       taxable_rate = rate;
@@ -770,7 +778,7 @@ class Controller extends ChangeNotifier {
       disc_amt = disc_amount;
       // print("discount_prercent---$disc_amount---${discount_prercent.length}");
       if (onSub) {
-        // discount_prercent[index].text = disc_per.toStringAsFixed(4);
+        discount_prercent[index].text = disc_per.toStringAsFixed(4);
       }
       print("disc_per----$disc_per");
     }
@@ -779,13 +787,15 @@ class Controller extends ChangeNotifier {
       print("yes hay---$disc_per");
       disc_amt = (gross * disc_per) / 100;
       if (onSub) {
-        // discount_amount[index].text = disc_amt.toStringAsFixed(2);
+        discount_amount[index].text = disc_amt.toStringAsFixed(2);
       }
       print("disc-amt----$disc_amt");
     }
 
     if (disCalc == "qty") {
-      qty[index].text=qtyw.toString();
+      qty[index].text = qtyw.toString();
+
+      print("ces-per----$cess_per");
       // disc_amt = double.parse(discount_amount[index].text);
       // disc_per = double.parse(discount_prercent[index].text);
       print("disc-amt qty----$disc_amt...$disc_per");
@@ -824,6 +834,9 @@ class Controller extends ChangeNotifier {
     cgst_amt = (gross - disc_amt) * (cgst_per / 100);
     sgst_amt = (gross - disc_amt) * (sgst_per / 100);
     igst_amt = (gross - disc_amt) * (igst_per / 100);
+
+    print(
+        "gross---Discamt---cessper---${gross}----${discount_amount[index].text}----$cess_per");
     cess = (gross - disc_amt) * (cess_per / 100);
     net_amt = ((gross - disc_amt) + tax + cess);
     if (net_amt < 0) {
@@ -832,7 +845,7 @@ class Controller extends ChangeNotifier {
     print("netamount.cal...$net_amt");
 
     print(
-        "disc_per calcu mod=0..$tax..$gross... $disc_amt...$tax_per-----$net_amt");
+        "disc_per calcu mod=0..$tax..$gross..$cess. $disc_amt...$tax_per-----$net_amt");
     notifyListeners();
     return "success";
   }

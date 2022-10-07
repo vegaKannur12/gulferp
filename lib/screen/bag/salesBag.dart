@@ -352,7 +352,7 @@ class _BagPageState extends State<BagPage> {
                       cess_amt,
                       disc_per,
                       disc_amt,
-                      gross);
+                      gross,int.parse(widget.gtype));
                 },
                 title: Column(
                   children: [

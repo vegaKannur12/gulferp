@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/components/modalBottomsheet.dart';
 import 'package:gulferp/controller/controller.dart';
+import 'package:gulferp/screen/sale/saleDetailsBottomSheet.dart';
 
 import 'package:provider/provider.dart';
 
@@ -14,7 +15,7 @@ class ItemSelection extends StatefulWidget {
   String formType;
   String? gtype;
 
-  ItemSelection({required this.list, required this.formType,this.gtype
+  ItemSelection({required this.list, required this.formType, this.gtype
       //  required this.transVal, required this.transType
       });
 
@@ -27,6 +28,7 @@ class _ItemSelectionState extends State<ItemSelection> {
   List<_AZItem> items = [];
   List<String> uniqueList = [];
   List splitted = [];
+  SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
 
   Bottomsheet showsheet = Bottomsheet();
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
@@ -40,7 +42,7 @@ class _ItemSelectionState extends State<ItemSelection> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print("dgjxfkjgkg-----${widget.list}");
+    print("dgjxfkjgkg-----${widget.gtype}");
 
     initList(widget.list);
   }
@@ -51,15 +53,17 @@ class _ItemSelectionState extends State<ItemSelection> {
     this.items = items
         .map(
           (item) => _AZItem(
-              tag: item["item_name"][0].toUpperCase(),
-              itemId: item["item_id"],
-              catId: item["cat_id"],
-              itemName: item["item_name"].toUpperCase(),
-              batchCode: item["batch_code"],
-              itemImg: item["item_img"],
-              sRate1: item["s_rate_fix"],
-              stock: item["stock"],
-              gst: item["gst"]),
+            tag: item["item_name"][0].toUpperCase(),
+            itemId: item["item_id"],
+            catId: item["cat_id"],
+            itemName: item["item_name"].toUpperCase(),
+            batchCode: item["batch_code"],
+            itemImg: item["item_img"],
+            sRate1: item["s_rate_fix"],
+            stock: item["stock"],
+            gst: item["gst"],
+            cess_per: item["cess"],
+          ),
         )
         .toList();
     SuspensionUtil.sortListBySuspensionTag(this.items);
@@ -265,7 +269,38 @@ class _ItemSelectionState extends State<ItemSelection> {
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);
-                          showsheet.showSheet(
+                          double gross = double.parse(item.sRate1!) *
+                              double.parse(value.qty[index].text);
+                          // print("srate1------$srate1---$qty");
+                          print("gross calc===$gross");
+                          // value.qty[index].text = qty.toStringAsFixed(2);
+
+                          value.discount_prercent[index].text = "0.00";
+                          value.discount_amount[index].text = "0.00";
+                          Provider.of<Controller>(context, listen: false)
+                              .fromDb = true;
+                          value.qty[index].selection = TextSelection(
+                              baseOffset: 0,
+                              extentOffset: value.qty[index].value.text.length);
+                          Provider.of<Controller>(context, listen: false)
+                              .rawCalculation(
+                                  double.parse(item.sRate1!),
+                                  double.parse(value.qty[index].text),
+                                  double.parse(
+                                      value.discount_prercent[index].text),
+                                  double.parse(
+                                      value.discount_amount[index].text),
+                                  double.parse(item.gst!),
+                                  double.parse(item.cess_per!),
+                                  "0",
+                                  int.parse(widget.gtype!),
+                                  index,
+                                  false,
+                                  "");
+                          // print("quantity in cart..........$qty");
+                          // Provider.of<Controller>(context, listen: false)
+                          //     .setQty(qty);
+                          saleDetais.showSheet(
                               context,
                               index,
                               item.itemId!,
@@ -276,9 +311,28 @@ class _ItemSelectionState extends State<ItemSelection> {
                               double.parse(item.sRate1!),
                               double.parse(item.stock!),
                               value.qty[index].text,
-                              widget.formType
-                              
-                              );
+                              widget.formType,
+                              double.parse(item.gst!),
+                              double.parse(item.cess_per!),
+                              value.cess,
+                              value.disc_per,
+                              value.disc_amt,
+                              gross,
+                              int.parse(widget.gtype!));
+                          // showsheet.showSheet(
+                          //     context,
+                          //     index,
+                          //     item.itemId!,
+                          //     item.catId!,
+                          //     item.batchCode!,
+                          //     item.itemName!,
+                          //     item.itemImg!,
+                          //     double.parse(item.sRate1!),
+                          //     double.parse(item.stock!),
+                          //     value.qty[index].text,
+                          //     widget.formType
+
+                          //     );
                         },
                         icon: Icon(
                           Icons.add,
@@ -290,19 +344,66 @@ class _ItemSelectionState extends State<ItemSelection> {
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);
-                          // showsheet.showSheet(
-                          //     context,
-                          //     index,
-                          //     item.itemId!,
-                          //     item.catId!,
-                          //     item.batchCode!,
-                          //     item.itemName!,
-                          //     item.itemImg!,
-                          //     double.parse(item.sRate1!),
-                          //     double.parse(item.sRate2!),
-                          //     double.parse(item.stock!),
-                          //     widget.transVal,
-                          //     value.qty[index].text);
+                          double gross = double.parse(item.sRate1!) *
+                              double.parse(value.qty[index].text);
+                          // print("srate1------$srate1---$qty");
+                          print("gross calc===$gross");
+                         value.discount_prercent[index].text = "0.00";
+                            value.discount_amount[index].text = "0.00";
+                          print("disPerClicked-----${value.disPerClicked}----${value.disamtClicked}");
+                          // if (value.disPerClicked && value.disamtClicked) {
+                          // }else{
+                          //   value.discount_prercent[index].text = "0.00";
+                          //   value.discount_amount[index].text = "0.00";
+                          // }
+                          // if () {
+                          // }else{
+                          //   print("elseee----");
+
+                          // }
+
+                          Provider.of<Controller>(context, listen: false)
+                              .fromDb = true;
+                          value.qty[index].selection = TextSelection(
+                              baseOffset: 0,
+                              extentOffset: value.qty[index].value.text.length);
+                          Provider.of<Controller>(context, listen: false)
+                              .rawCalculation(
+                                  double.parse(item.sRate1!),
+                                  double.parse(value.qty[index].text),
+                                  double.parse(
+                                      value.discount_prercent[index].text),
+                                  double.parse(
+                                      value.discount_amount[index].text),
+                                  double.parse(item.gst!),
+                                  double.parse(item.cess_per!),
+                                  "0",
+                                  int.parse(widget.gtype!),
+                                  index,
+                                  false,
+                                  "");
+                          // print("quantity in cart..........$qty");
+                          // Provider.of<Controller>(context, listen: false)
+                          //     .setQty(qty);
+                          saleDetais.showSheet(
+                              context,
+                              index,
+                              item.itemId!,
+                              item.catId!,
+                              item.batchCode!,
+                              item.itemName!,
+                              item.itemImg!,
+                              double.parse(item.sRate1!),
+                              double.parse(item.stock!),
+                              value.qty[index].text,
+                              widget.formType,
+                              double.parse(item.gst!),
+                              double.parse(item.cess_per!),
+                              value.cess,
+                              value.disc_per,
+                              value.disc_amt,
+                              gross,
+                              int.parse(widget.gtype!));
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 18.0),
@@ -408,6 +509,7 @@ class _AZItem extends ISuspensionBean {
   String? sRate1;
   String? stock;
   String? gst;
+  String? cess_per;
 
   _AZItem(
       {this.tag,
@@ -418,9 +520,9 @@ class _AZItem extends ISuspensionBean {
       this.itemImg,
       this.sRate1,
       this.stock,
-      this.gst});
+      this.gst,
+      this.cess_per});
 
   @override
   String getSuspensionTag() => tag!;
 }
-
