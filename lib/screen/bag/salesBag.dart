@@ -127,6 +127,10 @@ class _BagPageState extends State<BagPage> {
                           double.parse(value.bagList[index]["cgst_amt"]),
                           double.parse(value.bagList[index]["sgst_amt"]),
                           double.parse(value.bagList[index]["igst_amt"]),
+                          double.parse(value.bagList[index]["taxable"]),
+                          double.parse(value.bagList[index]["cgst_per"]),
+                          double.parse(value.bagList[index]["sgst_per"]),
+                          double.parse(value.bagList[index]["igst_per"]),
                         );
                       },
                     ),
@@ -294,7 +298,11 @@ class _BagPageState extends State<BagPage> {
       double disc_amt,
       double cgst_amt,
       double sgst_amt,
-      double igst_amt) {
+      double igst_amt,
+      double taxable,
+      double cgst_per,
+      double sgst_per,
+      double igst_per) {
     print("qty number-----$itemName----------$srate1--------$qty");
     double tax_amt = cgst_amt + sgst_amt + igst_amt;
 
@@ -359,7 +367,7 @@ class _BagPageState extends State<BagPage> {
                       disc_per,
                       disc_amt,
                       gross,
-                      0,
+                      taxable,
                       int.parse(widget.gtype));
                 },
                 title: Column(
@@ -610,6 +618,27 @@ class _BagPageState extends State<BagPage> {
                                                 primary:
                                                     P_Settings.loginPagetheme),
                                             onPressed: () async {
+                                              Provider.of<Controller>(context,
+                                                      listen: false)
+                                                  .addDeletebagItem(
+                                                      item_id,
+                                                      srate1.toString(),
+                                                      qty.toString(),
+                                                      context,
+                                                      "save",
+                                                      widget.form_type,
+                                                      value.gross,
+                                                      disc_per,
+                                                      disc_amt,
+                                                      taxable,
+                                                      cgst_amt,
+                                                      sgst_amt,
+                                                      igst_amt,
+                                                      cgst_per,
+                                                      sgst_per,
+                                                      igst_per,
+                                                      net_amt,
+                                                      "2");
                                               var response =
                                                   // await Provider.of<Controller>(
                                                   //         context,

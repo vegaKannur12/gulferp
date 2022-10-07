@@ -722,7 +722,7 @@ class SaleDetailsBottomSheet {
                                           value.cgst_per,
                                           value.sgst_per,
                                           value.igst_per,
-                                          value.net_amt);
+                                          value.net_amt,"0");
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");
                                   Navigator.pop(context);

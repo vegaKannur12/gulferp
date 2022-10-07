@@ -314,6 +314,7 @@ class Controller extends ChangeNotifier {
     double sgst_per,
     double igst_per,
     double net_tot,
+    String event
   ) async {
     print("Quantity............$qty");
     NetConnection.networkConnection(context).then((value) async {
@@ -328,6 +329,7 @@ class Controller extends ChangeNotifier {
             'staff_id': user_id,
             'branch_id': branch_id,
             'item_id': itemId,
+            'event':event,
             'qty': qty,
             'rate': srate1,
             'gross': gross.toString(),
