@@ -9,18 +9,31 @@ import 'package:provider/provider.dart';
 
 class Bottomsheet {
   showSheet(
-    BuildContext context,
-    int index,
-    String itemId,
-    String catId,
-    String batchocde,
-    String itemName,
-    String itemImg,
-    double srate1,
-    double stock,
-    String qtyf,
-    String formType,
-  ) {
+      BuildContext context,
+      double taxable,
+      double cgst_amt,
+      double sgst_amt,
+      double igst_amt,
+      double cgst_per,
+      double sgst_per,
+      double igst_per,
+      double net_tot,
+      int index,
+      String itemId,
+      String catId,
+      String batchocde,
+      String itemName,
+      String itemImg,
+      double srate1,
+      double stock,
+      String qtyf,
+      String formType,
+      double tax_per,
+      double cess_per,
+      double cess_amt,
+      double disc_per,
+      double disc_amt,
+      double gross) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
     CustomSnackbar snackbar = CustomSnackbar();
@@ -155,11 +168,20 @@ class Bottomsheet {
                                           itemId,
                                           srate1.toString(),
                                           value.qty[index].text,
-                                          "0",
-                                          "0",
                                           context,
                                           "save",
-                                          formType);
+                                          formType,
+                                          gross,
+                                          disc_per,
+                                          disc_amt,
+                                          taxable,
+                                          cgst_amt,
+                                          cgst_per,
+                                          sgst_amt,
+                                          sgst_per,
+                                          igst_amt,
+                                          igst_per,
+                                          net_tot);
 
                                   print(
                                       "quantity......${value.qty[index].text}");
@@ -193,11 +215,20 @@ class Bottomsheet {
                                           itemId,
                                           srate1.toString(),
                                           value.qty[index].text,
-                                          "0",
-                                          "1",
                                           context,
                                           "save",
-                                          formType);
+                                          formType,
+                                          gross,
+                                          disc_per,
+                                          disc_amt,
+                                          taxable,
+                                          cgst_amt,
+                                          cgst_per,
+                                          sgst_amt,
+                                          sgst_per,
+                                          igst_amt,
+                                          igst_per,
+                                          net_tot);
                                   print("values----$values");
                                   double valueqty = 0.0;
                                   // value.discount_amount[index].text=;
@@ -325,11 +356,20 @@ class Bottomsheet {
                                           itemId,
                                           srate1.toString(),
                                           value.qty[index].text,
-                                          "0",
-                                          "0",
                                           context,
                                           "save",
-                                          formType);
+                                          formType,
+                                          gross,
+                                          disc_per,
+                                          disc_amt,
+                                          taxable,
+                                          cgst_amt,
+                                          cgst_per,
+                                          sgst_amt,
+                                          sgst_per,
+                                          igst_amt,
+                                          igst_per,
+                                          net_tot);
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .getbagData1(context, formType);

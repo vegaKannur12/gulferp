@@ -10,6 +10,7 @@ import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/sale/saleDetailsBottomSheet.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BagPage extends StatefulWidget {
   String? branchId;
@@ -145,15 +146,6 @@ class _BagPageState extends State<BagPage> {
                                 "${Provider.of<Controller>(context, listen: false).tax_total}",
                                 "${Provider.of<Controller>(context, listen: false).cess_total}",
                                 "${Provider.of<Controller>(context, listen: false).gro_tot}");
-                            // sheet.sheet(
-                            //     context,
-                            //     value.orderTotal2[1].toString(),
-                            //     value.orderTotal2[0].toString(),
-                            //     value.orderTotal2[3].toString(),
-                            //     value.orderTotal2[2].toString(),
-                            //     value.orderTotal2[4].toString(),
-                            //     value.orderTotal2[5].toString(),
-                            //     value.orderTotal2[10]);
                           },
                           child: Container(
                             width: size.width * 0.5,
@@ -190,6 +182,15 @@ class _BagPageState extends State<BagPage> {
                         ),
                         GestureDetector(
                           onTap: (() async {
+                            //   Provider.of<Controller>(context, listen: false)
+                            // .saveCartDetails(
+                            //     context,
+                            //     widget.transId,
+                            //     widget.branchId!,
+                            //     widget.remark!,
+                            //     "0",
+                            //     "0",
+                            //     "save");
                             // paysheet.showpaymentSheet(
                             //     context,
                             //     widget.areaId,
@@ -229,38 +230,6 @@ class _BagPageState extends State<BagPage> {
                       ],
                     ),
                   )
-                  // Container(
-                  //   height: size.height * 0.05,
-                  //   width: size.width * 0.5,
-                  //   child: ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //       primary: P_Settings.loginPagetheme,
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(2), // <-- Radius
-                  //       ),
-                  //     ),
-                  //     onPressed: () async {
-                  //       // Provider.of<Controller>(context, listen: false)
-                  //       //     .saveCartDetails(
-                  //       //         context,
-                  //       //         widget.transId,
-                  //       //         widget.branchId!,
-                  //       //         widget.remark!,
-                  //       //         "0",
-                  //       //         "0",
-                  //       //         "save");
-                  //     },
-                  //     child: Text(
-                  //       "Save",
-                  //       style: GoogleFonts.aBeeZee(
-                  //         textStyle: Theme.of(context).textTheme.bodyText2,
-                  //         fontSize: 17,
-                  //         fontWeight: FontWeight.bold,
-                  //         color: P_Settings.buttonColor,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               );
             }
@@ -306,7 +275,7 @@ class _BagPageState extends State<BagPage> {
                 // borderRadius: BorderRadius.circular(20),
               ),
               child: ListTile(
-                onTap: () {
+                onTap: () async {
                   double gross = srate1 * qty;
                   print("srate1------$srate1---$qty");
                   print("gross calc===$gross");
@@ -329,14 +298,25 @@ class _BagPageState extends State<BagPage> {
                           tax_per,
                           cess_per,
                           "0",
-                          int.parse(widget.gtype!),
+                          int.parse(widget.gtype),
                           index,
                           false,
                           "");
                   print("quantity in cart..........$qty");
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  String? staff_id = prefs.getString("user_id");
                   Provider.of<Controller>(context, listen: false).setQty(qty);
                   saleDetais.showSheet(
                       context,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       index,
                       item_id,
                       cart_id,
@@ -610,11 +590,20 @@ class _BagPageState extends State<BagPage> {
                                                           item_id,
                                                           srate1.toString(),
                                                           qty.toString(),
-                                                          "2",
-                                                          cart_id,
                                                           context,
                                                           "delete",
-                                                          widget.form_type);
+                                                          widget.form_type,
+                                                          gross,
+                                                          disc_per,
+                                                          disc_amt,
+                                                          tax_per,
+                                                          0.0,
+                                                          0.0,
+                                                          0.0,
+                                                          0.0,
+                                                          0.0,
+                                                          0.0,
+                                                          net_amt);
 
                                               Provider.of<Controller>(context,
                                                       listen: false)

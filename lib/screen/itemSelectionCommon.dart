@@ -14,7 +14,7 @@ class ItemSelection extends StatefulWidget {
   String formType;
   String? gtype;
 
-  ItemSelection({required this.list, required this.formType,this.gtype
+  ItemSelection({required this.list, required this.formType, this.gtype
       //  required this.transVal, required this.transType
       });
 
@@ -27,7 +27,7 @@ class _ItemSelectionState extends State<ItemSelection> {
   List<_AZItem> items = [];
   List<String> uniqueList = [];
   List splitted = [];
-
+  bool gst = false;
   Bottomsheet showsheet = Bottomsheet();
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
   String? staff_id;
@@ -265,20 +265,19 @@ class _ItemSelectionState extends State<ItemSelection> {
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);
-                          showsheet.showSheet(
-                              context,
-                              index,
-                              item.itemId!,
-                              item.catId!,
-                              item.batchCode!,
-                              item.itemName!,
-                              item.itemImg!,
-                              double.parse(item.sRate1!),
-                              double.parse(item.stock!),
-                              value.qty[index].text,
-                              widget.formType
+                          // showsheet.showSheet(
+                          //     context,
                               
-                              );
+                          //     index,
+                          //     item.itemId!,
+                          //     item.catId!,
+                          //     item.batchCode!,
+                          //     item.itemName!,
+                          //     item.itemImg!,
+                          //     double.parse(item.sRate1!),
+                          //     double.parse(item.stock!),
+                          //     value.qty[index].text,
+                          //     widget.formType);
                         },
                         icon: Icon(
                           Icons.add,
@@ -335,12 +334,25 @@ class _ItemSelectionState extends State<ItemSelection> {
                           // width: size.width * 0.2,
                           child: Text("Stock:${item.stock}")),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 18.0),
-                      child: Container(
-                          // width: size.width * 0.2,
-                          child: Text("GST:${item.gst}")),
-                    ),
+                    gst == false
+                        ? Visibility(
+                            visible: false,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 18.0),
+                              child: Container(
+                                  // width: size.width * 0.2,
+                                  child: Text("GST:${item.gst}")),
+                            ),
+                          )
+                        : Visibility(
+                            visible: true,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 18.0),
+                              child: Container(
+                                  // width: size.width * 0.2,
+                                  child: Text("GST:${item.gst}")),
+                            ),
+                          ),
                     // GestureDetector(
                     //   onTap: () {
                     //     // Provider.of<Controller>(context, listen: false)
@@ -423,4 +435,3 @@ class _AZItem extends ISuspensionBean {
   @override
   String getSuspensionTag() => tag!;
 }
-

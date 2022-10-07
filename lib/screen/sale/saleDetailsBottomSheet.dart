@@ -8,6 +8,14 @@ import 'package:provider/provider.dart';
 class SaleDetailsBottomSheet {
   showSheet(
     BuildContext context,
+    double taxable,
+    double cgst_amt,
+    double sgst_amt,
+    double igst_amt,
+    double cgst_per,
+    double sgst_per,
+    double igst_per,
+    double net_tot,
     int index,
     String itemId,
     String catId,
@@ -19,7 +27,6 @@ class SaleDetailsBottomSheet {
     String qtyf,
     String formType,
     double tax_per,
-    
     double cess_per,
     double cess_amt,
     double disc_per,
@@ -539,7 +546,7 @@ class SaleDetailsBottomSheet {
                               ),
                             ),
                             Spacer(),
-                           value.tax < 0.00
+                            value.tax < 0.00
                                 ? Text(
                                     "\u{20B9}0.00",
                                   )
@@ -624,8 +631,7 @@ class SaleDetailsBottomSheet {
                         child: Row(children: [
                           Text(
                             "Net Amount",
-                            style: TextStyle(
-                                color:  Colors.red, fontSize: 15),
+                            style: TextStyle(color: Colors.red, fontSize: 15),
                           ),
                           Spacer(),
                           // net_amt < 0.00
@@ -634,17 +640,17 @@ class SaleDetailsBottomSheet {
                           //             color: Colors.red,
                           //             fontWeight: FontWeight.bold,
                           //             fontSize: 15))
-                          //     : 
-                              Text(
-                                  // value.fromDb!
-                                      // ? "\u{20B9}${net_amt.toStringAsFixed(2)}"
-                                      // : 
-                                      "\u{20B9}${value.net_amt.toStringAsFixed(2)}",
-                                  style: TextStyle(
-                                      color: Colors.red,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 15),
-                                ),
+                          //     :
+                          Text(
+                            // value.fromDb!
+                            // ? "\u{20B9}${net_amt.toStringAsFixed(2)}"
+                            // :
+                            "\u{20B9}${value.net_amt.toStringAsFixed(2)}",
+                            style: TextStyle(
+                                color: Colors.red,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15),
+                          ),
                         ]),
                       ),
 
@@ -688,11 +694,20 @@ class SaleDetailsBottomSheet {
                                           itemId,
                                           srate1.toString(),
                                           value.qty[index].text,
-                                          "0",
-                                          "0",
                                           context,
                                           "save",
-                                          formType);
+                                          formType,
+                                          gross,
+                                          disc_per,
+                                          disc_amt,
+                                          taxable,
+                                          cgst_amt,
+                                          cgst_per,
+                                          sgst_amt,
+                                          sgst_per,
+                                          igst_amt,
+                                          igst_per,
+                                          net_tot);
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .getbagData1(context, formType);
