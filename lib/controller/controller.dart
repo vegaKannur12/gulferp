@@ -297,14 +297,24 @@ class Controller extends ChangeNotifier {
 
   //////////////////////////////////////////////////////////////////////////
   Future addDeletebagItem(
-      String itemId,
-      String srate1,
-      String qty,
-      String event,
-      String cart_id,
-      BuildContext context,
-      String action,
-      String form_type) async {
+    String itemId,
+    String srate1,
+    String qty,
+    BuildContext context,
+    String action,
+    String form_type,
+    double gross,
+    double disc_per,
+    double disc_amt,
+    double taxable,
+    double cgst_amt,
+    double sgst_amt,
+    double igst_amt,
+    double cgst_per,
+    double sgst_per,
+    double igst_per,
+    double net_tot,
+  ) async {
     print("Quantity............$qty");
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
@@ -319,9 +329,19 @@ class Controller extends ChangeNotifier {
             'branch_id': branch_id,
             'item_id': itemId,
             'qty': qty,
-            'event': event,
-            'cart_id': cart_id,
-            'form_type': form_type
+            'rate': srate1,
+            'gross': gross.toString(),
+            'disc_per': disc_per.toString(),
+            'disc_amt': disc_amt.toString(),
+            'taxable': taxable.toString(),
+            'cgst_per': cgst_per.toString(),
+            'cgst_amt': cgst_amt.toString(),
+            'sgst_per': sgst_per.toString(),
+            'sgst_amt': sgst_amt.toString(),
+            'igst_per': igst_per.toString(),
+            'igst_amt': igst_amt.toString(),
+            'net_total': net_tot.toString(),
+            'form_type': form_type,
           };
           print("body-----$body");
           if (action != "delete") {
@@ -356,7 +376,6 @@ class Controller extends ChangeNotifier {
       }
     });
   }
-
   /////////////////////////////////////////////////////////////////
   getbagData1(BuildContext context, String form_type) async {
     NetConnection.networkConnection(context).then((value) async {

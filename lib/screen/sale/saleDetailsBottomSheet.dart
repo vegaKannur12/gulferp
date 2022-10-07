@@ -7,25 +7,25 @@ import 'package:provider/provider.dart';
 
 class SaleDetailsBottomSheet {
   showSheet(
-    BuildContext context,
-    int index,
-    String itemId,
-    String catId,
-    String batchocde,
-    String itemName,
-    String itemImg,
-    double srate1,
-    double stock,
-    String qtyf,
-    String formType,
-    double tax_per,
-    double cess_per,
-    double cess_amt,
-    double disc_per,
-    double disc_amt,
-    double gross,
-    int gtype
-  ) {
+      BuildContext context,
+      int index,
+      String itemId,
+      String catId,
+      String batchocde,
+      String itemName,
+      String itemImg,
+      double srate1,
+      double stock,
+      String qtyf,
+      String formType,
+      double tax_per,
+      double cess_per,
+      double cess_amt,
+      double disc_per,
+      double disc_amt,
+      double gross,
+      double taxable,
+      int gtype) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
     CustomSnackbar snackbar = CustomSnackbar();
@@ -376,8 +376,9 @@ class SaleDetailsBottomSheet {
                                 ),
                                 keyboardType: TextInputType.number,
                                 onSubmitted: (values) {
-                                 Provider.of<Controller>(context,
-                                          listen: false).disPerClicked=true;
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .disPerClicked = true;
                                   double valuediscper = 0.0;
                                   print("values---$values");
                                   if (values.isNotEmpty) {
@@ -401,7 +402,7 @@ class SaleDetailsBottomSheet {
                                           tax_per,
                                           cess_per,
                                           "0",
-                                         gtype,
+                                          gtype,
                                           index,
                                           true,
                                           "disc_per");
@@ -463,7 +464,8 @@ class SaleDetailsBottomSheet {
                                 keyboardType: TextInputType.number,
                                 onSubmitted: (values) {
                                   Provider.of<Controller>(context,
-                                          listen: false).disamtClicked=true;
+                                          listen: false)
+                                      .disamtClicked = true;
                                   double valuediscamt = 0.0;
                                   // value.discount_amount[index].text=;
                                   if (values.isNotEmpty) {
@@ -699,6 +701,28 @@ class SaleDetailsBottomSheet {
                                   // Provider.of<Controller>(context,
                                   //         listen: false)
                                   //     .getbagData1(context, formType);
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .addDeletebagItem(
+                                          itemId,
+                                          srate1.toString(),
+                                          value.qty[index].text,
+                                          context,
+                                          "save",
+                                          formType,
+                                          value.gross,
+                                          double.parse(value
+                                              .discount_prercent[index].text),
+                                          double.parse(value
+                                              .discount_amount[index].text),
+                                          taxable,
+                                          value.cgst_amt,
+                                          value.cgst_per,
+                                          value.sgst_amt,
+                                          value.sgst_per,
+                                          value.igst_amt,
+                                          value.igst_per,
+                                          value.net_tot);
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");
                                   Navigator.pop(context);

@@ -30,7 +30,7 @@ class _ItemSelectionState extends State<ItemSelection> {
   List splitted = [];
   SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
 
-  Bottomsheet showsheet = Bottomsheet();
+  // Bottomsheet showsheet = Bottomsheet();
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
   String? staff_id;
   var itemstest = [
@@ -318,6 +318,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.disc_per,
                               value.disc_amt,
                               gross,
+                              0,
                               int.parse(widget.gtype!));
                           // showsheet.showSheet(
                           //     context,
@@ -402,7 +403,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.cess,
                               value.disc_per,
                               value.disc_amt,
-                              gross,
+                              gross,0,
                               int.parse(widget.gtype!));
                         },
                         child: Padding(
@@ -510,6 +511,7 @@ class _AZItem extends ISuspensionBean {
   String? stock;
   String? gst;
   String? cess_per;
+  // String taxable;
 
   _AZItem(
       {this.tag,

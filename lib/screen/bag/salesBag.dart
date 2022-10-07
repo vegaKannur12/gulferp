@@ -352,7 +352,9 @@ class _BagPageState extends State<BagPage> {
                       cess_amt,
                       disc_per,
                       disc_amt,
-                      gross,int.parse(widget.gtype));
+                      gross,
+                      0,
+                      int.parse(widget.gtype));
                 },
                 title: Column(
                   children: [
@@ -603,23 +605,24 @@ class _BagPageState extends State<BagPage> {
                                                     P_Settings.loginPagetheme),
                                             onPressed: () async {
                                               var response =
-                                                  await Provider.of<Controller>(
+                                                  // await Provider.of<Controller>(
+                                                  //         context,
+                                                  //         listen: false)
+                                                  //     .addDeletebagItem(
+                                                  //         item_id,
+                                                  //         srate1.toString(),
+                                                  //         qty.toString(),
+                                                  //         "2",
+                                                  //         cart_id,
+                                                  //         context,
+                                                  //         "delete",
+                                                  //         widget.form_type);
+
+                                                  Provider.of<Controller>(
                                                           context,
                                                           listen: false)
-                                                      .addDeletebagItem(
-                                                          item_id,
-                                                          srate1.toString(),
-                                                          qty.toString(),
-                                                          "2",
-                                                          cart_id,
-                                                          context,
-                                                          "delete",
+                                                      .getbagData1(context,
                                                           widget.form_type);
-
-                                              Provider.of<Controller>(context,
-                                                      listen: false)
-                                                  .getbagData1(context,
-                                                      widget.form_type);
 
                                               // Provider.of<Controller>(
                                               //         context,

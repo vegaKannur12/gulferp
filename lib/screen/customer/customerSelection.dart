@@ -20,7 +20,7 @@ class CustomerSelection extends StatefulWidget {
 
 class _CustomerSelectionState extends State<CustomerSelection> {
   List<_AZItem> items = [];
-  Bottomsheet showsheet = Bottomsheet();
+  // Bottomsheet showsheet = Bottomsheet();
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
 
   @override
