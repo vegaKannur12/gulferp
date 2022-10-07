@@ -59,7 +59,7 @@ class Controller extends ChangeNotifier {
   // List<TransactionTypeModel> transactionist = [];
 
   List<ItemCategoryModel> itemCategoryList = [];
-  int? qtyinc;
+  double? qtyinc;
   bool flag = false;
   double taxable_rate = 0.0;
   bool boolCustomerSet = false;
@@ -432,7 +432,7 @@ class Controller extends ChangeNotifier {
   }
 
   ////////////////
-  setQty(int qty) {
+  setQty(double qty) {
     qtyinc = qty;
     print("qty.......$qty");
     // notifyListeners();

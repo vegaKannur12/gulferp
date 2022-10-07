@@ -7,6 +7,7 @@ import 'package:gulferp/components/globalData.dart';
 import 'package:gulferp/components/modalBottomsheet.dart';
 import 'package:gulferp/components/saleTotal_bottomsheet.dart';
 import 'package:gulferp/controller/controller.dart';
+import 'package:gulferp/screen/sale/saleDetailsBottomSheet.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -14,13 +15,12 @@ class BagPage extends StatefulWidget {
   String? branchId;
   String? type;
   String form_type;
- String gtype;
-  BagPage({
-    this.branchId,
-    required this.type,
-    required this.form_type,
-   required this.gtype
-  });
+  String gtype;
+  BagPage(
+      {this.branchId,
+      required this.type,
+      required this.form_type,
+      required this.gtype});
 
   @override
   State<BagPage> createState() => _BagPageState();
@@ -29,7 +29,7 @@ class BagPage extends StatefulWidget {
 class _BagPageState extends State<BagPage> {
   SalesBottomSheet totalSheet = SalesBottomSheet();
   String imgGlobal = Globaldata.imageurl;
-  Bottomsheet showsheet = Bottomsheet();
+  SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
   String? selected;
 
   var branch = [
@@ -109,7 +109,7 @@ class _BagPageState extends State<BagPage> {
                           value.bagList[index]["item_id"],
                           value.bagList[index]["item_name"],
                           double.parse(value.bagList[index]["s_rate_fix"]),
-                          int.parse(value.bagList[index]["qty"]),
+                          double.parse(value.bagList[index]["qty"]),
                           size,
                           index,
                           value.bagList[index]["batch_code"],
@@ -117,10 +117,13 @@ class _BagPageState extends State<BagPage> {
                           value.bagList[index]["cart_id"],
                           value.bagList[index]["item_img"],
                           double.parse(value.bagList[index]["disc_amt"]),
-                          double.parse(value.bagList[index]["taxable"]),
-                          double.parse(value.bagList[index]["gross"]),
+                          double.parse(value.bagList[index]["tax"]),
+                          double.parse(value.bagList[index]["cess_per"]),
                           double.parse(value.bagList[index]["cess_amt"]),
+                          double.parse(value.bagList[index]["gross"]),
                           double.parse(value.bagList[index]["net_total"]),
+                          double.parse(value.bagList[index]["disc_per"]),
+                          double.parse(value.bagList[index]["disc_amt"]),
                         );
                       },
                     ),
@@ -271,7 +274,7 @@ class _BagPageState extends State<BagPage> {
       String item_id,
       String itemName,
       double srate1,
-      int qty,
+      double qty,
       Size size,
       int index,
       String? batch_code,
@@ -279,10 +282,13 @@ class _BagPageState extends State<BagPage> {
       String cart_id,
       String img,
       double discount,
-      double tax,
+      double tax_per,
+      double cess_per,
+      double cess_amt,
       double gross,
-      double cess,
-      double net_amt) {
+      double net_amt,
+      double disc_per,
+      double disc_amt) {
     print("qty number-----$itemName----------$srate1--------$qty");
     // _controller.text = qty.toString();
 
@@ -301,12 +307,35 @@ class _BagPageState extends State<BagPage> {
               ),
               child: ListTile(
                 onTap: () {
+                  double gross = srate1 * qty;
+                  print("srate1------$srate1---$qty");
+                  print("gross calc===$gross");
+                  value.qty[index].text = qty.toStringAsFixed(2);
+
+                  value.discount_prercent[index].text =
+                      disc_per.toStringAsFixed(4);
+                  value.discount_amount[index].text =
+                      disc_amt.toStringAsFixed(2);
+                  Provider.of<Controller>(context, listen: false).fromDb = true;
                   value.qty[index].selection = TextSelection(
                       baseOffset: 0,
                       extentOffset: value.qty[index].value.text.length);
+                  Provider.of<Controller>(context, listen: false)
+                      .rawCalculation(
+                          srate1,
+                          qty,
+                          disc_per,
+                          disc_amt,
+                          tax_per,
+                          cess_per,
+                          "0",
+                          int.parse(widget.gtype!),
+                          index,
+                          false,
+                          "");
                   print("quantity in cart..........$qty");
                   Provider.of<Controller>(context, listen: false).setQty(qty);
-                  showsheet.showSheet(
+                  saleDetais.showSheet(
                       context,
                       index,
                       item_id,
@@ -317,7 +346,13 @@ class _BagPageState extends State<BagPage> {
                       srate1,
                       stock,
                       qty.toString(),
-                      widget.form_type);
+                      widget.form_type,
+                      tax_per,
+                      cess_per,
+                      cess_amt,
+                      disc_per,
+                      disc_amt,
+                      gross);
                 },
                 title: Column(
                   children: [
@@ -467,24 +502,24 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                         ],
                                       ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "Tax  :",
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                          SizedBox(
-                                            width: size.width * 0.03,
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              " \u{20B9}${tax.toStringAsFixed(2)}",
-                                              textAlign: TextAlign.right,
-                                              style: TextStyle(fontSize: 13),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      // Row(
+                                      //   children: [
+                                      //     Text(
+                                      //       "Tax  :",
+                                      //       style: TextStyle(fontSize: 13),
+                                      //     ),
+                                      //     SizedBox(
+                                      //       width: size.width * 0.03,
+                                      //     ),
+                                      //     Container(
+                                      //       child: Text(
+                                      //         " \u{20B9}${tax_amt.toStringAsFixed(2)}",
+                                      //         textAlign: TextAlign.right,
+                                      //         style: TextStyle(fontSize: 13),
+                                      //       ),
+                                      //     ),
+                                      //   ],
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -523,7 +558,7 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                           Container(
                                             child: Text(
-                                              "\u{20B9}${cess.toStringAsFixed(2)}",
+                                              "\u{20B9}${cess_amt.toStringAsFixed(2)}",
                                               style: TextStyle(fontSize: 13),
                                             ),
                                           ),

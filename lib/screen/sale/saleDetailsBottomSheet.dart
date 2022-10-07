@@ -186,9 +186,9 @@ class SaleDetailsBottomSheet {
                                   } else {
                                     valueqty = 0.00;
                                   }
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .fromDb = false;
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .fromDb = false;
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .rawCalculation(
