@@ -116,7 +116,6 @@ class _BagPageState extends State<BagPage> {
                           double.parse(value.bagList[index]["stock"]),
                           value.bagList[index]["cart_id"],
                           value.bagList[index]["item_img"],
-                          double.parse(value.bagList[index]["disc_amt"]),
                           double.parse(value.bagList[index]["tax"]),
                           double.parse(value.bagList[index]["cess_per"]),
                           double.parse(value.bagList[index]["cess_amt"]),
@@ -288,7 +287,7 @@ class _BagPageState extends State<BagPage> {
       double stock,
       String cart_id,
       String img,
-      double discount,
+ 
       double tax_per,
       double cess_per,
       double cess_amt,
@@ -303,9 +302,8 @@ class _BagPageState extends State<BagPage> {
       double cgst_per,
       double sgst_per,
       double igst_per) {
-    print("qty number-----$itemName---$net_amt-------$srate1--------$qty");
-    double tax_amt = cgst_amt + sgst_amt + igst_amt;
-
+    double tax_amt = 0;
+    tax_amt = cgst_amt + sgst_amt + igst_amt;
     return Consumer<Controller>(
       builder: (context, value, child) {
         return Container(
@@ -321,6 +319,10 @@ class _BagPageState extends State<BagPage> {
               ),
               child: ListTile(
                 onTap: () {
+                  // tax_amt = cgst_amt + sgst_amt + igst_amt;
+                  print(
+                      "qty number-----$cgst_amt--$sgst_amt---$igst_amt--$tax_amt");
+
                   double gross = srate1 * qty;
                   print("srate1------$srate1---$qty");
                   print("gross calc===$gross");
@@ -363,6 +365,7 @@ class _BagPageState extends State<BagPage> {
                       qty.toString(),
                       widget.form_type,
                       tax_per,
+                      tax_amt,
                       cess_per,
                       cess_amt,
                       disc_per,
@@ -482,7 +485,7 @@ class _BagPageState extends State<BagPage> {
                                             ),
                                             Container(
                                               child: Text(
-                                                " \u{20B9}${discount.toStringAsFixed(2)}",
+                                                " \u{20B9}${disc_amt.toStringAsFixed(2)}",
                                                 style: TextStyle(fontSize: 13),
                                               ),
                                             ),
@@ -530,7 +533,7 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                           Container(
                                             child: Text(
-                                              " \u{20B9}${tax_amt.toStringAsFixed(2)}",
+                                              " \u{20B9}${value.tax.toStringAsFixed(2)}",
                                               textAlign: TextAlign.right,
                                               style: TextStyle(fontSize: 13),
                                             ),
@@ -638,7 +641,9 @@ class _BagPageState extends State<BagPage> {
                                                       cgst_per,
                                                       sgst_per,
                                                       igst_per,
-                                                      net_amt,
+                                                      cess_per,
+                                                      cess_amt,
+                                                      net_amt,tax_per,
                                                       "2");
                                               // var response =
                                               // await Provider.of<Controller>(

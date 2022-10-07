@@ -200,10 +200,14 @@ class Controller extends ChangeNotifier {
       print("qty------$qty");
 
       for (int i = 0; i < productList.length; i++) {
-        print("qty------${productList[i]["qty"]}");
-        qty[i].text = productList[i]["qty"].toString();
         discount_prercent[i].text = productList[i]["disc_per"].toString();
         discount_amount[i].text = productList[i]["disc_amt"].toString();
+        print("qty------${productList[i]["qty"]}");
+        if (productList[i]["qty"] == "0") {
+          qty[i].text = "1";
+        } else {
+          qty[i].text = productList[i]["qty"].toString();
+        }
       }
       notifyListeners();
       var seen = Set<String>();
@@ -313,7 +317,10 @@ class Controller extends ChangeNotifier {
       double cgst_per,
       double sgst_per,
       double igst_per,
+      double cess_per,
+      double cess_amt,
       double net_tot,
+      double tax_per,
       String event) async {
     print("Quantity.......$action.....$qty");
     NetConnection.networkConnection(context).then((value) async {
@@ -341,8 +348,11 @@ class Controller extends ChangeNotifier {
             'sgst_amt': sgst_amt.toString(),
             'igst_per': igst_per.toString(),
             'igst_amt': igst_amt.toString(),
+            'cess_per': cess_per.toString(),
+            'cess_amt': cess_amt.toString(),
             'net_total': net_tot.toString(),
             'form_type': form_type,
+            'tax': tax_per.toString()
           };
           print("body-----$body");
           if (action != "delete") {

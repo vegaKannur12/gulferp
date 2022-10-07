@@ -261,7 +261,7 @@ class _ItemSelectionState extends State<ItemSelection> {
               height: size.height * 0.08,
               margin: EdgeInsets.only(left: 40),
               child: ListTile(
-                trailing: value.qty[index].text == "0"
+                trailing: value.qty[index].text == "1"
                     ? IconButton(
                         onPressed: () {
                           // int qty;
@@ -311,6 +311,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.qty[index].text,
                               widget.formType,
                               double.parse(item.gst!),
+                              value.tax,
                               double.parse(item.cess_per!),
                               value.cess,
                               value.disc_per,
@@ -346,7 +347,8 @@ class _ItemSelectionState extends State<ItemSelection> {
                           double gross = double.parse(item.sRate1!) *
                               double.parse(value.qty[index].text);
                           // print("srate1------$srate1---$qty");
-                          print("gross calc===$gross /////////////${value.qty[index].text}");
+                          print(
+                              "gross calc===$gross /////////////${value.qty[index].text}");
                           //  value.discount_prercent[index].text = "0.00";
                           //     value.discount_amount[index].text = "0.00";
                           print(
@@ -398,6 +400,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.qty[index].text,
                               widget.formType,
                               double.parse(item.gst!),
+                              value.tax,
                               double.parse(item.cess_per!),
                               value.cess,
                               value.disc_per,

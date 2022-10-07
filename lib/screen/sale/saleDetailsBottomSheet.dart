@@ -19,6 +19,7 @@ class SaleDetailsBottomSheet {
       String qtyf,
       String formType,
       double tax_per,
+      double tax_amt,
       double cess_per,
       double cess_amt,
       double disc_per,
@@ -476,7 +477,6 @@ class SaleDetailsBottomSheet {
                                   // Provider.of<Controller>(context,
                                   //         listen: false)
                                   //     .fromDb = false;
-                               
 
                                   print(
                                       "discount amount..........$valuediscamt");
@@ -551,7 +551,7 @@ class SaleDetailsBottomSheet {
                                     "\u{20B9}0.00",
                                   )
                                 : Text(
-                                    "\u{20B9}${value.tax.toStringAsFixed(2)}",
+                                    "\u{20B9}${tax_amt.toStringAsFixed(2)}",
                                     style: GoogleFonts.aBeeZee(
                                       textStyle:
                                           Theme.of(context).textTheme.bodyText2,
@@ -725,7 +725,10 @@ class SaleDetailsBottomSheet {
                                           value.cgst_per,
                                           value.sgst_per,
                                           value.igst_per,
+                                          cess_per,
+                                          cess_amt,
                                           value.net_amt,
+                                          tax_per,
                                           "0");
                                   // Provider.of<Controller>(context,
                                   //         listen: false)
