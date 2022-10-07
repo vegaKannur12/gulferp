@@ -364,9 +364,9 @@ class Controller extends ChangeNotifier {
           print("delete response-----------------${map}");
           cartCount = map["cart_count"];
           var res = map["msg"];
-          // if (res == "Bag deleted Successfully") {
-          //   getbagData1(context, form_type);
-          // }
+          if (res == "Bag deleted Successfully") {
+            getbagData1(context, form_type);
+          }
           var err_status = map["err_status"];
           if (err_status == 0) {
             getbagData1(context, form_type);
@@ -433,14 +433,14 @@ class Controller extends ChangeNotifier {
 
           print("bag list data........${bagList}");
           item_count = bagList.length;
-          net_tot = 0.0;
-          gro_tot = 0.0;
-          disc_tot = 0.0;
-          tax_total = 0.0;
-          cess_total = 0.0;
+          net_tot = 0.00;
+          gro_tot = 0.00;
+          disc_tot = 0.00;
+          tax_total = 0.00;
+          cess_total = 0.00;
 
           for (int i = 0; i < bagList.length; i++) {
-            net_tot = net_tot! + double.parse(bagList[i]["net_total"]);
+            net_tot = (net_tot! + double.parse(bagList[i]["net_total"]));
             gro_tot = gro_tot! + double.parse(bagList[i]["gross"]);
             disc_tot = disc_tot! + double.parse(bagList[i]["disc_amt"]);
             cess_total = cess_total! + double.parse(bagList[i]["cess_amt"]);

@@ -339,6 +339,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                         ))
                     : GestureDetector(
                         onTap: () {
+                          print("added data.");
                           // value.setqtyErrormsg(false);
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
@@ -346,7 +347,8 @@ class _ItemSelectionState extends State<ItemSelection> {
                           double gross = double.parse(item.sRate1!) *
                               double.parse(value.qty[index].text);
                           // print("srate1------$srate1---$qty");
-                          print("gross calc===$gross /////////////${value.qty[index].text}");
+                          print(
+                              "gross calc===$gross /////////////${value.qty[index].text}");
                           //  value.discount_prercent[index].text = "0.00";
                           //     value.discount_amount[index].text = "0.00";
                           print(
