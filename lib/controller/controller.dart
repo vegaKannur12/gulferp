@@ -31,6 +31,8 @@ class Controller extends ChangeNotifier {
   String? cusName1;
   String? cartCount;
   List<bool> errorClicked = [];
+  List<bool> carteditbag = [];
+
   List<String> uniquelist = [];
   List<String> uniquecustomerlist = [];
 
@@ -198,6 +200,8 @@ class Controller extends ChangeNotifier {
       discount_amount =
           List.generate(productList.length, (index) => TextEditingController());
       print("qty------$qty");
+          carteditbag = List.generate(bagList.length, (index) => true);
+
 
       for (int i = 0; i < productList.length; i++) {
         print("qty------${productList[i]["qty"]}");
@@ -297,25 +301,24 @@ class Controller extends ChangeNotifier {
 
   //////////////////////////////////////////////////////////////////////////
   Future addDeletebagItem(
-    String itemId,
-    String srate1,
-    String qty,
-    BuildContext context,
-    String action,
-    String form_type,
-    double gross,
-    double disc_per,
-    double disc_amt,
-    double taxable,
-    double cgst_amt,
-    double sgst_amt,
-    double igst_amt,
-    double cgst_per,
-    double sgst_per,
-    double igst_per,
-    double net_tot,
-    String event
-  ) async {
+      String itemId,
+      String srate1,
+      String qty,
+      BuildContext context,
+      String action,
+      String form_type,
+      double gross,
+      double disc_per,
+      double disc_amt,
+      double taxable,
+      double cgst_amt,
+      double sgst_amt,
+      double igst_amt,
+      double cgst_per,
+      double sgst_per,
+      double igst_per,
+      double net_tot,
+      String event) async {
     print("Quantity............$qty");
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
@@ -329,7 +332,7 @@ class Controller extends ChangeNotifier {
             'staff_id': user_id,
             'branch_id': branch_id,
             'item_id': itemId,
-            'event':event,
+            'event': event,
             'qty': qty,
             'rate': srate1,
             'gross': gross.toString(),
@@ -415,6 +418,7 @@ class Controller extends ChangeNotifier {
               bagList.add(item);
             }
           }
+          carteditbag = List.generate(bagList.length, (index) => true);
 
           discount_prercent =
               List.generate(bagList.length, (index) => TextEditingController());
@@ -422,7 +426,7 @@ class Controller extends ChangeNotifier {
               List.generate(bagList.length, (index) => TextEditingController());
           for (int i = 0; i < bagList.length; i++) {
             print("qty------${productList[i]["qty"]}");
-            qty[i].text = bagList[i]["net_total"].toString();
+            qty[i].text = bagList[i]["qty"].toString();
             discount_prercent[i].text = bagList[i]["disc_per"].toString();
             discount_amount[i].text = bagList[i]["disc_amt"].toString();
           }
@@ -444,17 +448,6 @@ class Controller extends ChangeNotifier {
           }
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          // bagList.forEach((item) {
-          //   print("items in baglist.length..........${item.length}");
-
-          //   net_tot += double.parse(item["net_total"]);
-          //   gro_tot += double.parse(item["gross"]);
-          //   dis_tot += double.parse(item["disc_amt"]);
-          //   cess_total += double.parse(item["cess_amt"]);
-          //   tax_total += double.parse(item["taxable"]);
-          //   print(
-          //       "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          // });
 
           isLoading = false;
           notifyListeners();
@@ -834,7 +827,7 @@ class Controller extends ChangeNotifier {
     if (disCalc == "qty") {
       qty[index].text = qtyw.toString();
 
-      print("ces-per----$cess_per");
+      print("qtyvcvc----${qty[index].text}");
       // disc_amt = double.parse(discount_amount[index].text);
       // disc_per = double.parse(discount_prercent[index].text);
       print("disc-amt qty----$disc_amt...$disc_per");

@@ -13,7 +13,11 @@ class SaleItemSelection extends StatefulWidget {
   String? remark;
   String formType;
   String g_type;
-  SaleItemSelection({required this.list, this.remark, required this.formType,required this.g_type});
+  SaleItemSelection(
+      {required this.list,
+      this.remark,
+      required this.formType,
+      required this.g_type});
 
   @override
   State<SaleItemSelection> createState() => _SaleItemSelectionState();
@@ -75,7 +79,8 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
               child: IconButton(
                 onPressed: () async {
                   // await Provider.of<Controller>(context, listen: false)
-                  //     .getbagData1(context);
+                  //     .getbagData1(context, widget.formType);
+                  // // Provider.of<Controller>(context, listen: false).fromDb = true;
                   Navigator.push(
                       context,
                       PageRouteBuilder(

@@ -44,7 +44,8 @@ class _BagPageState extends State<BagPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<Controller>(context, listen: false).getbagData1(context, "1");
+    Provider.of<Controller>(context, listen: false)
+        .getbagData1(context, widget.form_type);
     EasyLoading.addStatusCallback((status) {
       print('EasyLoading Status $status');
       if (status == EasyLoadingStatus.dismiss) {
@@ -303,7 +304,7 @@ class _BagPageState extends State<BagPage> {
       double cgst_per,
       double sgst_per,
       double igst_per) {
-    print("qty number-----$itemName----------$srate1--------$qty");
+    print("net_amt----$net_amt");
     double tax_amt = cgst_amt + sgst_amt + igst_amt;
 
     return Consumer<Controller>(
@@ -330,7 +331,7 @@ class _BagPageState extends State<BagPage> {
                       disc_per.toStringAsFixed(4);
                   value.discount_amount[index].text =
                       disc_amt.toStringAsFixed(2);
-                  Provider.of<Controller>(context, listen: false).fromDb = true;
+
                   value.qty[index].selection = TextSelection(
                       baseOffset: 0,
                       extentOffset: value.qty[index].value.text.length);
@@ -343,7 +344,7 @@ class _BagPageState extends State<BagPage> {
                           tax_per,
                           cess_per,
                           "0",
-                          int.parse(widget.gtype!),
+                          int.parse(widget.gtype),
                           index,
                           false,
                           "");
@@ -481,7 +482,9 @@ class _BagPageState extends State<BagPage> {
                                             ),
                                             Container(
                                               child: Text(
-                                                " \u{20B9}${discount.toStringAsFixed(2)}",
+                                                value.carteditbag[index]
+                                                    ? " \u{20B9}${discount.toStringAsFixed(2)}"
+                                                    : "\u{20B9}${value.disc_amt.toStringAsFixed(2)}",
                                                 style: TextStyle(fontSize: 13),
                                               ),
                                             ),
@@ -511,7 +514,9 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                           Container(
                                             child: Text(
-                                              "${qty.toString()}",
+                                              value.carteditbag[index]
+                                                  ? "${qty.toString()}"
+                                                  : "${value.qty[index].text.toString()}",
                                               textAlign: TextAlign.right,
                                               style: TextStyle(fontSize: 13),
                                             ),
@@ -529,7 +534,9 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                           Container(
                                             child: Text(
-                                              " \u{20B9}${tax_amt.toStringAsFixed(2)}",
+                                              value.carteditbag[index]
+                                                  ? " \u{20B9}${tax_amt.toStringAsFixed(2)}"
+                                                  : "\u{20B9}${value.tax.toStringAsFixed(2)}",
                                               textAlign: TextAlign.right,
                                               style: TextStyle(fontSize: 13),
                                             ),
@@ -557,7 +564,9 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                           Container(
                                             child: Text(
-                                              "\u{20B9}${(srate1 * qty).toStringAsFixed(2)}",
+                                              value.carteditbag[index]
+                                                  ? "\u{20B9}${gross.toStringAsFixed(2)}"
+                                                  : "\u{20B9}${value.gross.toStringAsFixed(2)}",
                                               style: TextStyle(fontSize: 13),
                                             ),
                                           ),
@@ -574,7 +583,9 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                           Container(
                                             child: Text(
-                                              "\u{20B9}${cess_amt.toStringAsFixed(2)}",
+                                              value.carteditbag[index]
+                                                  ? "\u{20B9}${cess_amt.toStringAsFixed(2)}"
+                                                  : "\u{20B9}${value.cess.toStringAsFixed(2)}",
                                               style: TextStyle(fontSize: 13),
                                             ),
                                           ),
@@ -731,7 +742,9 @@ class _BagPageState extends State<BagPage> {
                           ),
                           Flexible(
                               child: Text(
-                            "\u{20B9}${(srate1 * qty).toStringAsFixed(2)}",
+                            value.carteditbag[index]
+                                ? "\u{20B9}${net_amt.toStringAsFixed(2)}"
+                                : "\u{20B9}${value.net_amt.toStringAsFixed(2)}",
                             style: GoogleFonts.aBeeZee(
                               textStyle: Theme.of(context).textTheme.bodyText2,
                               fontSize: 15,
