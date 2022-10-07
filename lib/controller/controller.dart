@@ -424,9 +424,9 @@ class Controller extends ChangeNotifier {
 
 ////////////////////////////////////////////////////////////////////
 
-  setCustomerName(String cusName,String gtype) {
+  setCustomerName(String cusName, String gtype) {
     cusName1 = cusName;
-    gtype1=gtype;
+    gtype1 = gtype;
     print("cysujkjj------$cusName1----$gtype");
     notifyListeners();
   }
