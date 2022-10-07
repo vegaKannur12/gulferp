@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 
 class SaleDetailsBottomSheet {
   showSheet(
+<<<<<<< HEAD
     BuildContext context,
     double taxable,
     int index,
@@ -27,6 +28,27 @@ class SaleDetailsBottomSheet {
     double gross,
     int gtype
   ) {
+=======
+      BuildContext context,
+      int index,
+      String itemId,
+      String catId,
+      String batchocde,
+      String itemName,
+      String itemImg,
+      double srate1,
+      double stock,
+      String qtyf,
+      String formType,
+      double tax_per,
+      double cess_per,
+      double cess_amt,
+      double disc_per,
+      double disc_amt,
+      double gross,
+      double taxable,
+      int gtype) {
+>>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
     CustomSnackbar snackbar = CustomSnackbar();
@@ -377,8 +399,9 @@ class SaleDetailsBottomSheet {
                                 ),
                                 keyboardType: TextInputType.number,
                                 onSubmitted: (values) {
-                                 Provider.of<Controller>(context,
-                                          listen: false).disPerClicked=true;
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .disPerClicked = true;
                                   double valuediscper = 0.0;
                                   print("values---$values");
                                   if (values.isNotEmpty) {
@@ -402,7 +425,7 @@ class SaleDetailsBottomSheet {
                                           tax_per,
                                           cess_per,
                                           "0",
-                                         gtype,
+                                          gtype,
                                           index,
                                           true,
                                           "disc_per");
@@ -464,7 +487,8 @@ class SaleDetailsBottomSheet {
                                 keyboardType: TextInputType.number,
                                 onSubmitted: (values) {
                                   Provider.of<Controller>(context,
-                                          listen: false).disamtClicked=true;
+                                          listen: false)
+                                      .disamtClicked = true;
                                   double valuediscamt = 0.0;
                                   // value.discount_amount[index].text=;
                                   if (values.isNotEmpty) {
@@ -686,6 +710,23 @@ class SaleDetailsBottomSheet {
 
                                   // if (value.qtyerror == false) {
 
+<<<<<<< HEAD
+=======
+                                  // Provider.of<Controller>(context,
+                                  //         listen: false)
+                                  //     .addDeletebagItem(
+                                  //         itemId,
+                                  //         srate1.toString(),
+                                  //         value.qty[index].text,
+                                  //         "0",
+                                  //         "0",
+                                  //         context,
+                                  //         "save",
+                                  //         formType);
+                                  // Provider.of<Controller>(context,
+                                  //         listen: false)
+                                  //     .getbagData1(context, formType);
+>>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .addDeletebagItem(
@@ -695,9 +736,17 @@ class SaleDetailsBottomSheet {
                                           context,
                                           "save",
                                           formType,
+<<<<<<< HEAD
                                           gross,
                                           disc_per,
                                           disc_amt,
+=======
+                                          value.gross,
+                                          double.parse(value
+                                              .discount_prercent[index].text),
+                                          double.parse(value
+                                              .discount_amount[index].text),
+>>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
                                           taxable,
                                           value.cgst_amt,
                                           value.cgst_per,
@@ -706,9 +755,12 @@ class SaleDetailsBottomSheet {
                                           value.igst_amt,
                                           value.igst_per,
                                           value.net_tot);
+<<<<<<< HEAD
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .getbagData1(context, formType);
+=======
+>>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");
                                   Navigator.pop(context);

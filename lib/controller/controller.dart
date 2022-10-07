@@ -330,6 +330,7 @@ class Controller extends ChangeNotifier {
             'item_id': itemId,
             'qty': qty,
             'rate': srate1,
+<<<<<<< HEAD
             'gross': gross,
             'disc_per': disc_per,
             'disc_amt': disc_amt,
@@ -341,6 +342,19 @@ class Controller extends ChangeNotifier {
             'igst_per': igst_per,
             'igst_amt': igst_amt,
             'net_total': net_tot,
+=======
+            'gross': gross.toString(),
+            'disc_per': disc_per.toString(),
+            'disc_amt': disc_amt.toString(),
+            'taxable': taxable.toString(),
+            'cgst_per': cgst_per.toString(),
+            'cgst_amt': cgst_amt.toString(),
+            'sgst_per': sgst_per.toString(),
+            'sgst_amt': sgst_amt.toString(),
+            'igst_per': igst_per.toString(),
+            'igst_amt': igst_amt.toString(),
+            'net_total': net_tot.toString(),
+>>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
             'form_type': form_type,
           };
           print("body-----$body");
@@ -376,7 +390,6 @@ class Controller extends ChangeNotifier {
       }
     });
   }
-
   /////////////////////////////////////////////////////////////////
   getbagData1(BuildContext context, String form_type) async {
     NetConnection.networkConnection(context).then((value) async {

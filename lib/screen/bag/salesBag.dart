@@ -324,6 +324,10 @@ class _BagPageState extends State<BagPage> {
                       disc_per,
                       disc_amt,
                       gross,
+<<<<<<< HEAD
+=======
+                      0,
+>>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
                       int.parse(widget.gtype));
                 },
                 title: Column(
@@ -575,9 +579,23 @@ class _BagPageState extends State<BagPage> {
                                                     P_Settings.loginPagetheme),
                                             onPressed: () async {
                                               var response =
-                                                  await Provider.of<Controller>(
+                                                  // await Provider.of<Controller>(
+                                                  //         context,
+                                                  //         listen: false)
+                                                  //     .addDeletebagItem(
+                                                  //         item_id,
+                                                  //         srate1.toString(),
+                                                  //         qty.toString(),
+                                                  //         "2",
+                                                  //         cart_id,
+                                                  //         context,
+                                                  //         "delete",
+                                                  //         widget.form_type);
+
+                                                  Provider.of<Controller>(
                                                           context,
                                                           listen: false)
+<<<<<<< HEAD
                                                       .addDeletebagItem(
                                                           item_id,
                                                           srate1.toString(),
@@ -596,11 +614,10 @@ class _BagPageState extends State<BagPage> {
                                                           value.igst_amt,
                                                           value.igst_per,
                                                           value.net_amt);
-
-                                              Provider.of<Controller>(context,
-                                                      listen: false)
-                                                  .getbagData1(context,
-                                                      widget.form_type);
+=======
+                                                      .getbagData1(context,
+                                                          widget.form_type);
+>>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
 
                                               // Provider.of<Controller>(
                                               //         context,

@@ -29,8 +29,13 @@ class _ItemSelectionState extends State<ItemSelection> {
   List<String> uniqueList = [];
   List splitted = [];
   SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
+<<<<<<< HEAD
   bool gstshow = false;
   Bottomsheet showsheet = Bottomsheet();
+=======
+
+  // Bottomsheet showsheet = Bottomsheet();
+>>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
   String? staff_id;
   var itemstest = [
@@ -319,6 +324,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.disc_per,
                               value.disc_amt,
                               gross,
+                              0,
                               int.parse(widget.gtype!));
                         },
                         icon: Icon(
@@ -391,7 +397,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.cess,
                               value.disc_per,
                               value.disc_amt,
-                              gross,
+                              gross,0,
                               int.parse(widget.gtype!));
                         },
                         child: Padding(
@@ -512,6 +518,7 @@ class _AZItem extends ISuspensionBean {
   String? stock;
   String? gst;
   String? cess_per;
+  // String taxable;
 
   _AZItem(
       {this.tag,
