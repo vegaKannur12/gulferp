@@ -14,13 +14,9 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   bool? fromDb;
-<<<<<<< HEAD
   bool isLoading = false;
-=======
-  String? gtype1; 
->>>>>>> c9b86996f230b33fa4ed7e99cc7ca427924be0b4
   bool filter = false;
-  String? gtype;
+  String? gtype1;
   String? routeName;
   String? dropdwnVal;
   String? dropdwnString;
@@ -428,9 +424,9 @@ class Controller extends ChangeNotifier {
 
 ////////////////////////////////////////////////////////////////////
 
-  setCustomerName(String cusName,String gtype) {
+  setCustomerName(String cusName, String gtype) {
     cusName1 = cusName;
-    gtype1=gtype;
+    gtype1 = gtype;
     print("cysujkjj------$cusName1----$gtype");
     notifyListeners();
   }
