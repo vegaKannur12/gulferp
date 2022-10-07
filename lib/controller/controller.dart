@@ -882,6 +882,7 @@ class Controller extends ChangeNotifier {
     }
 
     tax = (gross - disc_amt) * (tax_per / 100);
+
     print("tax....$tax....$gross... $disc_amt...$tax_per");
     if (tax < 0) {
       tax = 0.00;

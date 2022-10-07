@@ -287,7 +287,6 @@ class _BagPageState extends State<BagPage> {
       double stock,
       String cart_id,
       String img,
- 
       double tax_per,
       double cess_per,
       double cess_amt,
@@ -304,6 +303,7 @@ class _BagPageState extends State<BagPage> {
       double igst_per) {
     double tax_amt = 0;
     tax_amt = cgst_amt + sgst_amt + igst_amt;
+    print("tax amount new.........$tax_amt");
     return Consumer<Controller>(
       builder: (context, value, child) {
         return Container(
@@ -533,7 +533,7 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                           Container(
                                             child: Text(
-                                              " \u{20B9}${value.tax.toStringAsFixed(2)}",
+                                              " \u{20B9}${tax_amt.toStringAsFixed(2)}",
                                               textAlign: TextAlign.right,
                                               style: TextStyle(fontSize: 13),
                                             ),
@@ -643,7 +643,8 @@ class _BagPageState extends State<BagPage> {
                                                       igst_per,
                                                       cess_per,
                                                       cess_amt,
-                                                      net_amt,tax_per,
+                                                      net_amt,
+                                                      tax_per,
                                                       "2");
                                               // var response =
                                               // await Provider.of<Controller>(
