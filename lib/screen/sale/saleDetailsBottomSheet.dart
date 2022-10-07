@@ -26,7 +26,8 @@ class SaleDetailsBottomSheet {
       double disc_amt,
       double gross,
       double taxable,
-      int gtype) {
+      int gtype,
+      String cart_id,) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
     CustomSnackbar snackbar = CustomSnackbar();
@@ -707,6 +708,7 @@ class SaleDetailsBottomSheet {
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .addDeletebagItem(
+                                        cart_id,
                                           itemId,
                                           srate1.toString(),
                                           value.qty[index].text,

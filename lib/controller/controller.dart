@@ -206,7 +206,7 @@ class Controller extends ChangeNotifier {
         // if (productList[i]["qty"] == "0") {
         //   qty[i].text = "1";
         // } else {
-          qty[i].text = productList[i]["qty"].toString();
+        qty[i].text = productList[i]["qty"].toString();
         // }
       }
       notifyListeners();
@@ -301,6 +301,7 @@ class Controller extends ChangeNotifier {
 
   //////////////////////////////////////////////////////////////////////////
   Future addDeletebagItem(
+      String cart_id,
       String itemId,
       String srate1,
       String qty,
@@ -332,6 +333,7 @@ class Controller extends ChangeNotifier {
           print("kjn---------------$branch_id----$user_id-");
           Uri url = Uri.parse("$urlgolabl/save_cart.php");
           Map body = {
+            'cart_id':cart_id,
             'staff_id': user_id,
             'branch_id': branch_id,
             'item_id': itemId,
@@ -366,6 +368,8 @@ class Controller extends ChangeNotifier {
           );
 
           var map = jsonDecode(response.body);
+          var res = map["msg"];
+          var err_status = map["err_status"];
           print("save_cart---------------$map");
           if (action != "delete") {
             isLoading = false;
@@ -373,12 +377,9 @@ class Controller extends ChangeNotifier {
           }
           print("delete response-----------------${map}");
           cartCount = map["cart_count"];
-          var res = map["msg"];
-          if (res == "Bag deleted Successfully") {
-            getbagData1(context, form_type);
-          }
-          var err_status = map["err_status"];
-          if (err_status == 0 && res == "Bag deleted Successfully"||err_status == 0 && res == "Bag Edit Successfully" ) {
+
+          if (err_status == 0 && res == "Bag deleted Successfully" ||
+              err_status == 0 && res == "Bag Edit Successfully") {
             getbagData1(context, form_type);
           }
           // if (err_status == 0 && res == "Bag Edit Successfully") {
