@@ -378,9 +378,12 @@ class Controller extends ChangeNotifier {
             getbagData1(context, form_type);
           }
           var err_status = map["err_status"];
-          if (err_status == 0 && res == "Bag deleted Successfully") {
+          if (err_status == 0 && res == "Bag deleted Successfully"||err_status == 0 && res == "Bag Edit Successfully" ) {
             getbagData1(context, form_type);
           }
+          // if (err_status == 0 && res == "Bag Edit Successfully") {
+          //   getbagData1(context, form_type);
+          // }
           notifyListeners();
           return res;
           /////////////// insert into local db /////////////////////
