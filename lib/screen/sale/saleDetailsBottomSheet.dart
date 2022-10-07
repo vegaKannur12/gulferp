@@ -186,9 +186,10 @@ class SaleDetailsBottomSheet {
                                   } else {
                                     valueqty = 0.00;
                                   }
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .fromDb = false;
+                                  // Provider.of<Controller>(context,
+                                  //         listen: false)
+                                  //     .fromDb = false;
+
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .rawCalculation(
@@ -316,9 +317,7 @@ class SaleDetailsBottomSheet {
                             ),
                             Spacer(),
                             Text(
-                              value.fromDb!
-                                  ? "\u{20B9}${gross.toStringAsFixed(2)}"
-                                  : "\u{20B9}${value.gross.toStringAsFixed(2)}",
+                              "\u{20B9}${gross.toStringAsFixed(2)}",
                               style: GoogleFonts.aBeeZee(
                                 textStyle:
                                     Theme.of(context).textTheme.bodyText2,
@@ -387,9 +386,9 @@ class SaleDetailsBottomSheet {
                                   } else {
                                     valuediscper = 0.00;
                                   }
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .fromDb = false;
+                                  // Provider.of<Controller>(context,
+                                  //         listen: false)
+                                  //     .fromDb = false;
 
                                   Provider.of<Controller>(context,
                                           listen: false)
@@ -474,9 +473,11 @@ class SaleDetailsBottomSheet {
                                   } else {
                                     valuediscamt = 0.0000;
                                   }
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .fromDb = false;
+                                  // Provider.of<Controller>(context,
+                                  //         listen: false)
+                                  //     .fromDb = false;
+                               
+
                                   print(
                                       "discount amount..........$valuediscamt");
                                   Provider.of<Controller>(context,
@@ -669,7 +670,7 @@ class SaleDetailsBottomSheet {
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold)),
                                 onPressed: () {
-                                  // value.setApplyClicked(true, index);
+                                  // value.qty[index].text=
                                   double qty =
                                       double.parse(value.qty[index].text);
                                   // Provider.of<Controller>(context, listen: false).rawCalculation(srate1, qty, 0, 0, tax_per, cess_per, method, state_status, index, onSub, disCalc)
@@ -726,9 +727,9 @@ class SaleDetailsBottomSheet {
                                           value.igst_per,
                                           value.net_amt,
                                           "0");
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .getbagData1(context, formType);
+                                  // Provider.of<Controller>(context,
+                                  //         listen: false)
+                                  //     .getbagData1(context, formType);
 
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");

@@ -370,7 +370,6 @@ class Controller extends ChangeNotifier {
           var err_status = map["err_status"];
           if (err_status == 0) {
             getbagData1(context, form_type);
-            
           }
           notifyListeners();
           return res;

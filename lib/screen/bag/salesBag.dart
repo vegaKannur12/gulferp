@@ -43,7 +43,8 @@ class _BagPageState extends State<BagPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<Controller>(context, listen: false).getbagData1(context, widget.form_type);
+    Provider.of<Controller>(context, listen: false)
+        .getbagData1(context, widget.form_type);
     EasyLoading.addStatusCallback((status) {
       print('EasyLoading Status $status');
       if (status == EasyLoadingStatus.dismiss) {
@@ -329,7 +330,7 @@ class _BagPageState extends State<BagPage> {
                       disc_per.toStringAsFixed(4);
                   value.discount_amount[index].text =
                       disc_amt.toStringAsFixed(2);
-                  Provider.of<Controller>(context, listen: false).fromDb = true;
+
                   value.qty[index].selection = TextSelection(
                       baseOffset: 0,
                       extentOffset: value.qty[index].value.text.length);
@@ -557,7 +558,7 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                           Container(
                                             child: Text(
-                                              "\u{20B9}${(srate1 * qty).toStringAsFixed(2)}",
+                                              "\u{20B9}${gross.toStringAsFixed(2)}",
                                               style: TextStyle(fontSize: 13),
                                             ),
                                           ),
