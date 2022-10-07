@@ -303,19 +303,10 @@ class _BagPageState extends State<BagPage> {
                           false,
                           "");
                   print("quantity in cart..........$qty");
-                  SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                  String? staff_id = prefs.getString("user_id");
+
                   Provider.of<Controller>(context, listen: false).setQty(qty);
                   saleDetais.showSheet(
                       context,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
-                      0.0,
                       0.0,
                       index,
                       item_id,
@@ -332,7 +323,8 @@ class _BagPageState extends State<BagPage> {
                       cess_amt,
                       disc_per,
                       disc_amt,
-                      gross);
+                      gross,
+                      int.parse(widget.gtype));
                 },
                 title: Column(
                   children: [
@@ -597,13 +589,13 @@ class _BagPageState extends State<BagPage> {
                                                           disc_per,
                                                           disc_amt,
                                                           tax_per,
-                                                          0.0,
-                                                          0.0,
-                                                          0.0,
-                                                          0.0,
-                                                          0.0,
-                                                          0.0,
-                                                          net_amt);
+                                                          value.cgst_amt,
+                                                          value.cgst_per,
+                                                          value.sgst_amt,
+                                                          value.sgst_per,
+                                                          value.igst_amt,
+                                                          value.igst_per,
+                                                          value.net_amt);
 
                                               Provider.of<Controller>(context,
                                                       listen: false)

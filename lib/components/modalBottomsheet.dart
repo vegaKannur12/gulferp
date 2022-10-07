@@ -11,13 +11,6 @@ class Bottomsheet {
   showSheet(
       BuildContext context,
       double taxable,
-      double cgst_amt,
-      double sgst_amt,
-      double igst_amt,
-      double cgst_per,
-      double sgst_per,
-      double igst_per,
-      double net_tot,
       int index,
       String itemId,
       String catId,
@@ -175,13 +168,13 @@ class Bottomsheet {
                                           disc_per,
                                           disc_amt,
                                           taxable,
-                                          cgst_amt,
-                                          cgst_per,
-                                          sgst_amt,
-                                          sgst_per,
-                                          igst_amt,
-                                          igst_per,
-                                          net_tot);
+                                          value.cgst_amt,
+                                          value.cgst_per,
+                                          value.sgst_amt,
+                                          value.sgst_per,
+                                          value.igst_amt,
+                                          value.igst_per,
+                                          value.net_amt);
 
                                   print(
                                       "quantity......${value.qty[index].text}");
@@ -222,13 +215,13 @@ class Bottomsheet {
                                           disc_per,
                                           disc_amt,
                                           taxable,
-                                          cgst_amt,
-                                          cgst_per,
-                                          sgst_amt,
-                                          sgst_per,
-                                          igst_amt,
-                                          igst_per,
-                                          net_tot);
+                                          value.cgst_amt,
+                                          value.cgst_per,
+                                          value.sgst_amt,
+                                          value.sgst_per,
+                                          value.igst_amt,
+                                          value.igst_per,
+                                          value.net_amt);
                                   print("values----$values");
                                   double valueqty = 0.0;
                                   // value.discount_amount[index].text=;
@@ -363,13 +356,13 @@ class Bottomsheet {
                                           disc_per,
                                           disc_amt,
                                           taxable,
-                                          cgst_amt,
-                                          cgst_per,
-                                          sgst_amt,
-                                          sgst_per,
-                                          igst_amt,
-                                          igst_per,
-                                          net_tot);
+                                          value.cgst_amt,
+                                          value.cgst_per,
+                                          value.sgst_amt,
+                                          value.sgst_per,
+                                          value.igst_amt,
+                                          value.igst_per,
+                                          value.net_amt);
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .getbagData1(context, formType);

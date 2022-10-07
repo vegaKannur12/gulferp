@@ -9,13 +9,6 @@ class SaleDetailsBottomSheet {
   showSheet(
     BuildContext context,
     double taxable,
-    double cgst_amt,
-    double sgst_amt,
-    double igst_amt,
-    double cgst_per,
-    double sgst_per,
-    double igst_per,
-    double net_tot,
     int index,
     String itemId,
     String catId,
@@ -32,6 +25,7 @@ class SaleDetailsBottomSheet {
     double disc_per,
     double disc_amt,
     double gross,
+    int gtype
   ) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
@@ -204,9 +198,9 @@ class SaleDetailsBottomSheet {
                                           disc_per,
                                           disc_amt,
                                           tax_per,
-                                          0.0,
+                                          cess_per,
                                           "0",
-                                          0,
+                                          gtype,
                                           index,
                                           true,
                                           "qty");
@@ -383,6 +377,8 @@ class SaleDetailsBottomSheet {
                                 ),
                                 keyboardType: TextInputType.number,
                                 onSubmitted: (values) {
+                                 Provider.of<Controller>(context,
+                                          listen: false).disPerClicked=true;
                                   double valuediscper = 0.0;
                                   print("values---$values");
                                   if (values.isNotEmpty) {
@@ -404,9 +400,9 @@ class SaleDetailsBottomSheet {
                                           double.parse(value
                                               .discount_amount[index].text),
                                           tax_per,
-                                          0.0,
+                                          cess_per,
                                           "0",
-                                          0,
+                                         gtype,
                                           index,
                                           true,
                                           "disc_per");
@@ -467,6 +463,8 @@ class SaleDetailsBottomSheet {
                                 ),
                                 keyboardType: TextInputType.number,
                                 onSubmitted: (values) {
+                                  Provider.of<Controller>(context,
+                                          listen: false).disamtClicked=true;
                                   double valuediscamt = 0.0;
                                   // value.discount_amount[index].text=;
                                   if (values.isNotEmpty) {
@@ -489,9 +487,9 @@ class SaleDetailsBottomSheet {
                                               .discount_prercent[index].text),
                                           valuediscamt,
                                           tax_per,
-                                          0.0,
+                                          cess_per,
                                           "0",
-                                          0,
+                                          gtype,
                                           index,
                                           true,
                                           "disc_amt");
@@ -701,13 +699,13 @@ class SaleDetailsBottomSheet {
                                           disc_per,
                                           disc_amt,
                                           taxable,
-                                          cgst_amt,
-                                          cgst_per,
-                                          sgst_amt,
-                                          sgst_per,
-                                          igst_amt,
-                                          igst_per,
-                                          net_tot);
+                                          value.cgst_amt,
+                                          value.cgst_per,
+                                          value.sgst_amt,
+                                          value.sgst_per,
+                                          value.igst_amt,
+                                          value.igst_per,
+                                          value.net_tot);
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .getbagData1(context, formType);
