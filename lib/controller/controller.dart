@@ -297,26 +297,25 @@ class Controller extends ChangeNotifier {
 
   //////////////////////////////////////////////////////////////////////////
   Future addDeletebagItem(
-    String itemId,
-    String srate1,
-    String qty,
-    BuildContext context,
-    String action,
-    String form_type,
-    double gross,
-    double disc_per,
-    double disc_amt,
-    double taxable,
-    double cgst_amt,
-    double sgst_amt,
-    double igst_amt,
-    double cgst_per,
-    double sgst_per,
-    double igst_per,
-    double net_tot,
-    String event
-  ) async {
-    print("Quantity............$qty");
+      String itemId,
+      String srate1,
+      String qty,
+      BuildContext context,
+      String action,
+      String form_type,
+      double gross,
+      double disc_per,
+      double disc_amt,
+      double taxable,
+      double cgst_amt,
+      double sgst_amt,
+      double igst_amt,
+      double cgst_per,
+      double sgst_per,
+      double igst_per,
+      double net_tot,
+      String event) async {
+    print("Quantity.......$action.....$qty");
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -329,7 +328,7 @@ class Controller extends ChangeNotifier {
             'staff_id': user_id,
             'branch_id': branch_id,
             'item_id': itemId,
-            'event':event,
+            'event': event,
             'qty': qty,
             'rate': srate1,
             'gross': gross.toString(),
@@ -365,9 +364,15 @@ class Controller extends ChangeNotifier {
           print("delete response-----------------${map}");
           cartCount = map["cart_count"];
           var res = map["msg"];
-          if (res == "Bag deleted Successfully") {
+          // if (res == "Bag deleted Successfully") {
+          //   getbagData1(context, form_type);
+          // }
+          var err_status = map["err_status"];
+          if (err_status == 0) {
             getbagData1(context, form_type);
+            
           }
+          notifyListeners();
           return res;
           /////////////// insert into local db /////////////////////
         } catch (e) {
@@ -422,7 +427,7 @@ class Controller extends ChangeNotifier {
               List.generate(bagList.length, (index) => TextEditingController());
           for (int i = 0; i < bagList.length; i++) {
             print("qty------${productList[i]["qty"]}");
-            qty[i].text = bagList[i]["net_total"].toString();
+            qty[i].text = bagList[i]["qty"].toString();
             discount_prercent[i].text = bagList[i]["disc_per"].toString();
             discount_amount[i].text = bagList[i]["disc_amt"].toString();
           }
@@ -798,7 +803,7 @@ class Controller extends ChangeNotifier {
     flag = false;
 
     print(
-        "attribute----$rate----$qtyw-$state_status---$disCalc --$disc_per--$disc_amount--$tax_per--$cess_per--$method");
+        "attribute---$qtyw-$state_status---$disCalc --$disc_per--$disc_amount--$tax_per--$cess_per--$method");
     if (method == "0") {
       /////////////////////////////////method=="0" - excluisive , method=1 - inclusive
       taxable_rate = rate;

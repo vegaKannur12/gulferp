@@ -30,7 +30,7 @@ class SaleDetailsBottomSheet {
     String? payment_mode;
     CustomSnackbar snackbar = CustomSnackbar();
     print(
-        "bottom sheet value--$index--$itemName----------$srate1----$qtyf-----");
+        "bottom sheet value-----$tax_per-$index--$itemName----------$srate1----$qtyf-----");
     // CommonPopup salepopup = CommonPopup();
     return showModalBottomSheet<void>(
       isScrollControlled: true,
@@ -701,6 +701,8 @@ class SaleDetailsBottomSheet {
                                   // Provider.of<Controller>(context,
                                   //         listen: false)
                                   //     .getbagData1(context, formType);
+                                  print(
+                                      "quantity after updates........${value.qty[index].text}");
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .addDeletebagItem(
@@ -722,7 +724,12 @@ class SaleDetailsBottomSheet {
                                           value.cgst_per,
                                           value.sgst_per,
                                           value.igst_per,
-                                          value.net_amt,"0");
+                                          value.net_amt,
+                                          "0");
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .getbagData1(context, formType);
+
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");
                                   Navigator.pop(context);

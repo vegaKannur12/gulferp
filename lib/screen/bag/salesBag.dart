@@ -4,7 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/components/globalData.dart';
-import 'package:gulferp/components/modalBottomsheet.dart';
 import 'package:gulferp/components/saleTotal_bottomsheet.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/sale/saleDetailsBottomSheet.dart';
@@ -44,7 +43,7 @@ class _BagPageState extends State<BagPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<Controller>(context, listen: false).getbagData1(context, "1");
+    Provider.of<Controller>(context, listen: false).getbagData1(context, widget.form_type);
     EasyLoading.addStatusCallback((status) {
       print('EasyLoading Status $status');
       if (status == EasyLoadingStatus.dismiss) {
@@ -303,7 +302,7 @@ class _BagPageState extends State<BagPage> {
       double cgst_per,
       double sgst_per,
       double igst_per) {
-    print("qty number-----$itemName----------$srate1--------$qty");
+    print("qty number-----$itemName---$net_amt-------$srate1--------$qty");
     double tax_amt = cgst_amt + sgst_amt + igst_amt;
 
     return Consumer<Controller>(
@@ -334,6 +333,7 @@ class _BagPageState extends State<BagPage> {
                   value.qty[index].selection = TextSelection(
                       baseOffset: 0,
                       extentOffset: value.qty[index].value.text.length);
+
                   Provider.of<Controller>(context, listen: false)
                       .rawCalculation(
                           srate1,
@@ -343,7 +343,7 @@ class _BagPageState extends State<BagPage> {
                           tax_per,
                           cess_per,
                           "0",
-                          int.parse(widget.gtype!),
+                          int.parse(widget.gtype),
                           index,
                           false,
                           "");
@@ -625,7 +625,7 @@ class _BagPageState extends State<BagPage> {
                                                       srate1.toString(),
                                                       qty.toString(),
                                                       context,
-                                                      "save",
+                                                      "delete",
                                                       widget.form_type,
                                                       value.gross,
                                                       disc_per,
@@ -639,25 +639,24 @@ class _BagPageState extends State<BagPage> {
                                                       igst_per,
                                                       net_amt,
                                                       "2");
-                                              var response =
-                                                  // await Provider.of<Controller>(
-                                                  //         context,
-                                                  //         listen: false)
-                                                  //     .addDeletebagItem(
-                                                  //         item_id,
-                                                  //         srate1.toString(),
-                                                  //         qty.toString(),
-                                                  //         "2",
-                                                  //         cart_id,
-                                                  //         context,
-                                                  //         "delete",
-                                                  //         widget.form_type);
+                                              // var response =
+                                              // await Provider.of<Controller>(
+                                              //         context,
+                                              //         listen: false)
+                                              //     .addDeletebagItem(
+                                              //         item_id,
+                                              //         srate1.toString(),
+                                              //         qty.toString(),
+                                              //         "2",
+                                              //         cart_id,
+                                              //         context,
+                                              //         "delete",
+                                              //         widget.form_type);
 
-                                                  Provider.of<Controller>(
-                                                          context,
-                                                          listen: false)
-                                                      .getbagData1(context,
-                                                          widget.form_type);
+                                              Provider.of<Controller>(context,
+                                                      listen: false)
+                                                  .getbagData1(context,
+                                                      widget.form_type);
 
                                               // Provider.of<Controller>(
                                               //         context,
@@ -731,7 +730,7 @@ class _BagPageState extends State<BagPage> {
                           ),
                           Flexible(
                               child: Text(
-                            "\u{20B9}${(srate1 * qty).toStringAsFixed(2)}",
+                            "\u{20B9}${net_amt}",
                             style: GoogleFonts.aBeeZee(
                               textStyle: Theme.of(context).textTheme.bodyText2,
                               fontSize: 15,

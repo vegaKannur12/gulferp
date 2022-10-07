@@ -29,7 +29,7 @@ class _ItemSelectionState extends State<ItemSelection> {
   List<String> uniqueList = [];
   List splitted = [];
   SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
-
+  bool gstvisible = false;
   // Bottomsheet showsheet = Bottomsheet();
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
   String? staff_id;
@@ -53,18 +53,17 @@ class _ItemSelectionState extends State<ItemSelection> {
     this.items = items
         .map(
           (item) => _AZItem(
-            tag: item["item_name"][0].toUpperCase(),
-            itemId: item["item_id"],
-            catId: item["cat_id"],
-            itemName: item["item_name"].toUpperCase(),
-            batchCode: item["batch_code"],
-            itemImg: item["item_img"],
-            sRate1: item["s_rate_fix"],
-            stock: item["stock"],
-            gst: item["gst"],
-            cess_per: item["cess"],
-            taxable: item["taxable"]
-          ),
+              tag: item["item_name"][0].toUpperCase(),
+              itemId: item["item_id"],
+              catId: item["cat_id"],
+              itemName: item["item_name"].toUpperCase(),
+              batchCode: item["batch_code"],
+              itemImg: item["item_img"],
+              sRate1: item["s_rate_fix"],
+              stock: item["stock"],
+              gst: item["gst"],
+              cess_per: item["cess"],
+              taxable: item["taxable"]),
         )
         .toList();
     SuspensionUtil.sortListBySuspensionTag(this.items);
@@ -276,8 +275,6 @@ class _ItemSelectionState extends State<ItemSelection> {
                           print("gross calc===$gross");
                           // value.qty[index].text = qty.toStringAsFixed(2);
 
-                          value.discount_prercent[index].text = "0.00";
-                          value.discount_amount[index].text = "0.00";
                           Provider.of<Controller>(context, listen: false)
                               .fromDb = true;
                           value.qty[index].selection = TextSelection(
@@ -319,7 +316,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.disc_per,
                               value.disc_amt,
                               gross,
-                              double.parse( item.taxable!),
+                              double.parse(item.taxable!),
                               int.parse(widget.gtype!));
                           // showsheet.showSheet(
                           //     context,
@@ -349,10 +346,11 @@ class _ItemSelectionState extends State<ItemSelection> {
                           double gross = double.parse(item.sRate1!) *
                               double.parse(value.qty[index].text);
                           // print("srate1------$srate1---$qty");
-                          print("gross calc===$gross");
-                        //  value.discount_prercent[index].text = "0.00";
-                        //     value.discount_amount[index].text = "0.00";
-                          print("disPerClicked-----${value.disPerClicked}----${value.disamtClicked}");
+                          print("gross calc===$gross /////////////${value.qty[index].text}");
+                          //  value.discount_prercent[index].text = "0.00";
+                          //     value.discount_amount[index].text = "0.00";
+                          print(
+                              "disPerClicked-----${value.disPerClicked}----${value.disamtClicked}");
                           // if (value.disPerClicked && value.disamtClicked) {
                           // }else{
                           //   value.discount_prercent[index].text = "0.00";
@@ -404,7 +402,8 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.cess,
                               value.disc_per,
                               value.disc_amt,
-                              gross,0,
+                              gross,
+                              0,
                               int.parse(widget.gtype!));
                         },
                         child: Padding(
@@ -429,21 +428,36 @@ class _ItemSelectionState extends State<ItemSelection> {
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Container(
-                        // width: size.width * 0.2,
-                        child: Text("SRate:${item.sRate1}")),
+                    Flexible(
+                      child: Container(
+                          // width: size.width * 0.2,
+                          child: Text("SRate:${item.sRate1}")),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(left: 18.0),
                       child: Container(
                           // width: size.width * 0.2,
                           child: Text("Stock:${item.stock}")),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 18.0),
-                      child: Container(
-                          // width: size.width * 0.2,
-                          child: Text("GST:${item.gst}")),
-                    ),
+                    gstvisible == false
+                        ? Visibility(
+                            visible: false,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 18.0),
+                              child: Container(
+                                  // width: size.width * 0.2,
+                                  child: Text("GST:${item.gst}")),
+                            ),
+                          )
+                        : Visibility(
+                            visible: true,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 18.0),
+                              child: Container(
+                                  // width: size.width * 0.2,
+                                  child: Text("GST:${item.gst}")),
+                            ),
+                          ),
                     // GestureDetector(
                     //   onTap: () {
                     //     // Provider.of<Controller>(context, listen: false)
@@ -524,7 +538,8 @@ class _AZItem extends ISuspensionBean {
       this.sRate1,
       this.stock,
       this.gst,
-      this.cess_per,this.taxable});
+      this.cess_per,
+      this.taxable});
 
   @override
   String getSuspensionTag() => tag!;
