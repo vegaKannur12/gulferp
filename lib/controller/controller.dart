@@ -15,7 +15,7 @@ import 'package:http/http.dart' as http;
 class Controller extends ChangeNotifier {
   bool isLoading = false;
   bool? fromDb;
-
+  String? gtype1; 
   bool filter = false;
   List<TextEditingController> discount_prercent = [];
   List<TextEditingController> discount_amount = [];
@@ -402,10 +402,10 @@ class Controller extends ChangeNotifier {
 
 ////////////////////////////////////////////////////////////////////
 
-  setCustomerName(String cusName) {
+  setCustomerName(String cusName,String gtype) {
     cusName1 = cusName;
-
-    print("cysujkjj------$cusName1");
+    gtype1=gtype;
+    print("cysujkjj------$cusName1----$gtype");
     notifyListeners();
   }
 
