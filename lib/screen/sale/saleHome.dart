@@ -361,7 +361,7 @@ class _SaleHomeState extends State<SaleHome> {
                                                       list: list,
                                                       remark: remrk.text,
                                                       formType: widget.formType,
-                                                      g_type: value.gtype1,
+                                                      g_type: value.gtype1!,
                                                       )
                                               // OrderForm(widget.areaname,"return"),
                                               ),

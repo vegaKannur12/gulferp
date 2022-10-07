@@ -13,12 +13,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
-  bool isLoading = false;
   bool? fromDb;
+<<<<<<< HEAD
+  bool isLoading = false;
+=======
   String? gtype1; 
+>>>>>>> c9b86996f230b33fa4ed7e99cc7ca427924be0b4
   bool filter = false;
-  List<TextEditingController> discount_prercent = [];
-  List<TextEditingController> discount_amount = [];
+  String? gtype;
   String? routeName;
   String? dropdwnVal;
   String? dropdwnString;
@@ -34,7 +36,8 @@ class Controller extends ChangeNotifier {
   List<String> uniquecustomerlist = [];
 
   List<String> filtereduniquelist = [];
-
+  List<TextEditingController> discount_prercent = [];
+  List<TextEditingController> discount_amount = [];
   List<Map<String, dynamic>> filteredproductList = [];
   List<Map<String, dynamic>> loadingList = [];
   List<RouteModel> routeList = [];
@@ -60,11 +63,12 @@ class Controller extends ChangeNotifier {
   // List<TransactionTypeModel> transactionist = [];
 
   List<ItemCategoryModel> itemCategoryList = [];
-  double? qtyinc;
+  int? qtyinc;
   bool flag = false;
   double taxable_rate = 0.0;
   bool boolCustomerSet = false;
   double salesTotal = 0.0;
+
   String? packName;
   double tax = 0.0;
   double gross = 0.0;
@@ -83,6 +87,13 @@ class Controller extends ChangeNotifier {
   double cess = 0.0;
   double disc_amt = 0.0;
   double net_amt = 0.0;
+
+  int item_count = 0;
+  double net_tot = 0.0;
+  double gro_tot = 0.0;
+  double disc_tot = 0.0;
+  double tax_total = 0.0;
+  double cess_total = 0.0;
 
 /////////////////////////////////////////////////////////////////
   getItemCategory(BuildContext context) async {
@@ -378,15 +389,30 @@ class Controller extends ChangeNotifier {
               bagList.add(item);
             }
           }
+
           discount_prercent =
               List.generate(bagList.length, (index) => TextEditingController());
           discount_amount =
               List.generate(bagList.length, (index) => TextEditingController());
-          print("bag list data........${bagList}");
           for (int i = 0; i < bagList.length; i++) {
             print("qty------${productList[i]["qty"]}");
-            qty[i].text = bagList[i]["qty"].toString();
+            qty[i].text = bagList[i]["net_total"].toString();
           }
+
+          print("bag list data........${bagList}");
+          item_count = bagList.length;
+          bagList.forEach((item) {
+            print("items in baglist.length..........${item.length}");
+
+            net_tot += double.parse(item["net_total"]);
+            gro_tot += double.parse(item["gross"]);
+            dis_tot += double.parse(item["disc_amt"]);
+            cess_total += double.parse(item["cess_amt"]);
+            tax_total += double.parse(item["taxable"]);
+            print(
+                "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
+          });
+
           isLoading = false;
           notifyListeners();
 
@@ -410,7 +436,7 @@ class Controller extends ChangeNotifier {
   }
 
   ////////////////
-  setQty(double qty) {
+  setQty(int qty) {
     qtyinc = qty;
     print("qty.......$qty");
     // notifyListeners();
@@ -713,7 +739,7 @@ class Controller extends ChangeNotifier {
     print("gtyy----$fromDate----$todate");
     notifyListeners();
   }
-/////////////////////////////////////////////////
+
   String rawCalculation(
       double rate,
       double qtyw,
@@ -791,7 +817,6 @@ class Controller extends ChangeNotifier {
       print("inside nothingg.....");
       disc_per = (disc_amount / taxable_rate) * 100;
       disc_amt = disc_amount;
-     
       print("rsr....$disc_per....$disc_amt..");
     }
 

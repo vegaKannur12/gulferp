@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/components/globalData.dart';
 import 'package:gulferp/components/modalBottomsheet.dart';
+import 'package:gulferp/components/saleTotal_bottomsheet.dart';
 import 'package:gulferp/controller/controller.dart';
-import 'package:gulferp/screen/sale/saleDetailsBottomSheet.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -14,12 +14,12 @@ class BagPage extends StatefulWidget {
   String? branchId;
   String? type;
   String form_type;
-  String? gtype;
+ String gtype;
   BagPage({
     this.branchId,
     required this.type,
     required this.form_type,
-    this.gtype
+   required this.gtype
   });
 
   @override
@@ -27,7 +27,7 @@ class BagPage extends StatefulWidget {
 }
 
 class _BagPageState extends State<BagPage> {
-  SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
+  SalesBottomSheet totalSheet = SalesBottomSheet();
   String imgGlobal = Globaldata.imageurl;
   Bottomsheet showsheet = Bottomsheet();
   String? selected;
@@ -102,14 +102,14 @@ class _BagPageState extends State<BagPage> {
                 children: [
                   Expanded(
                     child: ListView.builder(
-                      itemExtent: 135,
+                      itemExtent: 145,
                       itemCount: value.bagList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return listItemFunction(
                           value.bagList[index]["item_id"],
                           value.bagList[index]["item_name"],
                           double.parse(value.bagList[index]["s_rate_fix"]),
-                          double.parse(value.bagList[index]["qty"]),
+                          int.parse(value.bagList[index]["qty"]),
                           size,
                           index,
                           value.bagList[index]["batch_code"],
@@ -117,13 +117,10 @@ class _BagPageState extends State<BagPage> {
                           value.bagList[index]["cart_id"],
                           value.bagList[index]["item_img"],
                           double.parse(value.bagList[index]["disc_amt"]),
-                          double.parse(value.bagList[index]["tax"]),
-                          double.parse(value.bagList[index]["cess_per"]),
-                          double.parse(value.bagList[index]["cess_amt"]),
+                          double.parse(value.bagList[index]["taxable"]),
                           double.parse(value.bagList[index]["gross"]),
+                          double.parse(value.bagList[index]["cess_amt"]),
                           double.parse(value.bagList[index]["net_total"]),
-                          double.parse(value.bagList[index]["disc_per"]),
-                          double.parse(value.bagList[index]["disc_amt"]),
                         );
                       },
                     ),
@@ -137,6 +134,14 @@ class _BagPageState extends State<BagPage> {
                           onTap: () {
                             // print(
                             //     "............................${value.orderTotal2}");
+                            totalSheet.sheet(
+                                context,
+                                "${Provider.of<Controller>(context, listen: false).item_count}",
+                                "${Provider.of<Controller>(context, listen: false).net_tot}",
+                                "${Provider.of<Controller>(context, listen: false).dis_tot}",
+                                "${Provider.of<Controller>(context, listen: false).tax_total}",
+                                "${Provider.of<Controller>(context, listen: false).cess_total}",
+                                "${Provider.of<Controller>(context, listen: false).gro_tot}");
                             // sheet.sheet(
                             //     context,
                             //     value.orderTotal2[1].toString(),
@@ -154,16 +159,27 @@ class _BagPageState extends State<BagPage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(" Sales Total  : ",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15)),
+                                Text(
+                                  " Sales Total  : ",
+                                  style: GoogleFonts.aBeeZee(
+                                    textStyle:
+                                        Theme.of(context).textTheme.bodyText2,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: P_Settings.loginPagetheme,
+                                  ),
+                                ),
                                 Flexible(
                                   child: Text(
-                                      "\u{20B9}${value.salesTotal.toStringAsFixed(2)}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16)),
+                                    "\u{20B9}${Provider.of<Controller>(context, listen: false).net_tot}",
+                                    style: GoogleFonts.aBeeZee(
+                                      textStyle:
+                                          Theme.of(context).textTheme.bodyText2,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.bold,
+                                      color: P_Settings.loginPagetheme,
+                                    ),
+                                  ),
                                 )
                               ],
                             ),
@@ -255,7 +271,7 @@ class _BagPageState extends State<BagPage> {
       String item_id,
       String itemName,
       double srate1,
-      double qty,
+      int qty,
       Size size,
       int index,
       String? batch_code,
@@ -263,13 +279,10 @@ class _BagPageState extends State<BagPage> {
       String cart_id,
       String img,
       double discount,
-      double tax_per,
-      double cess_per,
-      double cess_amt,
+      double tax,
       double gross,
-      double net_amt,
-      double disc_per,
-      double disc_amt) {
+      double cess,
+      double net_amt) {
     print("qty number-----$itemName----------$srate1--------$qty");
     // _controller.text = qty.toString();
 
@@ -288,23 +301,12 @@ class _BagPageState extends State<BagPage> {
               ),
               child: ListTile(
                 onTap: () {
-                  double gross = srate1 * qty;
-                  print("gross calc===$gross");
-                  value.qty[index].text = qty.toStringAsFixed(2);
-
-                  value.discount_prercent[index].text =
-                      disc_per.toStringAsFixed(4);
-                  value.discount_amount[index].text =
-                      disc_amt.toStringAsFixed(2);
-                  Provider.of<Controller>(context, listen: false).fromDb = true;
                   value.qty[index].selection = TextSelection(
                       baseOffset: 0,
                       extentOffset: value.qty[index].value.text.length);
-                  Provider.of<Controller>(context, listen: false)
-                      .rawCalculation(srate1,qty,disc_per,disc_amt,tax_per,cess_per,"0",int.parse(widget.gtype!),index,false,"");
                   print("quantity in cart..........$qty");
                   Provider.of<Controller>(context, listen: false).setQty(qty);
-                  saleDetais.showSheet(
+                  showsheet.showSheet(
                       context,
                       index,
                       item_id,
@@ -315,25 +317,7 @@ class _BagPageState extends State<BagPage> {
                       srate1,
                       stock,
                       qty.toString(),
-                      widget.form_type,
-                      tax_per,
-                      cess_per,
-                      cess_amt,
-                      disc_per,
-                      disc_amt,
-                      gross);
-                  // showsheet.showSheet(
-                  //     context,
-                  //     index,
-                  //     item_id,
-                  //     cart_id,
-                  //     batch_code!,
-                  //     itemName,
-                  //     "",
-                  //     srate1,
-                  //     stock,
-                  //     qty.toString(),
-                  //     widget.form_type);
+                      widget.form_type);
                 },
                 title: Column(
                   children: [
@@ -393,88 +377,161 @@ class _BagPageState extends State<BagPage> {
                                     ],
                                   ),
                                 ),
-                                Flexible(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 5, top: 5),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "Rate 1:",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 13,
-                                            color: P_Settings.loginPagetheme,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.02,
-                                        ),
-                                        Text(
-                                          "\u{20B9}${srate1.toStringAsFixed(2)}",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.bold,
-                                            color: P_Settings.loginPagetheme,
-                                          ),
-                                        ),
-                                        SizedBox(width: size.width * 0.02),
-
-                                        // Flexible(
-                                        //   child:
-                                        // ),
-                                      ],
-                                    ),
-                                  ),
+                                SizedBox(
+                                  height: size.height * 0.01,
                                 ),
                                 Flexible(
                                   child: Padding(
                                     padding:
-                                        const EdgeInsets.only(left: 5, top: 0),
+                                        const EdgeInsets.only(left: 4, top: 0),
                                     child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          "Qty :",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 13,
-                                            color: P_Settings.loginPagetheme,
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Rate 1:",
+                                              style: GoogleFonts.aBeeZee(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText2,
+                                                fontSize: 13,
+                                                color:
+                                                    P_Settings.loginPagetheme,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: size.width * 0.02,
+                                            ),
+                                            Text(
+                                              "\u{20B9}${srate1.toStringAsFixed(2)}",
+                                              style: GoogleFonts.aBeeZee(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText2,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                                color:
+                                                    P_Settings.loginPagetheme,
+                                              ),
+                                            ),
+                                          ],
+                                        ), // Row(
+
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Discount:",
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                            SizedBox(
+                                              width: size.width * 0.03,
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                " \u{20B9}${discount.toStringAsFixed(2)}",
+                                                style: TextStyle(fontSize: 13),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 4, top: 0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        // mainAxisAlignment:
+                                        // MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Qty     :",
+                                            style: TextStyle(fontSize: 13),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.02,
-                                        ),
-                                        Container(
-                                          child: Text(
-                                            qty.toString(),
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                              color: P_Settings.loginPagetheme,
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "${qty.toString()}",
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(fontSize: 13),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.045,
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.08,
-                                        ),
-                                        Spacer(),
-                                      ],
-                                    ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Tax  :",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.03,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              " \u{20B9}${tax.toStringAsFixed(2)}",
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 4, top: 0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Gross:",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "\u{20B9}${(srate1 * qty).toStringAsFixed(2)}",
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Cess :",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "\u{20B9}${cess.toStringAsFixed(2)}",
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
                           ),

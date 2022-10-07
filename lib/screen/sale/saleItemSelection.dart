@@ -1,7 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/bag/salesBag.dart';
@@ -13,8 +12,8 @@ class SaleItemSelection extends StatefulWidget {
   List<Map<String, dynamic>> list;
   String? remark;
   String formType;
-  String? g_type;
-  SaleItemSelection({required this.list, this.remark, required this.formType,this.g_type});
+  String g_type;
+  SaleItemSelection({required this.list, this.remark, required this.formType,required this.g_type});
 
   @override
   State<SaleItemSelection> createState() => _SaleItemSelectionState();
@@ -34,7 +33,7 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
     list = await Provider.of<Controller>(context, listen: false)
         .getProductDetails("0", "", widget.formType);
 
-    print("g_type----${widget.g_type}");
+    print("listttt----${list}");
   }
 
   @override
@@ -146,7 +145,6 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
               return ItemSelection(
                 list: list,
                 formType: widget.formType,
-                gtype: widget.g_type,
                 // transVal: widget.transVal,
                 // transType: widget.transType,
               );
