@@ -7,29 +7,28 @@ import 'package:provider/provider.dart';
 
 class SaleDetailsBottomSheet {
   showSheet(
-    BuildContext context,
-    int index,
-    String itemId,
-    String catId,
-    String batchocde,
-    String itemName,
-    String itemImg,
-    double srate1,
-    double stock,
-    String qtyf,
-    String formType,
-    double tax_per,
-    double tax_amt,
-    double cess_per,
-    double cess_amt,
-    double disc_per,
-    double disc_amt,
-    double gross,
-    double taxable,
-    int gtype,
-    String cart_id,
-    String page
-  ) {
+      BuildContext context,
+      int index,
+      String itemId,
+      String catId,
+      String batchocde,
+      String itemName,
+      String itemImg,
+      double srate1,
+      double stock,
+      String qtyf,
+      String formType,
+      double tax_per,
+      double tax_amt,
+      double cess_per,
+      double cess_amt,
+      double disc_per,
+      double disc_amt,
+      double gross,
+      double taxable,
+      int gtype,
+      String cart_id,
+      String page) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
     CustomSnackbar snackbar = CustomSnackbar();
@@ -678,11 +677,11 @@ class SaleDetailsBottomSheet {
                                         fontWeight: FontWeight.bold)),
                                 onPressed: () {
                                   // value.qty[index].text=
-                                  if(value.qty[index].text=="1"){
-                                    value.qty[index].text="1.0";
+                                  if (value.qty[index].text == "1") {
+                                    value.qty[index].text = "1.0";
                                   }
-                                  double qty =
-                                      double.parse(value.qty[index].text);
+                                  // double qty =
+                                  //     double.parse(value.qty[index].text);
                                   // Provider.of<Controller>(context, listen: false).rawCalculation(srate1, qty, 0, 0, tax_per, cess_per, method, state_status, index, onSub, disCalc)
                                   // if (transval == -1) {
                                   //   if (stock < qty) {
@@ -740,8 +739,8 @@ class SaleDetailsBottomSheet {
                                           cess_amt,
                                           value.net_amt,
                                           tax_per,
-                                          "0",page);
-                                  
+                                          "0",
+                                          page);
 
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");

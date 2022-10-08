@@ -21,6 +21,8 @@ class _SaleHomeState extends State<SaleHome> {
   DateTime now = DateTime.now();
   String? selected;
   ValueNotifier<bool> visible = ValueNotifier(false);
+  ValueNotifier<bool> cusVisible = ValueNotifier(false);
+
   List splitted = [];
   TextEditingController remrk = TextEditingController();
 
@@ -167,7 +169,7 @@ class _SaleHomeState extends State<SaleHome> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "Please choose  Customer",
+                                                "Please choose  Route",
                                                 style: GoogleFonts.aBeeZee(
                                                     textStyle: Theme.of(context)
                                                         .textTheme
@@ -231,45 +233,7 @@ class _SaleHomeState extends State<SaleHome> {
                                             );
                                           }
                                         },
-                                      )
-                                          //  ElevatedButton(
-                                          //   style: ElevatedButton.styleFrom(
-                                          //     primary: P_Settings.dimclr,
-                                          //     shape: RoundedRectangleBorder(
-                                          //       borderRadius:
-                                          //           BorderRadius.circular(2), // <-- Radius
-                                          //     ),
-                                          //   ),
-                                          //   child: Text(
-                                          //     "Choose Customer",
-                                          //     style: GoogleFonts.aBeeZee(
-                                          //         textStyle:
-                                          //             Theme.of(context).textTheme.bodyText2,
-                                          //         fontSize: 12,
-                                          //         fontWeight: FontWeight.bold,
-                                          //         color: P_Settings.loginPagetheme),
-                                          //   ),
-                                          //   onPressed: () async {
-                                          //     List<Map<String, dynamic>> list =
-                                          //         await Provider.of<Controller>(context,
-                                          //                 listen: false)
-                                          //             .getCustomerList("ss");
-                                          //     if (list.length > 0) {
-                                          //       Navigator.of(context).push(
-                                          //         PageRouteBuilder(
-                                          //             opaque: false, // set to false
-                                          //             pageBuilder: (_, __, ___) =>
-                                          //                 CustomerSelection(
-                                          //                   list: list,
-                                          //                   // remark: remrk.text,
-                                          //                 )
-                                          //             // OrderForm(widget.areaname,"return"),
-                                          //             ),
-                                          //       );
-                                          //     }
-                                          //   },
-                                          // ),
-                                          ),
+                                      )),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
@@ -290,6 +254,35 @@ class _SaleHomeState extends State<SaleHome> {
                                     )
                                   ],
                                 ),
+                                ValueListenableBuilder(
+                                    valueListenable: cusVisible,
+                                    builder: (BuildContext context, bool v,
+                                        Widget? child) {
+                                      print("value===${visible.value}");
+                                      return Visibility(
+                                        visible: v,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 6, bottom: 2.0, left: 40),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Please choose  Customer",
+                                                style: GoogleFonts.aBeeZee(
+                                                    textStyle: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText2,
+                                                    fontSize: 15,
+                                                    // fontWeight: FontWeight.bold,
+                                                    color: Colors.red),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 40, right: 40, top: 10.0),
@@ -362,7 +355,11 @@ class _SaleHomeState extends State<SaleHome> {
                                               .getProductDetails(
                                                   "0", "", widget.formType);
                                       print("value.gtype------${value.gtype1}");
-                                      if (list.length > 0) {
+                                      if (value.gtype1 == null) {
+                                        cusVisible.value = true;
+                                      } else {
+                                        cusVisible.value = false;
+                                        if (list.length > 0) {
                                         Navigator.of(context).push(
                                           PageRouteBuilder(
                                               opaque: false, // set to false
@@ -377,6 +374,8 @@ class _SaleHomeState extends State<SaleHome> {
                                               ),
                                         );
                                       }
+                                      }
+                                      
                                     },
                                   ),
                                 ),
