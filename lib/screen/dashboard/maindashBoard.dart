@@ -47,6 +47,7 @@ class _MainDashboardState extends State<MainDashboard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       // backgroundColor: P_Settings.loginPagetheme,
       appBar: AppBar(
@@ -135,7 +136,8 @@ class _MainDashboardState extends State<MainDashboard> {
                         onTap: () {
                           Provider.of<Controller>(context, listen: false)
                               .getRouteList(context);
-
+                          Provider.of<Controller>(context, listen: false)
+                              .getInvoice("1");
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -176,7 +178,8 @@ class _MainDashboardState extends State<MainDashboard> {
                         onTap: () {
                           Provider.of<Controller>(context, listen: false)
                               .getRouteList(context);
-
+                          Provider.of<Controller>(context, listen: false)
+                              .getInvoice("2");
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -256,8 +259,7 @@ class _MainDashboardState extends State<MainDashboard> {
                         onTap: () {
                           // Provider.of<Controller>(context, listen: false)
                           //     .getTransactionList(context);
-                          // Provider.of<Controller>(context, listen: false)
-                          //     .setIssearch(false);
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(

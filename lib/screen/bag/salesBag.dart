@@ -44,7 +44,7 @@ class _BagPageState extends State<BagPage> {
     // TODO: implement initState
     super.initState();
     Provider.of<Controller>(context, listen: false)
-        .getbagData1(context, widget.form_type,"");
+        .getbagData1(context, widget.form_type, "");
     EasyLoading.addStatusCallback((status) {
       print('EasyLoading Status $status');
       if (status == EasyLoadingStatus.dismiss) {
@@ -145,21 +145,12 @@ class _BagPageState extends State<BagPage> {
                             //     "............................${value.orderTotal2}");
                             totalSheet.sheet(
                                 context,
-                                "${Provider.of<Controller>(context, listen: false).item_count}",
-                                "${Provider.of<Controller>(context, listen: false).net_tot}",
-                                "${Provider.of<Controller>(context, listen: false).dis_tot}",
-                                "${Provider.of<Controller>(context, listen: false).tax_total}",
-                                "${Provider.of<Controller>(context, listen: false).cess_total}",
-                                "${Provider.of<Controller>(context, listen: false).gro_tot}");
-                            // sheet.sheet(
-                            //     context,
-                            //     value.orderTotal2[1].toString(),
-                            //     value.orderTotal2[0].toString(),
-                            //     value.orderTotal2[3].toString(),
-                            //     value.orderTotal2[2].toString(),
-                            //     value.orderTotal2[4].toString(),
-                            //     value.orderTotal2[5].toString(),
-                            //     value.orderTotal2[10]);
+                                "${value.item_count}",
+                                "${value.net_tot}",
+                                "${value.dis_tot}",
+                                "${value.tax_total}",
+                                "${value.cess_total}",
+                                "${value.gro_tot}");
                           },
                           child: Container(
                             width: size.width * 0.5,
@@ -657,8 +648,10 @@ class _BagPageState extends State<BagPage> {
 
                                               Provider.of<Controller>(context,
                                                       listen: false)
-                                                  .getbagData1(context,
-                                                      widget.form_type,"delete");
+                                                  .getbagData1(
+                                                      context,
+                                                      widget.form_type,
+                                                      "delete");
 
                                               // Provider.of<Controller>(
                                               //         context,

@@ -32,6 +32,8 @@ class Controller extends ChangeNotifier {
   String? user_id;
   String? cusName1;
   String? cartCount;
+
+  var invoice;
   List<bool> errorClicked = [];
   List<String> uniquelist = [];
   List<String> uniquecustomerlist = [];
@@ -231,6 +233,27 @@ class Controller extends ChangeNotifier {
     }
   }
 
+  /////////////////////////get invoice number/////////////////////////////
+  getInvoice(String form_type) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    branch_id = prefs.getString("branch_id");
+    try {
+      Uri url = Uri.parse("$urlgolabl/get_invoice_no.php");
+      Map body = {'branch_id': branch_id, 'form_type': form_type};
+      isLoading = true;
+      notifyListeners();
+      http.Response response = await http.post(
+        url,
+        body: body,
+      );
+      var map = jsonDecode(response.body);
+      print("invoice number.......${map}");
+      invoice = map['invoice_no'];
+      print("invoice ......${invoice}");
+      notifyListeners();
+    } catch (e) {}
+  }
+
   ////////////////////////////////////////////////////////////////////////////
   Future<List<Map<String, dynamic>>> getCustomerList(String routeId) async {
     print("routeId.......$routeId.");
@@ -386,7 +409,9 @@ class Controller extends ChangeNotifier {
           if (err_status == 0 && res == "Bag Edit Successfully") {
             getbagData1(context, form_type, "edit");
           }
-
+          if (err_status == 0 && res == "Bag Remove Successfully") {
+            getbagData1(context, form_type, "edit");
+          }
           notifyListeners();
           return res;
           /////////////// insert into local db /////////////////////

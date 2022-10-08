@@ -264,8 +264,8 @@ class _ItemSelectionState extends State<ItemSelection> {
                 trailing: value.qty[index].text == "0"
                     ? IconButton(
                         onPressed: () {
-                          // int qty;
-                          // value.setqtyErrormsg(false);
+                          print(
+                              "new quantity text.......${value.qty[index].text}");
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);
@@ -295,9 +295,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                                   index,
                                   false,
                                   "");
-                          // print("quantity in cart..........$qty");
-                          // Provider.of<Controller>(context, listen: false)
-                          //     .setQty(qty);
+
                           saleDetais.showSheet(
                               context,
                               index,
@@ -320,25 +318,12 @@ class _ItemSelectionState extends State<ItemSelection> {
                               double.parse(item.taxable!),
                               int.parse(widget.gtype!),
                               "0");
-                          // showsheet.showSheet(
-                          //     context,
-                          //     index,
-                          //     item.itemId!,
-                          //     item.catId!,
-                          //     item.batchCode!,
-                          //     item.itemName!,
-                          //     item.itemImg!,
-                          //     double.parse(item.sRate1!),
-                          //     double.parse(item.stock!),
-                          //     value.qty[index].text,
-                          //     widget.formType
-
-                          //     );
                         },
                         icon: Icon(
                           Icons.add,
                           size: 20,
-                        ))
+                        ),
+                      )
                     : GestureDetector(
                         onTap: () {
                           print("added data.");

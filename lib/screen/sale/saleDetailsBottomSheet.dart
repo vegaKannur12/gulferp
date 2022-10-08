@@ -187,7 +187,7 @@ class SaleDetailsBottomSheet {
                                     print("emtyyyy");
                                     valueqty = double.parse(values);
                                   } else {
-                                    valueqty = 0.00;
+                                    valueqty = 0.0;
                                   }
                                   // Provider.of<Controller>(context,
                                   //         listen: false)
@@ -225,7 +225,7 @@ class SaleDetailsBottomSheet {
                                     print("emtyyyy");
                                     valueqty = double.parse(values);
                                   } else {
-                                    valueqty = 0.00;
+                                    valueqty = 0.0;
                                   }
                                 },
                                 textAlign: TextAlign.right,
