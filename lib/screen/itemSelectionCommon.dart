@@ -318,7 +318,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.disc_amt,
                               gross,
                               double.parse(item.taxable!),
-                              int.parse(widget.gtype!));
+                              int.parse(widget.gtype!),"0");
                           // showsheet.showSheet(
                           //     context,
                           //     index,
@@ -408,7 +408,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.disc_amt,
                               gross,
                               0,
-                              int.parse(widget.gtype!));
+                              int.parse(widget.gtype!),"0");
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 18.0),

@@ -7,26 +7,28 @@ import 'package:provider/provider.dart';
 
 class SaleDetailsBottomSheet {
   showSheet(
-      BuildContext context,
-      int index,
-      String itemId,
-      String catId,
-      String batchocde,
-      String itemName,
-      String itemImg,
-      double srate1,
-      double stock,
-      String qtyf,
-      String formType,
-      double tax_per,
-      double tax_amt,
-      double cess_per,
-      double cess_amt,
-      double disc_per,
-      double disc_amt,
-      double gross,
-      double taxable,
-      int gtype) {
+    BuildContext context,
+    int index,
+    String itemId,
+    String catId,
+    String batchocde,
+    String itemName,
+    String itemImg,
+    double srate1,
+    double stock,
+    String qtyf,
+    String formType,
+    double tax_per,
+    double tax_amt,
+    double cess_per,
+    double cess_amt,
+    double disc_per,
+    double disc_amt,
+    double gross,
+    double taxable,
+    int gtype,
+    String cart_id,
+  ) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
     CustomSnackbar snackbar = CustomSnackbar();
@@ -707,6 +709,7 @@ class SaleDetailsBottomSheet {
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .addDeletebagItem(
+                                          cart_id,
                                           itemId,
                                           srate1.toString(),
                                           value.qty[index].text,

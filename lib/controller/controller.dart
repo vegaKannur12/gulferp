@@ -303,6 +303,7 @@ class Controller extends ChangeNotifier {
 
   //////////////////////////////////////////////////////////////////////////
   Future addDeletebagItem(
+      String cart_id,
       String itemId,
       String srate1,
       String qty,
@@ -334,6 +335,7 @@ class Controller extends ChangeNotifier {
           print("kjn---------------$branch_id----$user_id-");
           Uri url = Uri.parse("$urlgolabl/save_cart.php");
           Map body = {
+            'cart_id': cart_id,
             'staff_id': user_id,
             'branch_id': branch_id,
             'item_id': itemId,
@@ -368,6 +370,8 @@ class Controller extends ChangeNotifier {
           );
 
           var map = jsonDecode(response.body);
+          var res = map["msg"];
+          var err_status = map["err_status"];
           print("save_cart---------------$map");
           if (action != "delete") {
             isLoading = false;
@@ -375,13 +379,12 @@ class Controller extends ChangeNotifier {
           }
           print("delete response-----------------${map}");
           cartCount = map["cart_count"];
-          var res = map["msg"];
 
-          var err_status = map["err_status"];
-          if (err_status == 0 && res == "Bag deleted Successfully" ||
-              err_status == 0 && res == "Bag Edit Successfully") {
+          if (err_status == 0 && res == "Bag deleted Successfully") {
             getbagData1(context, form_type, "delete");
-            notifyListeners();
+          }
+          if (err_status == 0 && res == "Bag Edit Successfully") {
+            getbagData1(context, form_type, "edit");
           }
 
           notifyListeners();
@@ -397,7 +400,7 @@ class Controller extends ChangeNotifier {
   }
 
   /////////////////////////////////////////////////////////////////
-  getbagData1(BuildContext context, String form_type, String delete) async {
+  getbagData1(BuildContext context, String form_type, String type) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -412,9 +415,10 @@ class Controller extends ChangeNotifier {
             'form_type': form_type,
           };
           print("cart body-----$body");
-
-          isLoading = true;
-          notifyListeners();
+          if (type != "edit") {
+            isLoading = true;
+            notifyListeners();
+          }
 
           http.Response response = await http.post(
             url,
@@ -457,24 +461,17 @@ class Controller extends ChangeNotifier {
             gro_tot = gro_tot! + double.parse(bagList[i]["gross"]);
             disc_tot = disc_tot! + double.parse(bagList[i]["disc_amt"]);
             cess_total = cess_total! + double.parse(bagList[i]["cess_amt"]);
-            tax_total = tax_total! + double.parse(bagList[i]["taxable"]);
+            tax_total = tax_total! +
+                double.parse(bagList[i]["igst_amt"]) +
+                double.parse(bagList[i]["cgst_amt"]) +
+                double.parse(bagList[i]["sgst_amt"]);
           }
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          // bagList.forEach((item) {
-          //   print("items in baglist.length..........${item.length}");
-
-          //   net_tot += double.parse(item["net_total"]);
-          //   gro_tot += double.parse(item["gross"]);
-          //   dis_tot += double.parse(item["disc_amt"]);
-          //   cess_total += double.parse(item["cess_amt"]);
-          //   tax_total += double.parse(item["taxable"]);
-          //   print(
-          //       "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          // });
-
-          isLoading = false;
-          notifyListeners();
+          if (type != "edit") {
+            isLoading = false;
+            notifyListeners();
+          }
 
           /////////////// insert into local db /////////////////////
         } catch (e) {

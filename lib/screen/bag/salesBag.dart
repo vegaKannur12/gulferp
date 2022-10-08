@@ -372,7 +372,8 @@ class _BagPageState extends State<BagPage> {
                       disc_amt,
                       gross,
                       taxable,
-                      int.parse(widget.gtype));
+                      int.parse(widget.gtype),
+                      cart_id);
                 },
                 title: Column(
                   children: [
@@ -625,6 +626,7 @@ class _BagPageState extends State<BagPage> {
                                               Provider.of<Controller>(context,
                                                       listen: false)
                                                   .addDeletebagItem(
+                                                      cart_id,
                                                       item_id,
                                                       srate1.toString(),
                                                       qty.toString(),
