@@ -372,22 +372,21 @@ class _SaleHomeState extends State<SaleHome> {
                                       } else {
                                         cusVisible.value = false;
                                         if (list.length > 0) {
-                                        Navigator.of(context).push(
-                                          PageRouteBuilder(
-                                              opaque: false, // set to false
-                                              pageBuilder: (_, __, ___) =>
-                                                  SaleItemSelection(
-                                                    list: list,
-                                                    remark: remrk.text,
-                                                    formType: widget.formType,
-                                                    g_type: value.gtype1!,
-                                                  )
-                                              // OrderForm(widget.areaname,"return"),
-                                              ),
-                                        );
+                                          Navigator.of(context).push(
+                                            PageRouteBuilder(
+                                                opaque: false, // set to false
+                                                pageBuilder: (_, __, ___) =>
+                                                    SaleItemSelection(
+                                                      list: list,
+                                                      remark: remrk.text,
+                                                      formType: widget.formType,
+                                                      g_type: value.gtype1!,
+                                                    )
+                                                // OrderForm(widget.areaname,"return"),
+                                                ),
+                                          );
+                                        }
                                       }
-                                      }
-                                      
                                     },
                                   ),
                                 ),

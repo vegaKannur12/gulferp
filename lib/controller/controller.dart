@@ -450,8 +450,8 @@ class Controller extends ChangeNotifier {
           };
           print("cart body-----$body");
           if (type != "delete") {
-          isLoading = true;
-          notifyListeners();
+            isLoading = true;
+            notifyListeners();
           }
 
           http.Response response = await http.post(
@@ -509,8 +509,8 @@ class Controller extends ChangeNotifier {
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
           if (type != "delete") {
-          isLoading = false;
-          notifyListeners();
+            isLoading = false;
+            notifyListeners();
           }
 
           /////////////// insert into local db /////////////////////
