@@ -18,9 +18,8 @@ class Controller extends ChangeNotifier {
 
   bool disPerClicked = false;
   bool disamtClicked = false;
-
-  bool isLoading = false;
   bool invoiceLoad = false;
+  bool isLoading = false;
   bool filter = false;
   String? gtype1;
   String? routeName;
@@ -353,7 +352,8 @@ class Controller extends ChangeNotifier {
       double cess_amt,
       double net_tot,
       double tax_per,
-      String event) async {
+      String event,
+      String page) async {
     print("Quantity.......$action.....$qty");
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
@@ -406,16 +406,21 @@ class Controller extends ChangeNotifier {
           }
           print("delete response-----------------${map}");
           cartCount = map["cart_count"];
-          if (err_status == 0 && res == "Bag Edit Successfully") {
-            getbagData1(context, form_type, "edit");
-          }
+
           if (err_status == 0 && res == "Bag deleted Successfully") {
             getbagData1(context, form_type, "delete");
           }
+          print("pagee-----$page---$res---$err_status");
 
-          if (err_status == 0 && res == "Bag Remove Successfully") {
+          if (err_status == 0 &&
+              res == "Bag Edit Successfully" &&
+              page == "cart") {
+            // print("pagee-----$page");
             getbagData1(context, form_type, "edit");
           }
+          // if (err_status == 0 && res == "Bag Remove Successfully") {
+          //   getbagData1(context, form_type, "edit");
+          // }
           notifyListeners();
           return res;
           /////////////// insert into local db /////////////////////
@@ -445,8 +450,8 @@ class Controller extends ChangeNotifier {
           };
           print("cart body-----$body");
           // if (type != "edit") {
-            isLoading = true;
-            notifyListeners();
+          isLoading = true;
+          notifyListeners();
           // }
           http.Response response = await http.post(
             url,
@@ -503,8 +508,8 @@ class Controller extends ChangeNotifier {
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
           // if (type != "edit") {
-            isLoading = false;
-            notifyListeners();
+          isLoading = false;
+          notifyListeners();
           // }
           /////////////// insert into local db /////////////////////
         } catch (e) {
@@ -1018,7 +1023,9 @@ class Controller extends ChangeNotifier {
       String taxable_total,
       String total_qty) async {
     List<Map<String, dynamic>> jsonResult = [];
-    Map<String, dynamic> itemmap = {};
+    // List<Map<String, dynamic>> itemmap = [];
+
+    // Map<String, dynamic> itemmap = {};
     Map<String, dynamic> resultmmap = {};
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1030,10 +1037,10 @@ class Controller extends ChangeNotifier {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         print("bagList-----$bagList");
-        // Uri url = Uri.parse("$urlgolabl/save_transaction.php");
+        Uri url = Uri.parse("$urlgolabl/save_sale.php");
 
         jsonResult.clear();
-        itemmap.clear();
+        // itemmap.clear();
 
         // bagList.map((e) {
         //   itemmap["item_id"] = e["item_id"];
@@ -1059,27 +1066,28 @@ class Controller extends ChangeNotifier {
         jsonResult.clear();
 
         for (var i = 0; i < bagList.length; i++) {
-          print("bagList[i]-------------${bagList[i]}");
-          itemmap["item_id"] = bagList[i]["item_id"];
-          itemmap["qty"] = bagList[i]["qty"];
-          itemmap["tax"] = bagList[i]["tax"];
-          itemmap["gross"] = bagList[i]["gross"];
-          itemmap["disc_per"] = bagList[i]["disc_per"];
-          itemmap["disc_amt"] = bagList[i]["disc_amt"];
-          itemmap["taxable"] = bagList[i]["taxable"];
-          itemmap["cgst_per"] = bagList[i]["cgst_per"];
-          itemmap["cgst_amt"] = bagList[i]["cgst_amt"];
-          itemmap["sgst_per"] = bagList[i]["sgst_per"];
-          itemmap["sgst_amt"] = bagList[i]["sgst_amt"];
-          itemmap["igst_per"] = bagList[i]["igst_per"];
-          itemmap["igst_amt"] = bagList[i]["igst_amt"];
-          itemmap["cess_per"] = bagList[i]["cess_per"];
-          itemmap["cess_amt"] = bagList[i]["cess_amt"];
-          itemmap["net_total"] = bagList[i]["net_total"];
-          print("itemmap----$itemmap");
+          var itemmap = {
+            "item_id": bagList[i]["item_id"],
+            "qty": bagList[i]["qty"],
+            "tax": bagList[i]["tax"],
+            "gross": bagList[i]["gross"],
+            "disc_per": bagList[i]["disc_per"],
+            "disc_amt": bagList[i]["disc_amt"],
+            "taxable": bagList[i]["taxable"],
+            "cgst_per": bagList[i]["cgst_per"],
+            "cgst_amt": bagList[i]["cgst_amt"],
+            "sgst_per": bagList[i]["sgst_per"],
+            "sgst_amt": bagList[i]["sgst_amt"],
+            "igst_per": bagList[i]["igst_per"],
+            "igst_amt": bagList[i]["igst_amt"],
+            "cess_per": bagList[i]["cess_per"],
+            "cess_amt": bagList[i]["cess_amt"],
+            "net_total": bagList[i]["net_total"]
+          };
           jsonResult.add(itemmap);
           print("jsonResult----$jsonResult");
         }
+        print("jsonResult----$jsonResult");
 
         Map masterMap = {
           "s_customer_id": customer_id,
@@ -1114,15 +1122,15 @@ class Controller extends ChangeNotifier {
         print("jsonEnc-----$jsonEnc");
         isLoading = true;
         notifyListeners();
-        // http.Response response = await http.post(
-        //   url,
-        //   body: {'json_data': jsonEnc},
-        // );
+        http.Response response = await http.post(
+          url,
+          body: {'json_data': jsonEnc},
+        );
 
-        // var map = jsonDecode(response.body);
+        var map = jsonDecode(response.body);
         isLoading = false;
         notifyListeners();
-        // print("json cart------$map");
+        print("json cart--save----$map");
 
         // if (action == "delete" && map["err_status"] == 0) {
         //   // print("hist-----------$historyList");
@@ -1138,27 +1146,37 @@ class Controller extends ChangeNotifier {
 
                 Future.delayed(Duration(seconds: 2), () {
                   Navigator.of(ct).pop(true);
-                  Navigator.of(context).push(
-                    PageRouteBuilder(
-                        opaque: false, // set to false
-                        pageBuilder: (_, __, ___) => SaleHome(
-                              formType: form_type,
-                              type: "",
-                            )
-                        // OrderForm(widget.areaname,"return"),
-                        ),
+                  // Navigator.of(context).push(
+                  //   PageRouteBuilder(
+                  //       opaque: false, // set to false
+                  //       pageBuilder: (_, __, ___) => SaleHome(
+                  //             formType: form_type,
+                  //             type: "",
+                  //           )
+                  //       // OrderForm(widget.areaname,"return"),
+                  //       ),
+                  // );
+                  Navigator.pushReplacement<void, void>(
+                    context,
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => SaleHome(
+                        formType: form_type,
+                        type: "",
+                      ),
+                    ),
                   );
+                  Navigator.pop(context);
                 });
                 return AlertDialog(
                     content: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    // Flexible(
-                    //   child: Text(
-                    //     '${map['msg']}',
-                    //     style: TextStyle(color: P_Settings.loginPagetheme),
-                    //   ),
-                    // ),
+                    Flexible(
+                      child: Text(
+                        '${map['msg']}',
+                        style: TextStyle(color: P_Settings.loginPagetheme),
+                      ),
+                    ),
                     Icon(
                       Icons.done,
                       color: Colors.green,
@@ -1193,12 +1211,12 @@ class Controller extends ChangeNotifier {
                     content: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    // Flexible(
-                    //   child: Text(
-                    //     '${map['msg']}',
-                    //     style: TextStyle(color: P_Settings.loginPagetheme),
-                    //   ),
-                    // ),
+                    Flexible(
+                      child: Text(
+                        '${map['msg']}',
+                        style: TextStyle(color: P_Settings.loginPagetheme),
+                      ),
+                    ),
                     Icon(
                       Icons.done,
                       color: Colors.green,

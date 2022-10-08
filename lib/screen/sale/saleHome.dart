@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/customer/customerSelection.dart';
+import 'package:gulferp/screen/dashboard/maindashBoard.dart';
 import 'package:gulferp/screen/history/history.dart';
 import 'package:gulferp/screen/sale/saleItemSelection.dart';
 import 'package:intl/intl.dart';
@@ -44,6 +45,17 @@ class _SaleHomeState extends State<SaleHome> {
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
         title: Text(widget.type),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MainDashboard()),
+            );
+          },
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+        ),
         actions: [
           IconButton(
               onPressed: () {

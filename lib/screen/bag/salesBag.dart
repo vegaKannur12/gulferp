@@ -370,7 +370,7 @@ class _BagPageState extends State<BagPage> {
                       gross,
                       taxable,
                       int.parse(widget.gtype),
-                      cart_id);
+                      cart_id,"cart");
                 },
                 title: Column(
                   children: [
@@ -644,7 +644,7 @@ class _BagPageState extends State<BagPage> {
                                                       cess_amt,
                                                       net_amt,
                                                       tax_per,
-                                                      "2");
+                                                      "2","cart");
                                               // var response =
                                               // await Provider.of<Controller>(
                                               //         context,
