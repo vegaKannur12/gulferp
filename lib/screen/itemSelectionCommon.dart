@@ -320,7 +320,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               gross,
                               double.parse(item.taxable!),
                               int.parse(widget.gtype!),
-                              "0");
+                              "0","item");
                         },
                         icon: Icon(
                           Icons.add,
@@ -401,7 +401,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               gross,
                               0,
                               int.parse(widget.gtype!),
-                              "0");
+                              "0","item");
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 18.0),

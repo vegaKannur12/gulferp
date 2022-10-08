@@ -28,6 +28,7 @@ class SaleDetailsBottomSheet {
     double taxable,
     int gtype,
     String cart_id,
+    String page
   ) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
@@ -736,10 +737,8 @@ class SaleDetailsBottomSheet {
                                           cess_amt,
                                           value.net_amt,
                                           tax_per,
-                                          "0");
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .getbagData1(context, formType);
+                                          "0",page);
+                                  
 
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");

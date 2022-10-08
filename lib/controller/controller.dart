@@ -352,7 +352,7 @@ class Controller extends ChangeNotifier {
       double cess_amt,
       double net_tot,
       double tax_per,
-      String event) async {
+      String event,String page) async {
     print("Quantity.......$action.....$qty");
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
@@ -411,12 +411,15 @@ class Controller extends ChangeNotifier {
           if (err_status == 0 && res == "Bag deleted Successfully") {
             getbagData1(context, form_type, "delete");
           }
-          if (err_status == 0 && res == "Bag Edit Successfully") {
+            print("pagee-----$page---$res---$err_status");
+
+          if (err_status == 0 && res == "Bag Edit Successfully" && page=="cart") {
+            // print("pagee-----$page");
             getbagData1(context, form_type, "edit");
           }
-          if (err_status == 0 && res == "Bag Remove Successfully") {
-            getbagData1(context, form_type, "edit");
-          }
+          // if (err_status == 0 && res == "Bag Remove Successfully") {
+          //   getbagData1(context, form_type, "edit");
+          // }
           notifyListeners();
           return res;
           /////////////// insert into local db /////////////////////
