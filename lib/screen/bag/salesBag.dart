@@ -44,7 +44,7 @@ class _BagPageState extends State<BagPage> {
     // TODO: implement initState
     super.initState();
     Provider.of<Controller>(context, listen: false)
-        .getbagData1(context, widget.form_type);
+        .getbagData1(context, widget.form_type,"");
     EasyLoading.addStatusCallback((status) {
       print('EasyLoading Status $status');
       if (status == EasyLoadingStatus.dismiss) {
@@ -658,7 +658,7 @@ class _BagPageState extends State<BagPage> {
                                               Provider.of<Controller>(context,
                                                       listen: false)
                                                   .getbagData1(context,
-                                                      widget.form_type);
+                                                      widget.form_type,"delete");
 
                                               // Provider.of<Controller>(
                                               //         context,

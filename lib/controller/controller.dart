@@ -14,6 +14,8 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   bool? fromDb;
+  bool isbagloading = false;
+
   bool disPerClicked = false;
   bool disamtClicked = false;
 
@@ -378,13 +380,13 @@ class Controller extends ChangeNotifier {
           print("delete response-----------------${map}");
           cartCount = map["cart_count"];
 
-          if (err_status == 0 && res == "Bag deleted Successfully" ||
-              err_status == 0 && res == "Bag Edit Successfully") {
-            getbagData1(context, form_type);
+          if (err_status == 0 && res == "Bag deleted Successfully") {
+            getbagData1(context, form_type, "delete");
           }
-          // if (err_status == 0 && res == "Bag Edit Successfully") {
-          //   getbagData1(context, form_type);
-          // }
+          if (err_status == 0 && res == "Bag Edit Successfully") {
+            getbagData1(context, form_type, "edit");
+          }
+
           notifyListeners();
           return res;
           /////////////// insert into local db /////////////////////
@@ -398,7 +400,7 @@ class Controller extends ChangeNotifier {
   }
 
   /////////////////////////////////////////////////////////////////
-  getbagData1(BuildContext context, String form_type) async {
+  getbagData1(BuildContext context, String form_type, String type) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -413,9 +415,10 @@ class Controller extends ChangeNotifier {
             'form_type': form_type,
           };
           print("cart body-----$body");
-
-          isLoading = true;
-          notifyListeners();
+          if (type != "edit") {
+            isLoading = true;
+            notifyListeners();
+          }
 
           http.Response response = await http.post(
             url,
@@ -465,9 +468,10 @@ class Controller extends ChangeNotifier {
           }
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-
-          isLoading = false;
-          notifyListeners();
+          if (type != "edit") {
+            isLoading = false;
+            notifyListeners();
+          }
 
           /////////////// insert into local db /////////////////////
         } catch (e) {
