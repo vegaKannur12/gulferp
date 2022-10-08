@@ -14,6 +14,8 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   bool? fromDb;
+  bool isbagloading = false;
+
   bool disPerClicked = false;
   bool disamtClicked = false;
 
@@ -206,7 +208,7 @@ class Controller extends ChangeNotifier {
         // if (productList[i]["qty"] == "0") {
         //   qty[i].text = "1";
         // } else {
-          qty[i].text = productList[i]["qty"].toString();
+        qty[i].text = productList[i]["qty"].toString();
         // }
       }
       notifyListeners();
@@ -374,16 +376,14 @@ class Controller extends ChangeNotifier {
           print("delete response-----------------${map}");
           cartCount = map["cart_count"];
           var res = map["msg"];
-          if (res == "Bag deleted Successfully") {
-            getbagData1(context, form_type);
-          }
+
           var err_status = map["err_status"];
-          if (err_status == 0 && res == "Bag deleted Successfully"||err_status == 0 && res == "Bag Edit Successfully" ) {
-            getbagData1(context, form_type);
+          if (err_status == 0 && res == "Bag deleted Successfully" ||
+              err_status == 0 && res == "Bag Edit Successfully") {
+            getbagData1(context, form_type, "delete");
+            notifyListeners();
           }
-          // if (err_status == 0 && res == "Bag Edit Successfully") {
-          //   getbagData1(context, form_type);
-          // }
+
           notifyListeners();
           return res;
           /////////////// insert into local db /////////////////////
@@ -397,7 +397,7 @@ class Controller extends ChangeNotifier {
   }
 
   /////////////////////////////////////////////////////////////////
-  getbagData1(BuildContext context, String form_type) async {
+  getbagData1(BuildContext context, String form_type, String delete) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
