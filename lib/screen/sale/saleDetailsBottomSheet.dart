@@ -182,12 +182,14 @@ class SaleDetailsBottomSheet {
                                 keyboardType: TextInputType.number,
                                 onSubmitted: (values) {
                                   double valueqty = 0.0;
-                                  // value.discount_amount[index].text=;
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .fromDb = false;
                                   if (values.isNotEmpty) {
                                     print("emtyyyy");
                                     valueqty = double.parse(values);
                                   } else {
-                                    valueqty = 0.00;
+                                    valueqty = 0.0;
                                   }
                                   // Provider.of<Controller>(context,
                                   //         listen: false)
@@ -225,7 +227,7 @@ class SaleDetailsBottomSheet {
                                     print("emtyyyy");
                                     valueqty = double.parse(values);
                                   } else {
-                                    valueqty = 0.00;
+                                    valueqty = 0.0;
                                   }
                                 },
                                 textAlign: TextAlign.right,
@@ -320,7 +322,9 @@ class SaleDetailsBottomSheet {
                             ),
                             Spacer(),
                             Text(
-                              "\u{20B9}${gross.toStringAsFixed(2)}",
+                              value.fromDb!
+                                  ? "\u{20B9}${gross.toStringAsFixed(2)}"
+                                  : "\u{20B9}${value.gross.toStringAsFixed(2)}",
                               style: GoogleFonts.aBeeZee(
                                 textStyle:
                                     Theme.of(context).textTheme.bodyText2,
@@ -389,9 +393,9 @@ class SaleDetailsBottomSheet {
                                   } else {
                                     valuediscper = 0.00;
                                   }
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .fromDb = false;
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .fromDb = false;
 
                                   Provider.of<Controller>(context,
                                           listen: false)

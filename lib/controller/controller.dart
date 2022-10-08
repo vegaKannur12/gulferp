@@ -32,6 +32,8 @@ class Controller extends ChangeNotifier {
   String? user_id;
   String? cusName1;
   String? cartCount;
+
+  var invoice;
   List<bool> errorClicked = [];
   List<String> uniquelist = [];
   List<String> uniquecustomerlist = [];
@@ -210,11 +212,11 @@ class Controller extends ChangeNotifier {
         discount_prercent[i].text = productList[i]["disc_per"].toString();
         discount_amount[i].text = productList[i]["disc_amt"].toString();
         print("qty------${productList[i]["qty"]}");
-        // if (productList[i]["qty"] == "0") {
-        //   qty[i].text = "1";
-        // } else {
-        qty[i].text = productList[i]["qty"].toString();
-        // }
+        if (productList[i]["qty"] == "0") {
+          qty[i].text = "1";
+        } else {
+          qty[i].text = productList[i]["qty"].toString();
+        }
       }
       notifyListeners();
       var seen = Set<String>();
@@ -234,6 +236,27 @@ class Controller extends ChangeNotifier {
       // return null;
       return [];
     }
+  }
+
+  /////////////////////////get invoice number/////////////////////////////
+  getInvoice(String form_type) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    branch_id = prefs.getString("branch_id");
+    try {
+      Uri url = Uri.parse("$urlgolabl/get_invoice_no.php");
+      Map body = {'branch_id': branch_id, 'form_type': form_type};
+      isLoading = true;
+      notifyListeners();
+      http.Response response = await http.post(
+        url,
+        body: body,
+      );
+      var map = jsonDecode(response.body);
+      print("invoice number.......${map}");
+      invoice = map['invoice_no'];
+      print("invoice ......${invoice}");
+      notifyListeners();
+    } catch (e) {}
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -391,7 +414,9 @@ class Controller extends ChangeNotifier {
           if (err_status == 0 && res == "Bag Edit Successfully") {
             getbagData1(context, form_type, "edit");
           }
-
+          if (err_status == 0 && res == "Bag Remove Successfully") {
+            getbagData1(context, form_type, "edit");
+          }
           notifyListeners();
           return res;
           /////////////// insert into local db /////////////////////
@@ -1018,38 +1043,49 @@ class Controller extends ChangeNotifier {
         jsonResult.clear();
         itemmap.clear();
 
-        bagList.map((e) {
-          itemmap["item_id"] = e["item_id"];
-          itemmap["qty"] = e["qty"];
-          itemmap["rate"] = e["rate"];
-          itemmap["tax"] = e["tax"];
-          itemmap["gross"] = e["gross"];
-          itemmap["disc_per"] = e["disc_per"];
-          itemmap["disc_amt"] = e["disc_amt"];
-          itemmap["taxable"] = e["taxable"];
-          itemmap["cgst_per"] = e["cgst_per"];
-          itemmap["cgst_amt"] = e["cgst_amt"];
-          itemmap["sgst_per"] = e["sgst_per"];
-          itemmap["sgst_amt"] = e["sgst_amt"];
-          itemmap["igst_per"] = e["igst_per"];
-          itemmap["igst_amt"] = e["igst_amt"];
-          itemmap["cess_per"] = e["cess_per"];
-          itemmap["cess_amt"] = e["cess_amt"];
-          itemmap["net_total"] = e["net_total"];
-
-          print("itemmap----$itemmap");
-          jsonResult.add(e);
-        }).toList();
-
-        // for (var i = 0; i < bagList.length; i++) {
-        //   print("bagList[i]-------------${bagList[i]}");
-        //   itemmap["item_id"] = bagList[i]["item_id"];
-        //   itemmap["qty"] = bagList[i]["qty"];
-        //   itemmap["s_rate_1"] = bagList[i]["s_rate_1"];
-        //   itemmap["s_rate_2"] = bagList[i]["s_rate_2"];
+        // bagList.map((e) {
+        //   itemmap["item_id"] = e["item_id"];
+        //   itemmap["qty"] = e["qty"];
+        //   itemmap["rate"] = e["rate"];
+        //   itemmap["tax"] = e["tax"];
+        //   itemmap["gross"] = e["gross"];
+        //   itemmap["disc_per"] = e["disc_per"];
+        //   itemmap["disc_amt"] = e["disc_amt"];
+        //   itemmap["taxable"] = e["taxable"];
+        //   itemmap["cgst_per"] = e["cgst_per"];
+        //   itemmap["cgst_amt"] = e["cgst_amt"];
+        //   itemmap["sgst_per"] = e["sgst_per"];
+        //   itemmap["sgst_amt"] = e["sgst_amt"];
+        //   itemmap["igst_per"] = e["igst_per"];
+        //   itemmap["igst_amt"] = e["igst_amt"];
+        //   itemmap["cess_per"] = e["cess_per"];
+        //   itemmap["cess_amt"] = e["cess_amt"];
+        //   itemmap["net_total"] = e["net_total"];
         //   print("itemmap----$itemmap");
-        //   jsonResult.add(itemmap);
-        // }
+        //   jsonResult.add(e);
+        // }).toList();
+
+        for (var i = 0; i < bagList.length; i++) {
+          print("bagList[i]-------------${bagList[i]}");
+          itemmap["item_id"] = bagList[i]["item_id"];
+          itemmap["qty"] = bagList[i]["qty"];
+          itemmap["tax"] = bagList[i]["tax"];
+          itemmap["gross"] = bagList[i]["gross"];
+          itemmap["disc_per"] = bagList[i]["disc_per"];
+          itemmap["disc_amt"] = bagList[i]["disc_amt"];
+          itemmap["taxable"] = bagList[i]["taxable"];
+          itemmap["cgst_per"] = bagList[i]["cgst_per"];
+          itemmap["cgst_amt"] = bagList[i]["cgst_amt"];
+          itemmap["sgst_per"] = bagList[i]["sgst_per"];
+          itemmap["sgst_amt"] = bagList[i]["sgst_amt"];
+          itemmap["igst_per"] = bagList[i]["igst_per"];
+          itemmap["igst_amt"] = bagList[i]["igst_amt"];
+          itemmap["cess_per"] = bagList[i]["cess_per"];
+          itemmap["cess_amt"] = bagList[i]["cess_amt"];
+          itemmap["net_total"] = bagList[i]["net_total"];
+          print("itemmap----$itemmap");
+          jsonResult.add(itemmap);
+        }
 
         print("jsonResult----$jsonResult");
 

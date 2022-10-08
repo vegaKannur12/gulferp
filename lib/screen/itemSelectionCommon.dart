@@ -261,17 +261,20 @@ class _ItemSelectionState extends State<ItemSelection> {
               height: size.height * 0.08,
               margin: EdgeInsets.only(left: 40),
               child: ListTile(
-                trailing: value.qty[index].text == "0"
+                trailing: value.qty[index].text == "1"
                     ? IconButton(
                         onPressed: () {
-                          // int qty;
-                          // value.setqtyErrormsg(false);
+                          Provider.of<Controller>(context, listen: false)
+                              .fromDb = true;
+                          print(
+                              "new quantity text.......${value.qty[index].text}");
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);
                           double gross = double.parse(item.sRate1!) *
                               double.parse(value.qty[index].text);
-                          // print("srate1------$srate1---$qty");
+                          print(
+                              "srate1------${item.sRate1}---${value.qty[index].text}");
                           print("gross calc===$gross");
                           // value.qty[index].text = qty.toStringAsFixed(2);
 
@@ -295,9 +298,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                                   index,
                                   false,
                                   "");
-                          // print("quantity in cart..........$qty");
-                          // Provider.of<Controller>(context, listen: false)
-                          //     .setQty(qty);
+
                           saleDetais.showSheet(
                               context,
                               index,
@@ -318,26 +319,14 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.disc_amt,
                               gross,
                               double.parse(item.taxable!),
-                              int.parse(widget.gtype!),"0");
-                          // showsheet.showSheet(
-                          //     context,
-                          //     index,
-                          //     item.itemId!,
-                          //     item.catId!,
-                          //     item.batchCode!,
-                          //     item.itemName!,
-                          //     item.itemImg!,
-                          //     double.parse(item.sRate1!),
-                          //     double.parse(item.stock!),
-                          //     value.qty[index].text,
-                          //     widget.formType
-
-                          //     );
+                              int.parse(widget.gtype!),
+                              "0");
                         },
                         icon: Icon(
                           Icons.add,
                           size: 20,
-                        ))
+                        ),
+                      )
                     : GestureDetector(
                         onTap: () {
                           print("added data.");
@@ -408,7 +397,8 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.disc_amt,
                               gross,
                               0,
-                              int.parse(widget.gtype!),"0");
+                              int.parse(widget.gtype!),
+                              "0");
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 18.0),

@@ -126,7 +126,7 @@ class _SaleHomeState extends State<SaleHome> {
                                         ),
                                       ),
                                       Text(
-                                        "ERTYU",
+                                        "${value.invoice}",
                                         style: GoogleFonts.aBeeZee(
                                           textStyle: Theme.of(context)
                                               .textTheme
@@ -358,11 +358,11 @@ class _SaleHomeState extends State<SaleHome> {
                                               opaque: false, // set to false
                                               pageBuilder: (_, __, ___) =>
                                                   SaleItemSelection(
-                                                      list: list,
-                                                      remark: remrk.text,
-                                                      formType: widget.formType,
-                                                      g_type: value.gtype1!,
-                                                      )
+                                                    list: list,
+                                                    remark: remrk.text,
+                                                    formType: widget.formType,
+                                                    g_type: value.gtype1!,
+                                                  )
                                               // OrderForm(widget.areaname,"return"),
                                               ),
                                         );

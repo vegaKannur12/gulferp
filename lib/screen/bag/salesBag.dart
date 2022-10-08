@@ -147,21 +147,12 @@ class _BagPageState extends State<BagPage> {
                             //     "............................${value.orderTotal2}");
                             totalSheet.sheet(
                                 context,
-                                "${Provider.of<Controller>(context, listen: false).item_count}",
-                                "${Provider.of<Controller>(context, listen: false).net_tot}",
-                                "${Provider.of<Controller>(context, listen: false).dis_tot}",
-                                "${Provider.of<Controller>(context, listen: false).tax_total}",
-                                "${Provider.of<Controller>(context, listen: false).cess_total}",
-                                "${Provider.of<Controller>(context, listen: false).gro_tot}");
-                            // sheet.sheet(
-                            //     context,
-                            //     value.orderTotal2[1].toString(),
-                            //     value.orderTotal2[0].toString(),
-                            //     value.orderTotal2[3].toString(),
-                            //     value.orderTotal2[2].toString(),
-                            //     value.orderTotal2[4].toString(),
-                            //     value.orderTotal2[5].toString(),
-                            //     value.orderTotal2[10]);
+                                "${value.item_count}",
+                                "${value.net_tot}",
+                                "${value.dis_tot}",
+                                "${value.tax_total}",
+                                "${value.cess_total}",
+                                "${value.gro_tot}");
                           },
                           child: Container(
                             width: size.width * 0.5,

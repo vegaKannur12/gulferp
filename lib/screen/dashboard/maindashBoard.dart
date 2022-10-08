@@ -6,6 +6,7 @@ import 'package:gulferp/screen/loginPage.dart';
 import 'package:gulferp/screen/sale/saleHome.dart';
 import 'package:gulferp/screen/searchPage/searchPage.dart';
 import 'package:gulferp/screen/vehicle%20Loading/vehicleLoading.dart';
+import 'package:gulferp/screen/vehicle%20Loading/vehicle_unloading.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -46,6 +47,7 @@ class _MainDashboardState extends State<MainDashboard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       // backgroundColor: P_Settings.loginPagetheme,
       appBar: AppBar(
@@ -134,7 +136,8 @@ class _MainDashboardState extends State<MainDashboard> {
                         onTap: () {
                           Provider.of<Controller>(context, listen: false)
                               .getRouteList(context);
-
+                          Provider.of<Controller>(context, listen: false)
+                              .getInvoice("1");
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -175,7 +178,8 @@ class _MainDashboardState extends State<MainDashboard> {
                         onTap: () {
                           Provider.of<Controller>(context, listen: false)
                               .getRouteList(context);
-
+                          Provider.of<Controller>(context, listen: false)
+                              .getInvoice("2");
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -213,13 +217,16 @@ class _MainDashboardState extends State<MainDashboard> {
                       child: ListTile(
                         onTap: () {
                           // Provider.of<Controller>(context, listen: false)
-                          //     .getTransactionList(context);
-
-                          // Navigator.push(
+                          //     .getvehicleLoadingInfo(
                           //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) => TransactionPage()),
+                          //   value.loadingList[index]["os_id"],
                           // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => VehicleUnLoading(),
+                            ),
+                          );
                         },
                         leading: Image.asset("asset/unloading.png",
                             // color: Colors.red,
@@ -252,8 +259,7 @@ class _MainDashboardState extends State<MainDashboard> {
                         onTap: () {
                           // Provider.of<Controller>(context, listen: false)
                           //     .getTransactionList(context);
-                          // Provider.of<Controller>(context, listen: false)
-                          //     .setIssearch(false);
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
