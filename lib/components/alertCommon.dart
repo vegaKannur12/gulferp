@@ -24,15 +24,14 @@ class AlertCommon {
                         onPressed: () async {
                           print("heloooooooooooooooo");
 
-                          Provider.of<Controller>(context, listen: false)
-                              .saveCartDetails(
-                                  ctx,
-                                  splitted[0],
-                                  value.historyList[index]['to_branch_id'],
-                                  value.historyList[index]['trans_remark'],
-                                  "2",
-                                  value.historyList[index]['os_id'],
-                                  "delete",form_type);
+                          // Provider.of<Controller>(context, listen: false)
+                          //     .saveCartDetails(
+                          //         ctx,
+                          //         splitted[0],
+                          //         value.historyList[index]['trans_remark'],
+                          //         "2",
+                          //         value.historyList[index]['os_id'],
+                          //         "delete",form_type);
                           String df;
                           String tf;
 
@@ -49,8 +48,8 @@ class AlertCommon {
 
                           //////////////////////////////////////////////////
 
-                          await Provider.of<Controller>(context, listen: false)
-                              .historyData(context, splitted[0], "", df, tf);
+                          // await Provider.of<Controller>(context, listen: false)
+                          //     .historyData(context, splitted[0], "", df, tf);
 
                           // Navigator.of(ctx).pop();
                         },

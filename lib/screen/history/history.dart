@@ -167,7 +167,7 @@ class _HistoryPageState extends State<HistoryPage> {
                             if (splitted != null && splitted.isNotEmpty) {
                               Provider.of<Controller>(context, listen: false)
                                   .historyData(
-                                      context, splitted[0], "", df, tf);
+                                      context, splitted[0], df, tf);
                             }
                           },
                           child: Text(

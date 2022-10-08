@@ -15,11 +15,13 @@ class BagPage extends StatefulWidget {
   String? type;
   String form_type;
   String gtype;
+  String? remark;
   BagPage(
       {this.branchId,
       required this.type,
       required this.form_type,
-      required this.gtype});
+      required this.gtype,
+      this.remark});
 
   @override
   State<BagPage> createState() => _BagPageState();
@@ -44,7 +46,7 @@ class _BagPageState extends State<BagPage> {
     // TODO: implement initState
     super.initState();
     Provider.of<Controller>(context, listen: false)
-        .getbagData1(context, widget.form_type,"");
+        .getbagData1(context, widget.form_type, "");
     EasyLoading.addStatusCallback((status) {
       print('EasyLoading Status $status');
       if (status == EasyLoadingStatus.dismiss) {
@@ -196,16 +198,20 @@ class _BagPageState extends State<BagPage> {
                         ),
                         GestureDetector(
                           onTap: (() async {
-                            // paysheet.showpaymentSheet(
-                            //     context,
-                            //     widget.areaId,
-                            //     widget.areaname,
-                            //     widget.custmerId,
-                            //     s[0],
-                            //     s[1],
-                            //     " ",
-                            //     " ",
-                            //     value.orderTotal2[11]);
+                            Provider.of<Controller>(context, listen: false)
+                                .saveCartDetails(
+                              context,
+                              widget.remark!,
+                              "0",
+                              "0",
+                              "save",
+                              widget.form_type,
+                              value.cus_id!,
+                              value.cusName1!,
+                              "0",value.dis_tot.toString(),value.cess_total.toString(),value.net_tot.toString(),"0",
+                              value.cgst_total.toString(),value.sgst_total.toString(),value.igst_total.toString(),
+                              value.taxable_total.toString(),value.total_qty.toString()
+                            );
                           }),
                           child: Container(
                             width: size.width * 0.5,
@@ -664,8 +670,10 @@ class _BagPageState extends State<BagPage> {
 
                                               Provider.of<Controller>(context,
                                                       listen: false)
-                                                  .getbagData1(context,
-                                                      widget.form_type,"delete");
+                                                  .getbagData1(
+                                                      context,
+                                                      widget.form_type,
+                                                      "delete");
 
                                               // Provider.of<Controller>(
                                               //         context,

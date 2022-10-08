@@ -48,7 +48,7 @@ class Controller extends ChangeNotifier {
   String? fromDate;
   String? todate;
   List<String> filteredproductbar = [];
-
+  String? cus_id;
   bool isProdLoading = false;
   String urlgolabl = Globaldata.apiglobal;
   List<Map<String, dynamic>> productList = [];
@@ -95,6 +95,11 @@ class Controller extends ChangeNotifier {
   double? disc_tot;
   double? tax_total;
   double? cess_total;
+  double? cgst_total;
+  double? sgst_total;
+  double? igst_total;
+  double? taxable_total;
+  double? total_qty;
 
 /////////////////////////////////////////////////////////////////
   getItemCategory(BuildContext context) async {
@@ -455,6 +460,11 @@ class Controller extends ChangeNotifier {
           disc_tot = 0.00;
           tax_total = 0.00;
           cess_total = 0.00;
+          cgst_total = 0.0;
+          sgst_total = 0.0;
+          igst_total = 0.0;
+          taxable_total = 0.0;
+          total_qty = 0.0;
 
           for (int i = 0; i < bagList.length; i++) {
             net_tot = (net_tot! + double.parse(bagList[i]["net_total"]));
@@ -465,6 +475,12 @@ class Controller extends ChangeNotifier {
                 double.parse(bagList[i]["igst_amt"]) +
                 double.parse(bagList[i]["cgst_amt"]) +
                 double.parse(bagList[i]["sgst_amt"]);
+            cgst_total = cgst_total! + double.parse(bagList[i]["cgst_amt"]);
+            sgst_total = sgst_total! + double.parse(bagList[i]["sgst_amt"]);
+            igst_total = igst_total! + double.parse(bagList[i]["igst_amt"]);
+            taxable_total =
+                taxable_total! + double.parse(bagList[i]["taxable"]);
+            total_qty = total_qty! + double.parse(bagList[i]["qty"]);
           }
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
@@ -485,9 +501,10 @@ class Controller extends ChangeNotifier {
 
 ////////////////////////////////////////////////////////////////////
 
-  setCustomerName(String cusName, String gtype) {
+  setCustomerName(String cusName, String gtype, String cusId) {
     cusName1 = cusName;
     gtype1 = gtype;
+    cus_id = cusId;
     print("cysujkjj------$cusName1----$gtype");
     notifyListeners();
   }
@@ -907,20 +924,19 @@ class Controller extends ChangeNotifier {
   }
 
   ////////////////////////////////////////////
-  historyData(BuildContext context, String trans_id, String action,
-      String fromDate, String tillDate) async {
+  historyData(BuildContext context, String action, String fromDate,
+      String tillDate) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           branch_id = prefs.getString("branch_id");
           user_id = prefs.getString("user_id");
-          print("history---------------$branch_id----$user_id------$trans_id");
+          print("history---------------$branch_id----$user_id---");
           Uri url = Uri.parse("$urlgolabl/transaction_list.php");
           Map body = {
             'staff_id': user_id,
             'branch_id': branch_id,
-            'trans_id': trans_id,
             'from_date': fromDate,
             'till_date': tillDate
           };
@@ -967,13 +983,23 @@ class Controller extends ChangeNotifier {
   //////////////////////////////////////////////////////////////////////
   saveCartDetails(
       BuildContext context,
-      String transid,
-      String to_branch_id,
       String remark,
       String event,
       String os_id,
       String action,
-      String form_type) async {
+      String form_type,
+      String customer_id,
+      String cusName,
+      String disc_percentage,
+      String total_discount,
+      String total_cess,
+      String net_total,
+      String rounding,
+      String cgst_total,
+      String sgst_total,
+      String igst_total,
+      String taxable_total,
+      String total_qty) async {
     List<Map<String, dynamic>> jsonResult = [];
     Map<String, dynamic> itemmap = {};
     Map<String, dynamic> resultmmap = {};
@@ -982,8 +1008,7 @@ class Controller extends ChangeNotifier {
     branch_id = prefs.getString("branch_id");
     user_id = prefs.getString("user_id");
 
-    print(
-        "datas------$transid---$to_branch_id----$remark------$branch_id----$user_id");
+    print("datas--------$remark------$branch_id----$user_id");
     print("action........$action");
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
@@ -996,7 +1021,22 @@ class Controller extends ChangeNotifier {
         bagList.map((e) {
           itemmap["item_id"] = e["item_id"];
           itemmap["qty"] = e["qty"];
-          itemmap["s_rate"] = e["s_rate_1"];
+          itemmap["rate"] = e["rate"];
+          itemmap["tax"] = e["tax"];
+          itemmap["gross"] = e["gross"];
+          itemmap["disc_per"] = e["disc_per"];
+          itemmap["disc_amt"] = e["disc_amt"];
+          itemmap["taxable"] = e["taxable"];
+          itemmap["cgst_per"] = e["cgst_per"];
+          itemmap["cgst_amt"] = e["cgst_amt"];
+          itemmap["sgst_per"] = e["sgst_per"];
+          itemmap["sgst_amt"] = e["sgst_amt"];
+          itemmap["igst_per"] = e["igst_per"];
+          itemmap["igst_amt"] = e["igst_amt"];
+          itemmap["cess_per"] = e["cess_per"];
+          itemmap["cess_amt"] = e["cess_amt"];
+          itemmap["net_total"] = e["net_total"];
+
           print("itemmap----$itemmap");
           jsonResult.add(e);
         }).toList();
@@ -1014,8 +1054,20 @@ class Controller extends ChangeNotifier {
         print("jsonResult----$jsonResult");
 
         Map masterMap = {
-          "to_branch_id": to_branch_id,
-          "remark": remark,
+          "s_customer_id": customer_id,
+          "s_customer_name": cusName,
+          "s_reference": remark,
+          "tot_qty": total_qty,
+          "disc_percentage": disc_percentage,
+          "s_total_discount": total_discount,
+          "s_total_taxable": taxable_total,
+          "s_total_cgst": cgst_total,
+          "s_total_sgst": sgst_total,
+          "s_total_igst": igst_total,
+          "s_total_cess": total_cess,
+          "net_total": net_total,
+          "rounding": rounding,
+          "s_grand_total": net_total,
           "staff_id": user_id,
           "branch_id": branch_id,
           "event": event,
@@ -1046,7 +1098,7 @@ class Controller extends ChangeNotifier {
 
         if (action == "delete" && map["err_status"] == 0) {
           // print("hist-----------$historyList");
-          historyData(context, transid, "delete", "", "");
+          historyData(context, "delete", "", "");
         }
 
         if (action == "save") {

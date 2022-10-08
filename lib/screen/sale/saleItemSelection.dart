@@ -91,6 +91,7 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
                               type: "Sales Cart",
                               form_type: widget.formType,
                               gtype: widget.g_type,
+                              remark: widget.remark,
                             );
                           }));
                   // Navigator.push(

@@ -39,16 +39,15 @@ class _CustomerSelectionState extends State<CustomerSelection> {
     this.items = items
         .map(
           (item) => _AZItem(
-            tag: item["Customer"][0].toUpperCase(),
-            address: item["Address"],
-            customer: item["Customer"],
-            fLD3001: item["FLD3001"],
-            email: item["Email"],
-            outstanding: item["Outstanding"],
-            phone: item["Phone"],
-            route: item["Route"],
-            gtype: item["g_type"]
-          ),
+              tag: item["Customer"][0].toUpperCase(),
+              address: item["Address"],
+              customer: item["Customer"],
+              fLD3001: item["FLD3001"],
+              email: item["Email"],
+              outstanding: item["Outstanding"],
+              phone: item["Phone"],
+              route: item["Route"],
+              gtype: item["g_type"]),
         )
         .toList();
     SuspensionUtil.sortListBySuspensionTag(this.items);
@@ -190,7 +189,8 @@ class _CustomerSelectionState extends State<CustomerSelection> {
                 child: ListTile(
                   onTap: () {
                     Provider.of<Controller>(context, listen: false)
-                        .setCustomerName(item.customer.toString(),item.gtype.toString());
+                        .setCustomerName(item.customer.toString(),
+                            item.gtype.toString(), item.fLD3001.toString());
                     Navigator.pop(context);
                   },
                   leading: CircleAvatar(
@@ -307,7 +307,8 @@ class _AZItem extends ISuspensionBean {
       this.address,
       this.email,
       this.route,
-      this.outstanding,this.gtype});
+      this.outstanding,
+      this.gtype});
 
   @override
   String getSuspensionTag() => tag!;
