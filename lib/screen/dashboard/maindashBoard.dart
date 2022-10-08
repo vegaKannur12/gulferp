@@ -134,6 +134,9 @@ class _MainDashboardState extends State<MainDashboard> {
                       color: Colors.grey[200],
                       child: ListTile(
                         onTap: () {
+                          value.cusName1=null;
+                          value.cus_id=null;
+                          value.gtype1=null;
                           Provider.of<Controller>(context, listen: false)
                               .getRouteList(context);
                           Provider.of<Controller>(context, listen: false)
