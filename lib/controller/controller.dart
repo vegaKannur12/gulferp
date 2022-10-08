@@ -445,10 +445,10 @@ class Controller extends ChangeNotifier {
             'form_type': form_type,
           };
           print("cart body-----$body");
-          if (type != "edit") {
+          // if (type != "edit") {
             isLoading = true;
             notifyListeners();
-          }
+          // }
 
           http.Response response = await http.post(
             url,
@@ -509,10 +509,10 @@ class Controller extends ChangeNotifier {
           }
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          if (type != "edit") {
+          // if (type != "edit") {
             isLoading = false;
             notifyListeners();
-          }
+          // }
 
           /////////////// insert into local db /////////////////////
         } catch (e) {
@@ -1026,7 +1026,9 @@ class Controller extends ChangeNotifier {
       String taxable_total,
       String total_qty) async {
     List<Map<String, dynamic>> jsonResult = [];
-    Map<String, dynamic> itemmap = {};
+    // List<Map<String, dynamic>> itemmap = [];
+
+    // Map<String, dynamic> itemmap = {};
     Map<String, dynamic> resultmmap = {};
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -1038,10 +1040,10 @@ class Controller extends ChangeNotifier {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         print("bagList-----$bagList");
-        Uri url = Uri.parse("$urlgolabl/save_transaction.php");
+        Uri url = Uri.parse("$urlgolabl/save_sale.php");
 
         jsonResult.clear();
-        itemmap.clear();
+        // itemmap.clear();
 
         // bagList.map((e) {
         //   itemmap["item_id"] = e["item_id"];
@@ -1066,27 +1068,26 @@ class Controller extends ChangeNotifier {
         // }).toList();
 
         for (var i = 0; i < bagList.length; i++) {
-          print("bagList[i]-------------${bagList[i]}");
-          itemmap["item_id"] = bagList[i]["item_id"];
-          itemmap["qty"] = bagList[i]["qty"];
-          itemmap["tax"] = bagList[i]["tax"];
-          itemmap["gross"] = bagList[i]["gross"];
-          itemmap["disc_per"] = bagList[i]["disc_per"];
-          itemmap["disc_amt"] = bagList[i]["disc_amt"];
-          itemmap["taxable"] = bagList[i]["taxable"];
-          itemmap["cgst_per"] = bagList[i]["cgst_per"];
-          itemmap["cgst_amt"] = bagList[i]["cgst_amt"];
-          itemmap["sgst_per"] = bagList[i]["sgst_per"];
-          itemmap["sgst_amt"] = bagList[i]["sgst_amt"];
-          itemmap["igst_per"] = bagList[i]["igst_per"];
-          itemmap["igst_amt"] = bagList[i]["igst_amt"];
-          itemmap["cess_per"] = bagList[i]["cess_per"];
-          itemmap["cess_amt"] = bagList[i]["cess_amt"];
-          itemmap["net_total"] = bagList[i]["net_total"];
-          print("itemmap----$itemmap");
+          var itemmap = {
+            "item_id": bagList[i]["item_id"],
+            "qty": bagList[i]["qty"],
+            "tax": bagList[i]["tax"],
+            "gross": bagList[i]["gross"],
+            "disc_per": bagList[i]["disc_per"],
+            "disc_amt": bagList[i]["disc_amt"],
+            "taxable": bagList[i]["taxable"],
+            "cgst_per": bagList[i]["cgst_per"],
+            "cgst_amt": bagList[i]["cgst_amt"],
+            "sgst_per": bagList[i]["sgst_per"],
+            "sgst_amt": bagList[i]["sgst_amt"],
+            "igst_per": bagList[i]["igst_per"],
+            "igst_amt": bagList[i]["igst_amt"],
+            "cess_per": bagList[i]["cess_per"],
+            "cess_amt": bagList[i]["cess_amt"],
+            "net_total": bagList[i]["net_total"]
+          };
           jsonResult.add(itemmap);
         }
-
         print("jsonResult----$jsonResult");
 
         Map masterMap = {
@@ -1130,14 +1131,14 @@ class Controller extends ChangeNotifier {
         var map = jsonDecode(response.body);
         isLoading = false;
         notifyListeners();
-        print("json cart------$map");
+        print("json cart--save----$map");
 
         if (action == "delete" && map["err_status"] == 0) {
           // print("hist-----------$historyList");
           historyData(context, "delete", "", "");
         }
 
-        if (action == "save") {
+         if (action == "save") {
           print("savedd");
           return showDialog(
               context: context,
