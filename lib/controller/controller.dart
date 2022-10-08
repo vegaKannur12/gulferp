@@ -415,11 +415,11 @@ class Controller extends ChangeNotifier {
           }
           if (err_status == 0 && res == "Bag Edit Successfully") {
             getbagData1(context, form_type, "edit");
-            isLoading=true;
+            // isLoading=true;
           }
           if (err_status == 0 && res == "Bag Remove Successfully") {
             getbagData1(context, form_type, "edit");
-            isLoading=true;
+            // isLoading=true;
           }
           notifyListeners();
           return res;
@@ -449,7 +449,7 @@ class Controller extends ChangeNotifier {
             'form_type': form_type,
           };
           print("cart body-----$body");
-          type == "edit" ? isLoading = true : isLoading = false;
+          // type == "edit" ? isLoading = true : isLoading = false;
           // if (type != "edit") {
           isLoading = true;
           notifyListeners();
