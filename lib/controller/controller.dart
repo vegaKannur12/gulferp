@@ -411,12 +411,15 @@ class Controller extends ChangeNotifier {
 
           if (err_status == 0 && res == "Bag deleted Successfully") {
             getbagData1(context, form_type, "delete");
+
           }
           if (err_status == 0 && res == "Bag Edit Successfully") {
             getbagData1(context, form_type, "edit");
+            isLoading=true;
           }
           if (err_status == 0 && res == "Bag Remove Successfully") {
             getbagData1(context, form_type, "edit");
+            isLoading=true;
           }
           notifyListeners();
           return res;
@@ -446,10 +449,11 @@ class Controller extends ChangeNotifier {
             'form_type': form_type,
           };
           print("cart body-----$body");
-          if (type != "edit") {
-            isLoading = true;
-            notifyListeners();
-          }
+          type == "edit" ? isLoading = true : isLoading = false;
+          // if (type != "edit") {
+          isLoading = true;
+          notifyListeners();
+          // }
 
           http.Response response = await http.post(
             url,
@@ -510,10 +514,10 @@ class Controller extends ChangeNotifier {
           }
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          if (type != "edit") {
-            isLoading = false;
-            notifyListeners();
-          }
+          // if (type != "edit") {
+          isLoading = false;
+          notifyListeners();
+          // }
 
           /////////////// insert into local db /////////////////////
         } catch (e) {

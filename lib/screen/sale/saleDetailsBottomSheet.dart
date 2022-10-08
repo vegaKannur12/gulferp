@@ -737,9 +737,7 @@ class SaleDetailsBottomSheet {
                                           value.net_amt,
                                           tax_per,
                                           "0");
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .getbagData1(context, formType);
+                                  
 
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");
