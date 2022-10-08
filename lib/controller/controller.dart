@@ -333,7 +333,7 @@ class Controller extends ChangeNotifier {
           print("kjn---------------$branch_id----$user_id-");
           Uri url = Uri.parse("$urlgolabl/save_cart.php");
           Map body = {
-            'cart_id':cart_id,
+            'cart_id': cart_id,
             'staff_id': user_id,
             'branch_id': branch_id,
             'item_id': itemId,
@@ -458,21 +458,13 @@ class Controller extends ChangeNotifier {
             gro_tot = gro_tot! + double.parse(bagList[i]["gross"]);
             disc_tot = disc_tot! + double.parse(bagList[i]["disc_amt"]);
             cess_total = cess_total! + double.parse(bagList[i]["cess_amt"]);
-            tax_total = tax_total! + double.parse(bagList[i]["taxable"]);
+            tax_total = tax_total! +
+                double.parse(bagList[i]["igst_amt"]) +
+                double.parse(bagList[i]["cgst_amt"]) +
+                double.parse(bagList[i]["sgst_amt"]);
           }
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          // bagList.forEach((item) {
-          //   print("items in baglist.length..........${item.length}");
-
-          //   net_tot += double.parse(item["net_total"]);
-          //   gro_tot += double.parse(item["gross"]);
-          //   dis_tot += double.parse(item["disc_amt"]);
-          //   cess_total += double.parse(item["cess_amt"]);
-          //   tax_total += double.parse(item["taxable"]);
-          //   print(
-          //       "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          // });
 
           isLoading = false;
           notifyListeners();
