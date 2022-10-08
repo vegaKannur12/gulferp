@@ -196,16 +196,9 @@ class _BagPageState extends State<BagPage> {
                         ),
                         GestureDetector(
                           onTap: (() async {
-                            // paysheet.showpaymentSheet(
-                            //     context,
-                            //     widget.areaId,
-                            //     widget.areaname,
-                            //     widget.custmerId,
-                            //     s[0],
-                            //     s[1],
-                            //     " ",
-                            //     " ",
-                            //     value.orderTotal2[11]);
+                            // Provider.of<Controller>(context, listen: false)
+                            //     .saveCartDetails(context, widget.branchId!,
+                            //         widget.remark!, "0", "0", "save");
                           }),
                           child: Container(
                             width: size.width * 0.5,
