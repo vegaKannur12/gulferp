@@ -249,7 +249,7 @@ class Controller extends ChangeNotifier {
       var map = jsonDecode(response.body);
       print("invoice number.......${map}");
       invoice = map['invoice_no'];
-      print("invoice ......${invoice}");
+      isLoading = false;
       notifyListeners();
     } catch (e) {}
   }
