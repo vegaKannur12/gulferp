@@ -451,7 +451,7 @@ class Controller extends ChangeNotifier {
             'form_type': form_type,
           };
           print("cart body-----$body");
-          if (type != "delete"&& type != "edit") {
+          if (type != "delete") {
           isLoading = true;
           notifyListeners();
           }
@@ -515,7 +515,7 @@ class Controller extends ChangeNotifier {
           }
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          if (type != "delete" && type != "edit") {
+          if (type != "delete") {
           isLoading = false;
           notifyListeners();
           }

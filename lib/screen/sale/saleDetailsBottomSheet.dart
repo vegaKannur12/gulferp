@@ -678,6 +678,9 @@ class SaleDetailsBottomSheet {
                                         fontWeight: FontWeight.bold)),
                                 onPressed: () {
                                   // value.qty[index].text=
+                                  if(value.qty[index].text=="1"){
+                                    value.qty[index].text="1.0";
+                                  }
                                   double qty =
                                       double.parse(value.qty[index].text);
                                   // Provider.of<Controller>(context, listen: false).rawCalculation(srate1, qty, 0, 0, tax_per, cess_per, method, state_status, index, onSub, disCalc)
