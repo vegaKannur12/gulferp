@@ -352,7 +352,8 @@ class Controller extends ChangeNotifier {
       double cess_amt,
       double net_tot,
       double tax_per,
-      String event,String page) async {
+      String event,
+      String page) async {
     print("Quantity.......$action.....$qty");
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
@@ -411,9 +412,11 @@ class Controller extends ChangeNotifier {
           if (err_status == 0 && res == "Bag deleted Successfully") {
             getbagData1(context, form_type, "delete");
           }
-            print("pagee-----$page---$res---$err_status");
+          print("pagee-----$page---$res---$err_status");
 
-          if (err_status == 0 && res == "Bag Edit Successfully" && page=="cart") {
+          if (err_status == 0 &&
+              res == "Bag Edit Successfully" &&
+              page == "cart") {
             // print("pagee-----$page");
             getbagData1(context, form_type, "edit");
           }
@@ -448,10 +451,10 @@ class Controller extends ChangeNotifier {
             'form_type': form_type,
           };
           print("cart body-----$body");
-          // if (type != "edit") {
-            isLoading = true;
-            notifyListeners();
-          // }
+          if (type != "delete"&& type != "edit") {
+          isLoading = true;
+          notifyListeners();
+          }
 
           http.Response response = await http.post(
             url,
@@ -512,10 +515,10 @@ class Controller extends ChangeNotifier {
           }
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          // if (type != "edit") {
-            isLoading = false;
-            notifyListeners();
-          // }
+          if (type != "delete" && type != "edit") {
+          isLoading = false;
+          notifyListeners();
+          }
 
           /////////////// insert into local db /////////////////////
         } catch (e) {
@@ -1141,7 +1144,7 @@ class Controller extends ChangeNotifier {
           historyData(context, "delete", "", "");
         }
 
-         if (action == "save") {
+        if (action == "save") {
           print("savedd");
           return showDialog(
               context: context,
