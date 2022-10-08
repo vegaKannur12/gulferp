@@ -20,6 +20,7 @@ class Controller extends ChangeNotifier {
   bool disamtClicked = false;
 
   bool isLoading = false;
+  bool invoiceLoad = false;
   bool filter = false;
   String? gtype1;
   String? routeName;
@@ -245,7 +246,7 @@ class Controller extends ChangeNotifier {
     try {
       Uri url = Uri.parse("$urlgolabl/get_invoice_no.php");
       Map body = {'branch_id': branch_id, 'form_type': form_type};
-      isLoading = true;
+      invoiceLoad = true;
       notifyListeners();
       http.Response response = await http.post(
         url,
@@ -254,7 +255,7 @@ class Controller extends ChangeNotifier {
       var map = jsonDecode(response.body);
       print("invoice number.......${map}");
       invoice = map['invoice_no'];
-      isLoading = false;
+      invoiceLoad = false;
       notifyListeners();
     } catch (e) {}
   }

@@ -125,7 +125,7 @@ class _SaleHomeState extends State<SaleHome> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      value.isLoading
+                                      value.invoiceLoad
                                           ? SizedBox(
                                               child: CircularProgressIndicator(
                                                 valueColor:
