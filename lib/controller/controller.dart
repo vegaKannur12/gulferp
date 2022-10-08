@@ -449,10 +449,11 @@ class Controller extends ChangeNotifier {
             'form_type': form_type,
           };
           print("cart body-----$body");
-          // if (type != "edit") {
-          isLoading = true;
-          notifyListeners();
-          // }
+          if (type != "delete") {
+            isLoading = true;
+            notifyListeners();
+          }
+
           http.Response response = await http.post(
             url,
             body: body,
@@ -507,10 +508,11 @@ class Controller extends ChangeNotifier {
           }
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
-          // if (type != "edit") {
-          isLoading = false;
-          notifyListeners();
-          // }
+          if (type != "delete") {
+            isLoading = false;
+            notifyListeners();
+          }
+
           /////////////// insert into local db /////////////////////
         } catch (e) {
           print("error...$e");
@@ -1146,26 +1148,15 @@ class Controller extends ChangeNotifier {
 
                 Future.delayed(Duration(seconds: 2), () {
                   Navigator.of(ct).pop(true);
-                  // Navigator.of(context).push(
-                  //   PageRouteBuilder(
-                  //       opaque: false, // set to false
-                  //       pageBuilder: (_, __, ___) => SaleHome(
-                  //             formType: form_type,
-                  //             type: "",
-                  //           )
-                  //       // OrderForm(widget.areaname,"return"),
-                  //       ),
-                  // );
-                  Navigator.pushReplacement<void, void>(
-                    context,
-                    MaterialPageRoute<void>(
-                      builder: (BuildContext context) => SaleHome(
-                        formType: form_type,
-                        type: "",
-                      ),
-                    ),
-                  );
-                  Navigator.pop(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SaleHome(
+                                formType: form_type,
+                                type: "",
+                              )));
+
+                  // Navigator.pop(context);
                 });
                 return AlertDialog(
                     content: Row(

@@ -191,18 +191,24 @@ class _BagPageState extends State<BagPage> {
                           onTap: (() async {
                             Provider.of<Controller>(context, listen: false)
                                 .saveCartDetails(
-                              context,
-                              widget.remark!,
-                              "0",
-                              "0",
-                              "save",
-                              widget.form_type,
-                              value.cus_id!,
-                              value.cusName1!,
-                              "0",value.dis_tot.toString(),value.cess_total.toString(),value.net_tot.toString(),"0",
-                              value.cgst_total.toString(),value.sgst_total.toString(),value.igst_total.toString(),
-                              value.taxable_total.toString(),value.total_qty.toString()
-                            );
+                                    context,
+                                    widget.remark!,
+                                    "0",
+                                    "0",
+                                    "save",
+                                    widget.form_type,
+                                    value.cus_id!,
+                                    value.cusName1!,
+                                    "0",
+                                    value.dis_tot.toString(),
+                                    value.cess_total.toString(),
+                                    value.net_tot.toString(),
+                                    "0",
+                                    value.cgst_total.toString(),
+                                    value.sgst_total.toString(),
+                                    value.igst_total.toString(),
+                                    value.taxable_total.toString(),
+                                    value.total_qty.toString());
                           }),
                           child: Container(
                             width: size.width * 0.5,
@@ -370,7 +376,8 @@ class _BagPageState extends State<BagPage> {
                       gross,
                       taxable,
                       int.parse(widget.gtype),
-                      cart_id,"cart");
+                      cart_id,
+                      "cart");
                 },
                 title: Column(
                   children: [
@@ -644,7 +651,8 @@ class _BagPageState extends State<BagPage> {
                                                       cess_amt,
                                                       net_amt,
                                                       tax_per,
-                                                      "2","cart");
+                                                      "2",
+                                                      "cart");
                                               // var response =
                                               // await Provider.of<Controller>(
                                               //         context,
