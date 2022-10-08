@@ -125,16 +125,26 @@ class _SaleHomeState extends State<SaleHome> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      Text(
-                                        "${value.invoice}",
-                                        style: GoogleFonts.aBeeZee(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                      value.isLoading
+                                          ? SizedBox(
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    new AlwaysStoppedAnimation<
+                                                        Color>(Colors.black),
+                                              ),
+                                              height: 10.0,
+                                              width: 10.0,
+                                            )
+                                          : Text(
+                                              "${value.invoice}",
+                                              style: GoogleFonts.aBeeZee(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText2,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                     ],
                                   ),
                                 ),

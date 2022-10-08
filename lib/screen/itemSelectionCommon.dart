@@ -330,7 +330,10 @@ class _ItemSelectionState extends State<ItemSelection> {
                     : GestureDetector(
                         onTap: () {
                           print("added data.");
+                          print(
+                              "added qty text.......${value.qty[index].text}");
                           // value.setqtyErrormsg(false);
+
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);

@@ -89,7 +89,7 @@ class _MainDashboardState extends State<MainDashboard> {
         enablePullDown: true,
         onRefresh: _onRefresh,
         child: Container(
-          height: double.infinity,
+          height: size.height*0.9,
           // color: P_Settings.loginPagetheme,
           child: Consumer<Controller>(
             builder: (context, value, child) {
