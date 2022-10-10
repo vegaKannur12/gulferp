@@ -4,12 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/controller/registrationController.dart';
-import 'package:gulferp/screen/bag/salesBag.dart';
-import 'package:gulferp/screen/dashboard/maindashBoard.dart';
 import 'package:gulferp/screen/loginPage.dart';
-import 'package:gulferp/screen/sale/saleHome.dart';
-import 'package:gulferp/screen/sale/saleItemSelection.dart';
-import 'package:gulferp/screen/splashScreen.dart';
 import 'package:provider/provider.dart';
 
 void main() {

@@ -105,7 +105,7 @@ class _BagPageState extends State<BagPage> {
                 children: [
                   Expanded(
                     child: ListView.builder(
-                      itemExtent: 145,
+                      itemExtent: 160,
                       itemCount: value.bagList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return listItemFunction(
@@ -370,7 +370,7 @@ class _BagPageState extends State<BagPage> {
                               //   imgGlobal + img,
                               //   fit: BoxFit.fill,
                               // ),
-                              color: Colors.grey,
+                              color: Colors.black,
                             ),
                           ),
                           SizedBox(
@@ -387,10 +387,9 @@ class _BagPageState extends State<BagPage> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Flexible(
-                                        flex: 5,
+                                        flex: 1,
                                         child: Text(
                                           "${itemName}",
-                                          overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.aBeeZee(
                                             textStyle: Theme.of(context)
                                                 .textTheme
@@ -409,10 +408,10 @@ class _BagPageState extends State<BagPage> {
                                 SizedBox(
                                   height: size.height * 0.01,
                                 ),
-                                Flexible(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 4, top: 0),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 4, top: 0),
+                                  child: Flexible(
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -431,7 +430,7 @@ class _BagPageState extends State<BagPage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              width: size.width * 0.02,
+                                              width: size.width * 0.01,
                                             ),
                                             Text(
                                               "\u{20B9}${srate1.toStringAsFixed(2)}",
@@ -448,10 +447,62 @@ class _BagPageState extends State<BagPage> {
                                           ],
                                         ), // Row(
 
+                                        Flexible(
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "Discount:",
+                                                style: TextStyle(fontSize: 13),
+                                              ),
+                                              SizedBox(
+                                                width: size.width * 0.03,
+                                              ),
+                                              Container(
+                                                child: Text(
+                                                  " \u{20B9}${disc_amt.toStringAsFixed(2)}",
+                                                  style:
+                                                      TextStyle(fontSize: 13),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 4, top: 0),
+                                  child: Flexible(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          // mainAxisAlignment:
+                                          // MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Qty     :",
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                            SizedBox(
+                                              width: size.width * 0.02,
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "${qty.toString()}",
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(fontSize: 13),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                         Row(
                                           children: [
                                             Text(
-                                              "Discount:",
+                                              "Tax  :",
                                               style: TextStyle(fontSize: 13),
                                             ),
                                             SizedBox(
@@ -459,7 +510,8 @@ class _BagPageState extends State<BagPage> {
                                             ),
                                             Container(
                                               child: Text(
-                                                " \u{20B9}${disc_amt.toStringAsFixed(2)}",
+                                                " \u{20B9}${tax_amt.toStringAsFixed(2)}",
+                                                textAlign: TextAlign.right,
                                                 style: TextStyle(fontSize: 13),
                                               ),
                                             ),
@@ -472,93 +524,47 @@ class _BagPageState extends State<BagPage> {
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(left: 4, top: 0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        // mainAxisAlignment:
-                                        // MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Qty     :",
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                          SizedBox(
-                                            width: size.width * 0.02,
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              "${qty.toString()}",
-                                              textAlign: TextAlign.right,
+                                  child: Flexible(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Gross:",
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "Tax  :",
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                          SizedBox(
-                                            width: size.width * 0.03,
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              " \u{20B9}${tax_amt.toStringAsFixed(2)}",
-                                              textAlign: TextAlign.right,
+                                            SizedBox(
+                                              width: size.width * 0.02,
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "\u{20B9}${gross.toStringAsFixed(2)}",
+                                                style: TextStyle(fontSize: 13),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Cess :",
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 4, top: 0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "Gross:",
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                          SizedBox(
-                                            width: size.width * 0.02,
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              "\u{20B9}${gross.toStringAsFixed(2)}",
-                                              style: TextStyle(fontSize: 13),
+                                            SizedBox(
+                                              width: size.width * 0.02,
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "Cess :",
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                          SizedBox(
-                                            width: size.width * 0.02,
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              "\u{20B9}${cess_amt.toStringAsFixed(2)}",
-                                              style: TextStyle(fontSize: 13),
+                                            Container(
+                                              child: Text(
+                                                "\u{20B9}${cess_amt.toStringAsFixed(2)}",
+                                                style: TextStyle(fontSize: 13),
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],
@@ -713,16 +719,15 @@ class _BagPageState extends State<BagPage> {
                               color: P_Settings.loginPagetheme,
                             ),
                           ),
-                          Flexible(
-                              child: Text(
+                          Text(
                             "\u{20B9}${net_amt}",
                             style: GoogleFonts.aBeeZee(
-                              textStyle: Theme.of(context).textTheme.bodyText2,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: P_Settings.redclr,
+                          textStyle: Theme.of(context).textTheme.bodyText2,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: P_Settings.redclr,
                             ),
-                          )),
+                          ),
                         ],
                       ),
                     ),

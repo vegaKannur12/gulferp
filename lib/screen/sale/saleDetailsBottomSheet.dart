@@ -77,6 +77,7 @@ class SaleDetailsBottomSheet {
                               backgroundImage: NetworkImage(
                                   'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'),
                               backgroundColor: Colors.transparent,
+
                               // child: Image.network(
                               //   'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg',
                               //   fit: BoxFit.cover,
