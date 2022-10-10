@@ -86,7 +86,7 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
                       PageRouteBuilder(
                           opaque: false, // set to false
                           pageBuilder: (_, __, ___) {
-                            return BagPage(
+                            return BagPage(     
                               branchId: "25",
                               type: "Sales Cart",
                               form_type: widget.formType,
