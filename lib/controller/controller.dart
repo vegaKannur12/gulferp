@@ -1149,12 +1149,14 @@ class Controller extends ChangeNotifier {
                 Future.delayed(Duration(seconds: 2), () {
                   Navigator.of(ct).pop(true);
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SaleHome(
-                                formType: form_type,
-                                type: "",
-                              )));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SaleHome(
+                        formType: form_type,
+                        type: "",
+                      ),
+                    ),
+                  );
 
                   // Navigator.pop(context);
                 });

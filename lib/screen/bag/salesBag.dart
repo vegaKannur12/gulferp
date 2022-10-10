@@ -45,6 +45,7 @@ class _BagPageState extends State<BagPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     Provider.of<Controller>(context, listen: false)
         .getbagData1(context, widget.form_type, "");
     EasyLoading.addStatusCallback((status) {
@@ -238,38 +239,6 @@ class _BagPageState extends State<BagPage> {
                       ],
                     ),
                   )
-                  // Container(
-                  //   height: size.height * 0.05,
-                  //   width: size.width * 0.5,
-                  //   child: ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //       primary: P_Settings.loginPagetheme,
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(2), // <-- Radius
-                  //       ),
-                  //     ),
-                  //     onPressed: () async {
-                  //       // Provider.of<Controller>(context, listen: false)
-                  //       //     .saveCartDetails(
-                  //       //         context,
-                  //       //         widget.transId,
-                  //       //         widget.branchId!,
-                  //       //         widget.remark!,
-                  //       //         "0",
-                  //       //         "0",
-                  //       //         "save");
-                  //     },
-                  //     child: Text(
-                  //       "Save",
-                  //       style: GoogleFonts.aBeeZee(
-                  //         textStyle: Theme.of(context).textTheme.bodyText2,
-                  //         fontSize: 17,
-                  //         fontWeight: FontWeight.bold,
-                  //         color: P_Settings.buttonColor,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               );
             }

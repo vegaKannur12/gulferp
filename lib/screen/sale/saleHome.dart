@@ -36,6 +36,9 @@ class _SaleHomeState extends State<SaleHome> {
     // TODO: implement initState
     super.initState();
     todaydate = DateFormat('dd-MM-yyyy').format(now);
+    Provider.of<Controller>(context, listen: false).cusName1 = ' ';
+    print(
+        "provider.....${Provider.of<Controller>(context, listen: false).cusName1 = ' '}");
   }
 
   @override
@@ -251,7 +254,8 @@ class _SaleHomeState extends State<SaleHome> {
                                       padding: const EdgeInsets.only(
                                           left: 18.0, top: 10),
                                       child: Text(
-                                        value.cusName1 == null
+                                        value.cusName1 == null &&
+                                                value.cusName1 == ' '
                                             ? "customer"
                                             : value.cusName1.toString(),
                                         // "customer",
