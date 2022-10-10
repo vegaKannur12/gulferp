@@ -36,6 +36,9 @@ class _SaleHomeState extends State<SaleHome> {
     // TODO: implement initState
     super.initState();
     todaydate = DateFormat('dd-MM-yyyy').format(now);
+    Provider.of<Controller>(context, listen: false).cusName1 = null;
+    Provider.of<Controller>(context, listen: false).cus_id = null;
+    Provider.of<Controller>(context, listen: false).gtype1 = null;
   }
 
   @override
