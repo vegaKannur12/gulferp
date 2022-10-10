@@ -387,10 +387,11 @@ class Controller extends ChangeNotifier {
             'form_type': form_type,
             'tax': tax_per.toString()
           };
-          print("body-----$body");
+          print("body-----$body---$action");
           if (action != "delete") {
+            if(action!="save" && page!="cart"){
             isLoading = true;
-            notifyListeners();
+            notifyListeners();}
           }
           http.Response response = await http.post(
             url,
@@ -401,8 +402,9 @@ class Controller extends ChangeNotifier {
           var err_status = map["err_status"];
           print("save_cart---------------$map");
           if (action != "delete") {
+            if(action!="save" && page!="cart"){
             isLoading = false;
-            notifyListeners();
+            notifyListeners();}
           }
           print("delete response-----------------${map}");
           cartCount = map["cart_count"];
@@ -450,8 +452,13 @@ class Controller extends ChangeNotifier {
           };
           print("cart body-----$body");
           if (type != "delete") {
-            isLoading = true;
-            notifyListeners();
+            if (type == "edit") {
+              isLoading = true;
+              notifyListeners();
+            } else {
+              isLoading = true;
+              notifyListeners();
+            }
           }
 
           http.Response response = await http.post(
@@ -509,8 +516,13 @@ class Controller extends ChangeNotifier {
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
           if (type != "delete") {
-            isLoading = false;
-            notifyListeners();
+            if (type == "edit") {
+              isLoading = false;
+              notifyListeners();
+            } else {
+              isLoading = false;
+              notifyListeners();
+            }
           }
 
           /////////////// insert into local db /////////////////////
