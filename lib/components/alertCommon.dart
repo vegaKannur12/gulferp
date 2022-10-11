@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AlertCommon {
   Future buildPopupDialog(BuildContext context, Size size, List splitted,
-      int index, String todaydate,String form_type) {
+      int index, String todaydate, String form_type) {
     return showDialog(
         context: context,
         barrierDismissible: true,
@@ -23,15 +24,31 @@ class AlertCommon {
                             primary: P_Settings.loginPagetheme),
                         onPressed: () async {
                           print("heloooooooooooooooo");
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
 
-                          // Provider.of<Controller>(context, listen: false)
-                          //     .saveCartDetails(
-                          //         ctx,
-                          //         splitted[0],
-                          //         value.historyList[index]['trans_remark'],
-                          //         "2",
-                          //         value.historyList[index]['os_id'],
-                          //         "delete",form_type);
+                          String? user_id = prefs.getString("user_id");
+
+                          Provider.of<Controller>(context, listen: false)
+                              .saveCartDetails(
+                                  ctx,
+                                  "",
+                                  "2",
+                                  value.historyList[index]['s_invoice_id'],
+                                  "delete",
+                                  form_type,
+                                  "",
+                                  value.historyList[index]['Customer Name'],
+                                  "0",
+                                  "0",
+                                  "0",
+                                  "0",
+                                  "0",
+                                  "0",
+                                  "0",
+                                  "0",
+                                  "0",
+                                  "0");
                           String df;
                           String tf;
 
@@ -48,10 +65,10 @@ class AlertCommon {
 
                           //////////////////////////////////////////////////
 
-                          // await Provider.of<Controller>(context, listen: false)
-                          //     .historyData(context, splitted[0], "", df, tf);
+                          await Provider.of<Controller>(context, listen: false)
+                              .historyData(context, "delete", df, tf);
 
-                          // Navigator.of(ctx).pop();
+                          Navigator.of(ctx).pop();
                         },
                         child: Text("Ok"),
                       ),

@@ -220,6 +220,22 @@ class _ItemSelectionState extends State<ItemSelection> {
                     );
                   },
                 ))
+                // Expanded(
+                //   child: AlphabetScrollPage(
+                //       onClickedItem: (item) {
+                //         final snackbar = SnackBar(
+                //             content: Text(
+                //           "Clicked Item  $item",
+                //           style: TextStyle(fontSize: 20),
+                //         ));
+                //         ScaffoldMessenger.of(context)
+                //           ..removeCurrentSnackBar()
+                //           ..showSnackBar(snackbar);
+                //       },
+                //       items: value.filter
+                //           ? value.filteredproductList
+                //           : widget.list),
+                // ),
               ],
             );
           }
@@ -242,7 +258,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                   bottom: BorderSide(width: 1, color: Colors.grey),
                 ),
               ),
-              height: size.height * 0.09,
+              height: size.height * 0.08,
               margin: EdgeInsets.only(left: 40),
               child: ListTile(
                 trailing: value.qty[index].text == "1"
@@ -401,63 +417,60 @@ class _ItemSelectionState extends State<ItemSelection> {
                         ),
                       ),
                 title: Text(item.itemName!,
+                    // overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.aBeeZee(
                       textStyle: Theme.of(context).textTheme.bodyText2,
                       fontSize: 16,
                       // fontWeight: FontWeight.bold,
                       color: P_Settings.loginPagetheme,
                     )),
-                subtitle: Padding(
-                  padding: const EdgeInsets.only(top: 5),
-                  child: Column(
-                    children: [
-                      Flexible(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(child: Text("SRate:${item.sRate1}")),
-                            Spacer(),
-                            Container(child: Text("Stock:${item.stock}")),
-                            Spacer(),
-                            gstvisible == false
-                                ? Visibility(
-                                    visible: false,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 18.0),
-                                      child: Container(
-                                          // width: size.width * 0.2,
-                                          child: Text("GST:${item.gst}")),
-                                    ),
-                                  )
-                                : Visibility(
-                                    visible: true,
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 18.0),
-                                      child: Container(
-                                          // width: size.width * 0.2,
-                                          child: Text("GST:${item.gst}")),
-                                    ),
-                                  ),
-                            // GestureDetector(
-                            //   onTap: () {
-                            //     // Provider.of<Controller>(context, listen: false)
-                            //     //     .getinfoList(context, item.itemId!);
-                            //     // infoshowsheet.showInfoSheet(
-                            //     //   context,
-                            //     // );
-                            //   },
-                            //   child: Icon(
-                            //     Icons.info,
-                            //     size: 19,
-                            //   ),
-                            // )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                subtitle: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Flexible(
+                      flex: 1,
+                      child: Container(
+                          // width: size.width * 0.2,
+                          child: Text("SRate:${item.sRate1}")),
+                    ),
+                    Spacer(),
+                    Container(
+                      width: size.width * 0.2,
+                      child: Text("Stock:${item.stock}"),
+                    ),
+                    gstvisible == false
+                        ? Visibility(
+                            visible: false,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 18.0),
+                              child: Container(
+                                  // width: size.width * 0.2,
+                                  child: Text("GST:${item.gst}")),
+                            ),
+                          )
+                        : Visibility(
+                            visible: true,
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 18.0),
+                              child: Container(
+                                  // width: size.width * 0.2,
+                                  child: Text("GST:${item.gst}")),
+                            ),
+                          ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     // Provider.of<Controller>(context, listen: false)
+                    //     //     .getinfoList(context, item.itemId!);
+                    //     // infoshowsheet.showInfoSheet(
+                    //     //   context,
+                    //     // );
+                    //   },
+                    //   child: Icon(
+                    //     Icons.info,
+                    //     size: 19,
+                    //   ),
+                    // )
+                  ],
                 ),
                 // onTap: () {
                 //   value.setqtyErrormsg(false);

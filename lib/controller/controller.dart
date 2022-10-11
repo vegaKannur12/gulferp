@@ -389,9 +389,10 @@ class Controller extends ChangeNotifier {
           };
           print("body-----$body---$action");
           if (action != "delete") {
-            if(action!="save" && page!="cart"){
-            isLoading = true;
-            notifyListeners();}
+            if (action != "save" && page != "cart") {
+              isLoading = true;
+              notifyListeners();
+            }
           }
           http.Response response = await http.post(
             url,
@@ -402,9 +403,10 @@ class Controller extends ChangeNotifier {
           var err_status = map["err_status"];
           print("save_cart---------------$map");
           if (action != "delete") {
-            if(action!="save" && page!="cart"){
-            isLoading = false;
-            notifyListeners();}
+            if (action != "save" && page != "cart") {
+              isLoading = false;
+              notifyListeners();
+            }
           }
           print("delete response-----------------${map}");
           cartCount = map["cart_count"];
@@ -967,11 +969,10 @@ class Controller extends ChangeNotifier {
         try {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           branch_id = prefs.getString("branch_id");
-          user_id = prefs.getString("user_id");
-          print("history---------------$branch_id----$user_id---");
-          Uri url = Uri.parse("$urlgolabl/transaction_list.php");
+          // user_id = prefs.getString("user_id");
+          print("history-----------$action----$branch_id----$user_id---");
+          Uri url = Uri.parse("$urlgolabl/sale_list.php");
           Map body = {
-            'staff_id': user_id,
             'branch_id': branch_id,
             'from_date': fromDate,
             'till_date': tillDate
