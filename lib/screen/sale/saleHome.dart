@@ -67,7 +67,8 @@ class _SaleHomeState extends State<SaleHome> {
                 Provider.of<Controller>(context, listen: false)
                     .historyList
                     .clear();
-
+                Provider.of<Controller>(context, listen: false)
+                    .setDate(todaydate!, todaydate!);
                 Navigator.push(
                   context,
                   MaterialPageRoute(

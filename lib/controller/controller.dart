@@ -1042,6 +1042,7 @@ class Controller extends ChangeNotifier {
 
     // Map<String, dynamic> itemmap = {};
     Map<String, dynamic> resultmmap = {};
+    Uri url;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     branch_id = prefs.getString("branch_id");
@@ -1052,7 +1053,7 @@ class Controller extends ChangeNotifier {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         print("bagList-----$bagList");
-        Uri url = Uri.parse("$urlgolabl/save_sale.php");
+        url = Uri.parse("$urlgolabl/save_sale.php");
 
         jsonResult.clear();
         // itemmap.clear();
@@ -1234,4 +1235,269 @@ class Controller extends ChangeNotifier {
       }
     });
   }
+
+/////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////
+  saveSaleReturnCartDetails(
+      BuildContext context,
+      String remark,
+      String event,
+      String os_id,
+      String action,
+      String form_type,
+      String customer_id,
+      String cusName,
+      String disc_percentage,
+      String total_discount,
+      String total_cess,
+      String net_total,
+      String rounding,
+      String cgst_total,
+      String sgst_total,
+      String igst_total,
+      String taxable_total,
+      String total_qty) async {
+    List<Map<String, dynamic>> jsonResult = [];
+    // List<Map<String, dynamic>> itemmap = [];
+
+    // Map<String, dynamic> itemmap = {};
+    Map<String, dynamic> resultmmap = {};
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    branch_id = prefs.getString("branch_id");
+    user_id = prefs.getString("user_id");
+
+    print("datas--------$remark------$branch_id----$user_id");
+    print("action........$action");
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        print("bagList sale return-----$bagList");
+        Uri url = Uri.parse("$urlgolabl/save_sale_return.php");
+
+        jsonResult.clear();
+        // itemmap.clear();
+
+        // bagList.map((e) {
+        //   itemmap["item_id"] = e["item_id"];
+        //   itemmap["qty"] = e["qty"];
+        //   itemmap["rate"] = e["rate"];
+        //   itemmap["tax"] = e["tax"];
+        //   itemmap["gross"] = e["gross"];
+        //   itemmap["disc_per"] = e["disc_per"];
+        //   itemmap["disc_amt"] = e["disc_amt"];
+        //   itemmap["taxable"] = e["taxable"];
+        //   itemmap["cgst_per"] = e["cgst_per"];
+        //   itemmap["cgst_amt"] = e["cgst_amt"];
+        //   itemmap["sgst_per"] = e["sgst_per"];
+        //   itemmap["sgst_amt"] = e["sgst_amt"];
+        //   itemmap["igst_per"] = e["igst_per"];
+        //   itemmap["igst_amt"] = e["igst_amt"];
+        //   itemmap["cess_per"] = e["cess_per"];
+        //   itemmap["cess_amt"] = e["cess_amt"];
+        //   itemmap["net_total"] = e["net_total"];
+        //   print("itemmap----$itemmap");
+        //   jsonResult.add(e);
+        // }).toList();
+        jsonResult.clear();
+
+        for (var i = 0; i < bagList.length; i++) {
+          var itemmap = {
+            "item_id": bagList[i]["item_id"],
+            "qty": bagList[i]["qty"],
+            "tax": bagList[i]["tax"],
+            "gross": bagList[i]["gross"],
+            "disc_per": bagList[i]["disc_per"],
+            "disc_amt": bagList[i]["disc_amt"],
+            "taxable": bagList[i]["taxable"],
+            "cgst_per": bagList[i]["cgst_per"],
+            "cgst_amt": bagList[i]["cgst_amt"],
+            "sgst_per": bagList[i]["sgst_per"],
+            "sgst_amt": bagList[i]["sgst_amt"],
+            "igst_per": bagList[i]["igst_per"],
+            "igst_amt": bagList[i]["igst_amt"],
+            "cess_per": bagList[i]["cess_per"],
+            "cess_amt": bagList[i]["cess_amt"],
+            "net_total": bagList[i]["net_total"]
+          };
+          jsonResult.add(itemmap);
+          print("jsonResult----$jsonResult");
+        }
+        print("jsonResult return ----$jsonResult");
+
+        Map masterMap = {
+          "s_customer_id": customer_id,
+          "s_customer_name": cusName,
+          "s_reference": remark,
+          "tot_qty": total_qty,
+          "disc_percentage": disc_percentage,
+          "s_total_discount": total_discount,
+          "s_total_taxable": taxable_total,
+          "s_total_cgst": cgst_total,
+          "s_total_sgst": sgst_total,
+          "s_total_igst": igst_total,
+          "s_total_cess": total_cess,
+          "net_total": net_total,
+          "rounding": rounding,
+          "s_grand_total": net_total,
+          "staff_id": user_id,
+          "branch_id": branch_id,
+          "event": event,
+          "os_id": os_id,
+          "form_type": form_type,
+          "details": jsonResult
+        };
+
+        // var jsonBody = jsonEncode(masterMap);
+        print("resultmap----$masterMap");
+        // var body = {'json_data': masterMap};
+        // print("body-----$body");
+
+        var jsonEnc = jsonEncode(masterMap);
+
+        print("jsonEnc-----$jsonEnc");
+        isLoading = true;
+        notifyListeners();
+        http.Response response = await http.post(
+          url,
+          body: {'json_data': jsonEnc},
+        );
+
+        var map = jsonDecode(response.body);
+        isLoading = false;
+        notifyListeners();
+        print("json cart--save----$map");
+
+        // if (action == "delete" && map["err_status"] == 0) {
+        //   // print("hist-----------$historyList");
+        //   historyData(context, "delete", "", "");
+        // }
+
+        if (action == "save") {
+          print("savedd");
+          return showDialog(
+              context: context,
+              builder: (ct) {
+                Size size = MediaQuery.of(ct).size;
+
+                Future.delayed(Duration(seconds: 2), () {
+                  Navigator.of(ct).pop(true);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SaleHome(
+                        formType: form_type,
+                        type: "",
+                      ),
+                    ),
+                  );
+
+                  // Navigator.pop(context);
+                });
+                return AlertDialog(
+                    content: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        '${map['msg']}',
+                        style: TextStyle(color: P_Settings.loginPagetheme),
+                      ),
+                    ),
+                    Icon(
+                      Icons.done,
+                      color: Colors.green,
+                    )
+                  ],
+                ));
+              });
+        } else if (action == "delete") {
+          print("heloooooo");
+
+          return showDialog(
+              context: context,
+              builder: (BuildContext mycontext) {
+                Size size = MediaQuery.of(mycontext).size;
+
+                Future.delayed(Duration(seconds: 2), () {
+                  Navigator.of(mycontext).pop();
+
+                  Navigator.pop(context);
+                  // Navigator.of(mycontext).pop(false);
+                  // Navigator.of(dialogContex).pop(true);
+
+                  // Navigator.of(context).push(
+                  //   PageRouteBuilder(
+                  //       opaque: false, // set to false
+                  //       pageBuilder: (_, __, ___) => MainDashboard()
+                  //       // OrderForm(widget.areaname,"return"),
+                  //       ),
+                  // );
+                });
+                return AlertDialog(
+                    content: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        '${map['msg']}',
+                        style: TextStyle(color: P_Settings.loginPagetheme),
+                      ),
+                    ),
+                    Icon(
+                      Icons.done,
+                      color: Colors.green,
+                    )
+                  ],
+                ));
+              });
+        } else {}
+      }
+    });
+  }
+
+  //////////////////////////////////////////////////////////////////////
+  // searchItem(BuildContext context, String itemName) async {
+  //   NetConnection.networkConnection(context).then((value) async {
+  //     if (value == true) {
+  //       try {
+  //         print("value-----$itemName");
+
+  //         Uri url = Uri.parse("$urlgolabl/search_products_list.php");
+  //         Map body = {
+  //           'item_name': itemName,
+  //         };
+  //         print("body-----$body");
+  //         // isDownloaded = true;
+  //         isLoading = true;
+  //         // notifyListeners();
+
+  //         http.Response response = await http.post(
+  //           url,
+  //           body: body,
+  //         );
+  //         var map = jsonDecode(response.body);
+  //         print("item_search_s------$map");
+  //         searchList.clear();
+  //         for (var item in map) {
+  //           searchList.add(item);
+  //         }
+
+  //         qtycontroller = List.generate(
+  //           searchList.length,
+  //           (index) => TextEditingController(),
+  //         );
+  //         addtoCart = List.generate(searchList.length, (index) => false);
+
+  //         isLoading = false;
+  //         notifyListeners();
+
+  //         /////////////// insert into local db /////////////////////
+  //       } catch (e) {
+  //         print(e);
+  //         // return null;
+  //         return [];
+  //       }
+  //     }
+  //   });
+  // }
 }

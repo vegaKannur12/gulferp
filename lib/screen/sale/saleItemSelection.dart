@@ -63,6 +63,7 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
               badgeColor: Colors.white,
               badgeContent: Consumer<Controller>(
                 builder: (context, value, child) {
+                  print("cart count.....${value.cartCount}");
                   if (value.cartCount == null) {
                     return SpinKitChasingDots(
                         color: P_Settings.buttonColor, size: 9);
@@ -88,7 +89,9 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
                           pageBuilder: (_, __, ___) {
                             return BagPage(
                               branchId: "25",
-                              type: "Sales Cart",
+                              type: widget.formType == 1
+                                  ? "Sales Cart"
+                                  : "Sales Return Cart",
                               form_type: widget.formType,
                               gtype: widget.g_type,
                               remark: widget.remark,

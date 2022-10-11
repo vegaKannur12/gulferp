@@ -190,26 +190,49 @@ class _BagPageState extends State<BagPage> {
                         ),
                         GestureDetector(
                           onTap: (() async {
-                            Provider.of<Controller>(context, listen: false)
-                                .saveCartDetails(
-                                    context,
-                                    widget.remark!,
-                                    "0",
-                                    "0",
-                                    "save",
-                                    widget.form_type,
-                                    value.cus_id!,
-                                    value.cusName1!,
-                                    "0",
-                                    value.dis_tot.toString(),
-                                    value.cess_total.toString(),
-                                    value.net_tot.toString(),
-                                    "0",
-                                    value.cgst_total.toString(),
-                                    value.sgst_total.toString(),
-                                    value.igst_total.toString(),
-                                    value.taxable_total.toString(),
-                                    value.total_qty.toString());
+                            widget.form_type == 1
+                                ? Provider.of<Controller>(context,
+                                        listen: false)
+                                    .saveCartDetails(
+                                        context,
+                                        widget.remark!,
+                                        "0",
+                                        "0",
+                                        "save",
+                                        widget.form_type,
+                                        value.cus_id!,
+                                        value.cusName1!,
+                                        "0",
+                                        value.dis_tot.toString(),
+                                        value.cess_total.toString(),
+                                        value.net_tot.toString(),
+                                        "0",
+                                        value.cgst_total.toString(),
+                                        value.sgst_total.toString(),
+                                        value.igst_total.toString(),
+                                        value.taxable_total.toString(),
+                                        value.total_qty.toString())
+                                : Provider.of<Controller>(context,
+                                        listen: false)
+                                    .saveSaleReturnCartDetails(
+                                        context,
+                                        widget.remark!,
+                                        "0",
+                                        "0",
+                                        "save",
+                                        widget.form_type,
+                                        value.cus_id!,
+                                        value.cusName1!,
+                                        "0",
+                                        value.dis_tot.toString(),
+                                        value.cess_total.toString(),
+                                        value.net_tot.toString(),
+                                        "0",
+                                        value.cgst_total.toString(),
+                                        value.sgst_total.toString(),
+                                        value.igst_total.toString(),
+                                        value.taxable_total.toString(),
+                                        value.total_qty.toString());
                           }),
                           child: Container(
                             width: size.width * 0.5,
@@ -447,25 +470,22 @@ class _BagPageState extends State<BagPage> {
                                           ],
                                         ), // Row(
 
-                                        Flexible(
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                "Discount:",
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Discount:",
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                            SizedBox(
+                                              width: size.width * 0.03,
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                " \u{20B9}${disc_amt.toStringAsFixed(2)}",
                                                 style: TextStyle(fontSize: 13),
                                               ),
-                                              SizedBox(
-                                                width: size.width * 0.03,
-                                              ),
-                                              Container(
-                                                child: Text(
-                                                  " \u{20B9}${disc_amt.toStringAsFixed(2)}",
-                                                  style:
-                                                      TextStyle(fontSize: 13),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -722,10 +742,10 @@ class _BagPageState extends State<BagPage> {
                           Text(
                             "\u{20B9}${net_amt}",
                             style: GoogleFonts.aBeeZee(
-                          textStyle: Theme.of(context).textTheme.bodyText2,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: P_Settings.redclr,
+                              textStyle: Theme.of(context).textTheme.bodyText2,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: P_Settings.redclr,
                             ),
                           ),
                         ],

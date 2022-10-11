@@ -9,6 +9,7 @@ import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/components/externalDir.dart';
 import 'package:gulferp/controller/registrationController.dart';
 import 'package:lottie/lottie.dart';
+
 import 'package:provider/provider.dart';
 
 import '../controller/controller.dart';
@@ -165,7 +166,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   //       builder: (context) => LoginPage()),
                                   // );
 
-                                  // await OrderAppDB.instance
+                                  // await OrderAppDB.instance 
                                   //     .deleteFromTableCommonQuery('menuTable', "");
                                   FocusScope.of(context)
                                       .requestFocus(FocusNode());

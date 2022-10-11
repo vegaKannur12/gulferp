@@ -243,24 +243,24 @@ class _HistoryPageState extends State<HistoryPage> {
                                     trailing: Wrap(
                                       spacing: 10,
                                       children: [
-                                        IconButton(
-                                            onPressed: () {
-                                              // Provider.of<Controller>(context,
-                                              //         listen: false)
-                                              //     .getTransinfoList(
-                                              //         context,
-                                              //         value.historyList[index]
-                                              //             ['os_id'],
-                                              //         "");
-                                              // infoshowsheet.showtransInfoSheet(
-                                              //     context,
-                                              //     index,
-                                              //     splitted[0],
-                                              //     splitted[3],
-                                              //     value.historyList[index]
-                                              //         ['os_id']);
-                                            },
-                                            icon: Icon(Icons.info)),
+                                        // IconButton(
+                                        //     onPressed: () {
+                                        //       // Provider.of<Controller>(context,
+                                        //       //         listen: false)
+                                        //       //     .getTransinfoList(
+                                        //       //         context,
+                                        //       //         value.historyList[index]
+                                        //       //             ['os_id'],
+                                        //       //         "");
+                                        //       // infoshowsheet.showtransInfoSheet(
+                                        //       //     context,
+                                        //       //     index,
+                                        //       //     splitted[0],
+                                        //       //     splitted[3],
+                                        //       //     value.historyList[index]
+                                        //       //         ['os_id']);
+                                        //     },
+                                        //     icon: Icon(Icons.info)),
                                         // IconButton(
                                         //     icon: Icon(
                                         //       Icons.edit,
@@ -497,8 +497,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                                       .bodyText2,
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.bold,
-                                                  color:
-                                                      P_Settings.redclr,
+                                                  color: P_Settings.redclr,
                                                 ),
                                               ),
                                             ],
