@@ -213,7 +213,7 @@ class SaleDetailsBottomSheet {
                                           "qty");
                                   // Provider.of<Controller>(context,
                                   //         listen: false)
-                                  //     .addDeletebagItem(
+                                  //     .(
                                   //         itemId,
                                   //         srate1.toString(),
                                   //         value.qty[index].text,

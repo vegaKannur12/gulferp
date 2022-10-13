@@ -196,7 +196,7 @@ class _BagPageState extends State<BagPage> {
                                     .saveCartDetails(
                                         context,
                                         widget.remark!,
-                                        "1",
+                                        "0",
                                         "0",
                                         "save",
                                         widget.form_type,
@@ -217,7 +217,7 @@ class _BagPageState extends State<BagPage> {
                                     .saveSaleReturnCartDetails(
                                         context,
                                         widget.remark!,
-                                        "2",
+                                        "0",
                                         "0",
                                         "save",
                                         widget.form_type,
