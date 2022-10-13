@@ -10,13 +10,13 @@ import 'package:gulferp/screen/sale/saleDetailsBottomSheet.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
-class BagPage extends StatefulWidget {
+class UnloadVehicleCart extends StatefulWidget {
   String? branchId;
   String type;
   String form_type;
   String gtype;
   String? remark;
-  BagPage(
+  UnloadVehicleCart(
       {this.branchId,
       required this.type,
       required this.form_type,
@@ -24,10 +24,10 @@ class BagPage extends StatefulWidget {
       this.remark});
 
   @override
-  State<BagPage> createState() => _BagPageState();
+  State<UnloadVehicleCart> createState() => _UnloadVehicleCartState();
 }
 
-class _BagPageState extends State<BagPage> {
+class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
   SalesBottomSheet totalSheet = SalesBottomSheet();
   String imgGlobal = Globaldata.imageurl;
   SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
@@ -59,7 +59,7 @@ class _BagPageState extends State<BagPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print("app bar type...........${widget.type}");
+    print("app bar type...........${widget.form_type}");
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -71,15 +71,15 @@ class _BagPageState extends State<BagPage> {
           },
           icon: Icon(Icons.arrow_back),
         ),
-        title: Text(
-          "${widget.type.toString()}",
-          style: GoogleFonts.aBeeZee(
-            textStyle: Theme.of(context).textTheme.bodyText2,
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: P_Settings.buttonColor,
-          ),
-        ),
+        // title: Text(
+        //   "${widget.type.toString()}",
+        //   style: GoogleFonts.aBeeZee(
+        //     textStyle: Theme.of(context).textTheme.bodyText2,
+        //     fontSize: 18,
+        //     fontWeight: FontWeight.bold,
+        //     color: P_Settings.buttonColor,
+        //   ),
+        // ),
         backgroundColor: P_Settings.loginPagetheme,
       ),
       body: Consumer<Controller>(
@@ -105,7 +105,7 @@ class _BagPageState extends State<BagPage> {
                 children: [
                   Expanded(
                     child: ListView.builder(
-                      itemExtent: 160,
+                      itemExtent: 130,
                       itemCount: value.bagList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return listItemFunction(
@@ -119,149 +119,45 @@ class _BagPageState extends State<BagPage> {
                           double.parse(value.bagList[index]["stock"]),
                           value.bagList[index]["cart_id"],
                           value.bagList[index]["item_img"],
-                          double.parse(value.bagList[index]["tax"]),
-                          double.parse(value.bagList[index]["cess_per"]),
-                          double.parse(value.bagList[index]["cess_amt"]),
-                          double.parse(value.bagList[index]["gross"]),
-                          double.parse(value.bagList[index]["net_total"]),
-                          double.parse(value.bagList[index]["disc_per"]),
-                          double.parse(value.bagList[index]["disc_amt"]),
-                          double.parse(value.bagList[index]["cgst_amt"]),
-                          double.parse(value.bagList[index]["sgst_amt"]),
-                          double.parse(value.bagList[index]["igst_amt"]),
-                          double.parse(value.bagList[index]["taxable"]),
-                          double.parse(value.bagList[index]["cgst_per"]),
-                          double.parse(value.bagList[index]["sgst_per"]),
-                          double.parse(value.bagList[index]["igst_per"]),
                         );
                       },
                     ),
                   ),
                   Container(
-                    height: size.height * 0.07,
-                    color: Colors.yellow,
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            // print(
-                            //     "............................${value.orderTotal2}");
-                            totalSheet.sheet(
-                                context,
-                                "${value.item_count}",
-                                "${value.net_tot}",
-                                "${value.dis_tot}",
-                                "${value.tax_total}",
-                                "${value.cess_total}",
-                                "${value.gro_tot}");
-                          },
-                          child: Container(
-                            width: size.width * 0.5,
-                            height: size.height * 0.07,
-                            color: Colors.yellow,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  " Sales Total  : ",
-                                  style: GoogleFonts.aBeeZee(
-                                    textStyle:
-                                        Theme.of(context).textTheme.bodyText2,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: P_Settings.loginPagetheme,
-                                  ),
+                      height: size.height * 0.07,
+                      color: Colors.yellow,
+                      child: GestureDetector(
+                        onTap: (() async {
+                          print("save unload data...");
+                          Provider.of<Controller>(context, listen: false)
+                              .saveUnloadVehicleDetails(
+                                  context, "3", "save", widget.form_type, "0");
+                        }),
+                        child: Container(
+                          width: size.width * 0.9,
+                          height: size.height * 0.07,
+                          color: P_Settings.loginPagetheme,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Save",
+                                style: GoogleFonts.aBeeZee(
+                                  textStyle:
+                                      Theme.of(context).textTheme.bodyText2,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: P_Settings.buttonColor,
                                 ),
-                                Flexible(
-                                  child: Text(
-                                    "\u{20B9}${Provider.of<Controller>(context, listen: false).net_tot}",
-                                    style: GoogleFonts.aBeeZee(
-                                      textStyle:
-                                          Theme.of(context).textTheme.bodyText2,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      color: P_Settings.loginPagetheme,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                width: size.width * 0.01,
+                              ),
+                              Icon(Icons.shopping_basket)
+                            ],
                           ),
                         ),
-                        GestureDetector(
-                          onTap: (() async {
-                            widget.form_type == "1"
-                                ? Provider.of<Controller>(context,
-                                        listen: false)
-                                    .saveCartDetails(
-                                        context,
-                                        widget.remark!,
-                                        "1",
-                                        "0",
-                                        "save",
-                                        widget.form_type,
-                                        value.cus_id!,
-                                        value.cusName1!,
-                                        "0",
-                                        value.dis_tot.toString(),
-                                        value.cess_total.toString(),
-                                        value.net_tot.toString(),
-                                        "0",
-                                        value.cgst_total.toString(),
-                                        value.sgst_total.toString(),
-                                        value.igst_total.toString(),
-                                        value.taxable_total.toString(),
-                                        value.total_qty.toString())
-                                : Provider.of<Controller>(context,
-                                        listen: false)
-                                    .saveSaleReturnCartDetails(
-                                        context,
-                                        widget.remark!,
-                                        "2",
-                                        "0",
-                                        "save",
-                                        widget.form_type,
-                                        value.cus_id!,
-                                        value.cusName1!,
-                                        "0",
-                                        value.dis_tot.toString(),
-                                        value.cess_total.toString(),
-                                        value.net_tot.toString(),
-                                        "0",
-                                        value.cgst_total.toString(),
-                                        value.sgst_total.toString(),
-                                        value.igst_total.toString(),
-                                        value.taxable_total.toString(),
-                                        value.total_qty.toString());
-                          }),
-                          child: Container(
-                            width: size.width * 0.5,
-                            height: size.height * 0.07,
-                            color: P_Settings.loginPagetheme,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Save",
-                                  style: GoogleFonts.aBeeZee(
-                                    textStyle:
-                                        Theme.of(context).textTheme.bodyText2,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: P_Settings.buttonColor,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: size.width * 0.01,
-                                ),
-                                Icon(Icons.shopping_basket)
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
+                      ))
                 ],
               );
             }
@@ -272,32 +168,19 @@ class _BagPageState extends State<BagPage> {
   }
 
   Widget listItemFunction(
-      String item_id,
-      String itemName,
-      double srate1,
-      double qty,
-      Size size,
-      int index,
-      String? batch_code,
-      double stock,
-      String cart_id,
-      String img,
-      double tax_per,
-      double cess_per,
-      double cess_amt,
-      double gross,
-      double net_amt,
-      double disc_per,
-      double disc_amt,
-      double cgst_amt,
-      double sgst_amt,
-      double igst_amt,
-      double taxable,
-      double cgst_per,
-      double sgst_per,
-      double igst_per) {
+    String item_id,
+    String itemName,
+    double srate1,
+    double qty,
+    Size size,
+    int index,
+    String? batch_code,
+    double stock,
+    String cart_id,
+    String img,
+  ) {
     double tax_amt = 0;
-    tax_amt = cgst_amt + sgst_amt + igst_amt;
+
     print("tax amount new.........$tax_amt");
     return Consumer<Controller>(
       builder: (context, value, child) {
@@ -315,36 +198,15 @@ class _BagPageState extends State<BagPage> {
               child: ListTile(
                 onTap: () {
                   // tax_amt = cgst_amt + sgst_amt + igst_amt;
-                  print(
-                      "qty number-----$cgst_amt--$sgst_amt---$igst_amt--$tax_amt");
 
                   double gross = srate1 * qty;
                   print("srate1------$srate1---$qty");
                   print("gross calc===$gross");
                   value.qty[index].text = qty.toStringAsFixed(2);
 
-                  value.discount_prercent[index].text =
-                      disc_per.toStringAsFixed(4);
-                  value.discount_amount[index].text =
-                      disc_amt.toStringAsFixed(2);
-
-                  value.qty[index].selection = TextSelection(
-                      baseOffset: 0,
-                      extentOffset: value.qty[index].value.text.length);
-
                   Provider.of<Controller>(context, listen: false)
-                      .rawCalculation(
-                          srate1,
-                          qty,
-                          disc_per,
-                          disc_amt,
-                          tax_per,
-                          cess_per,
-                          "0",
-                          int.parse(widget.gtype),
-                          index,
-                          false,
-                          "");
+                      .rawCalculation(srate1, qty, 0.0, 0.0, 0.0, 0.0, "0",
+                          int.parse(widget.gtype), index, false, "");
                   print("quantity in cart..........$qty");
                   Provider.of<Controller>(context, listen: false).setQty(qty);
                   saleDetais.showSheet(
@@ -359,14 +221,14 @@ class _BagPageState extends State<BagPage> {
                       stock,
                       qty.toString(),
                       widget.form_type,
-                      tax_per,
+                      0.0,
                       tax_amt,
-                      cess_per,
-                      cess_amt,
-                      disc_per,
-                      disc_amt,
+                      0.0,
+                      0.0,
+                      0.0,
+                      0.0,
                       gross,
-                      taxable,
+                      0.0,
                       int.parse(widget.gtype),
                       cart_id,
                       "cart");
@@ -469,24 +331,6 @@ class _BagPageState extends State<BagPage> {
                                             ),
                                           ],
                                         ), // Row(
-
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Discount:",
-                                              style: TextStyle(fontSize: 13),
-                                            ),
-                                            SizedBox(
-                                              width: size.width * 0.03,
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                " \u{20B9}${disc_amt.toStringAsFixed(2)}",
-                                                style: TextStyle(fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
                                       ],
                                     ),
                                   ),
@@ -519,74 +363,10 @@ class _BagPageState extends State<BagPage> {
                                             ),
                                           ],
                                         ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Tax  :",
-                                              style: TextStyle(fontSize: 13),
-                                            ),
-                                            SizedBox(
-                                              width: size.width * 0.03,
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                " \u{20B9}${tax_amt.toStringAsFixed(2)}",
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 4, top: 0),
-                                  child: Flexible(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Gross:",
-                                              style: TextStyle(fontSize: 13),
-                                            ),
-                                            SizedBox(
-                                              width: size.width * 0.02,
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                "\u{20B9}${gross.toStringAsFixed(2)}",
-                                                style: TextStyle(fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Cess :",
-                                              style: TextStyle(fontSize: 13),
-                                            ),
-                                            SizedBox(
-                                              width: size.width * 0.02,
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                "\u{20B9}${cess_amt.toStringAsFixed(2)}",
-                                                style: TextStyle(fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
                               ],
                             ),
                           ),
@@ -632,21 +412,21 @@ class _BagPageState extends State<BagPage> {
                                                       context,
                                                       "delete",
                                                       widget.form_type,
-                                                      value.gross,
-                                                      disc_per,
-                                                      disc_amt,
-                                                      taxable,
-                                                      cgst_amt,
-                                                      sgst_amt,
-                                                      igst_amt,
-                                                      cgst_per,
-                                                      sgst_per,
-                                                      igst_per,
-                                                      cess_per,
-                                                      cess_amt,
-                                                      net_amt,
-                                                      tax_per,
-                                                      "2",
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      "3",
                                                       "cart");
 
                                               // Navigator.of(ctx).pop();
@@ -707,7 +487,7 @@ class _BagPageState extends State<BagPage> {
                             ),
                           ),
                           Text(
-                            "\u{20B9}${net_amt}",
+                            "\u{20B9}${srate1 * qty.toInt()}",
                             style: GoogleFonts.aBeeZee(
                               textStyle: Theme.of(context).textTheme.bodyText2,
                               fontSize: 15,
@@ -729,109 +509,5 @@ class _BagPageState extends State<BagPage> {
         );
       },
     );
-  }
-
-  /////////////////////////////////////buildpoppup////////////////////////////////////
-  Widget buildPopupDialog(String content, BuildContext context, Size size) {
-    return AlertDialog(content: StatefulBuilder(
-      builder: (BuildContext context, StateSetter setState) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            RadioListTile(
-              title: Text("StockIn"),
-              value: "stockin",
-              groupValue: stockio,
-              onChanged: (value) {
-                setState(() {
-                  stockio = value.toString();
-                });
-              },
-            ),
-            RadioListTile(
-              title: Text("StockOut"),
-              value: "stockout",
-              groupValue: stockio,
-              onChanged: (value) {
-                setState(() {
-                  stockio = value.toString();
-                });
-              },
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5.0),
-                border: Border.all(
-                    color: P_Settings.loginPagetheme,
-                    style: BorderStyle.solid,
-                    width: 0.4),
-              ),
-              child: DropdownButton<String>(
-                value: selected,
-                // isDense: true,
-                hint: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text("Select Branch"),
-                ),
-                // isExpanded: true,
-                autofocus: false,
-                underline: SizedBox(),
-                elevation: 0,
-                items: branch
-                    .map((item) => DropdownMenuItem<String>(
-                        value: item.toString(),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                item.toString(),
-                                style: TextStyle(fontSize: 14),
-                              ),
-                            ),
-                          ],
-                        )))
-                    .toList(),
-                onChanged: (item) {
-                  print("clicked");
-                  if (item != null) {
-                    setState(() {
-                      selected = item;
-                    });
-                  }
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 8.0),
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    primary: P_Settings.loginPagetheme,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(2), // <-- Radius
-                    ),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-
-                    EasyLoading.show(status: 'Uploading...');
-
-                    EasyLoading.showSuccess("success");
-                  },
-                  child: Text(
-                    "Ok",
-                    style: GoogleFonts.aBeeZee(
-                      textStyle: Theme.of(context).textTheme.bodyText2,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: P_Settings.buttonColor,
-                    ),
-                  )),
-            ),
-          ],
-        );
-      },
-    ));
   }
 }

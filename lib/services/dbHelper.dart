@@ -1,4 +1,3 @@
-
 import 'package:gulferp/model/registrationModel.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -98,7 +97,7 @@ class GulfErpDB {
     //         batchcode TEXT,
     //         img TEXT,
     //         catid TEXT,
-    //         totalamount TEXT,  
+    //         totalamount TEXT,
     //       )
     //       ''');
   }

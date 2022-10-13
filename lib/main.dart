@@ -8,6 +8,8 @@ import 'package:gulferp/screen/splashScreen.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
+// registration id
+// DZNFEJY9OTOA
 void requestPermission() async {
   var status = await Permission.storage.status;
   // var statusbl= await Permission.bluetooth.status;

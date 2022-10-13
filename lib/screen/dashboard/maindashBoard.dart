@@ -4,13 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/screen/loginPage.dart';
 import 'package:gulferp/screen/sale/saleHome.dart';
+import 'package:gulferp/screen/sale/saleItemSelection.dart';
 import 'package:gulferp/screen/searchPage/searchPage.dart';
 import 'package:gulferp/screen/vehicle%20Loading/vehicleLoading.dart';
 import 'package:gulferp/screen/vehicle%20Loading/vehicle_unloading.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:colours/colours.dart';
 
 import '../../controller/controller.dart';
 
@@ -70,12 +70,12 @@ class _MainDashboardState extends State<MainDashboard> {
             ];
           }, onSelected: (value) async {
             if (value == 0) {
-              // Provider.of<Controller>(context, listen: false).userDetails();
-              // Provider.of<Controller>(context, listen: false)
-              // .getStockApprovalList(context);
+              Provider.of<Controller>(context, listen: false).userDetails();
+              Provider.of<Controller>(context, listen: false)
+                  .getvehicleLoadingList(context);
             } else if (value == 1) {
               final prefs = await SharedPreferences.getInstance();
-              await prefs.remove('st_username');
+              await prefs.remove('st_uname');
               await prefs.remove('st_pwd');
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) => LoginPage()));
@@ -89,7 +89,7 @@ class _MainDashboardState extends State<MainDashboard> {
         enablePullDown: true,
         onRefresh: _onRefresh,
         child: Container(
-          height: size.height*0.9,
+          height: size.height * 0.9,
           // color: P_Settings.loginPagetheme,
           child: Consumer<Controller>(
             builder: (context, value, child) {
@@ -134,9 +134,9 @@ class _MainDashboardState extends State<MainDashboard> {
                       color: Colors.grey[200],
                       child: ListTile(
                         onTap: () {
-                          value.cusName1=null;
-                          value.cus_id=null;
-                          value.gtype1=null;
+                          value.cusName1 = null;
+                          value.cus_id = null;
+                          value.gtype1 = null;
                           Provider.of<Controller>(context, listen: false)
                               .getRouteList(context);
                           Provider.of<Controller>(context, listen: false)
@@ -218,17 +218,23 @@ class _MainDashboardState extends State<MainDashboard> {
                       ),
                       color: Colors.grey[200],
                       child: ListTile(
-                        onTap: () {
-                          // Provider.of<Controller>(context, listen: false)
-                          //     .getvehicleLoadingInfo(
-                          //   context,
-                          //   value.loadingList[index]["os_id"],
-                          // );
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => VehicleUnLoading(),
-                            ),
+                        onTap: () async {
+                          List<Map<String, dynamic>> list =
+                              await Provider.of<Controller>(context,
+                                      listen: false)
+                                  .getProductDetails("0", "", "");
+                          Navigator.of(context).push(
+                            PageRouteBuilder(
+                                opaque: false, // set to false
+                                pageBuilder: (_, __, ___) => SaleItemSelection(
+                                      list: list,
+                                      type: "",
+                                      remark: "",
+                                      formType: "3",
+                                      g_type: "1",
+                                    )
+                                // OrderForm(widget.areaname,"return"),
+                                ),
                           );
                         },
                         leading: Image.asset("asset/unloading.png",
@@ -262,7 +268,8 @@ class _MainDashboardState extends State<MainDashboard> {
                         onTap: () {
                           // Provider.of<Controller>(context, listen: false)
                           //     .getTransactionList(context);
-
+                          Provider.of<Controller>(context, listen: false)
+                              .setIssearch(false);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -357,6 +364,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                           .getvehicleLoadingInfo(
                                         context,
                                         value.loadingList[index]["os_id"],
+                                        "save",
                                       );
                                       Navigator.push(
                                         context,

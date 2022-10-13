@@ -376,12 +376,14 @@ class _SaleHomeState extends State<SaleHome> {
                                       } else {
                                         cusVisible.value = false;
                                         if (list.length > 0) {
+                                          print("type from main.......${widget.type}");
                                           Navigator.of(context).push(
                                             PageRouteBuilder(
                                                 opaque: false, // set to false
                                                 pageBuilder: (_, __, ___) =>
                                                     SaleItemSelection(
                                                       list: list,
+                                                      type:widget.type,
                                                       remark: remrk.text,
                                                       formType: widget.formType,
                                                       g_type: value.gtype1!,

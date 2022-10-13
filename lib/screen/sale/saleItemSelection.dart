@@ -4,17 +4,23 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/bag/salesBag.dart';
+import 'package:gulferp/screen/history/history.dart';
+import 'package:gulferp/screen/vehicle%20Loading/unload_cart.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../itemSelectionCommon.dart';
 
 class SaleItemSelection extends StatefulWidget {
   List<Map<String, dynamic>> list;
   String? remark;
+  String type;
   String formType;
   String g_type;
   SaleItemSelection(
       {required this.list,
+      required this.type,
       this.remark,
       required this.formType,
       required this.g_type});
@@ -25,9 +31,12 @@ class SaleItemSelection extends StatefulWidget {
 
 class _SaleItemSelectionState extends State<SaleItemSelection> {
   List<Map<String, dynamic>> list = [];
-
+  DateTime now = DateTime.now();
+  String? branch_id;
+  String? todaydate;
   @override
   void initState() {
+    todaydate = DateFormat('dd-MM-yyyy').format(now);
     // TODO: implement initState
     super.initState();
     itemList();
@@ -36,7 +45,7 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
   itemList() async {
     list = await Provider.of<Controller>(context, listen: false)
         .getProductDetails("0", "", widget.formType);
-
+    print("form type........${widget.formType}");
     print("listttt----${list}");
   }
 
@@ -55,6 +64,28 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
         // ),
         backgroundColor: P_Settings.loginPagetheme,
         actions: [
+          widget.formType == "3"
+              ? IconButton(
+                  onPressed: () {
+                    Provider.of<Controller>(context, listen: false)
+                        .unloadhistoryList
+                        .clear();
+                    Provider.of<Controller>(context, listen: false)
+                        .setDate(todaydate!, todaydate!);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HistoryPage(
+                                form_type: widget.formType,
+                              )),
+                    );
+                  },
+                  icon: Container(
+                    height: 20,
+                    child: Image.asset("asset/history.png"),
+                  ),
+                )
+              : Text(""),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Badge(
@@ -79,24 +110,44 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
               position: const BadgePosition(start: 33, bottom: 25),
               child: IconButton(
                 onPressed: () async {
+                  SharedPreferences prefs =
+                      await SharedPreferences.getInstance();
+                  branch_id = prefs.getString("branch_id");
                   // await Provider.of<Controller>(context, listen: false)
                   //     .getbagData1(context, widget.formType);
                   // // Provider.of<Controller>(context, listen: false).fromDb = true;
-                  Navigator.push(
-                      context,
-                      PageRouteBuilder(
-                          opaque: false, // set to false
-                          pageBuilder: (_, __, ___) {
-                            return BagPage(
-                              branchId: "25",
-                              type: widget.formType == 1
-                                  ? "Sales Cart"
-                                  : "Sales Return Cart",
-                              form_type: widget.formType,
-                              gtype: widget.g_type,
-                              remark: widget.remark,
-                            );
-                          }));
+                  // print("type item select..........${widget.formType}");
+                  if (widget.formType == '3') {
+                    print("type item select..........${widget.formType}");
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            opaque: false, // set to false
+                            pageBuilder: (_, __, ___) {
+                              return UnloadVehicleCart(
+                                branchId: branch_id,
+                                type: widget.type,
+                                form_type: widget.formType,
+                                gtype: widget.g_type,
+                                remark: widget.remark,
+                              );
+                            }));
+                  } else {
+                    Navigator.push(
+                        context,
+                        PageRouteBuilder(
+                            opaque: false, // set to false
+                            pageBuilder: (_, __, ___) {
+                              return BagPage(
+                                branchId: branch_id,
+                                type: widget.type,
+                                form_type: widget.formType,
+                                gtype: widget.g_type,
+                                remark: widget.remark,
+                              );
+                            }));
+                  }
+
                   // Navigator.push(
                   //   context,
                   //   MaterialPageRoute(

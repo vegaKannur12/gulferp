@@ -31,6 +31,7 @@ class SaleDetailsBottomSheet {
       String page) {
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
+    bool unlodVisible = false;
     CustomSnackbar snackbar = CustomSnackbar();
     print(
         "bottom sheet value-----$tax_per-$index--$itemName----------$srate1----$qtyf-----");
@@ -307,124 +308,133 @@ class SaleDetailsBottomSheet {
                       //         ),
                       //       )
                       //     : Container(),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Gross value",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 17,
-                                // fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
+                      formType == "3"
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Gross value",
+                                    style: GoogleFonts.aBeeZee(
+                                      textStyle:
+                                          Theme.of(context).textTheme.bodyText2,
+                                      fontSize: 17,
+                                      // fontWeight: FontWeight.bold,
+                                      color: P_Settings.loginPagetheme,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    value.fromDb!
+                                        ? "\u{20B9}${gross.toStringAsFixed(2)}"
+                                        : "\u{20B9}${value.gross.toStringAsFixed(2)}",
+                                    style: GoogleFonts.aBeeZee(
+                                      textStyle:
+                                          Theme.of(context).textTheme.bodyText2,
+                                      fontSize: 17,
+                                      // fontWeight: FontWeight.bold,
+                                      color: P_Settings.loginPagetheme,
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
-                            Spacer(),
-                            Text(
-                              value.fromDb!
-                                  ? "\u{20B9}${gross.toStringAsFixed(2)}"
-                                  : "\u{20B9}${value.gross.toStringAsFixed(2)}",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 17,
-                                // fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Discount %",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 17,
-                                // fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
-                              ),
-                            ),
-                            Spacer(),
-                            Container(
-                              width: size.width * 0.2,
-                              child: TextField(
-                                onTap: () {
-                                  value.discount_prercent[index].selection =
-                                      TextSelection(
-                                          baseOffset: 0,
-                                          extentOffset: value
-                                              .discount_prercent[index]
-                                              .value
-                                              .text
-                                              .length);
-                                },
-                                style: GoogleFonts.aBeeZee(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyText2,
-                                  fontSize: 17,
-                                  // fontWeight: FontWeight.bold,
-                                  color: P_Settings.loginPagetheme,
-                                ),
-                                decoration: InputDecoration(
-                                  //labelText: "Phone number",
-                                  // hintText: "Phone number",
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.all(
-                                      0), //  <- you can it to 0.0 for no space
+                      formType == "3"
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Discount %",
+                                    style: GoogleFonts.aBeeZee(
+                                      textStyle:
+                                          Theme.of(context).textTheme.bodyText2,
+                                      fontSize: 17,
+                                      // fontWeight: FontWeight.bold,
+                                      color: P_Settings.loginPagetheme,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Container(
+                                    width: size.width * 0.2,
+                                    child: TextField(
+                                      onTap: () {
+                                        value.discount_prercent[index]
+                                                .selection =
+                                            TextSelection(
+                                                baseOffset: 0,
+                                                extentOffset: value
+                                                    .discount_prercent[index]
+                                                    .value
+                                                    .text
+                                                    .length);
+                                      },
+                                      style: GoogleFonts.aBeeZee(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2,
+                                        fontSize: 17,
+                                        // fontWeight: FontWeight.bold,
+                                        color: P_Settings.loginPagetheme,
+                                      ),
+                                      decoration: InputDecoration(
+                                        //labelText: "Phone number",
+                                        // hintText: "Phone number",
+                                        isDense: true,
+                                        contentPadding: EdgeInsets.all(
+                                            0), //  <- you can it to 0.0 for no space
 
-                                  //border: InputBorder.none
-                                ),
-                                keyboardType: TextInputType.number,
-                                onSubmitted: (values) {
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .disPerClicked = true;
-                                  double valuediscper = 0.0;
-                                  print("values---$values");
-                                  if (values.isNotEmpty) {
-                                    print("emtyyyy");
-                                    valuediscper = double.parse(values);
-                                  } else {
-                                    valuediscper = 0.00;
-                                  }
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .fromDb = false;
+                                        //border: InputBorder.none
+                                      ),
+                                      keyboardType: TextInputType.number,
+                                      onSubmitted: (values) {
+                                        Provider.of<Controller>(context,
+                                                listen: false)
+                                            .disPerClicked = true;
+                                        double valuediscper = 0.0;
+                                        print("values---$values");
+                                        if (values.isNotEmpty) {
+                                          print("emtyyyy");
+                                          valuediscper = double.parse(values);
+                                        } else {
+                                          valuediscper = 0.00;
+                                        }
+                                        Provider.of<Controller>(context,
+                                                listen: false)
+                                            .fromDb = false;
 
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .rawCalculation(
-                                          srate1,
-                                          double.parse(value.qty[index].text),
-                                          valuediscper,
-                                          double.parse(value
-                                              .discount_amount[index].text),
-                                          tax_per,
-                                          cess_per,
-                                          "0",
-                                          gtype,
-                                          index,
-                                          true,
-                                          "disc_per");
-                                },
-                                controller: value.discount_prercent[index],
-                                textAlign: TextAlign.right,
-                                // decoration: InputDecoration(
-                                //   border: InputBorder.none,
-                                // ),
+                                        Provider.of<Controller>(context,
+                                                listen: false)
+                                            .rawCalculation(
+                                                srate1,
+                                                double.parse(
+                                                    value.qty[index].text),
+                                                valuediscper,
+                                                double.parse(value
+                                                    .discount_amount[index]
+                                                    .text),
+                                                tax_per,
+                                                cess_per,
+                                                "0",
+                                                gtype,
+                                                index,
+                                                true,
+                                                "disc_per");
+                                      },
+                                      controller:
+                                          value.discount_prercent[index],
+                                      textAlign: TextAlign.right,
+                                      // decoration: InputDecoration(
+                                      //   border: InputBorder.none,
+                                      // ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                      Padding(
+                     formType == "3"?Container(): Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
                           children: [
@@ -510,7 +520,7 @@ class SaleDetailsBottomSheet {
                           ],
                         ),
                       ),
-                      Padding(
+                     formType == "3"?Container(): Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
                           children: [
@@ -538,7 +548,7 @@ class SaleDetailsBottomSheet {
                           ],
                         ),
                       ),
-                      Padding(
+                    formType == "3"?Container(): Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
                           children: [
@@ -570,7 +580,7 @@ class SaleDetailsBottomSheet {
                           ],
                         ),
                       ),
-                      Padding(
+                    formType == "3"?Container():  Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
                           children: [
@@ -598,7 +608,7 @@ class SaleDetailsBottomSheet {
                           ],
                         ),
                       ),
-                      Padding(
+                     formType == "3"?Container(): Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Row(
                           children: [
@@ -681,37 +691,6 @@ class SaleDetailsBottomSheet {
                                   if (value.qty[index].text == "1") {
                                     value.qty[index].text = "1.0";
                                   }
-                                  // double qty =
-                                  //     double.parse(value.qty[index].text);
-                                  // Provider.of<Controller>(context, listen: false).rawCalculation(srate1, qty, 0, 0, tax_per, cess_per, method, state_status, index, onSub, disCalc)
-                                  // if (transval == -1) {
-                                  //   if (stock < qty) {
-                                  //     print("error");
-                                  //     value.qty[index].text = qtyf;
-                                  //     value.seterrorClicked(true, index);
-                                  //     value.setqtyErrormsg(true);
-                                  //   } else {
-                                  //     value.setqtyErrormsg(false);
-                                  //   }
-                                  // }
-                                  // print("value.qtyerror ----${value.qtyerror}");
-
-                                  // if (value.qtyerror == false) {
-
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .addDeletebagItem(
-                                  //         itemId,
-                                  //         srate1.toString(),
-                                  //         value.qty[index].text,
-                                  //         "0",
-                                  //         "0",
-                                  //         context,
-                                  //         "save",
-                                  //         formType);
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .getbagData1(context, formType);
                                   print(
                                       "quantity after updates........${value.qty[index].text}");
                                   Provider.of<Controller>(context,

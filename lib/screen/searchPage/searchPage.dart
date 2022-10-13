@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gulferp/components/commonColor.dart';
+import 'package:gulferp/components/infoBottomSheet.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController searchcontroll = TextEditingController();
-  // InfoBottomsheet infoshowsheet = InfoBottomsheet();
+  InfoBottomsheet infoshowsheet = InfoBottomsheet();
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            // Provider.of<Controller>(context, listen: false).searchList.clear();
+            Provider.of<Controller>(context, listen: false).searchList.clear();
             Navigator.pop(context);
           },
         ),
@@ -43,17 +44,17 @@ class _SearchScreenState extends State<SearchScreen> {
                 autofocus: true,
                 controller: searchcontroll,
                 onChanged: (value) {
-                  // if (value != null || value.isNotEmpty) {
-                  //   print("value-----$value");
-                  //   Provider.of<Controller>(context, listen: false)
-                  //       .setIssearch(true);
-                  //   // value = searchcontroll.text;
-                  //   Provider.of<Controller>(context, listen: false)
-                  //       .searchItem(context, value);
-                  // } else {
-                  //   Provider.of<Controller>(context, listen: false)
-                  //       .setIssearch(false);
-                  // }
+                  if (value != null || value.isNotEmpty) {
+                    print("value-----$value");
+                    Provider.of<Controller>(context, listen: false)
+                        .setIssearch(true);
+                    value = searchcontroll.text;
+                    Provider.of<Controller>(context, listen: false)
+                        .searchItem(context, value);
+                  } else {
+                    Provider.of<Controller>(context, listen: false)
+                        .setIssearch(false);
+                  }
                 },
                 decoration: InputDecoration(
                   hintText: "Search Item here",
@@ -73,51 +74,52 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
           ),
-          // Consumer<Controller>(builder: (context, value, child) {
-          //   if (value.isSearch == false) {
-          //     // return SpinKitFadingCircle(
-          //     //   color: P_Settings.loginPagetheme,
-          //     // );
-          //     return Container(
-          //         height: size.height * 0.15,
-          //         // child: Text("No Data Found !!!"),
-          //         child: Lottie.asset(
-          //           'asset/search.json',
-          //           // height: size.height*0.3,
-          //           // width: size.height*0.3,
-          //         ));
-          //   } else {
-          //     return Expanded(
-          //       child: ListView.builder(
-          //         itemCount: value.searchList.length,
-          //         itemBuilder: (context, index) {
-          //           return ListTile(
-          //             onTap: () {
-          //               Provider.of<Controller>(context, listen: false)
-          //                   .getinfoList(
-          //                       context, value.searchList[index]["item_id"]);
-          //               infoshowsheet.showInfoSheet(context);
-          //             },
-          //             title: Row(
-          //               children: [Text(value.searchList[index]["item_name"])],
-          //             ),
-          //             subtitle: Row(
-          //               children: [
-          //                 Text(
-          //                     "SRate1 :  ${value.searchList[index]["s_rate_1"]}"),
-          //                 SizedBox(
-          //                   width: size.width * 0.03,
-          //                 ),
-          //                 Text(
-          //                     "SRate2 :  ${value.searchList[index]["s_rate_2"]}"),
-          //               ],
-          //             ),
-          //           );
-          //         },
-          //       ),
-          //     );
-          //   }
-          // }),
+          Consumer<Controller>(builder: (context, value, child) {
+            if (value.isSearch == false) {
+              return Container(
+                  height: size.height * 0.15,
+                  // child: Text("No Data Found !!!"),
+                  child: Lottie.asset(
+                    'asset/search.json',
+                    // height: size.height*0.3,
+                    // width: size.height*0.3,
+                  ));
+            } else {
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: value.searchList.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: () {
+                        Provider.of<Controller>(context, listen: false)
+                            .getinfoList(
+                                context, value.searchList[index]["batch_id"]);
+                        infoshowsheet.showInfoSheet(context);
+                      },
+                      title: Row(
+                        children: [
+                          Text(
+                            value.searchList[index]["batch_name"],
+                          ),
+                        ],
+                      ),
+                      subtitle: Row(
+                        children: [
+                          Text(
+                              "SRate1 : \u{20B9}${value.searchList[index]["s_rate_fix"]}"),
+                          // SizedBox(
+                          //   width: size.width * 0.03,
+                          // ),
+                          // Text(
+                          //     "SRate2 :  ${value.searchList[index]["s_rate_2"]}"),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              );
+            }
+          }),
         ],
       ),
     );
