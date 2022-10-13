@@ -73,7 +73,7 @@ class RegistrationController extends ChangeNotifier {
 
           if (sof == "1") {
             print("apptype----$appType");
-            if (appType == 'SM') {
+            if (appType == 'OA') {
               SharedPreferences prefs = await SharedPreferences.getInstance();
               /////////////// insert into local db /////////////////////
               late CD dataDetails;

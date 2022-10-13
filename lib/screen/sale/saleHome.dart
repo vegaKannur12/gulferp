@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/customer/customerSelection.dart';
+import 'package:gulferp/screen/dashboard/maindashBoard.dart';
 import 'package:gulferp/screen/history/history.dart';
 import 'package:gulferp/screen/sale/saleItemSelection.dart';
 import 'package:intl/intl.dart';
@@ -21,6 +22,8 @@ class _SaleHomeState extends State<SaleHome> {
   DateTime now = DateTime.now();
   String? selected;
   ValueNotifier<bool> visible = ValueNotifier(false);
+  ValueNotifier<bool> cusVisible = ValueNotifier(false);
+
   List splitted = [];
   TextEditingController remrk = TextEditingController();
 
@@ -33,6 +36,9 @@ class _SaleHomeState extends State<SaleHome> {
     // TODO: implement initState
     super.initState();
     todaydate = DateFormat('dd-MM-yyyy').format(now);
+    Provider.of<Controller>(context, listen: false).cusName1 = null;
+    Provider.of<Controller>(context, listen: false).cus_id = null;
+    Provider.of<Controller>(context, listen: false).gtype1 = null;
   }
 
   @override
@@ -44,13 +50,25 @@ class _SaleHomeState extends State<SaleHome> {
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
         title: Text(widget.type),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => MainDashboard()),
+            );
+          },
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+        ),
         actions: [
           IconButton(
               onPressed: () {
                 Provider.of<Controller>(context, listen: false)
                     .historyList
                     .clear();
-
+                Provider.of<Controller>(context, listen: false)
+                    .setDate(todaydate!, todaydate!);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -125,16 +143,26 @@ class _SaleHomeState extends State<SaleHome> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      Text(
-                                        "ERTYU",
-                                        style: GoogleFonts.aBeeZee(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
+                                      value.invoiceLoad
+                                          ? SizedBox(
+                                              child: CircularProgressIndicator(
+                                                valueColor:
+                                                    new AlwaysStoppedAnimation<
+                                                        Color>(Colors.black),
+                                              ),
+                                              height: 10.0,
+                                              width: 10.0,
+                                            )
+                                          : Text(
+                                              "${value.invoice}",
+                                              style: GoogleFonts.aBeeZee(
+                                                textStyle: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText2,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
                                     ],
                                   ),
                                 ),
@@ -157,7 +185,7 @@ class _SaleHomeState extends State<SaleHome> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "Please choose  Customer",
+                                                "Please choose  Route",
                                                 style: GoogleFonts.aBeeZee(
                                                     textStyle: Theme.of(context)
                                                         .textTheme
@@ -221,45 +249,7 @@ class _SaleHomeState extends State<SaleHome> {
                                             );
                                           }
                                         },
-                                      )
-                                          //  ElevatedButton(
-                                          //   style: ElevatedButton.styleFrom(
-                                          //     primary: P_Settings.dimclr,
-                                          //     shape: RoundedRectangleBorder(
-                                          //       borderRadius:
-                                          //           BorderRadius.circular(2), // <-- Radius
-                                          //     ),
-                                          //   ),
-                                          //   child: Text(
-                                          //     "Choose Customer",
-                                          //     style: GoogleFonts.aBeeZee(
-                                          //         textStyle:
-                                          //             Theme.of(context).textTheme.bodyText2,
-                                          //         fontSize: 12,
-                                          //         fontWeight: FontWeight.bold,
-                                          //         color: P_Settings.loginPagetheme),
-                                          //   ),
-                                          //   onPressed: () async {
-                                          //     List<Map<String, dynamic>> list =
-                                          //         await Provider.of<Controller>(context,
-                                          //                 listen: false)
-                                          //             .getCustomerList("ss");
-                                          //     if (list.length > 0) {
-                                          //       Navigator.of(context).push(
-                                          //         PageRouteBuilder(
-                                          //             opaque: false, // set to false
-                                          //             pageBuilder: (_, __, ___) =>
-                                          //                 CustomerSelection(
-                                          //                   list: list,
-                                          //                   // remark: remrk.text,
-                                          //                 )
-                                          //             // OrderForm(widget.areaname,"return"),
-                                          //             ),
-                                          //       );
-                                          //     }
-                                          //   },
-                                          // ),
-                                          ),
+                                      )),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.only(
@@ -280,6 +270,35 @@ class _SaleHomeState extends State<SaleHome> {
                                     )
                                   ],
                                 ),
+                                ValueListenableBuilder(
+                                    valueListenable: cusVisible,
+                                    builder: (BuildContext context, bool v,
+                                        Widget? child) {
+                                      print("value===${visible.value}");
+                                      return Visibility(
+                                        visible: v,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              top: 6, bottom: 2.0, left: 40),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Please choose  Customer",
+                                                style: GoogleFonts.aBeeZee(
+                                                    textStyle: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText2,
+                                                    fontSize: 15,
+                                                    // fontWeight: FontWeight.bold,
+                                                    color: Colors.red),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 40, right: 40, top: 10.0),
@@ -352,20 +371,25 @@ class _SaleHomeState extends State<SaleHome> {
                                               .getProductDetails(
                                                   "0", "", widget.formType);
                                       print("value.gtype------${value.gtype1}");
-                                      if (list.length > 0) {
-                                        Navigator.of(context).push(
-                                          PageRouteBuilder(
-                                              opaque: false, // set to false
-                                              pageBuilder: (_, __, ___) =>
-                                                  SaleItemSelection(
+                                      if (value.gtype1 == null) {
+                                        cusVisible.value = true;
+                                      } else {
+                                        cusVisible.value = false;
+                                        if (list.length > 0) {
+                                          Navigator.of(context).push(
+                                            PageRouteBuilder(
+                                                opaque: false, // set to false
+                                                pageBuilder: (_, __, ___) =>
+                                                    SaleItemSelection(
                                                       list: list,
                                                       remark: remrk.text,
                                                       formType: widget.formType,
                                                       g_type: value.gtype1!,
-                                                      )
-                                              // OrderForm(widget.areaname,"return"),
-                                              ),
-                                        );
+                                                    )
+                                                // OrderForm(widget.areaname,"return"),
+                                                ),
+                                          );
+                                        }
                                       }
                                     },
                                   ),

@@ -4,13 +4,35 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/controller/registrationController.dart';
-import 'package:gulferp/screen/bag/salesBag.dart';
-import 'package:gulferp/screen/dashboard/maindashBoard.dart';
-import 'package:gulferp/screen/loginPage.dart';
-import 'package:gulferp/screen/sale/saleHome.dart';
-import 'package:gulferp/screen/sale/saleItemSelection.dart';
 import 'package:gulferp/screen/splashScreen.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+
+void requestPermission() async {
+  var status = await Permission.storage.status;
+  // var statusbl= await Permission.bluetooth.status;
+
+  var status1 = await Permission.manageExternalStorage.status;
+
+  if (!status1.isGranted) {
+    await Permission.storage.request();
+  }
+  if (!status1.isGranted) {
+    var status = await Permission.manageExternalStorage.request();
+    if (status.isGranted) {
+      await Permission.bluetooth.request();
+    } else {
+      openAppSettings();
+    }
+    // await Permission.app
+  }
+  if (!status1.isRestricted) {
+    await Permission.manageExternalStorage.request();
+  }
+  if (!status1.isPermanentlyDenied) {
+    await Permission.manageExternalStorage.request();
+  }
+}
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +40,7 @@ void main() {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  // requestPermission();
+  requestPermission();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => Controller()),
@@ -66,7 +88,7 @@ class _MyAppState extends State<MyApp> {
           //   ),
           // ),
         ),
-        home: MainDashboard()
+        home: SplashScreen()
         // BagPage(type: "sales cart",branchId: "25",)
         //  AnimatedSplashScreen(
         //   backgroundColor: Colors.black,

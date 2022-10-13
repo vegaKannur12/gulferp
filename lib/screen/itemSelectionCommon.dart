@@ -29,7 +29,11 @@ class _ItemSelectionState extends State<ItemSelection> {
   List<String> uniqueList = [];
   List splitted = [];
   SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
+<<<<<<< HEAD
   bool gstshow = false;
+=======
+  bool gstvisible = false;
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
   // Bottomsheet showsheet = Bottomsheet();
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
   String? staff_id;
@@ -261,22 +265,23 @@ class _ItemSelectionState extends State<ItemSelection> {
               height: size.height * 0.08,
               margin: EdgeInsets.only(left: 40),
               child: ListTile(
-                trailing: value.qty[index].text == "0"
+                trailing: value.qty[index].text == "1"
                     ? IconButton(
                         onPressed: () {
-                          // int qty;
-                          // value.setqtyErrormsg(false);
+                          Provider.of<Controller>(context, listen: false)
+                              .fromDb = true;
+                          print(
+                              "new quantity text.......${value.qty[index].text}");
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);
                           double gross = double.parse(item.sRate1!) *
                               double.parse(value.qty[index].text);
-                          // print("srate1------$srate1---$qty");
+                          print(
+                              "srate1------${item.sRate1}---${value.qty[index].text}");
                           print("gross calc===$gross");
                           // value.qty[index].text = qty.toStringAsFixed(2);
 
-                          value.discount_prercent[index].text = "0.00";
-                          value.discount_amount[index].text = "0.00";
                           Provider.of<Controller>(context, listen: false)
                               .fromDb = true;
                           value.qty[index].selection = TextSelection(
@@ -297,9 +302,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                                   index,
                                   false,
                                   "");
-                          // print("quantity in cart..........$qty");
-                          // Provider.of<Controller>(context, listen: false)
-                          //     .setQty(qty);
+
                           saleDetais.showSheet(
                               context,
                               index,
@@ -313,28 +316,45 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.qty[index].text,
                               widget.formType,
                               double.parse(item.gst!),
+                              value.tax,
                               double.parse(item.cess_per!),
                               value.cess,
                               value.disc_per,
                               value.disc_amt,
                               gross,
                               double.parse(item.taxable!),
+<<<<<<< HEAD
                               int.parse(widget.gtype!));
+=======
+                              int.parse(widget.gtype!),
+                              "0",
+                              "item");
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                         },
                         icon: Icon(
                           Icons.add,
                           size: 20,
-                        ))
+                        ),
+                      )
                     : GestureDetector(
                         onTap: () {
+                          print("added data.");
+                          print(
+                              "added qty text.......${value.qty[index].text}");
                           // value.setqtyErrormsg(false);
+
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);
                           double gross = double.parse(item.sRate1!) *
                               double.parse(value.qty[index].text);
                           // print("srate1------$srate1---$qty");
+<<<<<<< HEAD
                           print("gross calc===$gross");
+=======
+                          print(
+                              "gross calc===$gross /////////////${value.qty[index].text}");
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                           //  value.discount_prercent[index].text = "0.00";
                           //     value.discount_amount[index].text = "0.00";
                           print(
@@ -386,13 +406,20 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.qty[index].text,
                               widget.formType,
                               double.parse(item.gst!),
+                              value.tax,
                               double.parse(item.cess_per!),
                               value.cess,
                               value.disc_per,
                               value.disc_amt,
                               gross,
                               0,
+<<<<<<< HEAD
                               int.parse(widget.gtype!));
+=======
+                              int.parse(widget.gtype!),
+                              "0",
+                              "item");
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 18.0),
@@ -406,7 +433,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                         ),
                       ),
                 title: Text(item.itemName!,
-                    overflow: TextOverflow.ellipsis,
+                    // overflow: TextOverflow.ellipsis,
                     style: GoogleFonts.aBeeZee(
                       textStyle: Theme.of(context).textTheme.bodyText2,
                       fontSize: 16,
@@ -416,7 +443,15 @@ class _ItemSelectionState extends State<ItemSelection> {
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Flexible(
+                      flex: 1,
+                      child: Container(
+                          // width: size.width * 0.2,
+                          child: Text("SRate:${item.sRate1}")),
+                    ),
+                    Spacer(),
                     Container(
+<<<<<<< HEAD
                         // width: size.width * 0.2,
                         child: Text("SRate:${item.sRate1}")),
                     Padding(
@@ -426,6 +461,12 @@ class _ItemSelectionState extends State<ItemSelection> {
                           child: Text("Stock:${item.stock}")),
                     ),
                     gstshow == false
+=======
+                      width: size.width * 0.2,
+                      child: Text("Stock:${item.stock}"),
+                    ),
+                    gstvisible == false
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                         ? Visibility(
                             visible: false,
                             child: Padding(

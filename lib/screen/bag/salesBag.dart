@@ -4,7 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/components/globalData.dart';
-import 'package:gulferp/components/modalBottomsheet.dart';
 import 'package:gulferp/components/saleTotal_bottomsheet.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/sale/saleDetailsBottomSheet.dart';
@@ -16,11 +15,13 @@ class BagPage extends StatefulWidget {
   String? type;
   String form_type;
   String gtype;
+  String? remark;
   BagPage(
       {this.branchId,
       required this.type,
       required this.form_type,
-      required this.gtype});
+      required this.gtype,
+      this.remark});
 
   @override
   State<BagPage> createState() => _BagPageState();
@@ -44,7 +45,9 @@ class _BagPageState extends State<BagPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Provider.of<Controller>(context, listen: false).getbagData1(context, "1");
+
+    Provider.of<Controller>(context, listen: false)
+        .getbagData1(context, widget.form_type, "");
     EasyLoading.addStatusCallback((status) {
       print('EasyLoading Status $status');
       if (status == EasyLoadingStatus.dismiss) {
@@ -102,7 +105,7 @@ class _BagPageState extends State<BagPage> {
                 children: [
                   Expanded(
                     child: ListView.builder(
-                      itemExtent: 145,
+                      itemExtent: 160,
                       itemCount: value.bagList.length,
                       itemBuilder: (BuildContext context, int index) {
                         return listItemFunction(
@@ -116,7 +119,6 @@ class _BagPageState extends State<BagPage> {
                           double.parse(value.bagList[index]["stock"]),
                           value.bagList[index]["cart_id"],
                           value.bagList[index]["item_img"],
-                          double.parse(value.bagList[index]["disc_amt"]),
                           double.parse(value.bagList[index]["tax"]),
                           double.parse(value.bagList[index]["cess_per"]),
                           double.parse(value.bagList[index]["cess_amt"]),
@@ -128,6 +130,12 @@ class _BagPageState extends State<BagPage> {
                           double.parse(value.bagList[index]["sgst_amt"]),
                           double.parse(value.bagList[index]["igst_amt"]),
                           double.parse(value.bagList[index]["taxable"]),
+<<<<<<< HEAD
+=======
+                          double.parse(value.bagList[index]["cgst_per"]),
+                          double.parse(value.bagList[index]["sgst_per"]),
+                          double.parse(value.bagList[index]["igst_per"]),
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                         );
                       },
                     ),
@@ -143,21 +151,12 @@ class _BagPageState extends State<BagPage> {
                             //     "............................${value.orderTotal2}");
                             totalSheet.sheet(
                                 context,
-                                "${Provider.of<Controller>(context, listen: false).item_count}",
-                                "${Provider.of<Controller>(context, listen: false).net_tot}",
-                                "${Provider.of<Controller>(context, listen: false).dis_tot}",
-                                "${Provider.of<Controller>(context, listen: false).tax_total}",
-                                "${Provider.of<Controller>(context, listen: false).cess_total}",
-                                "${Provider.of<Controller>(context, listen: false).gro_tot}");
-                            // sheet.sheet(
-                            //     context,
-                            //     value.orderTotal2[1].toString(),
-                            //     value.orderTotal2[0].toString(),
-                            //     value.orderTotal2[3].toString(),
-                            //     value.orderTotal2[2].toString(),
-                            //     value.orderTotal2[4].toString(),
-                            //     value.orderTotal2[5].toString(),
-                            //     value.orderTotal2[10]);
+                                "${value.item_count}",
+                                "${value.net_tot}",
+                                "${value.dis_tot}",
+                                "${value.tax_total}",
+                                "${value.cess_total}",
+                                "${value.gro_tot}");
                           },
                           child: Container(
                             width: size.width * 0.5,
@@ -194,16 +193,49 @@ class _BagPageState extends State<BagPage> {
                         ),
                         GestureDetector(
                           onTap: (() async {
-                            // paysheet.showpaymentSheet(
-                            //     context,
-                            //     widget.areaId,
-                            //     widget.areaname,
-                            //     widget.custmerId,
-                            //     s[0],
-                            //     s[1],
-                            //     " ",
-                            //     " ",
-                            //     value.orderTotal2[11]);
+                            widget.form_type == 1
+                                ? Provider.of<Controller>(context,
+                                        listen: false)
+                                    .saveCartDetails(
+                                        context,
+                                        widget.remark!,
+                                        "0",
+                                        "0",
+                                        "save",
+                                        widget.form_type,
+                                        value.cus_id!,
+                                        value.cusName1!,
+                                        "0",
+                                        value.dis_tot.toString(),
+                                        value.cess_total.toString(),
+                                        value.net_tot.toString(),
+                                        "0",
+                                        value.cgst_total.toString(),
+                                        value.sgst_total.toString(),
+                                        value.igst_total.toString(),
+                                        value.taxable_total.toString(),
+                                        value.total_qty.toString())
+                                : Provider.of<Controller>(context,
+                                        listen: false)
+                                    .saveSaleReturnCartDetails(
+                                        context,
+                                        widget.remark!,
+                                        "0",
+                                        "0",
+                                        "save",
+                                        widget.form_type,
+                                        value.cus_id!,
+                                        value.cusName1!,
+                                        "0",
+                                        value.dis_tot.toString(),
+                                        value.cess_total.toString(),
+                                        value.net_tot.toString(),
+                                        "0",
+                                        value.cgst_total.toString(),
+                                        value.sgst_total.toString(),
+                                        value.igst_total.toString(),
+                                        value.taxable_total.toString(),
+                                        value.total_qty.toString());
                           }),
                           child: Container(
                             width: size.width * 0.5,
@@ -233,38 +265,6 @@ class _BagPageState extends State<BagPage> {
                       ],
                     ),
                   )
-                  // Container(
-                  //   height: size.height * 0.05,
-                  //   width: size.width * 0.5,
-                  //   child: ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //       primary: P_Settings.loginPagetheme,
-                  //       shape: RoundedRectangleBorder(
-                  //         borderRadius: BorderRadius.circular(2), // <-- Radius
-                  //       ),
-                  //     ),
-                  //     onPressed: () async {
-                  //       // Provider.of<Controller>(context, listen: false)
-                  //       //     .saveCartDetails(
-                  //       //         context,
-                  //       //         widget.transId,
-                  //       //         widget.branchId!,
-                  //       //         widget.remark!,
-                  //       //         "0",
-                  //       //         "0",
-                  //       //         "save");
-                  //     },
-                  //     child: Text(
-                  //       "Save",
-                  //       style: GoogleFonts.aBeeZee(
-                  //         textStyle: Theme.of(context).textTheme.bodyText2,
-                  //         fontSize: 17,
-                  //         fontWeight: FontWeight.bold,
-                  //         color: P_Settings.buttonColor,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               );
             }
@@ -285,7 +285,6 @@ class _BagPageState extends State<BagPage> {
       double stock,
       String cart_id,
       String img,
-      double discount,
       double tax_per,
       double cess_per,
       double cess_amt,
@@ -296,10 +295,20 @@ class _BagPageState extends State<BagPage> {
       double cgst_amt,
       double sgst_amt,
       double igst_amt,
+<<<<<<< HEAD
       double taxable) {
     print("qty number-----$itemName----------$srate1--------$qty");
     double tax_amt = cgst_amt + sgst_amt + igst_amt;
 
+=======
+      double taxable,
+      double cgst_per,
+      double sgst_per,
+      double igst_per) {
+    double tax_amt = 0;
+    tax_amt = cgst_amt + sgst_amt + igst_amt;
+    print("tax amount new.........$tax_amt");
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
     return Consumer<Controller>(
       builder: (context, value, child) {
         return Container(
@@ -315,6 +324,10 @@ class _BagPageState extends State<BagPage> {
               ),
               child: ListTile(
                 onTap: () {
+                  // tax_amt = cgst_amt + sgst_amt + igst_amt;
+                  print(
+                      "qty number-----$cgst_amt--$sgst_amt---$igst_amt--$tax_amt");
+
                   double gross = srate1 * qty;
                   print("srate1------$srate1---$qty");
                   print("gross calc===$gross");
@@ -324,10 +337,11 @@ class _BagPageState extends State<BagPage> {
                       disc_per.toStringAsFixed(4);
                   value.discount_amount[index].text =
                       disc_amt.toStringAsFixed(2);
-                  Provider.of<Controller>(context, listen: false).fromDb = true;
+
                   value.qty[index].selection = TextSelection(
                       baseOffset: 0,
                       extentOffset: value.qty[index].value.text.length);
+
                   Provider.of<Controller>(context, listen: false)
                       .rawCalculation(
                           srate1,
@@ -356,13 +370,20 @@ class _BagPageState extends State<BagPage> {
                       qty.toString(),
                       widget.form_type,
                       tax_per,
+                      tax_amt,
                       cess_per,
                       cess_amt,
                       disc_per,
                       disc_amt,
                       gross,
                       taxable,
+<<<<<<< HEAD
                       int.parse(widget.gtype));
+=======
+                      int.parse(widget.gtype),
+                      cart_id,
+                      "cart");
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                 },
                 title: Column(
                   children: [
@@ -386,7 +407,7 @@ class _BagPageState extends State<BagPage> {
                               //   imgGlobal + img,
                               //   fit: BoxFit.fill,
                               // ),
-                              color: Colors.grey,
+                              color: Colors.black,
                             ),
                           ),
                           SizedBox(
@@ -403,10 +424,9 @@ class _BagPageState extends State<BagPage> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Flexible(
-                                        flex: 5,
+                                        flex: 1,
                                         child: Text(
                                           "${itemName}",
-                                          overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.aBeeZee(
                                             textStyle: Theme.of(context)
                                                 .textTheme
@@ -425,10 +445,10 @@ class _BagPageState extends State<BagPage> {
                                 SizedBox(
                                   height: size.height * 0.01,
                                 ),
-                                Flexible(
-                                  child: Padding(
-                                    padding:
-                                        const EdgeInsets.only(left: 4, top: 0),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 4, top: 0),
+                                  child: Flexible(
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -447,7 +467,7 @@ class _BagPageState extends State<BagPage> {
                                               ),
                                             ),
                                             SizedBox(
-                                              width: size.width * 0.02,
+                                              width: size.width * 0.01,
                                             ),
                                             Text(
                                               "\u{20B9}${srate1.toStringAsFixed(2)}",
@@ -475,7 +495,7 @@ class _BagPageState extends State<BagPage> {
                                             ),
                                             Container(
                                               child: Text(
-                                                " \u{20B9}${discount.toStringAsFixed(2)}",
+                                                " \u{20B9}${disc_amt.toStringAsFixed(2)}",
                                                 style: TextStyle(fontSize: 13),
                                               ),
                                             ),
@@ -488,93 +508,97 @@ class _BagPageState extends State<BagPage> {
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(left: 4, top: 0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        // mainAxisAlignment:
-                                        // MainAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Qty     :",
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                          SizedBox(
-                                            width: size.width * 0.02,
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              "${qty.toString()}",
-                                              textAlign: TextAlign.right,
+                                  child: Flexible(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          // mainAxisAlignment:
+                                          // MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Qty     :",
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "Tax  :",
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                          SizedBox(
-                                            width: size.width * 0.03,
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              " \u{20B9}${tax_amt.toStringAsFixed(2)}",
-                                              textAlign: TextAlign.right,
+                                            SizedBox(
+                                              width: size.width * 0.02,
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "${qty.toString()}",
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(fontSize: 13),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Tax  :",
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                            SizedBox(
+                                              width: size.width * 0.03,
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                " \u{20B9}${tax_amt.toStringAsFixed(2)}",
+                                                textAlign: TextAlign.right,
+                                                style: TextStyle(fontSize: 13),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(left: 4, top: 0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "Gross:",
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                          SizedBox(
-                                            width: size.width * 0.02,
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              "\u{20B9}${(srate1 * qty).toStringAsFixed(2)}",
+                                  child: Flexible(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Gross:",
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "Cess :",
-                                            style: TextStyle(fontSize: 13),
-                                          ),
-                                          SizedBox(
-                                            width: size.width * 0.02,
-                                          ),
-                                          Container(
-                                            child: Text(
-                                              "\u{20B9}${cess_amt.toStringAsFixed(2)}",
+                                            SizedBox(
+                                              width: size.width * 0.02,
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "\u{20B9}${gross.toStringAsFixed(2)}",
+                                                style: TextStyle(fontSize: 13),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "Cess :",
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                            SizedBox(
+                                              width: size.width * 0.02,
+                                            ),
+                                            Container(
+                                              child: Text(
+                                                "\u{20B9}${cess_amt.toStringAsFixed(2)}",
+                                                style: TextStyle(fontSize: 13),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 )
                               ],
@@ -612,25 +636,52 @@ class _BagPageState extends State<BagPage> {
                                                 primary:
                                                     P_Settings.loginPagetheme),
                                             onPressed: () async {
-                                              var response =
-                                                  // await Provider.of<Controller>(
-                                                  //         context,
-                                                  //         listen: false)
-                                                  //     .addDeletebagItem(
-                                                  //         item_id,
-                                                  //         srate1.toString(),
-                                                  //         qty.toString(),
-                                                  //         "2",
-                                                  //         cart_id,
-                                                  //         context,
-                                                  //         "delete",
-                                                  //         widget.form_type);
+                                              Provider.of<Controller>(context,
+                                                      listen: false)
+                                                  .addDeletebagItem(
+                                                      cart_id,
+                                                      item_id,
+                                                      srate1.toString(),
+                                                      qty.toString(),
+                                                      context,
+                                                      "delete",
+                                                      widget.form_type,
+                                                      value.gross,
+                                                      disc_per,
+                                                      disc_amt,
+                                                      taxable,
+                                                      cgst_amt,
+                                                      sgst_amt,
+                                                      igst_amt,
+                                                      cgst_per,
+                                                      sgst_per,
+                                                      igst_per,
+                                                      cess_per,
+                                                      cess_amt,
+                                                      net_amt,
+                                                      tax_per,
+                                                      "2",
+                                                      "cart");
+                                              // var response =
+                                              // await Provider.of<Controller>(
+                                              //         context,
+                                              //         listen: false)
+                                              //     .addDeletebagItem(
+                                              //         item_id,
+                                              //         srate1.toString(),
+                                              //         qty.toString(),
+                                              //         "2",
+                                              //         cart_id,
+                                              //         context,
+                                              //         "delete",
+                                              //         widget.form_type);
 
-                                                  Provider.of<Controller>(
-                                                          context,
-                                                          listen: false)
-                                                      .getbagData1(context,
-                                                          widget.form_type);
+                                              Provider.of<Controller>(context,
+                                                      listen: false)
+                                                  .getbagData1(
+                                                      context,
+                                                      widget.form_type,
+                                                      "delete");
 
                                               // Provider.of<Controller>(
                                               //         context,
@@ -702,16 +753,15 @@ class _BagPageState extends State<BagPage> {
                               color: P_Settings.loginPagetheme,
                             ),
                           ),
-                          Flexible(
-                              child: Text(
-                            "\u{20B9}${(srate1 * qty).toStringAsFixed(2)}",
+                          Text(
+                            "\u{20B9}${net_amt}",
                             style: GoogleFonts.aBeeZee(
                               textStyle: Theme.of(context).textTheme.bodyText2,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: P_Settings.redclr,
                             ),
-                          )),
+                          ),
                         ],
                       ),
                     ),

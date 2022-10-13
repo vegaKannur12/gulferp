@@ -13,7 +13,11 @@ class SaleItemSelection extends StatefulWidget {
   String? remark;
   String formType;
   String g_type;
-  SaleItemSelection({required this.list, this.remark, required this.formType,required this.g_type});
+  SaleItemSelection(
+      {required this.list,
+      this.remark,
+      required this.formType,
+      required this.g_type});
 
   @override
   State<SaleItemSelection> createState() => _SaleItemSelectionState();
@@ -59,6 +63,7 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
               badgeColor: Colors.white,
               badgeContent: Consumer<Controller>(
                 builder: (context, value, child) {
+                  print("cart count.....${value.cartCount}");
                   if (value.cartCount == null) {
                     return SpinKitChasingDots(
                         color: P_Settings.buttonColor, size: 9);
@@ -75,7 +80,8 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
               child: IconButton(
                 onPressed: () async {
                   // await Provider.of<Controller>(context, listen: false)
-                  //     .getbagData1(context);
+                  //     .getbagData1(context, widget.formType);
+                  // // Provider.of<Controller>(context, listen: false).fromDb = true;
                   Navigator.push(
                       context,
                       PageRouteBuilder(
@@ -83,9 +89,12 @@ class _SaleItemSelectionState extends State<SaleItemSelection> {
                           pageBuilder: (_, __, ___) {
                             return BagPage(
                               branchId: "25",
-                              type: "Sales Cart",
+                              type: widget.formType == 1
+                                  ? "Sales Cart"
+                                  : "Sales Return Cart",
                               form_type: widget.formType,
                               gtype: widget.g_type,
+                              remark: widget.remark,
                             );
                           }));
                   // Navigator.push(

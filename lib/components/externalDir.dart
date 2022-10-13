@@ -1,20 +1,19 @@
 import 'dart:io';
-
+import 'package:external_path/external_path.dart';
 import 'package:path_provider/path_provider.dart';
-
+import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ExternalDir {
   String? tempFp;
   List<FileSystemEntity> _folders = [];
-
-
   fileRead() async {
     String path;
     Directory? extDir = await getExternalStorageDirectory();
     String dirPath = '${extDir!.path}/VgFp/';
     print("dirPath----$dirPath");
     dirPath =
-        dirPath.replaceAll("Android/data/com.example.mystock/files/", "");
+        dirPath.replaceAll("Android/data/com.example.gulferp/files/", "");
     await Directory(dirPath).create(recursive: true);
     final File file = File('${dirPath}/fpCode.txt');
     print("file...$file");
@@ -38,7 +37,7 @@ class ExternalDir {
 
     String dirPath = '${extDir!.path}/VgFp';
     dirPath =
-        dirPath.replaceAll("Android/data/com.example.orderapp/files/", "");
+        dirPath.replaceAll("Android/data/com.example.gulferp/files/", "");
     await Directory(dirPath).create(recursive: true);
 
     // Directory? baseDir = Directory('storage/emulated/0/Android/data');
