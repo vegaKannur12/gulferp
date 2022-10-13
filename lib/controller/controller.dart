@@ -14,19 +14,9 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   bool? fromDb;
-<<<<<<< HEAD
-  bool disPerClicked=false;
-  bool disamtClicked=false;
-
-
-=======
-  bool isbagloading = false;
-  bool isSearch = false;
-  bool isListLoading = false;
   bool disPerClicked = false;
   bool disamtClicked = false;
-  bool invoiceLoad = false;
->>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
+
   bool isLoading = false;
   bool filter = false;
   String? gtype1;
@@ -40,9 +30,10 @@ class Controller extends ChangeNotifier {
   String? user_id;
   String? cusName1;
   String? cartCount;
-
+  bool isSearch = false;
   var invoice;
-
+  bool invoiceLoad = false;
+  bool isListLoading = false;
   List<bool> errorClicked = [];
   List<String> uniquelist = [];
   List<String> uniquecustomerlist = [];
@@ -167,10 +158,10 @@ class Controller extends ChangeNotifier {
     });
   }
 
-  //////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////
   Future<List<Map<String, dynamic>>> getProductDetails(
       String cat_id, String catName, String form_type) async {
-    print("cat_id.......$cat_id---$catName..........$form_type");
+    print("cat_id.......$cat_id---$catName");
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       branch_id = prefs.getString("branch_id");
@@ -188,7 +179,7 @@ class Controller extends ChangeNotifier {
         'form_type': form_type
       };
 
-      print("body- get product details---${body}");
+      print("body----${body}");
       // isDownloaded = true;
       isProdLoading = true;
       notifyListeners();
@@ -221,14 +212,14 @@ class Controller extends ChangeNotifier {
       qty =
           List.generate(productList.length, (index) => TextEditingController());
       errorClicked = List.generate(productList.length, (index) => false);
-
+      discount_prercent =
+          List.generate(productList.length, (index) => TextEditingController());
+      discount_amount =
+          List.generate(productList.length, (index) => TextEditingController());
       print("qty------$qty");
 
       for (int i = 0; i < productList.length; i++) {
-<<<<<<< HEAD
-        print("qty------${productList[i]["qty"]}");
-        qty[i].text = productList[i]["qty"].toString();
-=======
+        print("product list dataa loop....");
         discount_prercent[i].text = productList[i]["disc_per"].toString();
         discount_amount[i].text = productList[i]["disc_amt"].toString();
         print("qty------${productList[i]["qty"]}");
@@ -237,13 +228,9 @@ class Controller extends ChangeNotifier {
         } else {
           qty[i].text = productList[i]["qty"].toString();
         }
->>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
       }
-      discount_prercent =
-          List.generate(productList.length, (index) => TextEditingController());
-      discount_amount =
-          List.generate(productList.length, (index) => TextEditingController());
-      notifyListeners();
+
+      // notifyListeners();
       var seen = Set<String>();
       uniquelist =
           productbar.where((productbar) => seen.add(productbar)).toList();
@@ -257,13 +244,13 @@ class Controller extends ChangeNotifier {
 
       /////////////// insert into local db /////////////////////
     } catch (e) {
-      print(e);
+      print("print error.....$e");
       // return null;
       return [];
     }
   }
-
   /////////////////////////get invoice number/////////////////////////////
+
   getInvoice(String form_type) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     branch_id = prefs.getString("branch_id");
@@ -379,7 +366,7 @@ class Controller extends ChangeNotifier {
       double tax_per,
       String event,
       String page) async {
-    print("Quantity.....$page..$action.....$cart_id");
+    print("Quantity.......$action.....$qty");
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -413,12 +400,12 @@ class Controller extends ChangeNotifier {
             'tax': tax_per.toString()
           };
           print("body-----$body---$action");
-          // if (action != "delete") {
-          //   if (action != "save" && page != "cart") {
-          //     isLoading = true;
-          //     notifyListeners();
-          //   }
-          // }
+          if (action != "delete") {
+            if (action != "save" && page != "cart") {
+              isLoading = true;
+              notifyListeners();
+            }
+          }
           http.Response response = await http.post(
             url,
             body: body,
@@ -436,10 +423,7 @@ class Controller extends ChangeNotifier {
           print("delete response-----------------${map}");
           cartCount = map["cart_count"];
 
-          if (err_status == 0 &&
-              res == "Bag deleted Successfully" &&
-              page == "cart") {
-            print("delete responce....");
+          if (err_status == 0 && res == "Bag deleted Successfully") {
             getbagData1(context, form_type, "delete");
           }
           print("pagee-----$page---$res---$err_status");

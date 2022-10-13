@@ -29,11 +29,7 @@ class _ItemSelectionState extends State<ItemSelection> {
   List<String> uniqueList = [];
   List splitted = [];
   SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
-<<<<<<< HEAD
   bool gstshow = false;
-=======
-  bool gstvisible = false;
->>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
   // Bottomsheet showsheet = Bottomsheet();
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
   String? staff_id;
@@ -323,13 +319,9 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.disc_amt,
                               gross,
                               double.parse(item.taxable!),
-<<<<<<< HEAD
-                              int.parse(widget.gtype!));
-=======
                               int.parse(widget.gtype!),
                               "0",
                               "item");
->>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                         },
                         icon: Icon(
                           Icons.add,
@@ -349,12 +341,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                           double gross = double.parse(item.sRate1!) *
                               double.parse(value.qty[index].text);
                           // print("srate1------$srate1---$qty");
-<<<<<<< HEAD
                           print("gross calc===$gross");
-=======
-                          print(
-                              "gross calc===$gross /////////////${value.qty[index].text}");
->>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                           //  value.discount_prercent[index].text = "0.00";
                           //     value.discount_amount[index].text = "0.00";
                           print(
@@ -413,13 +400,9 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.disc_amt,
                               gross,
                               0,
-<<<<<<< HEAD
-                              int.parse(widget.gtype!));
-=======
                               int.parse(widget.gtype!),
                               "0",
                               "item");
->>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 18.0),
@@ -451,7 +434,6 @@ class _ItemSelectionState extends State<ItemSelection> {
                     ),
                     Spacer(),
                     Container(
-<<<<<<< HEAD
                         // width: size.width * 0.2,
                         child: Text("SRate:${item.sRate1}")),
                     Padding(
@@ -461,12 +443,6 @@ class _ItemSelectionState extends State<ItemSelection> {
                           child: Text("Stock:${item.stock}")),
                     ),
                     gstshow == false
-=======
-                      width: size.width * 0.2,
-                      child: Text("Stock:${item.stock}"),
-                    ),
-                    gstvisible == false
->>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                         ? Visibility(
                             visible: false,
                             child: Padding(

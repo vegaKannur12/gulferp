@@ -108,7 +108,7 @@ class _BagPageState extends State<BagPage> {
                       itemExtent: 160,
                       itemCount: value.bagList.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return listItemFunction(
+                     return listItemFunction(
                           value.bagList[index]["item_id"],
                           value.bagList[index]["item_name"],
                           double.parse(value.bagList[index]["s_rate_fix"]),
@@ -130,12 +130,9 @@ class _BagPageState extends State<BagPage> {
                           double.parse(value.bagList[index]["sgst_amt"]),
                           double.parse(value.bagList[index]["igst_amt"]),
                           double.parse(value.bagList[index]["taxable"]),
-<<<<<<< HEAD
-=======
                           double.parse(value.bagList[index]["cgst_per"]),
                           double.parse(value.bagList[index]["sgst_per"]),
                           double.parse(value.bagList[index]["igst_per"]),
->>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                         );
                       },
                     ),
@@ -275,7 +272,7 @@ class _BagPageState extends State<BagPage> {
   }
 
   Widget listItemFunction(
-      String item_id,
+     String item_id,
       String itemName,
       double srate1,
       double qty,
@@ -295,20 +292,13 @@ class _BagPageState extends State<BagPage> {
       double cgst_amt,
       double sgst_amt,
       double igst_amt,
-<<<<<<< HEAD
-      double taxable) {
-    print("qty number-----$itemName----------$srate1--------$qty");
-    double tax_amt = cgst_amt + sgst_amt + igst_amt;
-
-=======
       double taxable,
       double cgst_per,
       double sgst_per,
       double igst_per) {
-    double tax_amt = 0;
-    tax_amt = cgst_amt + sgst_amt + igst_amt;
-    print("tax amount new.........$tax_amt");
->>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
+    print("qty number-----$itemName----------$srate1--------$qty");
+    double tax_amt = cgst_amt + sgst_amt + igst_amt;
+
     return Consumer<Controller>(
       builder: (context, value, child) {
         return Container(
@@ -377,13 +367,9 @@ class _BagPageState extends State<BagPage> {
                       disc_amt,
                       gross,
                       taxable,
-<<<<<<< HEAD
-                      int.parse(widget.gtype));
-=======
                       int.parse(widget.gtype),
                       cart_id,
                       "cart");
->>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                 },
                 title: Column(
                   children: [
@@ -636,7 +622,7 @@ class _BagPageState extends State<BagPage> {
                                                 primary:
                                                     P_Settings.loginPagetheme),
                                             onPressed: () async {
-                                              Provider.of<Controller>(context,
+                                             Provider.of<Controller>(context,
                                                       listen: false)
                                                   .addDeletebagItem(
                                                       cart_id,
