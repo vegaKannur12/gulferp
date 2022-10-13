@@ -10,7 +10,6 @@ import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/sale/saleDetailsBottomSheet.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class BagPage extends StatefulWidget {
   String? branchId;
@@ -125,6 +124,10 @@ class _BagPageState extends State<BagPage> {
                           double.parse(value.bagList[index]["net_total"]),
                           double.parse(value.bagList[index]["disc_per"]),
                           double.parse(value.bagList[index]["disc_amt"]),
+                          double.parse(value.bagList[index]["cgst_amt"]),
+                          double.parse(value.bagList[index]["sgst_amt"]),
+                          double.parse(value.bagList[index]["igst_amt"]),
+                          double.parse(value.bagList[index]["taxable"]),
                         );
                       },
                     ),
@@ -146,6 +149,15 @@ class _BagPageState extends State<BagPage> {
                                 "${Provider.of<Controller>(context, listen: false).tax_total}",
                                 "${Provider.of<Controller>(context, listen: false).cess_total}",
                                 "${Provider.of<Controller>(context, listen: false).gro_tot}");
+                            // sheet.sheet(
+                            //     context,
+                            //     value.orderTotal2[1].toString(),
+                            //     value.orderTotal2[0].toString(),
+                            //     value.orderTotal2[3].toString(),
+                            //     value.orderTotal2[2].toString(),
+                            //     value.orderTotal2[4].toString(),
+                            //     value.orderTotal2[5].toString(),
+                            //     value.orderTotal2[10]);
                           },
                           child: Container(
                             width: size.width * 0.5,
@@ -182,15 +194,6 @@ class _BagPageState extends State<BagPage> {
                         ),
                         GestureDetector(
                           onTap: (() async {
-                            //   Provider.of<Controller>(context, listen: false)
-                            // .saveCartDetails(
-                            //     context,
-                            //     widget.transId,
-                            //     widget.branchId!,
-                            //     widget.remark!,
-                            //     "0",
-                            //     "0",
-                            //     "save");
                             // paysheet.showpaymentSheet(
                             //     context,
                             //     widget.areaId,
@@ -230,6 +233,38 @@ class _BagPageState extends State<BagPage> {
                       ],
                     ),
                   )
+                  // Container(
+                  //   height: size.height * 0.05,
+                  //   width: size.width * 0.5,
+                  //   child: ElevatedButton(
+                  //     style: ElevatedButton.styleFrom(
+                  //       primary: P_Settings.loginPagetheme,
+                  //       shape: RoundedRectangleBorder(
+                  //         borderRadius: BorderRadius.circular(2), // <-- Radius
+                  //       ),
+                  //     ),
+                  //     onPressed: () async {
+                  //       // Provider.of<Controller>(context, listen: false)
+                  //       //     .saveCartDetails(
+                  //       //         context,
+                  //       //         widget.transId,
+                  //       //         widget.branchId!,
+                  //       //         widget.remark!,
+                  //       //         "0",
+                  //       //         "0",
+                  //       //         "save");
+                  //     },
+                  //     child: Text(
+                  //       "Save",
+                  //       style: GoogleFonts.aBeeZee(
+                  //         textStyle: Theme.of(context).textTheme.bodyText2,
+                  //         fontSize: 17,
+                  //         fontWeight: FontWeight.bold,
+                  //         color: P_Settings.buttonColor,
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ],
               );
             }
@@ -257,9 +292,13 @@ class _BagPageState extends State<BagPage> {
       double gross,
       double net_amt,
       double disc_per,
-      double disc_amt) {
+      double disc_amt,
+      double cgst_amt,
+      double sgst_amt,
+      double igst_amt,
+      double taxable) {
     print("qty number-----$itemName----------$srate1--------$qty");
-    // _controller.text = qty.toString();
+    double tax_amt = cgst_amt + sgst_amt + igst_amt;
 
     return Consumer<Controller>(
       builder: (context, value, child) {
@@ -275,7 +314,7 @@ class _BagPageState extends State<BagPage> {
                 // borderRadius: BorderRadius.circular(20),
               ),
               child: ListTile(
-                onTap: () async {
+                onTap: () {
                   double gross = srate1 * qty;
                   print("srate1------$srate1---$qty");
                   print("gross calc===$gross");
@@ -303,11 +342,9 @@ class _BagPageState extends State<BagPage> {
                           false,
                           "");
                   print("quantity in cart..........$qty");
-
                   Provider.of<Controller>(context, listen: false).setQty(qty);
                   saleDetais.showSheet(
                       context,
-                      0.0,
                       index,
                       item_id,
                       cart_id,
@@ -324,10 +361,7 @@ class _BagPageState extends State<BagPage> {
                       disc_per,
                       disc_amt,
                       gross,
-<<<<<<< HEAD
-=======
-                      0,
->>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
+                      taxable,
                       int.parse(widget.gtype));
                 },
                 title: Column(
@@ -478,24 +512,24 @@ class _BagPageState extends State<BagPage> {
                                           ),
                                         ],
                                       ),
-                                      // Row(
-                                      //   children: [
-                                      //     Text(
-                                      //       "Tax  :",
-                                      //       style: TextStyle(fontSize: 13),
-                                      //     ),
-                                      //     SizedBox(
-                                      //       width: size.width * 0.03,
-                                      //     ),
-                                      //     Container(
-                                      //       child: Text(
-                                      //         " \u{20B9}${tax_amt.toStringAsFixed(2)}",
-                                      //         textAlign: TextAlign.right,
-                                      //         style: TextStyle(fontSize: 13),
-                                      //       ),
-                                      //     ),
-                                      //   ],
-                                      // ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Tax  :",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.03,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              " \u{20B9}${tax_amt.toStringAsFixed(2)}",
+                                              textAlign: TextAlign.right,
+                                              style: TextStyle(fontSize: 13),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -595,29 +629,8 @@ class _BagPageState extends State<BagPage> {
                                                   Provider.of<Controller>(
                                                           context,
                                                           listen: false)
-<<<<<<< HEAD
-                                                      .addDeletebagItem(
-                                                          item_id,
-                                                          srate1.toString(),
-                                                          qty.toString(),
-                                                          context,
-                                                          "delete",
-                                                          widget.form_type,
-                                                          gross,
-                                                          disc_per,
-                                                          disc_amt,
-                                                          tax_per,
-                                                          value.cgst_amt,
-                                                          value.cgst_per,
-                                                          value.sgst_amt,
-                                                          value.sgst_per,
-                                                          value.igst_amt,
-                                                          value.igst_per,
-                                                          value.net_amt);
-=======
                                                       .getbagData1(context,
                                                           widget.form_type);
->>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
 
                                               // Provider.of<Controller>(
                                               //         context,

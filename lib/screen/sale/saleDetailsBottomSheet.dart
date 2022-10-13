@@ -7,28 +7,6 @@ import 'package:provider/provider.dart';
 
 class SaleDetailsBottomSheet {
   showSheet(
-<<<<<<< HEAD
-    BuildContext context,
-    double taxable,
-    int index,
-    String itemId,
-    String catId,
-    String batchocde,
-    String itemName,
-    String itemImg,
-    double srate1,
-    double stock,
-    String qtyf,
-    String formType,
-    double tax_per,
-    double cess_per,
-    double cess_amt,
-    double disc_per,
-    double disc_amt,
-    double gross,
-    int gtype
-  ) {
-=======
       BuildContext context,
       int index,
       String itemId,
@@ -48,7 +26,6 @@ class SaleDetailsBottomSheet {
       double gross,
       double taxable,
       int gtype) {
->>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
     Size size = MediaQuery.of(context).size;
     String? payment_mode;
     CustomSnackbar snackbar = CustomSnackbar();
@@ -710,8 +687,6 @@ class SaleDetailsBottomSheet {
 
                                   // if (value.qtyerror == false) {
 
-<<<<<<< HEAD
-=======
                                   // Provider.of<Controller>(context,
                                   //         listen: false)
                                   //     .addDeletebagItem(
@@ -726,7 +701,6 @@ class SaleDetailsBottomSheet {
                                   // Provider.of<Controller>(context,
                                   //         listen: false)
                                   //     .getbagData1(context, formType);
->>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .addDeletebagItem(
@@ -736,31 +710,25 @@ class SaleDetailsBottomSheet {
                                           context,
                                           "save",
                                           formType,
-<<<<<<< HEAD
-                                          gross,
-                                          disc_per,
-                                          disc_amt,
-=======
                                           value.gross,
                                           double.parse(value
                                               .discount_prercent[index].text),
                                           double.parse(value
                                               .discount_amount[index].text),
->>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
                                           taxable,
                                           value.cgst_amt,
-                                          value.cgst_per,
                                           value.sgst_amt,
-                                          value.sgst_per,
                                           value.igst_amt,
+                                          value.cgst_per,
+                                          value.sgst_per,
                                           value.igst_per,
-                                          value.net_tot);
-<<<<<<< HEAD
+                                          value.net_amt);
+
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .getbagData1(context, formType);
-=======
->>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
+
+
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");
                                   Navigator.pop(context);

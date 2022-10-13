@@ -7,41 +7,6 @@
 
 // import 'package:provider/provider.dart';
 
-<<<<<<< HEAD
-class Bottomsheet {
-  showSheet(
-      BuildContext context,
-      double taxable,
-      int index,
-      String itemId,
-      String catId,
-      String batchocde,
-      String itemName,
-      String itemImg,
-      double srate1,
-      double stock,
-      String qtyf,
-      String formType,
-      double tax_per,
-      double cess_per,
-      double cess_amt,
-      double disc_per,
-      double disc_amt,
-      double gross) {
-    Size size = MediaQuery.of(context).size;
-    String? payment_mode;
-    CustomSnackbar snackbar = CustomSnackbar();
-    print(
-        "bottom sheet value--$index--$itemName----------$srate1----$qtyf-----");
-    // CommonPopup salepopup = CommonPopup();
-    return showModalBottomSheet<void>(
-      isScrollControlled: true,
-      context: context,
-      builder: (BuildContext context) {
-        return Consumer<Controller>(
-          builder: (context, value, child) {
-            // value.qty[index].text=qty.toString();
-=======
 // class Bottomsheet {
 //   showSheet(
 //     BuildContext context,
@@ -69,7 +34,6 @@ class Bottomsheet {
 //         return Consumer<Controller>(
 //           builder: (context, value, child) {
 //             // value.qty[index].text=qty.toString();
->>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
 
 //             return SingleChildScrollView(
 //               child: Center(
@@ -115,98 +79,6 @@ class Bottomsheet {
 //                             //   width: size.width * 0.5,
 //                             // ),
 
-<<<<<<< HEAD
-                            // Spacer(),
-                            // Text(
-                            //       prodName.toString(),
-                            //       style: GoogleFonts.aBeeZee(
-                            //         textStyle:
-                            //             Theme.of(context).textTheme.bodyText2,
-                            //         fontSize: 17,
-                            //         // fontWeight: FontWeight.bold,
-                            //         color: P_Settings.loginPagetheme,
-                            //       ),
-                            //     ),
-                          ],
-                        ),
-                      ),
-                      ListTile(
-                        title: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // Text("Product Name"),Spacer(),
-                                Flexible(
-                                  child: Text(
-                                    itemName.toString(),
-                                    // overflow: TextOverflow.ellipsis,
-                                    style: GoogleFonts.aBeeZee(
-                                      textStyle:
-                                          Theme.of(context).textTheme.bodyText2,
-                                      fontSize: 17,
-                                      // fontWeight: FontWeight.bold,
-                                      color: P_Settings.loginPagetheme,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            // Row(
-                            //   mainAxisAlignment: MainAxisAlignment.end,
-                            //   children: [
-                            //     IconButton(
-                            //         onPressed: () {
-                            //           Navigator.pop(context);
-                            //         },
-                            //         icon: Icon(Icons.close))
-                            //   ],
-                            // )
-                          ],
-                        ),
-                      ),
-                      // Divider(indent: 50, endIndent: 50, thickness: 1.4),
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Qty ",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 17,
-                                // fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
-                              ),
-                            ),
-                            Spacer(),
-                            Container(
-                              width: size.width * 0.2,
-                              child: TextField(
-                                autofocus: true,
-                                onTap: () {
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .addDeletebagItem(
-                                          itemId,
-                                          srate1.toString(),
-                                          value.qty[index].text,
-                                          context,
-                                          "save",
-                                          formType,
-                                          gross,
-                                          disc_per,
-                                          disc_amt,
-                                          taxable,
-                                          value.cgst_amt,
-                                          value.cgst_per,
-                                          value.sgst_amt,
-                                          value.sgst_per,
-                                          value.igst_amt,
-                                          value.igst_per,
-                                          value.net_amt);
-=======
 //                             // Spacer(),
 //                             // Text(
 //                             //       prodName.toString(),
@@ -288,7 +160,6 @@ class Bottomsheet {
 //                                           context,
 //                                           "save",
 //                                           formType);
->>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
 
 //                                   print(
 //                                       "quantity......${value.qty[index].text}");
@@ -312,49 +183,6 @@ class Bottomsheet {
 //                                   //border: InputBorder.none
 //                                 ),
 
-<<<<<<< HEAD
-                                // maxLines: 1,
-                                // minLines: 1,
-                                keyboardType: TextInputType.number,
-                                onSubmitted: (values) {
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .addDeletebagItem(
-                                          itemId,
-                                          srate1.toString(),
-                                          value.qty[index].text,
-                                          context,
-                                          "save",
-                                          formType,
-                                          gross,
-                                          disc_per,
-                                          disc_amt,
-                                          taxable,
-                                          value.cgst_amt,
-                                          value.cgst_per,
-                                          value.sgst_amt,
-                                          value.sgst_per,
-                                          value.igst_amt,
-                                          value.igst_per,
-                                          value.net_amt);
-                                  print("values----$values");
-                                  double valueqty = 0.0;
-                                  // value.discount_amount[index].text=;
-                                  if (values.isNotEmpty) {
-                                    print("emtyyyy");
-                                    valueqty = double.parse(values);
-                                  } else {
-                                    valueqty = 0.00;
-                                  }
-                                },
-                                textAlign: TextAlign.right,
-                                controller: value.qty[index],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-=======
 //                                 // maxLines: 1,
 //                                 // minLines: 1,
 //                                 keyboardType: TextInputType.number,
@@ -387,7 +215,6 @@ class Bottomsheet {
 //                           ],
 //                         ),
 //                       ),
->>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
 
 //                       Padding(
 //                         padding: EdgeInsets.all(10),
@@ -492,35 +319,6 @@ class Bottomsheet {
 
 //                                   // if (value.qtyerror == false) {
 
-<<<<<<< HEAD
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .addDeletebagItem(
-                                          itemId,
-                                          srate1.toString(),
-                                          value.qty[index].text,
-                                          context,
-                                          "save",
-                                          formType,
-                                          gross,
-                                          disc_per,
-                                          disc_amt,
-                                          taxable,
-                                          value.cgst_amt,
-                                          value.cgst_per,
-                                          value.sgst_amt,
-                                          value.sgst_per,
-                                          value.igst_amt,
-                                          value.igst_per,
-                                          value.net_amt);
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .getbagData1(context, formType);
-                                  print(
-                                      "quantityyyyyy.....${value.qty[index].text}........");
-                                  Navigator.pop(context);
-                                }
-=======
 //                                   Provider.of<Controller>(context,
 //                                           listen: false)
 //                                       .addDeletebagItem(
@@ -539,7 +337,6 @@ class Bottomsheet {
 //                                       "quantityyyyyy.....${value.qty[index].text}........");
 //                                   Navigator.pop(context);
 //                                 }
->>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
 
 //                                 // }
 

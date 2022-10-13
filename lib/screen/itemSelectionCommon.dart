@@ -29,13 +29,8 @@ class _ItemSelectionState extends State<ItemSelection> {
   List<String> uniqueList = [];
   List splitted = [];
   SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
-<<<<<<< HEAD
   bool gstshow = false;
-  Bottomsheet showsheet = Bottomsheet();
-=======
-
   // Bottomsheet showsheet = Bottomsheet();
->>>>>>> 34be4c72f2014aeb0e8b78bfb609bd64fa6e6e00
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
   String? staff_id;
   var itemstest = [
@@ -58,17 +53,17 @@ class _ItemSelectionState extends State<ItemSelection> {
     this.items = items
         .map(
           (item) => _AZItem(
-            tag: item["item_name"][0].toUpperCase(),
-            itemId: item["item_id"],
-            catId: item["cat_id"],
-            itemName: item["item_name"].toUpperCase(),
-            batchCode: item["batch_code"],
-            itemImg: item["item_img"],
-            sRate1: item["s_rate_fix"],
-            stock: item["stock"],
-            gst: item["gst"],
-            cess_per: item["cess"],
-          ),
+              tag: item["item_name"][0].toUpperCase(),
+              itemId: item["item_id"],
+              catId: item["cat_id"],
+              itemName: item["item_name"].toUpperCase(),
+              batchCode: item["batch_code"],
+              itemImg: item["item_img"],
+              sRate1: item["s_rate_fix"],
+              stock: item["stock"],
+              gst: item["gst"],
+              cess_per: item["cess"],
+              taxable: item["taxable"]),
         )
         .toList();
     SuspensionUtil.sortListBySuspensionTag(this.items);
@@ -307,7 +302,6 @@ class _ItemSelectionState extends State<ItemSelection> {
                           //     .setQty(qty);
                           saleDetais.showSheet(
                               context,
-                              0.0,
                               index,
                               item.itemId!,
                               item.catId!,
@@ -324,7 +318,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.disc_per,
                               value.disc_amt,
                               gross,
-                              0,
+                              double.parse(item.taxable!),
                               int.parse(widget.gtype!));
                         },
                         icon: Icon(
@@ -341,8 +335,8 @@ class _ItemSelectionState extends State<ItemSelection> {
                               double.parse(value.qty[index].text);
                           // print("srate1------$srate1---$qty");
                           print("gross calc===$gross");
-                          value.discount_prercent[index].text = "0.00";
-                          value.discount_amount[index].text = "0.00";
+                          //  value.discount_prercent[index].text = "0.00";
+                          //     value.discount_amount[index].text = "0.00";
                           print(
                               "disPerClicked-----${value.disPerClicked}----${value.disamtClicked}");
                           // if (value.disPerClicked && value.disamtClicked) {
@@ -381,7 +375,6 @@ class _ItemSelectionState extends State<ItemSelection> {
                           //     .setQty(qty);
                           saleDetais.showSheet(
                               context,
-                              0.0,
                               index,
                               item.itemId!,
                               item.catId!,
@@ -397,7 +390,8 @@ class _ItemSelectionState extends State<ItemSelection> {
                               value.cess,
                               value.disc_per,
                               value.disc_amt,
-                              gross,0,
+                              gross,
+                              0,
                               int.parse(widget.gtype!));
                         },
                         child: Padding(
@@ -518,7 +512,7 @@ class _AZItem extends ISuspensionBean {
   String? stock;
   String? gst;
   String? cess_per;
-  // String taxable;
+  String? taxable;
 
   _AZItem(
       {this.tag,
@@ -530,7 +524,8 @@ class _AZItem extends ISuspensionBean {
       this.sRate1,
       this.stock,
       this.gst,
-      this.cess_per});
+      this.cess_per,
+      this.taxable});
 
   @override
   String getSuspensionTag() => tag!;
