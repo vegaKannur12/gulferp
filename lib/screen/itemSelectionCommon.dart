@@ -426,18 +426,12 @@ class _ItemSelectionState extends State<ItemSelection> {
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Flexible(
-                      flex: 1,
-                      child: Container(
-                          // width: size.width * 0.2,
-                          child: Text("SRate:${item.sRate1}")),
-                    ),
-                    Spacer(),
                     Container(
                         // width: size.width * 0.2,
-                        child: Text("SRate:${item.sRate1}")),
+                        child: Text("SRate: \u{20B9}${item.sRate1}")),
+
                     Padding(
-                      padding: const EdgeInsets.only(left: 18.0),
+                      padding: const EdgeInsets.only(left: 30),
                       child: Container(
                           // width: size.width * 0.2,
                           child: Text("Stock:${item.stock}")),

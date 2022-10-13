@@ -59,7 +59,7 @@ class _BagPageState extends State<BagPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print("app bar type...........${widget.type}");
+    print("app bar type...........${widget.form_type}");
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -108,7 +108,7 @@ class _BagPageState extends State<BagPage> {
                       itemExtent: 160,
                       itemCount: value.bagList.length,
                       itemBuilder: (BuildContext context, int index) {
-                     return listItemFunction(
+                        return listItemFunction(
                           value.bagList[index]["item_id"],
                           value.bagList[index]["item_name"],
                           double.parse(value.bagList[index]["s_rate_fix"]),
@@ -272,7 +272,7 @@ class _BagPageState extends State<BagPage> {
   }
 
   Widget listItemFunction(
-     String item_id,
+      String item_id,
       String itemName,
       double srate1,
       double qty,
@@ -622,7 +622,7 @@ class _BagPageState extends State<BagPage> {
                                                 primary:
                                                     P_Settings.loginPagetheme),
                                             onPressed: () async {
-                                             Provider.of<Controller>(context,
+                                              Provider.of<Controller>(context,
                                                       listen: false)
                                                   .addDeletebagItem(
                                                       cart_id,

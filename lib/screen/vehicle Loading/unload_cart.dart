@@ -131,7 +131,7 @@ class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
                           print("save unload data...");
                           Provider.of<Controller>(context, listen: false)
                               .saveUnloadVehicleDetails(
-                                  context, "3", "save", widget.form_type, "0");
+                                  context, "0", "save", widget.form_type, "0");
                         }),
                         child: Container(
                           width: size.width * 0.9,

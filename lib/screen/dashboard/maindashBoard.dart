@@ -219,6 +219,8 @@ class _MainDashboardState extends State<MainDashboard> {
                       color: Colors.grey[200],
                       child: ListTile(
                         onTap: () async {
+                          Provider.of<Controller>(context, listen: false)
+                              .getItemCategory(context);
                           List<Map<String, dynamic>> list =
                               await Provider.of<Controller>(context,
                                       listen: false)
