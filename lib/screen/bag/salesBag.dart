@@ -130,9 +130,12 @@ class _BagPageState extends State<BagPage> {
                           double.parse(value.bagList[index]["sgst_amt"]),
                           double.parse(value.bagList[index]["igst_amt"]),
                           double.parse(value.bagList[index]["taxable"]),
+<<<<<<< HEAD
+=======
                           double.parse(value.bagList[index]["cgst_per"]),
                           double.parse(value.bagList[index]["sgst_per"]),
                           double.parse(value.bagList[index]["igst_per"]),
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                         );
                       },
                     ),
@@ -292,6 +295,12 @@ class _BagPageState extends State<BagPage> {
       double cgst_amt,
       double sgst_amt,
       double igst_amt,
+<<<<<<< HEAD
+      double taxable) {
+    print("qty number-----$itemName----------$srate1--------$qty");
+    double tax_amt = cgst_amt + sgst_amt + igst_amt;
+
+=======
       double taxable,
       double cgst_per,
       double sgst_per,
@@ -299,6 +308,7 @@ class _BagPageState extends State<BagPage> {
     double tax_amt = 0;
     tax_amt = cgst_amt + sgst_amt + igst_amt;
     print("tax amount new.........$tax_amt");
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
     return Consumer<Controller>(
       builder: (context, value, child) {
         return Container(
@@ -367,9 +377,13 @@ class _BagPageState extends State<BagPage> {
                       disc_amt,
                       gross,
                       taxable,
+<<<<<<< HEAD
+                      int.parse(widget.gtype));
+=======
                       int.parse(widget.gtype),
                       cart_id,
                       "cart");
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
                 },
                 title: Column(
                   children: [

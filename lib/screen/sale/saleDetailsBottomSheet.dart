@@ -715,12 +715,21 @@ class SaleDetailsBottomSheet {
                                           value.cgst_per,
                                           value.sgst_per,
                                           value.igst_per,
+<<<<<<< HEAD
+                                          value.net_amt);
+
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .getbagData1(context, formType);
+
+=======
                                           cess_per,
                                           cess_amt,
                                           value.net_amt,
                                           tax_per,
                                           "0",
                                           page);
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
 
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");

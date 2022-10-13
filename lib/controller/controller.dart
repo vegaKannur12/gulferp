@@ -14,12 +14,19 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   bool? fromDb;
+<<<<<<< HEAD
+  bool disPerClicked=false;
+  bool disamtClicked=false;
+
+
+=======
   bool isbagloading = false;
   bool isSearch = false;
   bool isListLoading = false;
   bool disPerClicked = false;
   bool disamtClicked = false;
   bool invoiceLoad = false;
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
   bool isLoading = false;
   bool filter = false;
   String? gtype1;
@@ -214,13 +221,14 @@ class Controller extends ChangeNotifier {
       qty =
           List.generate(productList.length, (index) => TextEditingController());
       errorClicked = List.generate(productList.length, (index) => false);
-      discount_prercent =
-          List.generate(productList.length, (index) => TextEditingController());
-      discount_amount =
-          List.generate(productList.length, (index) => TextEditingController());
+
       print("qty------$qty");
 
       for (int i = 0; i < productList.length; i++) {
+<<<<<<< HEAD
+        print("qty------${productList[i]["qty"]}");
+        qty[i].text = productList[i]["qty"].toString();
+=======
         discount_prercent[i].text = productList[i]["disc_per"].toString();
         discount_amount[i].text = productList[i]["disc_amt"].toString();
         print("qty------${productList[i]["qty"]}");
@@ -229,7 +237,12 @@ class Controller extends ChangeNotifier {
         } else {
           qty[i].text = productList[i]["qty"].toString();
         }
+>>>>>>> 20e9c2f00c80f8e7984bbfcbfd5d8eb82ee2d04b
       }
+      discount_prercent =
+          List.generate(productList.length, (index) => TextEditingController());
+      discount_amount =
+          List.generate(productList.length, (index) => TextEditingController());
       notifyListeners();
       var seen = Set<String>();
       uniquelist =
