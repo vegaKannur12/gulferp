@@ -14,9 +14,10 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   bool? fromDb;
+  // bool? qtyPrd;
   bool disPerClicked = false;
   bool disamtClicked = false;
-
+  String? qttyProd;
   bool isLoading = false;
   bool filter = false;
   String? gtype1;
@@ -224,7 +225,9 @@ class Controller extends ChangeNotifier {
         discount_amount[i].text = productList[i]["disc_amt"].toString();
         print("qty------${productList[i]["qty"]}");
         if (productList[i]["qty"] == "0") {
-          qty[i].text = "1";
+          // qttyProd="1";
+
+          qty[i].text = "0";
         } else {
           qty[i].text = productList[i]["qty"].toString();
         }
@@ -420,7 +423,7 @@ class Controller extends ChangeNotifier {
               notifyListeners();
             }
           }
-          print("delete response-----------------${map}");
+          // print("add delete response-----------------${map}");
           cartCount = map["cart_count"];
 
           if (err_status == 0 && res == "Bag deleted Successfully") {
