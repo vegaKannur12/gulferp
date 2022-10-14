@@ -215,7 +215,7 @@ class Controller extends ChangeNotifier {
       qty =
           List.generate(productList.length, (index) => TextEditingController());
       errorClicked = List.generate(productList.length, (index) => false);
-      // applyClicked = List.generate(productList.length, (index) => false);
+      applyClicked = List.generate(productList.length, (index) => false);
 
       discount_prercent =
           List.generate(productList.length, (index) => TextEditingController());
