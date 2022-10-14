@@ -4,6 +4,7 @@ import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/components/customSnackbar.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 
 class SaleDetailsBottomSheet {
   showSheet(
@@ -157,14 +158,16 @@ class SaleDetailsBottomSheet {
                             Container(
                               width: size.width * 0.2,
                               child: TextField(
-                                // autofocus: true,
                                 onTap: () {
                                   value.qty[index].selection = TextSelection(
                                       baseOffset: 0,
                                       extentOffset:
                                           value.qty[index].value.text.length);
                                 },
-
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp(r'[0-9]'))
+                                ],
                                 // autofocus: true,
                                 style: GoogleFonts.aBeeZee(
                                   textStyle:
@@ -181,9 +184,9 @@ class SaleDetailsBottomSheet {
 
                                 // maxLines: 1,
                                 // minLines: 1,
-                                keyboardType: TextInputType.number,
-                                onSubmitted: (values) {
-                                  value.applyClicked[index]=false;
+                                keyboardType: TextInputType.numberWithOptions(
+                                    decimal: false),
+                                onSubmitted: (values) async {
                                   double valueqty = 0.0;
                                   Provider.of<Controller>(context,
                                           listen: false)
@@ -198,7 +201,7 @@ class SaleDetailsBottomSheet {
                                   //         listen: false)
                                   //     .fromDb = false;
 
-                                  Provider.of<Controller>(context,
+                                  await Provider.of<Controller>(context,
                                           listen: false)
                                       .rawCalculation(
                                           srate1,

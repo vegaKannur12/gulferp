@@ -888,7 +888,7 @@ class Controller extends ChangeNotifier {
     flag = false;
 
     print(
-        "attribute---$qtyw----$state_status---$disCalc --$disc_per--$disc_amount--$tax_per--$cess_per--$method");
+        "attribute---$tax_per");
     if (method == "0") {
       /////////////////////////////////method=="0" - excluisive , method=1 - inclusive
       taxable_rate = rate;
