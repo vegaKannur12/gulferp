@@ -723,19 +723,13 @@ class Controller extends ChangeNotifier {
   }
 
   ////////////////////////////////////////////
-  getvehicleLoadingInfo(
-    BuildContext context,
-    String osId,
-    String event,
-  ) async {
-    List<Map<String, dynamic>> jsonResult = [];
+  getvehicleLoadingInfo(BuildContext context, String osId) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           branch_id = prefs.getString("branch_id");
-          user_id = prefs.getString("user_id");
-          print("os_id.........$osId");
+
           Uri url = Uri.parse("$urlgolabl/stock_approve_info.php");
           Map body = {
             'os_id': osId,
@@ -761,39 +755,11 @@ class Controller extends ChangeNotifier {
               print("haiiiiii----$item");
               vehicle_loading_masterlist.add(item);
             }
-
             vehicle_loading_detaillist.clear();
             for (var item in map["detail"]) {
               print("sd---$item");
               vehicle_loading_detaillist.add(item);
             }
-            for (var i = 0; i < vehicle_loading_detaillist.length; i++) {
-              var itemmap = {
-                "item_id": vehicle_loading_detaillist[i]["item_id"],
-                "qty": vehicle_loading_detaillist[i]["qty"],
-                "s_rate_fix": vehicle_loading_detaillist[i]["s_rate"],
-              };
-              jsonResult.add(itemmap);
-              print("jsonResult----$jsonResult");
-            }
-            print("jsonResult----$jsonResult");
-
-            Map masterMap = {
-              "tot_qty": total_qty,
-              "staff_id": user_id,
-              "branch_id": branch_id,
-              "event": event,
-              "details": jsonResult
-            };
-
-            // var jsonBody = jsonEncode(masterMap);
-            print("resultmap----$masterMap");
-            // var body = {'json_data': masterMap};
-            // print("body-----$body");
-
-            var jsonEnc = jsonEncode(masterMap);
-
-            print("jsonEnc-----$jsonEnc");
           }
 
           print("stock_approve_detaillist--$vehicle_loading_detaillist---");

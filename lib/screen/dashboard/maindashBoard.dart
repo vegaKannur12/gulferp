@@ -366,7 +366,6 @@ class _MainDashboardState extends State<MainDashboard> {
                                           .getvehicleLoadingInfo(
                                         context,
                                         value.loadingList[index]["os_id"],
-                                        "save",
                                       );
                                       Navigator.push(
                                         context,
