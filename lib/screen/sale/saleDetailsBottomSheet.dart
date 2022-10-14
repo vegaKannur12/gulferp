@@ -201,7 +201,7 @@ class SaleDetailsBottomSheet {
                                   //         listen: false)
                                   //     .fromDb = false;
 
-                                  await Provider.of<Controller>(context,
+                              Provider.of<Controller>(context,
                                           listen: false)
                                       .rawCalculation(
                                           srate1,
