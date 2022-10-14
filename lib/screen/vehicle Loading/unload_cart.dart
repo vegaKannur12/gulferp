@@ -266,105 +266,94 @@ class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Flexible(
-                                        flex: 1,
-                                        child: Text(
-                                          "${itemName}",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Flexible(
+                                      flex: 1,
+                                      child: Text(
+                                        "${itemName}",
+                                        style: GoogleFonts.aBeeZee(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
 
-                                            // fontWeight: FontWeight.bold,
-                                            color: P_Settings.loginPagetheme,
-                                          ),
+                                          // fontWeight: FontWeight.bold,
+                                          color: P_Settings.loginPagetheme,
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(
                                   height: size.height * 0.01,
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 4, top: 0),
-                                  child: Flexible(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Rate 1:",
-                                              style: GoogleFonts.aBeeZee(
-                                                textStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText2,
-                                                fontSize: 13,
-                                                color:
-                                                    P_Settings.loginPagetheme,
-                                              ),
+                                Flexible(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Rate 1:",
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 13,
+                                              color:
+                                                  P_Settings.loginPagetheme,
                                             ),
-                                            SizedBox(
-                                              width: size.width * 0.01,
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.01,
+                                          ),
+                                          Text(
+                                            "\u{20B9}${srate1.toStringAsFixed(2)}",
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color:
+                                                  P_Settings.loginPagetheme,
                                             ),
-                                            Text(
-                                              "\u{20B9}${srate1.toStringAsFixed(2)}",
-                                              style: GoogleFonts.aBeeZee(
-                                                textStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText2,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                color:
-                                                    P_Settings.loginPagetheme,
-                                              ),
-                                            ),
-                                          ],
-                                        ), // Row(
-                                      ],
-                                    ),
+                                          ),
+                                        ],
+                                      ), // Row(
+                                    ],
                                   ),
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 4, top: 0),
-                                  child: Flexible(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          // mainAxisAlignment:
-                                          // MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Qty     :",
+                                Flexible(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        // mainAxisAlignment:
+                                        // MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Qty     :",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "${qty.toString()}",
+                                              textAlign: TextAlign.right,
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                            SizedBox(
-                                              width: size.width * 0.02,
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                "${qty.toString()}",
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],

@@ -236,7 +236,7 @@ class _BagPageState extends State<BagPage> {
                           }),
                           child: Container(
                             width: size.width * 0.5,
-                            height: size.height * 0.07,
+                            height: size.height * 0.05,
                             color: P_Settings.loginPagetheme,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -437,8 +437,7 @@ class _BagPageState extends State<BagPage> {
                                                   .textTheme
                                                   .bodyText2,
                                               fontSize: 13,
-                                              color:
-                                                  P_Settings.loginPagetheme,
+                                              color: P_Settings.loginPagetheme,
                                             ),
                                           ),
                                           SizedBox(
@@ -452,15 +451,15 @@ class _BagPageState extends State<BagPage> {
                                                   .bodyText2,
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,
-                                              color:
-                                                  P_Settings.loginPagetheme,
+                                              color: P_Settings.loginPagetheme,
                                             ),
                                           ),
                                         ],
                                       ), // Row(
 
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           Text(
                                             "Discount:",
