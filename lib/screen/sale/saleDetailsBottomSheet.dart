@@ -35,7 +35,7 @@ class SaleDetailsBottomSheet {
     bool unlodVisible = false;
     CustomSnackbar snackbar = CustomSnackbar();
     print(
-        "bottom sheet value-----$tax_per-$index--$itemName----------$srate1----$qtyf-----");
+        "bottom sheet value-----$tax_amt-$index--$itemName----------$srate1----$qtyf-----");
     // CommonPopup salepopup = CommonPopup();
     return showModalBottomSheet<void>(
       isScrollControlled: true,
@@ -330,7 +330,7 @@ class SaleDetailsBottomSheet {
                                   ),
                                   Spacer(),
                                   Text(
-                                    value.fromDb!
+                                    value.fromDb
                                         ? "\u{20B9}${gross.toStringAsFixed(2)}"
                                         : "\u{20B9}${value.gross.toStringAsFixed(2)}",
                                     style: GoogleFonts.aBeeZee(
@@ -581,7 +581,7 @@ class SaleDetailsBottomSheet {
                                           "\u{20B9}0.00",
                                         )
                                       : Text(
-                                          "\u{20B9}${tax_amt.toStringAsFixed(2)}",
+                                          "\u{20B9}${value.tax.toStringAsFixed(2)}",
                                           style: GoogleFonts.aBeeZee(
                                             textStyle: Theme.of(context)
                                                 .textTheme

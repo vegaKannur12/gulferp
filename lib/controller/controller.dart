@@ -13,7 +13,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
-  bool? fromDb;
+  bool fromDb = true;
   // bool? qtyPrd;
   bool disPerClicked = false;
   bool disamtClicked = false;
