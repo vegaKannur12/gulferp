@@ -304,7 +304,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                                   index,
                                   false,
                                   "");
-
+                          print("value.tzxx-----${value.tax}");
                           saleDetais.showSheet(
                               context,
                               index,
