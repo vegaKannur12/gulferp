@@ -494,51 +494,49 @@ class _BagPageState extends State<BagPage> {
                                 Padding(
                                   padding:
                                       const EdgeInsets.only(left: 4, top: 0),
-                                  child: Flexible(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          // mainAxisAlignment:
-                                          // MainAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Qty     :",
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        // mainAxisAlignment:
+                                        // MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Qty     :",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "${qty.toString()}",
+                                              textAlign: TextAlign.right,
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                            SizedBox(
-                                              width: size.width * 0.02,
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                "${qty.toString()}",
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Tax  :",
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Tax  :",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.03,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              " \u{20B9}${tax_amt.toStringAsFixed(2)}",
+                                              textAlign: TextAlign.right,
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                            SizedBox(
-                                              width: size.width * 0.03,
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                " \u{20B9}${tax_amt.toStringAsFixed(2)}",
-                                                textAlign: TextAlign.right,
-                                                style: TextStyle(fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Padding(

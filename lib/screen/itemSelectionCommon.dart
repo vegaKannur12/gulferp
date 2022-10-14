@@ -30,6 +30,7 @@ class _ItemSelectionState extends State<ItemSelection> {
   List splitted = [];
   SaleDetailsBottomSheet saleDetais = SaleDetailsBottomSheet();
   bool gstshow = false;
+  String? qty;
   // Bottomsheet showsheet = Bottomsheet();
   // InfoBottomsheet infoshowsheet = InfoBottomsheet();
   String? staff_id;
@@ -261,7 +262,7 @@ class _ItemSelectionState extends State<ItemSelection> {
               height: size.height * 0.08,
               margin: EdgeInsets.only(left: 40),
               child: ListTile(
-                trailing: value.qty[index].text == "1"
+                trailing: value.qty[index].text == "0"
                     ? IconButton(
                         onPressed: () {
                           Provider.of<Controller>(context, listen: false)
@@ -276,8 +277,13 @@ class _ItemSelectionState extends State<ItemSelection> {
                           print(
                               "srate1------${item.sRate1}---${value.qty[index].text}");
                           print("gross calc===$gross");
-                          // value.qty[index].text = qty.toStringAsFixed(2);
 
+                          // value.qty[index].text = qty.toStringAsFixed(2);
+                          // if(value.qty[index].text == "0"){
+                          //   qty="1";
+                          // }else{
+                          //   qty=value.qty[index].text;
+                          // }
                           Provider.of<Controller>(context, listen: false)
                               .fromDb = true;
                           value.qty[index].selection = TextSelection(
