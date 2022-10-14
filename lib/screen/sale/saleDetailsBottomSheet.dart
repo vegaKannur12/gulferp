@@ -434,141 +434,116 @@ class SaleDetailsBottomSheet {
                                 ],
                               ),
                             ),
-                     formType == "3"?Container(): Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Discount Amount",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 17,
-                                // fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
-                              ),
-                            ),
-                            Spacer(),
-                            Container(
-                              width: size.width * 0.2,
-                              child: TextField(
-                                onTap: () {
-                                  value.discount_amount[index].selection =
-                                      TextSelection(
-                                          baseOffset: 0,
-                                          extentOffset: value
-                                              .discount_amount[index]
-                                              .value
-                                              .text
-                                              .length);
-                                },
-                                style: GoogleFonts.aBeeZee(
-                                  textStyle:
-                                      Theme.of(context).textTheme.bodyText2,
-                                  fontSize: 17,
-                                  // fontWeight: FontWeight.bold,
-                                  color: P_Settings.loginPagetheme,
-                                ),
-                                decoration: InputDecoration(
-                                  //labelText: "Phone number",
-                                  // hintText: "Phone number",
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.all(
-                                      0), //  <- you can it to 0.0 for no space
+                      formType == "3"
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Discount Amount",
+                                    style: GoogleFonts.aBeeZee(
+                                      textStyle:
+                                          Theme.of(context).textTheme.bodyText2,
+                                      fontSize: 17,
+                                      // fontWeight: FontWeight.bold,
+                                      color: P_Settings.loginPagetheme,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Container(
+                                    width: size.width * 0.2,
+                                    child: TextField(
+                                      onTap: () {
+                                        value.discount_amount[index].selection =
+                                            TextSelection(
+                                                baseOffset: 0,
+                                                extentOffset: value
+                                                    .discount_amount[index]
+                                                    .value
+                                                    .text
+                                                    .length);
+                                      },
+                                      style: GoogleFonts.aBeeZee(
+                                        textStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodyText2,
+                                        fontSize: 17,
+                                        // fontWeight: FontWeight.bold,
+                                        color: P_Settings.loginPagetheme,
+                                      ),
+                                      decoration: InputDecoration(
+                                        //labelText: "Phone number",
+                                        // hintText: "Phone number",
+                                        isDense: true,
+                                        contentPadding: EdgeInsets.all(
+                                            0), //  <- you can it to 0.0 for no space
 
-                                  //border: InputBorder.none
-                                ),
-                                keyboardType: TextInputType.number,
-                                onSubmitted: (values) {
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .disamtClicked = true;
-                                  double valuediscamt = 0.0;
-                                  // value.discount_amount[index].text=;
-                                  if (values.isNotEmpty) {
-                                    print("emtyyyy");
-                                    valuediscamt = double.parse(values);
-                                  } else {
-                                    valuediscamt = 0.0000;
-                                  }
-                                  // Provider.of<Controller>(context,
-                                  //         listen: false)
-                                  //     .fromDb = false;
+                                        //border: InputBorder.none
+                                      ),
+                                      keyboardType: TextInputType.number,
+                                      onSubmitted: (values) {
+                                        Provider.of<Controller>(context,
+                                                listen: false)
+                                            .disamtClicked = true;
+                                        double valuediscamt = 0.0;
+                                        // value.discount_amount[index].text=;
+                                        if (values.isNotEmpty) {
+                                          print("emtyyyy");
+                                          valuediscamt = double.parse(values);
+                                        } else {
+                                          valuediscamt = 0.0000;
+                                        }
+                                        // Provider.of<Controller>(context,
+                                        //         listen: false)
+                                        //     .fromDb = false;
 
-                                  print(
-                                      "discount amount..........$valuediscamt");
-                                  Provider.of<Controller>(context,
-                                          listen: false)
-                                      .rawCalculation(
-                                          srate1,
-                                          double.parse(value.qty[index].text),
-                                          double.parse(value
-                                              .discount_prercent[index].text),
-                                          valuediscamt,
-                                          tax_per,
-                                          cess_per,
-                                          "0",
-                                          gtype,
-                                          index,
-                                          true,
-                                          "disc_amt");
-                                },
-                                controller: value.discount_amount[index],
-                                textAlign: TextAlign.right,
+                                        print(
+                                            "discount amount..........$valuediscamt");
+                                        Provider.of<Controller>(context,
+                                                listen: false)
+                                            .rawCalculation(
+                                                srate1,
+                                                double.parse(
+                                                    value.qty[index].text),
+                                                double.parse(value
+                                                    .discount_prercent[index]
+                                                    .text),
+                                                valuediscamt,
+                                                tax_per,
+                                                cess_per,
+                                                "0",
+                                                gtype,
+                                                index,
+                                                true,
+                                                "disc_amt");
+                                      },
+                                      controller: value.discount_amount[index],
+                                      textAlign: TextAlign.right,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                     formType == "3"?Container(): Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Tax %",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 17,
-                                // fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
-                              ),
-                            ),
-                            Spacer(),
-                            Text(
-                              tax_per.toStringAsFixed(2),
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 17,
-                                // fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    formType == "3"?Container(): Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Tax amount",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 17,
-                                // fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
-                              ),
-                            ),
-                            Spacer(),
-                            value.tax < 0.00
-                                ? Text(
-                                    "\u{20B9}0.00",
-                                  )
-                                : Text(
-                                    "\u{20B9}${tax_amt.toStringAsFixed(2)}",
+                      formType == "3"
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Tax %",
+                                    style: GoogleFonts.aBeeZee(
+                                      textStyle:
+                                          Theme.of(context).textTheme.bodyText2,
+                                      fontSize: 17,
+                                      // fontWeight: FontWeight.bold,
+                                      color: P_Settings.loginPagetheme,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    tax_per.toStringAsFixed(2),
                                     style: GoogleFonts.aBeeZee(
                                       textStyle:
                                           Theme.of(context).textTheme.bodyText2,
@@ -577,58 +552,63 @@ class SaleDetailsBottomSheet {
                                       color: P_Settings.loginPagetheme,
                                     ),
                                   )
-                          ],
-                        ),
-                      ),
-                    formType == "3"?Container():  Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Cess %",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 17,
-                                // fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
+                                ],
                               ),
                             ),
-                            Spacer(),
-                            Text(
-                              cess_per.toStringAsFixed(2),
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 17,
-                                // fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                     formType == "3"?Container(): Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              "Cess amount",
-                              style: GoogleFonts.aBeeZee(
-                                textStyle:
-                                    Theme.of(context).textTheme.bodyText2,
-                                fontSize: 17,
-                                // fontWeight: FontWeight.bold,
-                                color: P_Settings.loginPagetheme,
+                      formType == "3"
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Tax amount",
+                                    style: GoogleFonts.aBeeZee(
+                                      textStyle:
+                                          Theme.of(context).textTheme.bodyText2,
+                                      fontSize: 17,
+                                      // fontWeight: FontWeight.bold,
+                                      color: P_Settings.loginPagetheme,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  value.tax < 0.00
+                                      ? Text(
+                                          "\u{20B9}0.00",
+                                        )
+                                      : Text(
+                                          "\u{20B9}${tax_amt.toStringAsFixed(2)}",
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 17,
+                                            // fontWeight: FontWeight.bold,
+                                            color: P_Settings.loginPagetheme,
+                                          ),
+                                        )
+                                ],
                               ),
                             ),
-                            Spacer(),
-                            cess_amt < 0.00
-                                ? Text(
-                                    "\u{20B9}0.00",
-                                  )
-                                : Text(
-                                    "\u{20B9}${value.cess.toStringAsFixed(2)}",
+                      formType == "3"
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Cess %",
+                                    style: GoogleFonts.aBeeZee(
+                                      textStyle:
+                                          Theme.of(context).textTheme.bodyText2,
+                                      fontSize: 17,
+                                      // fontWeight: FontWeight.bold,
+                                      color: P_Settings.loginPagetheme,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    cess_per.toStringAsFixed(2),
                                     style: GoogleFonts.aBeeZee(
                                       textStyle:
                                           Theme.of(context).textTheme.bodyText2,
@@ -637,9 +617,44 @@ class SaleDetailsBottomSheet {
                                       color: P_Settings.loginPagetheme,
                                     ),
                                   )
-                          ],
-                        ),
-                      ),
+                                ],
+                              ),
+                            ),
+                      formType == "3"
+                          ? Container()
+                          : Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Cess amount",
+                                    style: GoogleFonts.aBeeZee(
+                                      textStyle:
+                                          Theme.of(context).textTheme.bodyText2,
+                                      fontSize: 17,
+                                      // fontWeight: FontWeight.bold,
+                                      color: P_Settings.loginPagetheme,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  cess_amt < 0.00
+                                      ? Text(
+                                          "\u{20B9}0.00",
+                                        )
+                                      : Text(
+                                          "\u{20B9}${value.cess.toStringAsFixed(2)}",
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 17,
+                                            // fontWeight: FontWeight.bold,
+                                            color: P_Settings.loginPagetheme,
+                                          ),
+                                        )
+                                ],
+                              ),
+                            ),
                       Divider(
                         thickness: 1,
                       ),
@@ -692,7 +707,7 @@ class SaleDetailsBottomSheet {
                                     value.qty[index].text = "1.0";
                                   }
                                   print(
-                                      "quantity after updates........${value.qty[index].text}");
+                                      "quantity after updates.....$formType...${value.qty[index].text}");
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .addDeletebagItem(
@@ -725,7 +740,6 @@ class SaleDetailsBottomSheet {
                                   // Provider.of<Controller>(context,
                                   //         listen: false)
                                   //     .getbagData1(context, formType,);
-
 
                                   print(
                                       "quantityyyyyy.....${value.qty[index].text}........");

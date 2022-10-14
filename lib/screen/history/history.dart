@@ -231,247 +231,39 @@ class _HistoryPageState extends State<HistoryPage> {
                             )
                           : Container(
                               height: size.height * 0.7,
-                              child: ListView.builder(
-                                itemCount: value.historyList.length,
-                                itemBuilder: (context, index) {
-                                  return Card(
-                                    child: ListTile(
-                                      trailing: Wrap(
-                                        spacing: 10,
-                                        children: [
-                                          // IconButton(
-                                          //     onPressed: () {
-                                          //       // Provider.of<Controller>(context,
-                                          //       //         listen: false)
-                                          //       //     .getTransinfoList(
-                                          //       //         context,
-                                          //       //         value.historyList[index]
-                                          //       //             ['os_id'],
-                                          //       //         "");
-                                          //       // infoshowsheet.showtransInfoSheet(
-                                          //       //     context,
-                                          //       //     index,
-                                          //       //     splitted[0],
-                                          //       //     splitted[3],
-                                          //       //     value.historyList[index]
-                                          //       //         ['os_id']);
-                                          //     },
-                                          //     icon: Icon(Icons.info)),
-                                          // IconButton(
-                                          //     icon: Icon(
-                                          //       Icons.edit,
-                                          //       color: P_Settings.editclr,
-                                          //     ),
-                                          //     onPressed: () {
-                                          //       // Provider.of<Controller>(context,
-                                          //       //         listen: false)
-                                          //       //     .saveCartDetails(
-                                          //       //         context,
-                                          //       //         widget.transId,
-                                          //       //         value.historyList[index]
-                                          //       //             ['to_branch_id']!,
-                                          //       //        value.historyList[index]
-                                          //       //                 ['trans_remark'],
-                                          //       //         "1");
-                                          //       Provider.of<Controller>(context,
-                                          //               listen: false)
-                                          //           .getBranchList(
-                                          //               context,
-                                          //               "history",
-                                          //               value.historyList[index]
-                                          //                   ['to_branch_id']!);
-                                          //       Navigator.pushReplacement<void,
-                                          //               void>(
-                                          //           context,
-                                          //           MaterialPageRoute<void>(
-                                          //             builder:
-                                          //                 (BuildContext context) =>
-                                          //                     TransactionPage(
-                                          //               page: "history",
-                                          //               remrk:
-                                          //                   value.historyList[index]
-                                          //                       ['trans_remark'],
-                                          //               branch:
-                                          //                   value.historyList[index]
-                                          //                       ['to_branch_id'],
-                                          //               translist: splitted,
-                                          //             ),
-                                          //           ));
-                                          //     }),
-                                          // IconButton(
-                                          //     icon: Icon(
-                                          //       Icons.delete,
-                                          //       color: P_Settings.delete,
-                                          //     ),
-                                          //     onPressed: () {
-                                          //       popup.buildPopupDialog(
-                                          //           context,
-                                          //           size,
-                                          //           splitted,
-                                          //           index,
-                                          //           todaydate!,
-                                          //           widget.form_type);
-                                          //       // showDialog(
-                                          //       //   context: context,
-                                          //       //   builder: (ctx) => AlertDialog(
-                                          //       //     content: Text(
-                                          //       //         "Do you want to delete???"),
-                                          //       //     actions: <Widget>[
-
-                                          //       //       Row(
-                                          //       //         mainAxisAlignment:
-                                          //       //             MainAxisAlignment.end,
-                                          //       //         children: [
-                                          //       //           ElevatedButton(
-                                          //       //             style: ElevatedButton
-                                          //       //                 .styleFrom(
-                                          //       //                     primary: P_Settings
-                                          //       //                         .loginPagetheme),
-                                          //       //             onPressed: () async {
-                                          //       //               print(
-                                          //       //                   "heloooooooooooooooo");
-                                          //       //               Provider.of<Controller>(
-                                          //       //                       context,
-                                          //       //                       listen: false)
-                                          //       //                   .saveCartDetails(
-                                          //       //                       ctx,
-                                          //       //                       splitted[0],
-                                          //       //                       value.historyList[
-                                          //       //                               index]
-                                          //       //                           [
-                                          //       //                           'to_branch_id'],
-                                          //       //                       value.historyList[
-                                          //       //                               index]
-                                          //       //                           [
-                                          //       //                           'trans_remark'],
-                                          //       //                       "2",
-                                          //       //                       value.historyList[
-                                          //       //                               index]
-                                          //       //                           ['os_id'],
-                                          //       //                       "delete");
-                                          //       //               String df;
-                                          //       //               String tf;
-
-                                          //       //               if (value.fromDate ==
-                                          //       //                   null) {
-                                          //       //                 df = todaydate
-                                          //       //                     .toString();
-                                          //       //               } else {
-                                          //       //                 df = value.fromDate
-                                          //       //                     .toString();
-                                          //       //               }
-                                          //       //               if (value.todate ==
-                                          //       //                   null) {
-                                          //       //                 tf = todaydate
-                                          //       //                     .toString();
-                                          //       //               } else {
-                                          //       //                 tf = value.todate
-                                          //       //                     .toString();
-                                          //       //               }
-
-                                          //       //               //////////////////////////////////////////////////
-
-                                          //       //               await Provider.of<
-                                          //       //                           Controller>(
-                                          //       //                       context,
-                                          //       //                       listen: false)
-                                          //       //                   .historyData(
-                                          //       //                       context,
-                                          //       //                       splitted[0],
-                                          //       //                       "",
-                                          //       //                       df,
-                                          //       //                       tf);
-
-                                          //       //               //  Navigator.of(ctx)
-                                          //       //               //     .pop();
-                                          //       //             },
-                                          //       //             child: Text("Ok"),
-                                          //       //           ),
-                                          //       //           SizedBox(
-                                          //       //             width:
-                                          //       //                 size.width * 0.01,
-                                          //       //           ),
-                                          //       //           ElevatedButton(
-                                          //       //             style: ElevatedButton
-                                          //       //                 .styleFrom(
-                                          //       //                     primary: P_Settings
-                                          //       //                         .loginPagetheme),
-                                          //       //             onPressed: () {
-                                          //       //               Navigator.of(ctx)
-                                          //       //                   .pop();
-                                          //       //             },
-                                          //       //             child: Text("Cancel"),
-                                          //       //           ),
-                                          //       //         ],
-                                          //       //       ),
-                                          //       //     ],
-                                          //       //   ),
-                                          //       // );
-                                          //     }),
-                                        ],
-                                      ),
-                                      title: Row(
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              "${value.historyList[index]['Invoice No']} ",
-                                              style: GoogleFonts.aBeeZee(
-                                                textStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText2,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color:
-                                                    P_Settings.loginPagetheme,
-                                              ),
+                              child: widget.form_type == 3
+                                  ? ListView.builder(
+                                      itemCount: value.unloadhistoryList.length,
+                                      itemBuilder: (context, index) {
+                                        return Card(
+                                          child: ListTile(
+                                            trailing: Wrap(
+                                              spacing: 10,
+                                              children: [],
                                             ),
-                                          ),
-                                          SizedBox(
-                                            width: size.width * 0.03,
-                                          ),
-                                          Text(
-                                            "- ${value.historyList[index]['Invoice Date']}",
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 16,
-                                              // fontWeight: FontWeight.bold,
-                                              color: P_Settings.historyPageText,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: size.height * 0.03,
-                                          ),
-                                        ],
-                                      ),
-                                      subtitle: Padding(
-                                        padding: const EdgeInsets.only(top: 5),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
+                                            title: Row(
                                               children: [
                                                 Flexible(
                                                   child: Text(
-                                                    "${value.historyList[index]['Customer Name']}",
+                                                    "${value.unloadhistoryList[index]['s_invoice_id']} ",
                                                     style: GoogleFonts.aBeeZee(
                                                       textStyle:
                                                           Theme.of(context)
                                                               .textTheme
                                                               .bodyText2,
                                                       fontSize: 16,
-                                                      // fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: P_Settings
-                                                          .historyPageText,
+                                                          .loginPagetheme,
                                                     ),
                                                   ),
                                                 ),
+                                                SizedBox(
+                                                  width: size.width * 0.03,
+                                                ),
                                                 Text(
-                                                  " (Items: ${value.historyList[index]['Items']})",
+                                                  "- ${value.unloadhistoryList[index]['Unload Date	']}",
                                                   style: GoogleFonts.aBeeZee(
                                                     textStyle: Theme.of(context)
                                                         .textTheme
@@ -482,33 +274,372 @@ class _HistoryPageState extends State<HistoryPage> {
                                                         .historyPageText,
                                                   ),
                                                 ),
+                                                SizedBox(
+                                                  height: size.height * 0.03,
+                                                ),
                                               ],
                                             ),
-                                            SizedBox(
-                                              height: size.height * 0.01,
+                                            subtitle: Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 5),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          "${value.unloadhistoryList[index]['Total Qty']}",
+                                                          style: GoogleFonts
+                                                              .aBeeZee(
+                                                            textStyle: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .bodyText2,
+                                                            fontSize: 16,
+                                                            // fontWeight: FontWeight.bold,
+                                                            color: P_Settings
+                                                                .historyPageText,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        " (Items: ${value.historyList[index]['Items']})",
+                                                        style:
+                                                            GoogleFonts.aBeeZee(
+                                                          textStyle:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                          fontSize: 16,
+                                                          // fontWeight: FontWeight.bold,
+                                                          color: P_Settings
+                                                              .historyPageText,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: size.height * 0.01,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "\u{20B9}${value.unloadhistoryList[index]['Total Qty']}",
+                                                        style:
+                                                            GoogleFonts.aBeeZee(
+                                                          textStyle:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              P_Settings.redclr,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            Row(
+                                          ),
+                                        );
+                                      },
+                                    )
+                                  : ListView.builder(
+                                      itemCount: value.historyList.length,
+                                      itemBuilder: (context, index) {
+                                        return Card(
+                                          child: ListTile(
+                                            trailing: Wrap(
+                                              spacing: 10,
                                               children: [
+                                                // IconButton(
+                                                //     onPressed: () {
+                                                //       // Provider.of<Controller>(context,
+                                                //       //         listen: false)
+                                                //       //     .getTransinfoList(
+                                                //       //         context,
+                                                //       //         value.historyList[index]
+                                                //       //             ['os_id'],
+                                                //       //         "");
+                                                //       // infoshowsheet.showtransInfoSheet(
+                                                //       //     context,
+                                                //       //     index,
+                                                //       //     splitted[0],
+                                                //       //     splitted[3],
+                                                //       //     value.historyList[index]
+                                                //       //         ['os_id']);
+                                                //     },
+                                                //     icon: Icon(Icons.info)),
+                                                // IconButton(
+                                                //     icon: Icon(
+                                                //       Icons.edit,
+                                                //       color: P_Settings.editclr,
+                                                //     ),
+                                                //     onPressed: () {
+                                                //       // Provider.of<Controller>(context,
+                                                //       //         listen: false)
+                                                //       //     .saveCartDetails(
+                                                //       //         context,
+                                                //       //         widget.transId,
+                                                //       //         value.historyList[index]
+                                                //       //             ['to_branch_id']!,
+                                                //       //        value.historyList[index]
+                                                //       //                 ['trans_remark'],
+                                                //       //         "1");
+                                                //       Provider.of<Controller>(context,
+                                                //               listen: false)
+                                                //           .getBranchList(
+                                                //               context,
+                                                //               "history",
+                                                //               value.historyList[index]
+                                                //                   ['to_branch_id']!);
+                                                //       Navigator.pushReplacement<void,
+                                                //               void>(
+                                                //           context,
+                                                //           MaterialPageRoute<void>(
+                                                //             builder:
+                                                //                 (BuildContext context) =>
+                                                //                     TransactionPage(
+                                                //               page: "history",
+                                                //               remrk:
+                                                //                   value.historyList[index]
+                                                //                       ['trans_remark'],
+                                                //               branch:
+                                                //                   value.historyList[index]
+                                                //                       ['to_branch_id'],
+                                                //               translist: splitted,
+                                                //             ),
+                                                //           ));
+                                                //     }),
+                                                // IconButton(
+                                                //     icon: Icon(
+                                                //       Icons.delete,
+                                                //       color: P_Settings.delete,
+                                                //     ),
+                                                //     onPressed: () {
+                                                //       popup.buildPopupDialog(
+                                                //           context,
+                                                //           size,
+                                                //           splitted,
+                                                //           index,
+                                                //           todaydate!,
+                                                //           widget.form_type);
+                                                //       // showDialog(
+                                                //       //   context: context,
+                                                //       //   builder: (ctx) => AlertDialog(
+                                                //       //     content: Text(
+                                                //       //         "Do you want to delete???"),
+                                                //       //     actions: <Widget>[
+
+                                                //       //       Row(
+                                                //       //         mainAxisAlignment:
+                                                //       //             MainAxisAlignment.end,
+                                                //       //         children: [
+                                                //       //           ElevatedButton(
+                                                //       //             style: ElevatedButton
+                                                //       //                 .styleFrom(
+                                                //       //                     primary: P_Settings
+                                                //       //                         .loginPagetheme),
+                                                //       //             onPressed: () async {
+                                                //       //               print(
+                                                //       //                   "heloooooooooooooooo");
+                                                //       //               Provider.of<Controller>(
+                                                //       //                       context,
+                                                //       //                       listen: false)
+                                                //       //                   .saveCartDetails(
+                                                //       //                       ctx,
+                                                //       //                       splitted[0],
+                                                //       //                       value.historyList[
+                                                //       //                               index]
+                                                //       //                           [
+                                                //       //                           'to_branch_id'],
+                                                //       //                       value.historyList[
+                                                //       //                               index]
+                                                //       //                           [
+                                                //       //                           'trans_remark'],
+                                                //       //                       "2",
+                                                //       //                       value.historyList[
+                                                //       //                               index]
+                                                //       //                           ['os_id'],
+                                                //       //                       "delete");
+                                                //       //               String df;
+                                                //       //               String tf;
+
+                                                //       //               if (value.fromDate ==
+                                                //       //                   null) {
+                                                //       //                 df = todaydate
+                                                //       //                     .toString();
+                                                //       //               } else {
+                                                //       //                 df = value.fromDate
+                                                //       //                     .toString();
+                                                //       //               }
+                                                //       //               if (value.todate ==
+                                                //       //                   null) {
+                                                //       //                 tf = todaydate
+                                                //       //                     .toString();
+                                                //       //               } else {
+                                                //       //                 tf = value.todate
+                                                //       //                     .toString();
+                                                //       //               }
+
+                                                //       //               //////////////////////////////////////////////////
+
+                                                //       //               await Provider.of<
+                                                //       //                           Controller>(
+                                                //       //                       context,
+                                                //       //                       listen: false)
+                                                //       //                   .historyData(
+                                                //       //                       context,
+                                                //       //                       splitted[0],
+                                                //       //                       "",
+                                                //       //                       df,
+                                                //       //                       tf);
+
+                                                //       //               //  Navigator.of(ctx)
+                                                //       //               //     .pop();
+                                                //       //             },
+                                                //       //             child: Text("Ok"),
+                                                //       //           ),
+                                                //       //           SizedBox(
+                                                //       //             width:
+                                                //       //                 size.width * 0.01,
+                                                //       //           ),
+                                                //       //           ElevatedButton(
+                                                //       //             style: ElevatedButton
+                                                //       //                 .styleFrom(
+                                                //       //                     primary: P_Settings
+                                                //       //                         .loginPagetheme),
+                                                //       //             onPressed: () {
+                                                //       //               Navigator.of(ctx)
+                                                //       //                   .pop();
+                                                //       //             },
+                                                //       //             child: Text("Cancel"),
+                                                //       //           ),
+                                                //       //         ],
+                                                //       //       ),
+                                                //       //     ],
+                                                //       //   ),
+                                                //       // );
+                                                //     }),
+                                              ],
+                                            ),
+                                            title: Row(
+                                              children: [
+                                                Flexible(
+                                                  child: Text(
+                                                    "${value.historyList[index]['Invoice No']} ",
+                                                    style: GoogleFonts.aBeeZee(
+                                                      textStyle:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText2,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: P_Settings
+                                                          .loginPagetheme,
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: size.width * 0.03,
+                                                ),
                                                 Text(
-                                                  "\u{20B9}${value.historyList[index]['Total Amount']}",
+                                                  "- ${value.historyList[index]['Invoice Date']}",
                                                   style: GoogleFonts.aBeeZee(
                                                     textStyle: Theme.of(context)
                                                         .textTheme
                                                         .bodyText2,
                                                     fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: P_Settings.redclr,
+                                                    // fontWeight: FontWeight.bold,
+                                                    color: P_Settings
+                                                        .historyPageText,
                                                   ),
+                                                ),
+                                                SizedBox(
+                                                  height: size.height * 0.03,
                                                 ),
                                               ],
                                             ),
-                                          ],
-                                        ),
-                                      ),
+                                            subtitle: Padding(
+                                              padding:
+                                                  const EdgeInsets.only(top: 5),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          "${value.historyList[index]['Customer Name']}",
+                                                          style: GoogleFonts
+                                                              .aBeeZee(
+                                                            textStyle: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .bodyText2,
+                                                            fontSize: 16,
+                                                            // fontWeight: FontWeight.bold,
+                                                            color: P_Settings
+                                                                .historyPageText,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        " (Items: ${value.historyList[index]['Items']})",
+                                                        style:
+                                                            GoogleFonts.aBeeZee(
+                                                          textStyle:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                          fontSize: 16,
+                                                          // fontWeight: FontWeight.bold,
+                                                          color: P_Settings
+                                                              .historyPageText,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: size.height * 0.01,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "\u{20B9}${value.historyList[index]['Total Amount']}",
+                                                        style:
+                                                            GoogleFonts.aBeeZee(
+                                                          textStyle:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              P_Settings.redclr,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  );
-                                },
-                              ),
                             )
                 ],
               ),

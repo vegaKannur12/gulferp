@@ -166,7 +166,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   //       builder: (context) => LoginPage()),
                                   // );
 
-                                  // await OrderAppDB.instance 
+                                  // await OrderAppDB.instance
                                   //     .deleteFromTableCommonQuery('menuTable', "");
                                   FocusScope.of(context)
                                       .requestFocus(FocusNode());

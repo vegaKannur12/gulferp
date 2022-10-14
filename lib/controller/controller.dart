@@ -1098,14 +1098,14 @@ class Controller extends ChangeNotifier {
             notifyListeners();
           }
 
-          historyList.clear();
+          unloadhistoryList.clear();
           if (map != null) {
             for (var item in map) {
-              historyList.add(item);
+              unloadhistoryList.add(item);
             }
           }
 
-          print("history list data........${historyList}");
+          print("history list data........${unloadhistoryList}");
           // isLoading = false;
           notifyListeners();
 
@@ -1370,7 +1370,7 @@ class Controller extends ChangeNotifier {
           var itemmap = {
             "item_id": bagList[i]["item_id"],
             "qty": bagList[i]["qty"],
-            "s_rate_1": bagList[i]["rate"],
+            "s_rate_fix": bagList[i]["rate"],
           };
           jsonResult.add(itemmap);
           print("jsonResult----$jsonResult");
