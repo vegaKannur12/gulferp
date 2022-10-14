@@ -378,23 +378,18 @@ class _BagPageState extends State<BagPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              bottom: 8.0,
+                          Container(
+                            height: size.height * 0.3,
+                            width: size.width * 0.2,
+                            child: Image.network(
+                              "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg",
+                              fit: BoxFit.fill,
                             ),
-                            child: Container(
-                              height: size.height * 0.3,
-                              width: size.width * 0.2,
-                              child: Image.network(
-                                "https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg",
-                                fit: BoxFit.fill,
-                              ),
-                              //  Image.network(
-                              //   imgGlobal + img,
-                              //   fit: BoxFit.fill,
-                              // ),
-                              color: Colors.black,
-                            ),
+                            //  Image.network(
+                            //   imgGlobal + img,
+                            //   fit: BoxFit.fill,
+                            // ),
+                            color: Colors.black,
                           ),
                           SizedBox(
                             width: size.width * 0.05,
@@ -409,20 +404,17 @@ class _BagPageState extends State<BagPage> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Flexible(
-                                        flex: 1,
-                                        child: Text(
-                                          "${itemName}",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
+                                      Text(
+                                        "${itemName}",
+                                        style: GoogleFonts.aBeeZee(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
 
-                                            // fontWeight: FontWeight.bold,
-                                            color: P_Settings.loginPagetheme,
-                                          ),
+                                          // fontWeight: FontWeight.bold,
+                                          color: P_Settings.loginPagetheme,
                                         ),
                                       ),
                                     ],
@@ -431,64 +423,61 @@ class _BagPageState extends State<BagPage> {
                                 SizedBox(
                                   height: size.height * 0.01,
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 4, top: 0),
-                                  child: Flexible(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Rate 1:",
-                                              style: GoogleFonts.aBeeZee(
-                                                textStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText2,
-                                                fontSize: 13,
-                                                color:
-                                                    P_Settings.loginPagetheme,
-                                              ),
+                                Flexible(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Rate 1:",
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 13,
+                                              color:
+                                                  P_Settings.loginPagetheme,
                                             ),
-                                            SizedBox(
-                                              width: size.width * 0.01,
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.01,
+                                          ),
+                                          Text(
+                                            "\u{20B9}${srate1.toStringAsFixed(2)}",
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color:
+                                                  P_Settings.loginPagetheme,
                                             ),
-                                            Text(
-                                              "\u{20B9}${srate1.toStringAsFixed(2)}",
-                                              style: GoogleFonts.aBeeZee(
-                                                textStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText2,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                                color:
-                                                    P_Settings.loginPagetheme,
-                                              ),
-                                            ),
-                                          ],
-                                        ), // Row(
+                                          ),
+                                        ],
+                                      ), // Row(
 
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Discount:",
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Discount:",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.03,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              " \u{20B9}${disc_amt.toStringAsFixed(2)}",
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                            SizedBox(
-                                              width: size.width * 0.03,
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                " \u{20B9}${disc_amt.toStringAsFixed(2)}",
-                                                style: TextStyle(fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 Padding(
@@ -539,50 +528,46 @@ class _BagPageState extends State<BagPage> {
                                     ],
                                   ),
                                 ),
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 4, top: 0),
-                                  child: Flexible(
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Gross:",
+                                Flexible(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Gross:",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "\u{20B9}${gross.toStringAsFixed(2)}",
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                            SizedBox(
-                                              width: size.width * 0.02,
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                "\u{20B9}${gross.toStringAsFixed(2)}",
-                                                style: TextStyle(fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "Cess :",
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "Cess :",
+                                            style: TextStyle(fontSize: 13),
+                                          ),
+                                          SizedBox(
+                                            width: size.width * 0.02,
+                                          ),
+                                          Container(
+                                            child: Text(
+                                              "\u{20B9}${cess_amt.toStringAsFixed(2)}",
                                               style: TextStyle(fontSize: 13),
                                             ),
-                                            SizedBox(
-                                              width: size.width * 0.02,
-                                            ),
-                                            Container(
-                                              child: Text(
-                                                "\u{20B9}${cess_amt.toStringAsFixed(2)}",
-                                                style: TextStyle(fontSize: 13),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 )
                               ],
