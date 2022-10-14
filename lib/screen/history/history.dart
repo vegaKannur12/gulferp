@@ -219,7 +219,7 @@ class _HistoryPageState extends State<HistoryPage> {
                       ? SpinKitFadingCircle(
                           color: P_Settings.loginPagetheme,
                         )
-                      : value.unloadhistoryList.length == 0
+                      : value.unloadhistoryList.length == 0 && value.historyList.length==0
                           ? Center(
                               child: Container(
                                   height: size.height * 0.7,

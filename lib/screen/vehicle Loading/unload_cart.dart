@@ -420,13 +420,13 @@ class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
 
                                               // Navigator.of(ctx).pop();
                                               Navigator.pop(context);
-                                              // await Provider.of<Controller>(
-                                              //         context,
-                                              //         listen: false)
-                                              //     .getbagData1(
-                                              //         context,
-                                              //         widget.form_type,
-                                              //         "delete");
+                                              await Provider.of<Controller>(
+                                                      context,
+                                                      listen: false)
+                                                  .getbagData1(
+                                                      context,
+                                                      widget.form_type,
+                                                      "delete");
                                             },
                                             child: Text("Ok"),
                                           ),
