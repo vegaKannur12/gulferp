@@ -40,6 +40,7 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    print("form type..........${widget.form_type}");
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -218,7 +219,7 @@ class _HistoryPageState extends State<HistoryPage> {
                       ? SpinKitFadingCircle(
                           color: P_Settings.loginPagetheme,
                         )
-                      : value.historyList.length == 0
+                      : value.unloadhistoryList.length == 0
                           ? Center(
                               child: Container(
                                   height: size.height * 0.7,
@@ -231,7 +232,7 @@ class _HistoryPageState extends State<HistoryPage> {
                             )
                           : Container(
                               height: size.height * 0.7,
-                              child: widget.form_type == 3
+                              child: widget.form_type == "3"
                                   ? ListView.builder(
                                       itemCount: value.unloadhistoryList.length,
                                       itemBuilder: (context, index) {
@@ -263,7 +264,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                                   width: size.width * 0.03,
                                                 ),
                                                 Text(
-                                                  "- ${value.unloadhistoryList[index]['Unload Date	']}",
+                                                  "- ${value.unloadhistoryList[index]['Unload Date']}",
                                                   style: GoogleFonts.aBeeZee(
                                                     textStyle: Theme.of(context)
                                                         .textTheme
@@ -307,7 +308,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                                         ),
                                                       ),
                                                       Text(
-                                                        " (Items: ${value.historyList[index]['Items']})",
+                                                        " (Items: ${value.unloadhistoryList[index]['Items']})",
                                                         style:
                                                             GoogleFonts.aBeeZee(
                                                           textStyle:
@@ -325,25 +326,25 @@ class _HistoryPageState extends State<HistoryPage> {
                                                   SizedBox(
                                                     height: size.height * 0.01,
                                                   ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        "\u{20B9}${value.unloadhistoryList[index]['Total Qty']}",
-                                                        style:
-                                                            GoogleFonts.aBeeZee(
-                                                          textStyle:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyText2,
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color:
-                                                              P_Settings.redclr,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                  // Row(
+                                                  //   children: [
+                                                  //     Text(
+                                                  //       "\u{20B9}${value.unloadhistoryList[index]['Total Qty']}",
+                                                  //       style:
+                                                  //           GoogleFonts.aBeeZee(
+                                                  //         textStyle:
+                                                  //             Theme.of(context)
+                                                  //                 .textTheme
+                                                  //                 .bodyText2,
+                                                  //         fontSize: 16,
+                                                  //         fontWeight:
+                                                  //             FontWeight.bold,
+                                                  //         color:
+                                                  //             P_Settings.redclr,
+                                                  //       ),
+                                                  //     ),
+                                                  //   ],
+                                                  // ),
                                                 ],
                                               ),
                                             ),
