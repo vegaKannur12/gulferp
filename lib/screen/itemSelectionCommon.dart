@@ -368,21 +368,7 @@ class _ItemSelectionState extends State<ItemSelection> {
                           value.qty[index].selection = TextSelection(
                               baseOffset: 0,
                               extentOffset: value.qty[index].value.text.length);
-                          Provider.of<Controller>(context, listen: false)
-                              .rawCalculation(
-                                  double.parse(item.sRate1!),
-                                  double.parse(value.qty[index].text),
-                                  double.parse(
-                                      value.discount_prercent[index].text),
-                                  double.parse(
-                                      value.discount_amount[index].text),
-                                  double.parse(item.gst!),
-                                  double.parse(item.cess_per!),
-                                  "0",
-                                  int.parse(widget.gtype!),
-                                  index,
-                                  false,
-                                  "");
+
                           // print("quantity in cart..........$qty");
                           // Provider.of<Controller>(context, listen: false)
                           //     .setQty(qty);
@@ -409,6 +395,21 @@ class _ItemSelectionState extends State<ItemSelection> {
                               int.parse(widget.gtype!),
                               "0",
                               "item");
+                          Provider.of<Controller>(context, listen: false)
+                              .rawCalculation(
+                                  double.parse(item.sRate1!),
+                                  double.parse(value.qty[index].text),
+                                  double.parse(
+                                      value.discount_prercent[index].text),
+                                  double.parse(
+                                      value.discount_amount[index].text),
+                                  double.parse(item.gst!),
+                                  double.parse(item.cess_per!),
+                                  "0",
+                                  int.parse(widget.gtype!),
+                                  index,
+                                  false,
+                                  "");
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(right: 18.0),
