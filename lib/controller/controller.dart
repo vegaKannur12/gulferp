@@ -1425,10 +1425,7 @@ class Controller extends ChangeNotifier {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SaleHome(
-                        formType: form_type,
-                        type: "",
-                      ),
+                      builder: (context) => MainDashboard(),
                     ),
                   );
 
