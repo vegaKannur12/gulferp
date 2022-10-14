@@ -710,6 +710,7 @@ class SaleDetailsBottomSheet {
                                   if (value.qty[index].text == "1") {
                                     value.qty[index].text = "1.0";
                                   }
+                                  value.applyClicked[index]=true;
                                   print(
                                       "quantity after updates.....$formType...${value.qty[index].text}");
                                   Provider.of<Controller>(context,
