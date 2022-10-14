@@ -230,16 +230,15 @@ class Controller extends ChangeNotifier {
         print("qty------${productList[i]["qty"]}");
         if (productList[i]["qty"] == "0") {
           // qttyProd="1";
-          applyClicked[i]=false;
+          applyClicked[i] = false;
           qty[i].text = "0";
         } else {
-          applyClicked[i]=true;
-
+          applyClicked[i] = true;
           qty[i].text = productList[i]["qty"].toString();
         }
       }
 
-      // notifyListeners();
+      notifyListeners();
       var seen = Set<String>();
       uniquelist =
           productbar.where((productbar) => seen.add(productbar)).toList();
@@ -887,8 +886,7 @@ class Controller extends ChangeNotifier {
       String? disCalc) {
     flag = false;
 
-    print(
-        "attribute---$tax_per");
+    print("attribute---$tax_per");
     if (method == "0") {
       /////////////////////////////////method=="0" - excluisive , method=1 - inclusive
       taxable_rate = rate;
