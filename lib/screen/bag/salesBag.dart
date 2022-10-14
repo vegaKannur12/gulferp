@@ -236,7 +236,7 @@ class _BagPageState extends State<BagPage> {
                           }),
                           child: Container(
                             width: size.width * 0.5,
-                            height: size.height * 0.05,
+                            height: size.height * 0.07,
                             color: P_Settings.loginPagetheme,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
