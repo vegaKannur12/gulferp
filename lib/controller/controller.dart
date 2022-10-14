@@ -423,7 +423,7 @@ class Controller extends ChangeNotifier {
               notifyListeners();
             }
           }
-          print("add delete response-----------------${map}");
+          // print("add delete response-----------------${map}");
           cartCount = map["cart_count"];
 
           if (err_status == 0 && res == "Bag deleted Successfully") {
