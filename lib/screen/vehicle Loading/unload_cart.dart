@@ -304,8 +304,7 @@ class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
                                                   .textTheme
                                                   .bodyText2,
                                               fontSize: 13,
-                                              color:
-                                                  P_Settings.loginPagetheme,
+                                              color: P_Settings.loginPagetheme,
                                             ),
                                           ),
                                           SizedBox(
@@ -319,8 +318,7 @@ class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
                                                   .bodyText2,
                                               fontSize: 15,
                                               fontWeight: FontWeight.bold,
-                                              color:
-                                                  P_Settings.loginPagetheme,
+                                              color: P_Settings.loginPagetheme,
                                             ),
                                           ),
                                         ],
@@ -391,7 +389,8 @@ class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
                                                 primary:
                                                     P_Settings.loginPagetheme),
                                             onPressed: () async {
-                                             await Provider.of<Controller>(context,
+                                              await Provider.of<Controller>(
+                                                      context,
                                                       listen: false)
                                                   .addDeletebagItem(
                                                       cart_id,

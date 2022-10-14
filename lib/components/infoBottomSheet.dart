@@ -72,36 +72,45 @@ class InfoBottomsheet {
                         ListTile(
                           visualDensity:
                               VisualDensity(horizontal: 0, vertical: -4),
-                          leading: CircleAvatar(
-                            radius: 30,
-                            backgroundImage: NetworkImage(
-                                'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'),
-                            backgroundColor: Colors.transparent,
-                            // child: Image.network(
-                            //   'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg',
-                            //   fit: BoxFit.cover,
-                            // ),
-                            // child: Image.asset("asset/"),
+                          leading: Text(
+                            value.infoList[0]["batch_name"].toString(),
+                            style: GoogleFonts.aBeeZee(
+                              textStyle: Theme.of(context).textTheme.bodyText2,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: P_Settings.loginPagetheme,
+                            ),
                           ),
-                          title: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Flexible(
-                                  child: Text("",
-                                    // value.infoList[0]["item_name"].toString(),
-                                    style: GoogleFonts.aBeeZee(
-                                      textStyle:
-                                          Theme.of(context).textTheme.bodyText2,
-                                      fontSize: 17,
-                                      // fontWeight: FontWeight.bold,
-                                      color: P_Settings.loginPagetheme,
-                                    ),
-                                  ),
-                                ),
-                              ]),
+                          //  CircleAvatar(
+                          //   radius: 30,
+                          //   backgroundImage: NetworkImage(
+                          //       'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg'),
+                          //   backgroundColor: Colors.transparent,
+                          //   // child: Image.network(
+                          //   //   'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg',
+                          //   //   fit: BoxFit.cover,
+                          //   // ),
+                          //   // child: Image.asset("asset/"),
+                          // ),
+                          // title: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.end,
+                          //     children: [
+                          //       Flexible(
+                          //         child: Text(
+                          //           value.infoList[0]["batch_name"].toString(),
+                          //           style: GoogleFonts.aBeeZee(
+                          //             textStyle:
+                          //                 Theme.of(context).textTheme.bodyText2,
+                          //             fontSize: 17,
+                          //             // fontWeight: FontWeight.bold,
+                          //             color: P_Settings.loginPagetheme,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ]),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: 10.0, right: 10),
+                          padding: EdgeInsets.only(left: 0, right: 0, top: 5),
                           child: ListTile(
                             visualDensity:
                                 VisualDensity(horizontal: 0, vertical: -4),
@@ -118,40 +127,8 @@ class InfoBottomsheet {
                                   ),
                                 ),
                                 Spacer(),
-                                Text("",
-                                  // '\u{20B9}${value.infoList[0]["s_rate_1"].toString()}',
-                                  style: GoogleFonts.aBeeZee(
-                                    textStyle:
-                                        Theme.of(context).textTheme.bodyText2,
-                                    fontSize: 17,
-                                    // fontWeight: FontWeight.bold,
-                                    color: P_Settings.loginPagetheme,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(left: 10.0, right: 10),
-                          child: ListTile(
-                            visualDensity:
-                                VisualDensity(horizontal: 0, vertical: -4),
-                            title: Row(
-                              children: [
                                 Text(
-                                  "SRate 2",
-                                  style: GoogleFonts.aBeeZee(
-                                    textStyle:
-                                        Theme.of(context).textTheme.bodyText2,
-                                    fontSize: 17,
-                                    // fontWeight: FontWeight.bold,
-                                    color: P_Settings.loginPagetheme,
-                                  ),
-                                ),
-                                Spacer(),
-                                Text("",
-                                  // '\u{20B9}${value.infoList[0]["s_rate_2"].toString()}',
+                                  '\u{20B9}${value.infoList[0]["s_rate_fix"].toString()}',
                                   style: GoogleFonts.aBeeZee(
                                     textStyle:
                                         Theme.of(context).textTheme.bodyText2,
@@ -225,48 +202,48 @@ class InfoBottomsheet {
                           indent: 10,
                           endIndent: 20,
                         ),
-                        // Container(
-                        //   height: value.stockList.length == 2
-                        //       ? size.height * 0.1
-                        //       : size.height * 0.2,
-                        //   child: ListView.builder(
-                        //     itemCount: value.stockList.length,
-                        //     itemBuilder: (context, index) {
-                        //       return ListTile(
-                        //           visualDensity: VisualDensity(
-                        //               horizontal: 0, vertical: -4),
-                        //           title: Row(
-                        //             children: [
-                        //               Expanded(
-                        //                 child: Text(
-                        //                   value.stockList[index]["BranchName"],
-                        //                   style: GoogleFonts.aBeeZee(
-                        //                     textStyle: Theme.of(context)
-                        //                         .textTheme
-                        //                         .bodyText2,
-                        //                     fontSize: 17,
-                        //                     // fontWeight: FontWeight.bold,
-                        //                     color: Colors.grey[600],
-                        //                   ),
-                        //                 ),
-                        //               ),
-                        //               Spacer(),
-                        //               Text(
-                        //                 value.stockList[index]["stock"],
-                        //                 style: GoogleFonts.aBeeZee(
-                        //                   textStyle: Theme.of(context)
-                        //                       .textTheme
-                        //                       .bodyText2,
-                        //                   fontSize: 17,
-                        //                   // fontWeight: FontWeight.bold,
-                        //                   color: Colors.grey[600],
-                        //                 ),
-                        //               ),
-                        //             ],
-                        //           ));
-                        //     },
-                        //   ),
-                        // ),
+                        Container(
+                          height: value.stockList.length == 2
+                              ? size.height * 0.1
+                              : size.height * 0.2,
+                          child: ListView.builder(
+                            itemCount: value.stockList.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                  visualDensity: VisualDensity(
+                                      horizontal: 0, vertical: -4),
+                                  title: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          value.stockList[index]["BranchName"],
+                                          style: GoogleFonts.aBeeZee(
+                                            textStyle: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2,
+                                            fontSize: 17,
+                                            // fontWeight: FontWeight.bold,
+                                            color: Colors.grey[600],
+                                          ),
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Text(
+                                        value.stockList[index]["stock"],
+                                        style: GoogleFonts.aBeeZee(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
+                                          fontSize: 17,
+                                          // fontWeight: FontWeight.bold,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                  ));
+                            },
+                          ),
+                        ),
                       ],
                     ),
                   ),
