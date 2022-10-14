@@ -183,6 +183,7 @@ class SaleDetailsBottomSheet {
                                 // minLines: 1,
                                 keyboardType: TextInputType.number,
                                 onSubmitted: (values) {
+                                  value.applyClicked[index]=false;
                                   double valueqty = 0.0;
                                   Provider.of<Controller>(context,
                                           listen: false)
@@ -706,6 +707,7 @@ class SaleDetailsBottomSheet {
                                   if (value.qty[index].text == "1") {
                                     value.qty[index].text = "1.0";
                                   }
+                                  value.applyClicked[index]=true;
                                   print(
                                       "quantity after updates.....$formType...${value.qty[index].text}");
                                   Provider.of<Controller>(context,

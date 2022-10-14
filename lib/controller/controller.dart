@@ -36,9 +36,11 @@ class Controller extends ChangeNotifier {
   bool invoiceLoad = false;
   bool isListLoading = false;
   List<bool> errorClicked = [];
+  List<bool> applyClicked = [];
+
   List<String> uniquelist = [];
   List<String> uniquecustomerlist = [];
-
+  // bool applyClicked
   List<String> filtereduniquelist = [];
   List<TextEditingController> discount_prercent = [];
   List<TextEditingController> discount_amount = [];
@@ -213,6 +215,8 @@ class Controller extends ChangeNotifier {
       qty =
           List.generate(productList.length, (index) => TextEditingController());
       errorClicked = List.generate(productList.length, (index) => false);
+      // applyClicked = List.generate(productList.length, (index) => false);
+
       discount_prercent =
           List.generate(productList.length, (index) => TextEditingController());
       discount_amount =
@@ -226,9 +230,11 @@ class Controller extends ChangeNotifier {
         print("qty------${productList[i]["qty"]}");
         if (productList[i]["qty"] == "0") {
           // qttyProd="1";
-
+          applyClicked[i]=false;
           qty[i].text = "0";
         } else {
+          applyClicked[i]=true;
+
           qty[i].text = productList[i]["qty"].toString();
         }
       }
@@ -894,7 +900,7 @@ class Controller extends ChangeNotifier {
     print("exclusive tax......$taxable_rate");
     // qty=qty+1;
     gross = taxable_rate * qtyw;
-    print("gros----$gross");
+    print(" $gross");
 
     if (disCalc == "disc_amt") {
       disc_per = (disc_amount / gross) * 100;
