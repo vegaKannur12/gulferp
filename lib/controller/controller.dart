@@ -531,6 +531,7 @@ class Controller extends ChangeNotifier {
                 taxable_total! + double.parse(bagList[i]["taxable"]);
             total_qty = total_qty! + double.parse(bagList[i]["qty"]);
           }
+          notifyListeners();
           print(
               "net amount....$item_count..$gro_tot....$dis_tot......$cess_total...$net_tot");
           if (type != "delete") {
