@@ -900,7 +900,8 @@ class Controller extends ChangeNotifier {
       String? disCalc) {
     flag = false;
 
-    print("attribute---$tax_per----$qtyw-----$state_status--$rate---$disc_per----$disc_amount---$cess_per");
+    print(
+        "attribute---$tax_per----$qtyw-----$state_status--$rate---$disc_per----$disc_amount---$cess_per");
     if (method == "0") {
       /////////////////////////////////method=="0" - excluisive , method=1 - inclusive
       taxable_rate = rate;
