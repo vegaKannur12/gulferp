@@ -503,12 +503,12 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                                               index]
                                                                           .text),
                                                                       double.parse(
-                                                                          value.searchList[index]
+                                                                          value.bagList[index]
                                                                               [
-                                                                              "gst"]),
+                                                                              "tax"]),
                                                                       double.parse(
-                                                                          value.searchList[index]
-                                                                              ["cess"]),
+                                                                          value.bagList[index]
+                                                                              ["cess_per"]),
                                                                       "0",
                                                                       int.parse(widget.gtype!),
                                                                       index,
