@@ -376,8 +376,7 @@ class _SaleHomeState extends State<SaleHome> {
                                                       listen: false)
                                                   .getProductDetails(
                                                       "0", "", widget.formType);
-                                          print(
-                                              "value.gtype------${widget.formType}");
+                                          print("value.gtype------${list}");
                                           if (value.gtype1 == null) {
                                             cusVisible.value = true;
                                           } else {
