@@ -14,7 +14,7 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   TextEditingController searchcontroller = TextEditingController();
- 
+
   bool fromDb = true;
   List<bool> addtoCart = [];
   List<TextEditingController> qtycontroller = [];
@@ -508,6 +508,7 @@ class Controller extends ChangeNotifier {
           bagList.clear();
           if (map != null) {
             for (var item in map) {
+              print("map....");
               productListModel = ProductListModel.fromJson(item);
               bagList.add(item);
             }
@@ -517,7 +518,7 @@ class Controller extends ChangeNotifier {
           discount_amount =
               List.generate(bagList.length, (index) => TextEditingController());
           for (int i = 0; i < bagList.length; i++) {
-            print("qty------${productList[i]["qty"]}");
+           
             qty[i].text = bagList[i]["qty"].toString();
             discount_prercent[i].text = bagList[i]["disc_per"].toString();
             discount_amount[i].text = bagList[i]["disc_amt"].toString();
@@ -901,7 +902,8 @@ class Controller extends ChangeNotifier {
       String? disCalc) {
     flag = false;
 
-    print("attribute---$tax_per----$qtyw-----$state_status--$rate---$disc_per----$disc_amount---$cess_per");
+    print(
+        "attribute---$tax_per----$qtyw-----$state_status--$rate---$disc_per----$disc_amount---$cess_per");
     if (method == "0") {
       /////////////////////////////////method=="0" - excluisive , method=1 - inclusive
       taxable_rate = rate;
