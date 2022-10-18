@@ -33,6 +33,7 @@ class Controller extends ChangeNotifier {
   String? user_id;
   String? cusName1;
   String? cartCount;
+  String? selecttext;
   bool isSearch = false;
   var invoice;
   bool invoiceLoad = false;
@@ -76,6 +77,7 @@ class Controller extends ChangeNotifier {
   List<Map<String, dynamic>> infoList = [];
 
   List<TextEditingController> qty = [];
+  List<TextEditingController> qty1 = [];
 
   // List<BranchModel> branchist = [];
   // List<TransactionTypeModel> transactionist = [];
@@ -226,6 +228,8 @@ class Controller extends ChangeNotifier {
       print("qty------$qty");
 
       for (int i = 0; i < productList.length; i++) {
+        applyClicked[i] = false;
+        // qty1[i].text = "0";
         print("product list dataa loop....");
         discount_prercent[i].text = productList[i]["disc_per"].toString();
         discount_amount[i].text = productList[i]["disc_amt"].toString();
@@ -233,14 +237,16 @@ class Controller extends ChangeNotifier {
         if (productList[i]["qty"] == "0") {
           // qttyProd="1";
           applyClicked[i] = false;
+          // qty1[i].text = "0";
           qty[i].text = "0";
         } else {
           applyClicked[i] = true;
+
           qty[i].text = productList[i]["qty"].toString();
         }
       }
 
-      notifyListeners();
+      // notifyListeners();
       var seen = Set<String>();
       uniquelist =
           productbar.where((productbar) => seen.add(productbar)).toList();
@@ -888,7 +894,7 @@ class Controller extends ChangeNotifier {
       String? disCalc) {
     flag = false;
 
-    print("attribute---$tax_per");
+    print("attribute---$tax_per----$qtyw");
     if (method == "0") {
       /////////////////////////////////method=="0" - excluisive , method=1 - inclusive
       taxable_rate = rate;
