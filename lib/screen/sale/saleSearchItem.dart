@@ -330,7 +330,9 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                       ),
                                                     ],
                                                   ),
-                                                  SizedBox(height: 10,),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
                                                   Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.end,
@@ -349,11 +351,13 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                         ),
                                                       ),
                                                       Container(
-                                                        width: size.width * 0.12,
+                                                        width:
+                                                            size.width * 0.12,
                                                         child: FocusScope(
                                                           child: TextField(
                                                             controller: value
-                                                                .qty[index],
+                                                                    .discount_amount[
+                                                                index],
                                                             // autofocus: true,
                                                             onTap: () {
                                                               // value.t2qtycontroller[index]
