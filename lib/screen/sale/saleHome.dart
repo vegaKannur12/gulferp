@@ -37,6 +37,7 @@ class _SaleHomeState extends State<SaleHome> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print("frmtype-----${widget.formType}");
     todaydate = DateFormat('dd-MM-yyyy').format(now);
     Provider.of<Controller>(context, listen: false).cusName1 = null;
     Provider.of<Controller>(context, listen: false).cus_id = null;

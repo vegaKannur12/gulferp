@@ -193,265 +193,334 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                             width: size.height * 0.2,
                           ))
                         : ListView.builder(
-                            itemExtent: 90,
+                            // itemExtent: 100,
                             itemCount: value.bagList.length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding:
-                                    const EdgeInsets.only(left: 10, right: 10),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Card(
                                   color: Colors.grey[100],
                                   child: ListTile(
-                                    title: Text(
-                                      value.bagList[index]["item_name"],
-                                      style: GoogleFonts.aBeeZee(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.bold,
-                                          color: P_Settings.loginPagetheme),
-                                    ),
-                                    subtitle: Padding(
-                                      padding: const EdgeInsets.only(right: 10,top: 5),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "SRate :\u{20B9}${value.bagList[index]["s_rate_fix"]}",
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 14,
-                                              color: P_Settings.bagText,
-                                            ),
-                                          ),
-                                          Text(
-                                            "Stock : ${value.bagList[index]["stock"]}",
-                                            style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 14,
-                                              color: P_Settings.bagText,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    trailing: Wrap(
+                                    title: Column(
                                       children: [
-                                        Column(
-                                          children: [
-                                            Text("Dis :"),
-                                            SizedBox(
-                                              height: size.height * 0.02,
-                                            ),
-                                            Text("Qty :"),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          width: size.width * 0.01,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Container(
-                                              width: size.width * 0.12,
-                                              child: FocusScope(
-                                                child: TextField(
-                                                  controller: value.qty[index],
-                                                  // autofocus: true,
-                                                  onTap: () {
-                                                    // value.t2qtycontroller[index]
-                                                    //         .selection =
-                                                    //     TextSelection(
-                                                    //         baseOffset: 0,
-                                                    //         extentOffset: value
-                                                    //             .t2qtycontroller[
-                                                    //                 index]
-                                                    //             .value
-                                                    //             .text
-                                                    //             .length);
-                                                  },
-
-                                                  // autofocus: true,
-                                                  style: GoogleFonts.aBeeZee(
-                                                    textStyle: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText2,
-                                                    fontSize: 17,
-                                                    // fontWeight: FontWeight.bold,
-                                                    color: P_Settings
-                                                        .loginPagetheme,
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    isDense: true,
-                                                    contentPadding:
-                                                        EdgeInsets.all(0),
-                                                    //border: InputBorder.none
-                                                  ),
-
-                                                  // maxLines: 1,
-                                                  // minLines: 1,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  onSubmitted: (values) {
-                                                    double valueqty = 0.0;
-                                                  },
-
-                                                  textAlign: TextAlign.right,
-                                                  // controller: value.qty[index],
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: size.height * 0.02,
-                                            ),
-                                            Container(
-                                              width: size.width * 0.1,
-                                              child: FocusScope(
-                                                child: TextField(
-                                                  controller: value.qty[index],
-                                                  // autofocus: true,
-                                                  onTap: () {
-                                                    // value.t2qtycontroller[index]
-                                                    //         .selection =
-                                                    //     TextSelection(
-                                                    //         baseOffset: 0,
-                                                    //         extentOffset: value
-                                                    //             .t2qtycontroller[
-                                                    //                 index]
-                                                    //             .value
-                                                    //             .text
-                                                    //             .length);
-                                                  },
-
-                                                  // autofocus: true,
-                                                  style: GoogleFonts.aBeeZee(
-                                                    textStyle: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText2,
-                                                    fontSize: 17,
-                                                    // fontWeight: FontWeight.bold,
-                                                    color: P_Settings
-                                                        .loginPagetheme,
-                                                  ),
-                                                  decoration: InputDecoration(
-                                                    isDense: true,
-                                                    contentPadding:
-                                                        EdgeInsets.all(0),
-                                                    //border: InputBorder.none
-                                                  ),
-
-                                                  // maxLines: 1,
-                                                  // minLines: 1,
-                                                  keyboardType:
-                                                      TextInputType.number,
-                                                  onSubmitted: (values) {
-                                                    double valueqty = 0.0;
-                                                  },
-
-                                                  textAlign: TextAlign.right,
-                                                  // controller: value.qty[index],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                        Text(
+                                          value.bagList[index]["item_name"],
+                                          style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.bold,
+                                              color: P_Settings.loginPagetheme),
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsets.only(left: 5.0),
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              showDialog(
-                                                context: context,
-                                                builder: (ctx) => AlertDialog(
-                                                  content: Text(
-                                                      "Do you want to delete (${value.bagList[index]["item_name"]}) ???"),
-                                                  actions: <Widget>[
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment.end,
-                                                      children: [
-                                                        ElevatedButton(
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                                  primary:
-                                                                      P_Settings
-                                                                          .loginPagetheme),
-                                                          onPressed: () async {
-                                                            var response = Provider.of<Controller>(
-                                                                    context,
-                                                                    listen:
-                                                                        false)
-                                                                .addDeletebagItem(
-                                                                    value.bagList[index][
-                                                                        "cart_id"],
-                                                                    value.bagList[index][
-                                                                        'item_id'],
-                                                                    value.bagList[
-                                                                            index]
-                                                                        [
-                                                                        'rate'],
-                                                                    value.bagList[
-                                                                            index]
-                                                                        ['qty'],
-                                                                    context,
-                                                                    "delete",
-                                                                    widget
-                                                                        .form_type,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    "2",
-                                                                    "cart");
-
-                                                            Navigator.of(ctx)
-                                                                .pop();
-                                                          },
-                                                          child: Text("Ok"),
-                                                        ),
-                                                        SizedBox(
-                                                          width:
-                                                              size.width * 0.01,
-                                                        ),
-                                                        ElevatedButton(
-                                                          style: ElevatedButton
-                                                              .styleFrom(
-                                                                  primary:
-                                                                      P_Settings
-                                                                          .loginPagetheme),
-                                                          onPressed: () {
-                                                            Navigator.of(ctx)
-                                                                .pop();
-                                                          },
-                                                          child: Text("Cancel"),
-                                                        ),
-                                                      ],
+                                              const EdgeInsets.only(top: 8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "SRate :\u{20B9}${value.bagList[index]["s_rate_fix"]}",
+                                                    style: GoogleFonts.aBeeZee(
+                                                      textStyle:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText2,
+                                                      fontSize: 14,
+                                                      color: P_Settings.bagText,
                                                     ),
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                            child: Icon(
-                                              Icons.delete,
-                                              size: 20,
-                                            ),
+                                                  ),
+                                                  Text(
+                                                    "Stock :${value.bagList[index]["stock"]}",
+                                                    style: GoogleFonts.aBeeZee(
+                                                      textStyle:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText2,
+                                                      fontSize: 14,
+                                                      color: P_Settings.bagText,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              // Spacer(),
+                                              Column(
+                                                // crossAxisAlignment: CrossAxisAlignment.end,
+                                                // mainAxisAlignment:
+                                                //     MainAxisAlignment.end,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "Qty : ",
+                                                        style:
+                                                            GoogleFonts.aBeeZee(
+                                                          textStyle:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                          fontSize: 14,
+                                                          color: P_Settings
+                                                              .bagText,
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width:
+                                                            size.width * 0.12,
+                                                        child: FocusScope(
+                                                          child: TextField(
+                                                            controller: value
+                                                                .qty[index],
+                                                            // autofocus: true,
+                                                            onTap: () {
+                                                              // value.t2qtycontroller[index]
+                                                              //         .selection =
+                                                              //     TextSelection(
+                                                              //         baseOffset: 0,
+                                                              //         extentOffset: value
+                                                              //             .t2qtycontroller[
+                                                              //                 index]
+                                                              //             .value
+                                                              //             .text
+                                                              //             .length);
+                                                            },
+
+                                                            // autofocus: true,
+                                                            style: GoogleFonts
+                                                                .aBeeZee(
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                              fontSize: 17,
+                                                              // fontWeight: FontWeight.bold,
+                                                              color: P_Settings
+                                                                  .loginPagetheme,
+                                                            ),
+                                                            decoration:
+                                                                InputDecoration(
+                                                              isDense: true,
+                                                              contentPadding:
+                                                                  EdgeInsets
+                                                                      .all(0),
+                                                              //border: InputBorder.none
+                                                            ),
+
+                                                            // maxLines: 1,
+                                                            // minLines: 1,
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            onSubmitted:
+                                                                (values) {
+                                                              double valueqty =
+                                                                  0.0;
+                                                            },
+
+                                                            textAlign:
+                                                                TextAlign.right,
+                                                            // controller: value.qty[index],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        "Disc  : ",
+                                                        style:
+                                                            GoogleFonts.aBeeZee(
+                                                          textStyle:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                          fontSize: 14,
+                                                          color: P_Settings
+                                                              .bagText,
+                                                        ),
+                                                      ),
+                                                      Container(
+                                                        width:
+                                                            size.width * 0.12,
+                                                        child: FocusScope(
+                                                          child: TextField(
+                                                            controller: value
+                                                                .qty[index],
+                                                            // autofocus: true,
+                                                            onTap: () {
+                                                              // value.t2qtycontroller[index]
+                                                              //         .selection =
+                                                              //     TextSelection(
+                                                              //         baseOffset: 0,
+                                                              //         extentOffset: value
+                                                              //             .t2qtycontroller[
+                                                              //                 index]
+                                                              //             .value
+                                                              //             .text
+                                                              //             .length);
+                                                            },
+
+                                                            // autofocus: true,
+                                                            style: GoogleFonts
+                                                                .aBeeZee(
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                              fontSize: 17,
+                                                              // fontWeight: FontWeight.bold,
+                                                              color: P_Settings
+                                                                  .loginPagetheme,
+                                                            ),
+                                                            decoration:
+                                                                InputDecoration(
+                                                              isDense: true,
+                                                              contentPadding:
+                                                                  EdgeInsets
+                                                                      .all(0),
+                                                              //border: InputBorder.none
+                                                            ),
+
+                                                            // maxLines: 1,
+                                                            // minLines: 1,
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            onSubmitted:
+                                                                (values) {
+                                                              double valueqty =
+                                                                  0.0;
+                                                            },
+
+                                                            textAlign:
+                                                                TextAlign.right,
+                                                            // controller: value.qty[index],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              )
+                                            ],
                                           ),
                                         ),
+                                        // Row(children: [Text("dzkshfjkzdjk")],),
+                                        Divider(),
+                                        GestureDetector(
+                                          onTap: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (ctx) => AlertDialog(
+                                                content: Text(
+                                                    "Do you want to delete (${value.bagList[index]["item_name"]}) ???"),
+                                                actions: <Widget>[
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      ElevatedButton(
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                                primary: P_Settings
+                                                                    .loginPagetheme),
+                                                        onPressed: () async {
+                                                          var response = Provider.of<Controller>(
+                                                                  context,
+                                                                  listen: false)
+                                                              .addDeletebagItem(
+                                                                  value.bagList[
+                                                                          index][
+                                                                      "cart_id"],
+                                                                  value.bagList[
+                                                                          index]
+                                                                      [
+                                                                      'item_id'],
+                                                                  value.bagList[
+                                                                          index]
+                                                                      ['rate'],
+                                                                  value.bagList[
+                                                                          index]
+                                                                      ['qty'],
+                                                                  context,
+                                                                  "delete",
+                                                                  widget.form_type,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  "2",
+                                                                  "");
+
+                                                          Navigator.of(ctx)
+                                                              .pop();
+                                                        },
+                                                        child: Text("Ok"),
+                                                      ),
+                                                      SizedBox(
+                                                        width:
+                                                            size.width * 0.01,
+                                                      ),
+                                                      ElevatedButton(
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                                primary: P_Settings
+                                                                    .loginPagetheme),
+                                                        onPressed: () {
+                                                          Navigator.of(ctx)
+                                                              .pop();
+                                                        },
+                                                        child: Text("Cancel"),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "Remove",
+                                                style: GoogleFonts.aBeeZee(
+                                                    textStyle: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText2,
+                                                    fontSize: 15,
+                                                    fontStyle: FontStyle.italic,
+                                                    // fontWeight: FontWeight.bold,
+                                                    color: P_Settings
+                                                        .loginPagetheme),
+                                              ),
+                                              Icon(
+                                                Icons.close,
+                                                color: Colors.red,
+                                                size: 17,
+                                              )
+                                            ],
+                                          ),
+                                        )
                                       ],
                                     ),
                                   ),
