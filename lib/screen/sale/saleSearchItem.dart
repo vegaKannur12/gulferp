@@ -9,7 +9,9 @@ import 'package:provider/provider.dart';
 class SaleSearchItem extends StatefulWidget {
   String form_type;
   String? remark;
-  SaleSearchItem({required this.form_type, required this.remark});
+  String? gtype;
+  SaleSearchItem(
+      {required this.form_type, required this.remark, required this.gtype});
 
   @override
   State<SaleSearchItem> createState() => _SaleSearchItemState();
@@ -17,6 +19,8 @@ class SaleSearchItem extends StatefulWidget {
 
 class _SaleSearchItemState extends State<SaleSearchItem> {
   ValueNotifier<bool> visible = ValueNotifier(false);
+  String? oldText;
+
   @override
   Widget build(BuildContext context) {
     String? selectedtransaction;
@@ -139,53 +143,55 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    width: size.width * 0.9,
-                    height: size.height * 0.09,
-                    child: TextField(
-                      controller: value.searchcontroller,
-                      onChanged: (values) {
-                        Provider.of<Controller>(context, listen: false)
-                            .setisVisible(true);
-                        // values = value.searchcontroller.text;
-                        if (values != null || values.isNotEmpty) {
-                          // print("value-----$value");
+                  Flexible(
+                    child: Container(
+                      width: size.width * 0.9,
+                      height: size.height * 0.09,
+                      child: TextField(
+                        controller: value.searchcontroller,
+                        onChanged: (values) {
                           Provider.of<Controller>(context, listen: false)
-                              .setIssearch(true);
-                          // value = searchcontroll.text;
-                          print("valuess----$values");
+                              .setisVisible(true);
+                          // values = value.searchcontroller.text;
+                          if (values != null || values.isNotEmpty) {
+                            // print("value-----$value");
+                            Provider.of<Controller>(context, listen: false)
+                                .setIssearch(true);
+                            // value = searchcontroll.text;
+                            print("valuess----$values");
 
-                          Provider.of<Controller>(context, listen: false)
-                              .searchItem(context, values);
-                        } else {
-                          Provider.of<Controller>(context, listen: false)
-                              .setIssearch(false);
-                        }
-                      },
-                      decoration: InputDecoration(
-                        hintText: "Search Item here",
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: P_Settings.loginPagetheme,
-                        ),
-                        suffixIcon: GestureDetector(
-                          onTap: () {
-                            value.searchcontroller.clear();
-                          },
-                          child: Icon(
-                            Icons.close,
+                            Provider.of<Controller>(context, listen: false)
+                                .searchItem(context, values);
+                          } else {
+                            Provider.of<Controller>(context, listen: false)
+                                .setIssearch(false);
+                          }
+                        },
+                        decoration: InputDecoration(
+                          hintText: "Search Item here",
+                          prefixIcon: Icon(
+                            Icons.search,
                             color: P_Settings.loginPagetheme,
                           ),
-                        ),
-                        hintStyle:
-                            TextStyle(fontSize: 14.0, color: Colors.grey),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: P_Settings.loginPagetheme),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 94, 95, 94)),
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              value.searchcontroller.clear();
+                            },
+                            child: Icon(
+                              Icons.close,
+                              color: P_Settings.loginPagetheme,
+                            ),
+                          ),
+                          hintStyle:
+                              TextStyle(fontSize: 14.0, color: Colors.grey),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: P_Settings.loginPagetheme),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 94, 95, 94)),
+                          ),
                         ),
                       ),
                     ),
@@ -193,12 +199,272 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                 ],
               ),
               Container(
+                height: size.height * 0.4,
+                child: value.isSearchLoading
+                    ? SpinKitCircle(
+                        color: P_Settings.loginPagetheme,
+                      )
+                    // : value.searchList.length == 0
+                    //     ? Text("No Item Found!!!")
+                    : value.searchList.length == 0
+                        ? Container(
+                            // height: size.height * 0.05,
+
+                            // child: Text("No Data Found !!!"),
+                            child: Lottie.asset(
+                            'asset/search.json',
+                            height: size.height * 0.2,
+                            width: size.height * 0.2,
+                          ))
+                        : ListView.builder(
+                            itemCount: value.searchList.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                trailing: Wrap(
+                                  children: [
+                                    Container(
+                                      width: size.width * 0.1,
+                                      child: TextField(
+                                        controller: value.qtycontroller[index],
+                                        style: GoogleFonts.aBeeZee(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2,
+                                          fontSize: 17,
+                                          color: P_Settings.loginPagetheme,
+                                        ),
+                                        decoration: InputDecoration(
+                                          isDense: true,
+                                          contentPadding: EdgeInsets.all(0),
+                                          //border: InputBorder.none
+                                        ),
+                                        keyboardType: TextInputType.number,
+                                        onTap: () {
+                                          value.qtycontroller[index].selection =
+                                              TextSelection(
+                                                  baseOffset: 0,
+                                                  extentOffset: value
+                                                      .qtycontroller[index]
+                                                      .value
+                                                      .text
+                                                      .length);
+                                        },
+                                        onChanged: (values) {
+                                          print("ol;dText------${oldText}");
+                                          // Provider.of<Controller>(
+                                          //       context,
+                                          //       listen: false).justFun(values){
+
+                                          //       }
+                                          // values = value
+                                          //     .qtycontroller[index]
+                                          //     .text;
+                                          print("hjdhszjk---$values");
+                                          if (oldText != null) {
+                                            if (values.length !=
+                                                oldText!.length) {
+                                              Provider.of<Controller>(context,
+                                                      listen: false)
+                                                  .addToCartClicked(
+                                                      false, index);
+                                            }
+                                          }
+                                        },
+                                        onSubmitted: (values) async {
+                                          oldText = values;
+                                          print("oldd----$oldText");
+                                          Provider.of<Controller>(context,
+                                                  listen: false)
+                                              .addToCartClicked(true, index);
+                                          // Provider.of<Controller>(context,
+                                          //         listen: false)
+                                          //     .addDeletebagItem(
+                                          //         value.searchList[index]
+                                          //             ["item_id"],
+                                          //         value.searchList[index]
+                                          //                 ["s_rate_1"]
+                                          //             .toString(),
+                                          //         value.searchList[index]
+                                          //                 ["s_rate_2"]
+                                          //             .toString(),
+                                          //         value.qtycontroller[index]
+                                          //             .text,
+                                          //         "0",
+                                          //         "0",
+                                          //         context,
+                                          //         "save",
+                                          //         "transaction2");
+
+                                          // await Provider.of<Controller>(
+                                          //         context,
+                                          //         listen: false)
+                                          //     .getbagData1(context, "");
+                                        },
+                                        textAlign: TextAlign.right,
+                                      ),
+                                    ),
+                                    // SizedBox(
+                                    //   width: size.width * 0.04,
+                                    // ),
+                                    value.addtoCart[index] == true
+                                        ? Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 28.0),
+                                            child: Icon(
+                                              Icons.done,
+                                              color: Colors.green,
+                                            ),
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 28.0),
+                                            child: GestureDetector(
+                                                onTap: () async {
+                                                  oldText = value
+                                                      .qtycontroller[index]
+                                                      .text;
+                                                  Provider.of<Controller>(
+                                                          context,
+                                                          listen: false)
+                                                      .addToCartClicked(
+                                                          true, index);
+
+                                                  Provider.of<Controller>(
+                                                          context,
+                                                          listen: false)
+                                                      .rawCalculation(
+                                                          double.parse(
+                                                            value.searchList[
+                                                                    index]
+                                                                ["s_rate_fix"],
+                                                          ),
+                                                          double.parse(value
+                                                              .qtycontroller[
+                                                                  index]
+                                                              .text),
+                                                          double.parse(value
+                                                              .discount_prercent[
+                                                                  index]
+                                                              .text),
+                                                          double.parse(value
+                                                              .discount_amount[
+                                                                  index]
+                                                              .text),
+                                                          double.parse(value
+                                                                  .searchList[index]
+                                                              ["gst"]),
+                                                          double.parse(value
+                                                                  .searchList[
+                                                              index]["cess"]),
+                                                          "0",
+                                                          int.parse(widget.gtype!),
+                                                          index,
+                                                          false,
+                                                          "");
+
+                                                  Provider.of<Controller>(
+                                                          context,
+                                                          listen: false)
+                                                      .addDeletebagItem(
+                                                          "0",
+                                                          value.searchList[index]
+                                                              ["batch_id"],
+                                                          value.searchList[index]
+                                                              ["s_rate_fix"],
+                                                          value
+                                                              .qtycontroller[
+                                                                  index]
+                                                              .text,
+                                                          context,
+                                                          "save",
+                                                          widget.form_type,
+                                                          value.gross,
+                                                          double.parse(value
+                                                              .discount_prercent[
+                                                                  index]
+                                                              .text),
+                                                          double.parse(value
+                                                              .discount_amount[
+                                                                  index]
+                                                              .text),
+                                                          0.0,
+                                                          value.cgst_amt,
+                                                          value.sgst_amt,
+                                                          value.igst_amt,
+                                                          value.cgst_per,
+                                                          value.sgst_per,
+                                                          value.igst_per,
+                                                          double.parse(
+                                                            value.searchList[
+                                                                index]["cess"],
+                                                          ),
+                                                          value.cess,
+                                                          value.net_amt,
+                                                          double.parse(value
+                                                                  .searchList[index]
+                                                              ["gst"]),
+                                                          "0",
+                                                          "");
+
+                                                  await Provider.of<Controller>(
+                                                          context,
+                                                          listen: false)
+                                                      .getbagData1(context,
+                                                          widget.form_type, "");
+                                                },
+                                                child: Icon(Icons.add)),
+                                          ),
+                                  ],
+                                ),
+                                onTap: () {
+                                  // Provider.of<Controller>(context,
+                                  //         listen: false)
+                                  //     .addDeletebagItem(
+                                  //         value.searchList[index]["item_id"],
+                                  //         value.searchList[index]["s_rate_1"]
+                                  //             .toString(),
+                                  //         value.searchList[index]["s_rate_2"]
+                                  //             .toString(),
+                                  //         "1",
+                                  //         "0",
+                                  //         "0",
+                                  //         context,
+                                  //         "save");
+                                },
+                                title: Text(
+                                  value.searchList[index]["batch_name"],
+                                  style: GoogleFonts.aBeeZee(
+                                      textStyle:
+                                          Theme.of(context).textTheme.bodyText2,
+                                      fontSize: 16,
+                                      // fontWeight: FontWeight.bold,
+                                      color: P_Settings.loginPagetheme),
+                                ),
+                                subtitle: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                        "SRate :${value.searchList[index]["s_rate_fix"]}"),
+                                    // // SizedBox(
+                                    // //   width: size.width * 0.03,
+                                    // // ),
+                                    // Text(
+                                    //     "MRP :${value.searchList[index]["s_rate_2"]}"),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+              ),
+              //////////////////////////////////////
+              Container(
                 height: size.height * 0.5,
                 child: value.isLoading
                     ? SpinKitFadingCircle(
                         color: P_Settings.loginPagetheme,
                       )
-                    : value.bagList.length != 0
+                    : value.bagList.length == 0
                         ? Container(
                             // height: size.height * 0.2,
                             child: Lottie.asset(
@@ -344,84 +610,91 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                           padding:
                                               const EdgeInsets.only(left: 28.0),
                                           child: GestureDetector(
-                                              onTap: () {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (ctx) => AlertDialog(
-                                                    content: Text(
-                                                        "Do you want to delete (${value.bagList[index]["item_name"]}) ???"),
-                                                    actions: <Widget>[
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          ElevatedButton(
-                                                            style: ElevatedButton
-                                                                .styleFrom(
-                                                                    primary:
-                                                                        P_Settings
-                                                                            .loginPagetheme),
-                                                            onPressed:
-                                                                () async {
-                                                              // var response = await Provider.of<Controller>(context, listen: false).addDeletebagItem(
-                                                              //     value.bagList[index][
-                                                              //         "item_id"],
-                                                              //     value
-                                                              //         .bagList[index]
-                                                              //             [
-                                                              //             "s_rate_1"]
-                                                              //         .toString(),
-                                                              //     value
-                                                              //         .bagList[index]
-                                                              //             [
-                                                              //             "s_rate_2"]
-                                                              //         .toString(),
-                                                              //     value
-                                                              //         .t2qtycontroller[
-                                                              //             index]
-                                                              //         .text
-                                                              //         .toString(),
-                                                              //     "2",
-                                                              //     value.bagList[
-                                                              //             index]
-                                                              //         ["cart_id"],
-                                                              //     context,
-                                                              //     "delete",
-                                                              //     "transaction2");
+                                            onTap: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (ctx) => AlertDialog(
+                                                  content: Text(
+                                                      "Do you want to delete (${value.bagList[index]["item_name"]}) ???"),
+                                                  actions: <Widget>[
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment.end,
+                                                      children: [
+                                                        ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                                  primary:
+                                                                      P_Settings
+                                                                          .loginPagetheme),
+                                                          onPressed: () async {
+                                                            var response = Provider.of<Controller>(context, listen: false).addDeletebagItem(
+                                                                "",
+                                                                value.bagList[index]
+                                                                    ['item_id'],
+                                                                value.bagList[index]
+                                                                    ['rate'],
+                                                                value.bagList[index]
+                                                                    ['qty'],
+                                                                context,
+                                                                "delete",
+                                                                widget
+                                                                    .form_type,
+                                                                value.gross,
+                                                                value.bagList[
+                                                                        index][
+                                                                    'disc_per'],
+                                                                value.bagList[
+                                                                        index][
+                                                                    'disc_amt'],
+                                                                0.0,
+                                                                0.0,
+                                                                0.0,
+                                                                0.0,
+                                                                0.0,
+                                                                0.0,
+                                                                0.0,
+                                                                0.0,
+                                                                0.0,
+                                                                value.bagList[
+                                                                        index]
+                                                                    ['net_total'],
+                                                                0.0,
+                                                                "2",
+                                                                "cart");
 
-                                                              Navigator.of(ctx)
-                                                                  .pop();
-                                                            },
-                                                            child: Text("Ok"),
-                                                          ),
-                                                          SizedBox(
-                                                            width: size.width *
-                                                                0.01,
-                                                          ),
-                                                          ElevatedButton(
-                                                            style: ElevatedButton
-                                                                .styleFrom(
-                                                                    primary:
-                                                                        P_Settings
-                                                                            .loginPagetheme),
-                                                            onPressed: () {
-                                                              Navigator.of(ctx)
-                                                                  .pop();
-                                                            },
-                                                            child:
-                                                                Text("Cancel"),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              },
-                                              child: Icon(
-                                                Icons.delete,
-                                                size: 20,
-                                              )),
+                                                            Navigator.of(ctx)
+                                                                .pop();
+                                                          },
+                                                          child: Text("Ok"),
+                                                        ),
+                                                        SizedBox(
+                                                          width:
+                                                              size.width * 0.01,
+                                                        ),
+                                                        ElevatedButton(
+                                                          style: ElevatedButton
+                                                              .styleFrom(
+                                                                  primary:
+                                                                      P_Settings
+                                                                          .loginPagetheme),
+                                                          onPressed: () {
+                                                            Navigator.of(ctx)
+                                                                .pop();
+                                                          },
+                                                          child: Text("Cancel"),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            },
+                                            child: Icon(
+                                              Icons.delete,
+                                              size: 20,
+                                            ),
+                                          ),
                                         )
                                       ],
                                     ),
