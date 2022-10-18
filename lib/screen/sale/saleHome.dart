@@ -377,7 +377,7 @@ class _SaleHomeState extends State<SaleHome> {
                                                   .getProductDetails(
                                                       "0", "", widget.formType);
                                           print(
-                                              "value.gtype------${value.gtype1}");
+                                              "value.gtype------${widget.formType}");
                                           if (value.gtype1 == null) {
                                             cusVisible.value = true;
                                           } else {
@@ -385,16 +385,20 @@ class _SaleHomeState extends State<SaleHome> {
                                             if (list.length > 0) {
                                               print(
                                                   "type from main.......${widget.type}");
+                                              await Provider.of<Controller>(
+                                                      context,
+                                                      listen: false)
+                                                  .getbagData1(context,
+                                                      widget.formType, "");
                                               Navigator.of(context).push(
                                                 PageRouteBuilder(
                                                     opaque:
                                                         false, // set to false
                                                     pageBuilder: (_, __, ___) =>
-                                                     
                                                         SaleSearchItem(
                                                           form_type:
                                                               widget.formType,
-                                                              remark: remrk.text,
+                                                          remark: remrk.text,
                                                           gtype: value.gtype1!,
                                                         )
                                                     // OrderForm(widget.areaname,"return"),

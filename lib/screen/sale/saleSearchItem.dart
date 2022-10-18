@@ -115,22 +115,25 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                   );
                 });
           },
-          child: Container(
-            height: size.height * 0.05,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  "Save",
-                  style: GoogleFonts.aBeeZee(
-                    textStyle: Theme.of(context).textTheme.bodyText2,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: P_Settings.buttonColor,
-                  ),
-                )
-                // if (centerLocations.contains(fabLocation)) const Spacer(),
-              ],
+          child: Padding(
+            padding: const EdgeInsets.all(.0),
+            child: Container(
+              height: size.height * 0.05,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Save",
+                    style: GoogleFonts.aBeeZee(
+                      textStyle: Theme.of(context).textTheme.bodyText2,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: P_Settings.buttonColor,
+                    ),
+                  )
+                  // if (centerLocations.contains(fabLocation)) const Spacer(),
+                ],
+              ),
             ),
           ),
         ),
@@ -190,7 +193,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                             width: size.height * 0.2,
                           ))
                         : ListView.builder(
-                            itemExtent: 80,
+                            itemExtent: 90,
                             itemCount: value.bagList.length,
                             itemBuilder: (context, index) {
                               return Padding(
@@ -212,113 +215,154 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                     subtitle: Padding(
                                       padding: const EdgeInsets.only(right: 10),
                                       child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                "SRate :\u{20B9}${value.bagList[index]["s_rate_fix"]}",
-                                                style: GoogleFonts.aBeeZee(
-                                                  textStyle: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText2,
-                                                  fontSize: 14,
-                                                  color: P_Settings.bagText,
-                                                ),
-                                              ),
-                                              // SizedBox(width: size.width * 0.032),
-                                              Text(
-                                                "Stock :\u{20B9}${value.bagList[index]["s_rate_fix"]}",
-                                                style: GoogleFonts.aBeeZee(
-                                                  textStyle: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText2,
-                                                  fontSize: 14,
-                                                  color: P_Settings.bagText,
-                                                ),
-                                              ),
-                                            ],
+                                          Text(
+                                            "SRate :\u{20B9}${value.bagList[index]["s_rate_fix"]}",
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 14,
+                                              color: P_Settings.bagText,
+                                            ),
+                                          ),
+                                          Text(
+                                            "Stock :\u{20B9}${value.bagList[index]["s_rate_fix"]}",
+                                            style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 14,
+                                              color: P_Settings.bagText,
+                                            ),
                                           ),
                                         ],
                                       ),
                                     ),
                                     trailing: Wrap(
                                       children: [
-                                        Container(
-                                          width: size.width * 0.12,
-                                          child: FocusScope(
-                                            child: TextField(
-                                              // controller: value
-                                              //     .t2qtycontroller[index],
-                                              // autofocus: true,
-                                              onTap: () {
-                                                // value.t2qtycontroller[index]
-                                                //         .selection =
-                                                //     TextSelection(
-                                                //         baseOffset: 0,
-                                                //         extentOffset: value
-                                                //             .t2qtycontroller[
-                                                //                 index]
-                                                //             .value
-                                                //             .text
-                                                //             .length);
-                                              },
-
-                                              // autofocus: true,
-                                              style: GoogleFonts.aBeeZee(
-                                                textStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText2,
-                                                fontSize: 17,
-                                                // fontWeight: FontWeight.bold,
-                                                color:
-                                                    P_Settings.loginPagetheme,
-                                              ),
-                                              decoration: InputDecoration(
-                                                isDense: true,
-                                                contentPadding:
-                                                    EdgeInsets.all(0),
-                                                //border: InputBorder.none
-                                              ),
-
-                                              // maxLines: 1,
-                                              // minLines: 1,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              onSubmitted: (values) {
-                                                double valueqty = 0.0;
-                                                // Provider.of<Controller>(
-                                                //         context,
-                                                //         listen: false)
-                                                //     .addDeletebagItem(
-                                                //         value.bagList[index]
-                                                //             ["item_id"],
-                                                //         value.bagList[index]
-                                                //                 ["s_rate_1"]
-                                                //             .toString(),
-                                                //         value.bagList[index]
-                                                //                 ["s_rate_2"]
-                                                //             .toString(),
-                                                //         value
-                                                //             .t2qtycontroller[
-                                                //                 index]
-                                                //             .text,
-                                                //         "0",
-                                                //         "0",
-                                                //         context,
-                                                //         "save",
-                                                //         "transaction2");
-                                              },
-
-                                              textAlign: TextAlign.right,
-                                              // controller: value.qty[index],
+                                        Column(
+                                          children: [
+                                            Text("Dis :"),
+                                            SizedBox(
+                                              height: size.height * 0.02,
                                             ),
-                                          ),
+                                            Text("Qty :"),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.01,
+                                        ),
+                                        Column(
+                                          children: [
+                                            Container(
+                                              width: size.width * 0.12,
+                                              child: FocusScope(
+                                                child: TextField(
+                                                  controller: value.qty[index],
+                                                  // autofocus: true,
+                                                  onTap: () {
+                                                    // value.t2qtycontroller[index]
+                                                    //         .selection =
+                                                    //     TextSelection(
+                                                    //         baseOffset: 0,
+                                                    //         extentOffset: value
+                                                    //             .t2qtycontroller[
+                                                    //                 index]
+                                                    //             .value
+                                                    //             .text
+                                                    //             .length);
+                                                  },
+
+                                                  // autofocus: true,
+                                                  style: GoogleFonts.aBeeZee(
+                                                    textStyle: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText2,
+                                                    fontSize: 17,
+                                                    // fontWeight: FontWeight.bold,
+                                                    color: P_Settings
+                                                        .loginPagetheme,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    contentPadding:
+                                                        EdgeInsets.all(0),
+                                                    //border: InputBorder.none
+                                                  ),
+
+                                                  // maxLines: 1,
+                                                  // minLines: 1,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  onSubmitted: (values) {
+                                                    double valueqty = 0.0;
+                                                  },
+
+                                                  textAlign: TextAlign.right,
+                                                  // controller: value.qty[index],
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: size.height * 0.02,
+                                            ),
+                                            Container(
+                                              width: size.width * 0.1,
+                                              child: FocusScope(
+                                                child: TextField(
+                                                  controller: value.qty[index],
+                                                  // autofocus: true,
+                                                  onTap: () {
+                                                    // value.t2qtycontroller[index]
+                                                    //         .selection =
+                                                    //     TextSelection(
+                                                    //         baseOffset: 0,
+                                                    //         extentOffset: value
+                                                    //             .t2qtycontroller[
+                                                    //                 index]
+                                                    //             .value
+                                                    //             .text
+                                                    //             .length);
+                                                  },
+
+                                                  // autofocus: true,
+                                                  style: GoogleFonts.aBeeZee(
+                                                    textStyle: Theme.of(context)
+                                                        .textTheme
+                                                        .bodyText2,
+                                                    fontSize: 17,
+                                                    // fontWeight: FontWeight.bold,
+                                                    color: P_Settings
+                                                        .loginPagetheme,
+                                                  ),
+                                                  decoration: InputDecoration(
+                                                    isDense: true,
+                                                    contentPadding:
+                                                        EdgeInsets.all(0),
+                                                    //border: InputBorder.none
+                                                  ),
+
+                                                  // maxLines: 1,
+                                                  // minLines: 1,
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  onSubmitted: (values) {
+                                                    double valueqty = 0.0;
+                                                  },
+
+                                                  textAlign: TextAlign.right,
+                                                  // controller: value.qty[index],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                         Padding(
                                           padding:
-                                              const EdgeInsets.only(left: 28.0),
+                                              const EdgeInsets.only(left: 5.0),
                                           child: GestureDetector(
                                             onTap: () {
                                               showDialog(
@@ -338,40 +382,42 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                                       P_Settings
                                                                           .loginPagetheme),
                                                           onPressed: () async {
-                                                            var response = Provider.of<Controller>(context, listen: false).addDeletebagItem(
-                                                                "",
-                                                                value.bagList[index]
-                                                                    ['item_id'],
-                                                                value.bagList[index]
-                                                                    ['rate'],
-                                                                value.bagList[index]
-                                                                    ['qty'],
-                                                                context,
-                                                                "delete",
-                                                                widget
-                                                                    .form_type,
-                                                                value.gross,
-                                                                value.bagList[
-                                                                        index][
-                                                                    'disc_per'],
-                                                                value.bagList[
-                                                                        index][
-                                                                    'disc_amt'],
-                                                                0.0,
-                                                                0.0,
-                                                                0.0,
-                                                                0.0,
-                                                                0.0,
-                                                                0.0,
-                                                                0.0,
-                                                                0.0,
-                                                                0.0,
-                                                                value.bagList[
-                                                                        index]
-                                                                    ['net_total'],
-                                                                0.0,
-                                                                "2",
-                                                                "cart");
+                                                            var response = Provider.of<Controller>(
+                                                                    context,
+                                                                    listen:
+                                                                        false)
+                                                                .addDeletebagItem(
+                                                                    value.bagList[index][
+                                                                        "cart_id"],
+                                                                    value.bagList[index][
+                                                                        'item_id'],
+                                                                    value.bagList[
+                                                                            index]
+                                                                        [
+                                                                        'rate'],
+                                                                    value.bagList[
+                                                                            index]
+                                                                        ['qty'],
+                                                                    context,
+                                                                    "delete",
+                                                                    widget
+                                                                        .form_type,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    "2",
+                                                                    "cart");
 
                                                             Navigator.of(ctx)
                                                                 .pop();
@@ -405,7 +451,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                               size: 20,
                                             ),
                                           ),
-                                        )
+                                        ),
                                       ],
                                     ),
                                   ),
