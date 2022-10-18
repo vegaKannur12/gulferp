@@ -13,7 +13,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
+  TextEditingController searchcontroller = TextEditingController();
   bool fromDb = true;
+  bool isVisible=false;
   // bool? qtyPrd;
   bool disPerClicked = false;
   bool disamtClicked = false;
@@ -1913,5 +1915,10 @@ class Controller extends ChangeNotifier {
         }
       }
     });
+  }
+
+    setisVisible(bool isvis) {
+    isVisible = isvis;
+    notifyListeners();
   }
 }

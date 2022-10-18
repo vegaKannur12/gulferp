@@ -4,8 +4,10 @@ import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/customer/customerSelection.dart';
 import 'package:gulferp/screen/dashboard/maindashBoard.dart';
+import 'package:gulferp/screen/dynamicRow.dart';
 import 'package:gulferp/screen/history/history.dart';
 import 'package:gulferp/screen/sale/saleItemSelection.dart';
+import 'package:gulferp/screen/sale/saleSearchItem.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -340,61 +342,135 @@ class _SaleHomeState extends State<SaleHome> {
                                 SizedBox(
                                   height: size.height * 0.05,
                                 ),
-                                Container(
-                                  width: size.width * 0.35,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary: P_Settings.loginPagetheme,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            2), // <-- Radius
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      width: size.width * 0.3,
+                                      child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: P_Settings.loginPagetheme,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                2), // <-- Radius
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "Next",
+                                          style: GoogleFonts.aBeeZee(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: P_Settings.buttonColor),
+                                        ),
+                                        onPressed: () async {
+                                          Provider.of<Controller>(context,
+                                                  listen: false)
+                                              .getItemCategory(context);
+
+                                          List<Map<String, dynamic>> list =
+                                              await Provider.of<Controller>(
+                                                      context,
+                                                      listen: false)
+                                                  .getProductDetails(
+                                                      "0", "", widget.formType);
+                                          print(
+                                              "value.gtype------${value.gtype1}");
+                                          if (value.gtype1 == null) {
+                                            cusVisible.value = true;
+                                          } else {
+                                            cusVisible.value = false;
+                                            if (list.length > 0) {
+                                              print(
+                                                  "type from main.......${widget.type}");
+                                              Navigator.of(context).push(
+                                                PageRouteBuilder(
+                                                    opaque:
+                                                        false, // set to false
+                                                    pageBuilder: (_, __, ___) =>
+                                                        SaleSearchItem()
+                                                    // OrderForm(widget.areaname,"return"),
+                                                    ),
+                                              );
+                                              // Navigator.of(context).push(
+                                              //   PageRouteBuilder(
+                                              //       opaque:
+                                              //           false, // set to false
+                                              //       pageBuilder: (_, __, ___) =>
+                                              //           SaleItemSelection(
+                                              //             list: list,
+                                              //             type: widget.type,
+                                              //             remark: remrk.text,
+                                              //             formType:
+                                              //                 widget.formType,
+                                              //             g_type: value.gtype1!,
+                                              //           )
+                                              //       // OrderForm(widget.areaname,"return"),
+                                              //       ),
+                                              // );
+                                            }
+                                          }
+                                        },
                                       ),
                                     ),
-                                    child: Text(
-                                      "Next",
-                                      style: GoogleFonts.aBeeZee(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .bodyText2,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                          color: P_Settings.buttonColor),
-                                    ),
-                                    onPressed: () async {
-                                      Provider.of<Controller>(context,
-                                              listen: false)
-                                          .getItemCategory(context);
+                                    // SizedBox(width: size.width*0.01,),
+                                    // Container(
+                                    //   width: size.width * 0.3,
+                                    //   child: ElevatedButton(
+                                    //     style: ElevatedButton.styleFrom(
+                                    //       primary: P_Settings.loginPagetheme,
+                                    //       shape: RoundedRectangleBorder(
+                                    //         borderRadius: BorderRadius.circular(
+                                    //             2), // <-- Radius
+                                    //       ),
+                                    //     ),
+                                    //     child: Text(
+                                    //       "Next1 ",
+                                    //       style: GoogleFonts.aBeeZee(
+                                    //           textStyle: Theme.of(context)
+                                    //               .textTheme
+                                    //               .bodyText2,
+                                    //           fontSize: 16,
+                                    //           fontWeight: FontWeight.bold,
+                                    //           color: P_Settings.buttonColor),
+                                    //     ),
+                                    //     onPressed: () async {
+                                    //       // Provider.of<Controller>(context,
+                                    //       //         listen: false)
+                                    //       //     .getItemCategory(context);
 
-                                      List<Map<String, dynamic>> list =
-                                          await Provider.of<Controller>(context,
-                                                  listen: false)
-                                              .getProductDetails(
-                                                  "0", "", widget.formType);
-                                      print("value.gtype------${value.gtype1}");
-                                      if (value.gtype1 == null) {
-                                        cusVisible.value = true;
-                                      } else {
-                                        cusVisible.value = false;
-                                        if (list.length > 0) {
-                                          print("type from main.......${widget.type}");
-                                          Navigator.of(context).push(
-                                            PageRouteBuilder(
-                                                opaque: false, // set to false
-                                                pageBuilder: (_, __, ___) =>
-                                                    SaleItemSelection(
-                                                      list: list,
-                                                      type:widget.type,
-                                                      remark: remrk.text,
-                                                      formType: widget.formType,
-                                                      g_type: value.gtype1!,
-                                                    )
-                                                // OrderForm(widget.areaname,"return"),
-                                                ),
-                                          );
-                                        }
-                                      }
-                                    },
-                                  ),
+                                    //       List<Map<String, dynamic>> list =
+                                    //           await Provider.of<Controller>(
+                                    //                   context,
+                                    //                   listen: false)
+                                    //               .getProductDetails(
+                                    //                   "0", "",widget.formType);
+                                    //       print(
+                                    //           "value.gtype------${value.gtype1}");
+                                    //       if (value.gtype1 == null) {
+                                    //         cusVisible.value = true;
+                                    //       } else {
+                                    //         cusVisible.value = false;
+                                    //         if (list.length > 0) {
+                                    //           print(
+                                    //               "type from main.......${widget.type}");
+                                    //           Navigator.of(context).push(
+                                    //             PageRouteBuilder(
+                                    //                 opaque:
+                                    //                     false, // set to false
+                                    //                 pageBuilder: (_, __, ___) =>
+                                    //                     DynamicRowAdd()
+                                    //                 // OrderForm(widget.areaname,"return"),
+                                    //                 ),
+                                    //           );
+                                    //         }
+                                    //       }
+                                    //     },
+                                    //   ),
+                                    // ),
+                                  ],
                                 ),
                               ],
                             ),

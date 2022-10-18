@@ -8,6 +8,8 @@ import 'package:gulferp/screen/splashScreen.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
+import 'screen/dynamicRow.dart';
+
 // registration id
 // DZNFEJY9OTOA
 void requestPermission() async {
