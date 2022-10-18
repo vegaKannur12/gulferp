@@ -150,7 +150,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                 child: Card(
                   elevation: 12,
                   child: ListTile(
-                    tileColor: Colors.green[100],
+                    tileColor: Colors.white,
                     onTap: () {
                       value.searchList.clear();
                       value.searchcontroller.clear();
@@ -209,11 +209,11 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                               .textTheme
                                               .bodyText2,
                                           fontSize: 15,
-                                          // fontWeight: FontWeight.bold,
+                                          fontWeight: FontWeight.bold,
                                           color: P_Settings.loginPagetheme),
                                     ),
                                     subtitle: Padding(
-                                      padding: const EdgeInsets.only(right: 10),
+                                      padding: const EdgeInsets.only(right: 10,top: 5),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -229,7 +229,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                             ),
                                           ),
                                           Text(
-                                            "Stock :\u{20B9}${value.bagList[index]["s_rate_fix"]}",
+                                            "Stock : ${value.bagList[index]["stock"]}",
                                             style: GoogleFonts.aBeeZee(
                                               textStyle: Theme.of(context)
                                                   .textTheme
