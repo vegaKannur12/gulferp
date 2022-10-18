@@ -390,7 +390,7 @@ class _SaleHomeState extends State<SaleHome> {
                                                     opaque:
                                                         false, // set to false
                                                     pageBuilder: (_, __, ___) =>
-                                                        SaleSearchItem()
+                                                        SaleSearchItem(form_type: widget.formType,remark: remrk.text,)
                                                     // OrderForm(widget.areaname,"return"),
                                                     ),
                                               );
