@@ -278,16 +278,17 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                                 .qty[index],
                                                             // autofocus: true,
                                                             onTap: () {
-                                                              // value.t2qtycontroller[index]
-                                                              //         .selection =
-                                                              //     TextSelection(
-                                                              //         baseOffset: 0,
-                                                              //         extentOffset: value
-                                                              //             .t2qtycontroller[
-                                                              //                 index]
-                                                              //             .value
-                                                              //             .text
-                                                              //             .length);
+                                                              value.qty[index]
+                                                                      .selection =
+                                                                  TextSelection(
+                                                                      baseOffset:
+                                                                          0,
+                                                                      extentOffset: value
+                                                                          .qty[
+                                                                              index]
+                                                                          .value
+                                                                          .text
+                                                                          .length);
                                                             },
 
                                                             // autofocus: true,
@@ -320,6 +321,81 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                                 (values) {
                                                               double valueqty =
                                                                   0.0;
+                                                              Provider.of<Controller>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .rawCalculation(
+                                                                      double
+                                                                          .parse(
+                                                                        value.bagList[index]
+                                                                            [
+                                                                            "s_rate_fix"],
+                                                                      ),
+                                                                      double.parse(value
+                                                                          .qty[
+                                                                              index]
+                                                                          .text),
+                                                                      double.parse(value
+                                                                          .discount_prercent[
+                                                                              index]
+                                                                          .text),
+                                                                      double.parse(value
+                                                                          .discount_amount[
+                                                                              index]
+                                                                          .text),
+                                                                      double.parse(
+                                                                          value.searchList[index]
+                                                                              [
+                                                                              "gst"]),
+                                                                      double.parse(
+                                                                          value.searchList[index]
+                                                                              ["cess"]),
+                                                                      "0",
+                                                                      int.parse(widget.gtype!),
+                                                                      index,
+                                                                      false,
+                                                                      "qty");
+
+                                                              Provider.of<Controller>(context, listen: false).addDeletebagItem(
+                                                                  "0",
+                                                                  value.bagList[index][
+                                                                      "item_id"],
+                                                                  value.bagList[index][
+                                                                          "s_rate_fix"]
+                                                                      .toString(),
+                                                                  value
+                                                                      .qty[
+                                                                          index]
+                                                                      .text,
+                                                                  context,
+                                                                  "save",
+                                                                  widget
+                                                                      .form_type,
+                                                                  value.gross,
+                                                                  double.parse(value
+                                                                      .discount_prercent[
+                                                                          index]
+                                                                      .text),
+                                                                  double.parse(value
+                                                                      .discount_amount[
+                                                                          index]
+                                                                      .text),
+                                                                  double.parse(
+                                                                      value.bagList[index]
+                                                                          ["taxable"]),
+                                                                  value.cgst_amt,
+                                                                  value.sgst_amt,
+                                                                  value.igst_amt,
+                                                                  value.cgst_per,
+                                                                  value.sgst_per,
+                                                                  value.igst_per,
+                                                                  value.bagList[index]["cess_per"],
+                                                                  value.bagList[index]["cess_amt"],
+                                                                  value.net_amt,
+                                                                  value.bagList[index]["tax"],
+                                                                  "0",
+                                                                  "cart");
                                                             },
 
                                                             textAlign:
@@ -360,16 +436,19 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                                 index],
                                                             // autofocus: true,
                                                             onTap: () {
-                                                              // value.t2qtycontroller[index]
-                                                              //         .selection =
-                                                              //     TextSelection(
-                                                              //         baseOffset: 0,
-                                                              //         extentOffset: value
-                                                              //             .t2qtycontroller[
-                                                              //                 index]
-                                                              //             .value
-                                                              //             .text
-                                                              //             .length);
+                                                              value
+                                                                      .discount_amount[
+                                                                          index]
+                                                                      .selection =
+                                                                  TextSelection(
+                                                                      baseOffset:
+                                                                          0,
+                                                                      extentOffset: value
+                                                                          .discount_amount[
+                                                                              index]
+                                                                          .value
+                                                                          .text
+                                                                          .length);
                                                             },
 
                                                             // autofocus: true,
@@ -400,8 +479,81 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                                     .number,
                                                             onSubmitted:
                                                                 (values) {
-                                                              double valueqty =
-                                                                  0.0;
+                                                              Provider.of<Controller>(
+                                                                      context,
+                                                                      listen:
+                                                                          false)
+                                                                  .rawCalculation(
+                                                                      double
+                                                                          .parse(
+                                                                        value.bagList[index]
+                                                                            [
+                                                                            "s_rate_fix"],
+                                                                      ),
+                                                                      double.parse(value
+                                                                          .qty[
+                                                                              index]
+                                                                          .text),
+                                                                      double.parse(value
+                                                                          .discount_prercent[
+                                                                              index]
+                                                                          .text),
+                                                                      double.parse(value
+                                                                          .discount_amount[
+                                                                              index]
+                                                                          .text),
+                                                                      double.parse(
+                                                                          value.searchList[index]
+                                                                              [
+                                                                              "gst"]),
+                                                                      double.parse(
+                                                                          value.searchList[index]
+                                                                              ["cess"]),
+                                                                      "0",
+                                                                      int.parse(widget.gtype!),
+                                                                      index,
+                                                                      false,
+                                                                      "disc_amt");
+
+                                                              Provider.of<Controller>(context, listen: false).addDeletebagItem(
+                                                                  "0",
+                                                                  value.bagList[index][
+                                                                      "item_id"],
+                                                                  value.bagList[index][
+                                                                          "s_rate_fix"]
+                                                                      .toString(),
+                                                                  value
+                                                                      .qty[
+                                                                          index]
+                                                                      .text,
+                                                                  context,
+                                                                  "save",
+                                                                  widget
+                                                                      .form_type,
+                                                                  value.gross,
+                                                                  double.parse(value
+                                                                      .discount_prercent[
+                                                                          index]
+                                                                      .text),
+                                                                  double.parse(value
+                                                                      .discount_amount[
+                                                                          index]
+                                                                      .text),
+                                                                  double.parse(
+                                                                      value.bagList[index]
+                                                                          ["taxable"]),
+                                                                  value.cgst_amt,
+                                                                  value.sgst_amt,
+                                                                  value.igst_amt,
+                                                                  value.cgst_per,
+                                                                  value.sgst_per,
+                                                                  value.igst_per,
+                                                                  value.bagList[index]["cess_per"],
+                                                                  value.bagList[index]["cess_amt"],
+                                                                  value.net_amt,
+                                                                  value.bagList[index]["tax"],
+                                                                  "0",
+                                                                  "cart");
                                                             },
 
                                                             textAlign:
@@ -419,30 +571,35 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                         ),
                                         // Row(children: [Text("dzkshfjkzdjk")],),
                                         Divider(),
-                                        GestureDetector(
-                                          onTap: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (ctx) => AlertDialog(
-                                                content: Text(
-                                                    "Do you want to delete (${value.bagList[index]["item_name"]}) ???"),
-                                                actions: <Widget>[
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                                primary: P_Settings
-                                                                    .loginPagetheme),
-                                                        onPressed: () async {
-                                                          var response = Provider.of<Controller>(
-                                                                  context,
-                                                                  listen: false)
-                                                              .addDeletebagItem(
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (ctx) => AlertDialog(
+                                                    content: Text(
+                                                        "Do you want to delete (${value.bagList[index]["item_name"]}) ???"),
+                                                    actions: <Widget>[
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          ElevatedButton(
+                                                            style: ElevatedButton
+                                                                .styleFrom(
+                                                                    primary:
+                                                                        P_Settings
+                                                                            .loginPagetheme),
+                                                            onPressed:
+                                                                () async {
+                                                              var response = Provider.of<Controller>(context, listen: false).addDeletebagItem(
                                                                   value.bagList[
-                                                                          index][
+                                                                          index]
+                                                                      [
                                                                       "cart_id"],
                                                                   value.bagList[
                                                                           index]
@@ -456,7 +613,8 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                                       ['qty'],
                                                                   context,
                                                                   "delete",
-                                                                  widget.form_type,
+                                                                  widget
+                                                                      .form_type,
                                                                   0.0,
                                                                   0.0,
                                                                   0.0,
@@ -474,53 +632,96 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                                   "2",
                                                                   "");
 
-                                                          Navigator.of(ctx)
-                                                              .pop();
-                                                        },
-                                                        child: Text("Ok"),
-                                                      ),
-                                                      SizedBox(
-                                                        width:
-                                                            size.width * 0.01,
-                                                      ),
-                                                      ElevatedButton(
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                                primary: P_Settings
-                                                                    .loginPagetheme),
-                                                        onPressed: () {
-                                                          Navigator.of(ctx)
-                                                              .pop();
-                                                        },
-                                                        child: Text("Cancel"),
+                                                              Navigator.of(ctx)
+                                                                  .pop();
+                                                            },
+                                                            child: Text("Ok"),
+                                                          ),
+                                                          SizedBox(
+                                                            width: size.width *
+                                                                0.01,
+                                                          ),
+                                                          ElevatedButton(
+                                                            style: ElevatedButton
+                                                                .styleFrom(
+                                                                    primary:
+                                                                        P_Settings
+                                                                            .loginPagetheme),
+                                                            onPressed: () {
+                                                              Navigator.of(ctx)
+                                                                  .pop();
+                                                            },
+                                                            child:
+                                                                Text("Cancel"),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ],
                                                   ),
+                                                );
+                                              },
+                                              child: Row(
+                                                children: [
+                                                  Text(
+                                                    "Remove",
+                                                    style: GoogleFonts.aBeeZee(
+                                                        textStyle:
+                                                            Theme.of(context)
+                                                                .textTheme
+                                                                .bodyText2,
+                                                        fontSize: 15,
+                                                        fontStyle:
+                                                            FontStyle.italic,
+                                                        // fontWeight: FontWeight.bold,
+                                                        color: P_Settings
+                                                            .loginPagetheme),
+                                                  ),
+                                                  Icon(
+                                                    Icons.close,
+                                                    color: Colors.red,
+                                                    size: 17,
+                                                  )
                                                 ],
                                               ),
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                "Remove",
-                                                style: GoogleFonts.aBeeZee(
-                                                    textStyle: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText2,
-                                                    fontSize: 15,
-                                                    fontStyle: FontStyle.italic,
-                                                    // fontWeight: FontWeight.bold,
-                                                    color: P_Settings
-                                                        .loginPagetheme),
-                                              ),
-                                              Icon(
-                                                Icons.close,
-                                                color: Colors.red,
-                                                size: 17,
-                                              )
-                                            ],
-                                          ),
+                                            ),
+                                            Row(
+                                              // mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      "Total Price : ",
+                                                      style:
+                                                          GoogleFonts.aBeeZee(
+                                                        textStyle:
+                                                            Theme.of(context)
+                                                                .textTheme
+                                                                .bodyText2,
+                                                        fontSize: 14,
+                                                        color:
+                                                            P_Settings.bagText,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      "\u{20B9}${value.bagList[index]["net_total"]}",
+                                                      style:
+                                                          GoogleFonts.aBeeZee(
+                                                        textStyle:
+                                                            Theme.of(context)
+                                                                .textTheme
+                                                                .bodyText2,
+                                                        fontSize: 15,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color:
+                                                            P_Settings.redclr,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                          ],
                                         )
                                       ],
                                     ),
