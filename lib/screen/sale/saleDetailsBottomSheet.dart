@@ -201,7 +201,7 @@ class SaleDetailsBottomSheet {
                                   //         listen: false)
                                   //     .fromDb = false;
 
-                              Provider.of<Controller>(context,
+                                  Provider.of<Controller>(context,
                                           listen: false)
                                       .rawCalculation(
                                           srate1,
@@ -710,7 +710,7 @@ class SaleDetailsBottomSheet {
                                   if (value.qty[index].text == "1") {
                                     value.qty[index].text = "1.0";
                                   }
-                                  value.applyClicked[index]=true;
+                                  value.applyClicked[index] = true;
                                   print(
                                       "quantity after updates.....$formType...${value.qty[index].text}");
                                   Provider.of<Controller>(context,
