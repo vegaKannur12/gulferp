@@ -223,6 +223,8 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                               Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     "SRate :\u{20B9}${value.bagList[index]["s_rate_fix"]}",
@@ -236,7 +238,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    "Stock :\u{20B9}${value.bagList[index]["s_rate_fix"]}",
+                                                    "Stock :\u{20B9}${value.bagList[index]["stock"]}",
                                                     style: GoogleFonts.aBeeZee(
                                                       textStyle:
                                                           Theme.of(context)
