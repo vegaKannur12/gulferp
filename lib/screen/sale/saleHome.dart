@@ -390,7 +390,11 @@ class _SaleHomeState extends State<SaleHome> {
                                                     opaque:
                                                         false, // set to false
                                                     pageBuilder: (_, __, ___) =>
-                                                        SaleSearchItem()
+                                                        SaleSearchItem(
+                                                          formType:
+                                                              widget.formType,
+                                                          gtype: value.gtype1!,
+                                                        )
                                                     // OrderForm(widget.areaname,"return"),
                                                     ),
                                               );

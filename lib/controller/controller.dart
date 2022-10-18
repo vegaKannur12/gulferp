@@ -15,11 +15,16 @@ import 'package:http/http.dart' as http;
 class Controller extends ChangeNotifier {
   TextEditingController searchcontroller = TextEditingController();
   bool fromDb = true;
-  bool isVisible=false;
+  List<bool> addtoCart = [];
+  List<TextEditingController> qtycontroller = [];
+  List<TextEditingController> t2qtycontroller = [];
+  bool isVisible = false;
   // bool? qtyPrd;
   bool disPerClicked = false;
   bool disamtClicked = false;
   String? qttyProd;
+  bool isSearchLoading = false;
+
   bool isLoading = false;
   bool filter = false;
   String? gtype1;
@@ -880,6 +885,7 @@ class Controller extends ChangeNotifier {
     notifyListeners();
   }
 
+//////////////////////////////////////////////////////
   String rawCalculation(
       double rate,
       double qtyw,
@@ -894,7 +900,7 @@ class Controller extends ChangeNotifier {
       String? disCalc) {
     flag = false;
 
-    print("attribute---$tax_per----$qtyw");
+    print("attribute---$tax_per----$qtyw-----$state_status--$rate---$disc_per----$disc_amount---$cess_per");
     if (method == "0") {
       /////////////////////////////////method=="0" - excluisive , method=1 - inclusive
       taxable_rate = rate;
@@ -1708,27 +1714,37 @@ class Controller extends ChangeNotifier {
           };
           print("body-----$body");
           // isDownloaded = true;
-          isLoading = true;
-          // notifyListeners();
+          // isLoading = true;
+          isSearchLoading = true;
+          notifyListeners();
 
           http.Response response = await http.post(
             url,
             body: body,
           );
           var map = jsonDecode(response.body);
-          print("item_search_s------$map");
+
           searchList.clear();
           for (var item in map) {
             searchList.add(item);
           }
+          print("searchList------$searchList");
+          qtycontroller = List.generate(
+            searchList.length,
+            (index) => TextEditingController(),
+          );
+          discount_prercent = List.generate(
+              searchList.length, (index) => TextEditingController());
+          discount_amount = List.generate(
+              searchList.length, (index) => TextEditingController());
+          addtoCart = List.generate(searchList.length, (index) => false);
 
-          // qtycontroller = List.generate(
-          //   searchList.length,
-          //   (index) => TextEditingController(),
-          // );
-          // addtoCart = List.generate(searchList.length, (index) => false);
-
-          isLoading = false;
+          for (int i = 0; i < searchList.length; i++) {
+            discount_prercent[i].text = "0";
+            discount_amount[i].text = "0";
+          }
+          isSearchLoading = false;
+          // isLoading = false;
           notifyListeners();
 
           /////////////// insert into local db /////////////////////
@@ -1923,8 +1939,14 @@ class Controller extends ChangeNotifier {
     });
   }
 
-    setisVisible(bool isvis) {
+  setisVisible(bool isvis) {
     isVisible = isvis;
     notifyListeners();
   }
+
+  addToCartClicked(bool clicked, int index) {
+    addtoCart[index] = clicked;
+    notifyListeners();
+  }
+  ///////////////////////////////////////////
 }
