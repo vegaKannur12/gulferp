@@ -518,12 +518,14 @@ class Controller extends ChangeNotifier {
           discount_amount =
               List.generate(bagList.length, (index) => TextEditingController());
           for (int i = 0; i < bagList.length; i++) {
-           
+            // print("qty------${productList[i]["qty"]}");
             qty[i].text = bagList[i]["qty"].toString();
             discount_prercent[i].text = bagList[i]["disc_per"].toString();
             discount_amount[i].text = bagList[i]["disc_amt"].toString();
           }
+
           print("bag list data........${bagList}");
+
           item_count = bagList.length;
           net_tot = 0.00;
           gro_tot = 0.00;
