@@ -548,10 +548,10 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                                   value.cgst_per,
                                                                   value.sgst_per,
                                                                   value.igst_per,
-                                                                  value.bagList[index]["cess_per"],
-                                                                  value.bagList[index]["cess_amt"],
+                                                                  double.parse(value.bagList[index]["cess_per"]),
+                                                                  double.parse(value.bagList[index]["cess_amt"]),
                                                                   value.net_amt,
-                                                                  value.bagList[index]["tax"],
+                                                                  double.parse(value.bagList[index]["tax"]),
                                                                   "0",
                                                                   "cart");
                                                             },
