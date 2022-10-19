@@ -76,27 +76,37 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                               value.igst_total.toString(),
                                               value.taxable_total.toString(),
                                               value.total_qty.toString())
-                                      : Provider.of<Controller>(context,
-                                              listen: false)
-                                          .saveSaleReturnCartDetails(
-                                              context,
-                                              widget.remark!,
-                                              "0",
-                                              "0",
-                                              "save",
-                                              widget.form_type,
-                                              value.cus_id!,
-                                              value.cusName1!,
-                                              "0",
-                                              value.dis_tot.toString(),
-                                              value.cess_total.toString(),
-                                              value.net_tot.toString(),
-                                              "0",
-                                              value.cgst_total.toString(),
-                                              value.sgst_total.toString(),
-                                              value.igst_total.toString(),
-                                              value.taxable_total.toString(),
-                                              value.total_qty.toString());
+                                      : widget.form_type == "2"
+                                          ? Provider.of<Controller>(context,
+                                                  listen: false)
+                                              .saveSaleReturnCartDetails(
+                                                  context,
+                                                  widget.remark!,
+                                                  "0",
+                                                  "0",
+                                                  "save",
+                                                  widget.form_type,
+                                                  value.cus_id!,
+                                                  value.cusName1!,
+                                                  "0",
+                                                  value.dis_tot.toString(),
+                                                  value.cess_total.toString(),
+                                                  value.net_tot.toString(),
+                                                  "0",
+                                                  value.cgst_total.toString(),
+                                                  value.sgst_total.toString(),
+                                                  value.igst_total.toString(),
+                                                  value.taxable_total
+                                                      .toString(),
+                                                  value.total_qty.toString())
+                                          : Provider.of<Controller>(context,
+                                                  listen: false)
+                                              .saveUnloadVehicleDetails(
+                                                  context,
+                                                  "0",
+                                                  "save",
+                                                  widget.form_type,
+                                                  "0");
                                   // Navigator.of(ctx).pop();
                                 },
                                 child: Text("Ok"),
@@ -437,161 +447,150 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                   SizedBox(
                                                     height: size.height * 0.01,
                                                   ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      Text(
-                                                        "Disc amt: ",
-                                                        style:
-                                                            GoogleFonts.aBeeZee(
-                                                          textStyle:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyText2,
-                                                          fontSize: 14,
-                                                          color: P_Settings
-                                                              .bagText,
-                                                        ),
-                                                      ),
-                                                      Container(
-                                                        width:
-                                                            size.width * 0.12,
-                                                        child: FocusScope(
-                                                          child: TextField(
-                                                            controller: value
-                                                                    .discount_amount[
-                                                                index],
-                                                            // autofocus: true,
-                                                            onTap: () {
-                                                              value
-                                                                      .discount_amount[
-                                                                          index]
-                                                                      .selection =
-                                                                  TextSelection(
-                                                                      baseOffset:
-                                                                          0,
-                                                                      extentOffset: value
-                                                                          .discount_amount[
-                                                                              index]
-                                                                          .value
-                                                                          .text
-                                                                          .length);
-                                                            },
-
-                                                            // autofocus: true,
-                                                            style: GoogleFonts
-                                                                .aBeeZee(
-                                                              textStyle: Theme.of(
-                                                                      context)
-                                                                  .textTheme
-                                                                  .bodyText2,
-                                                              fontSize: 17,
-                                                              // fontWeight: FontWeight.bold,
-                                                              color: P_Settings
-                                                                  .loginPagetheme,
+                                                  widget.form_type == "3"
+                                                      ? Container()
+                                                      : Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Text(
+                                                              "Disc amt: ",
+                                                              style: GoogleFonts
+                                                                  .aBeeZee(
+                                                                textStyle: Theme.of(
+                                                                        context)
+                                                                    .textTheme
+                                                                    .bodyText2,
+                                                                fontSize: 14,
+                                                                color: P_Settings
+                                                                    .bagText,
+                                                              ),
                                                             ),
-                                                            decoration:
-                                                                InputDecoration(
-                                                              isDense: true,
-                                                              contentPadding:
-                                                                  EdgeInsets
-                                                                      .all(0),
-                                                              //border: InputBorder.none
-                                                            ),
+                                                            Container(
+                                                              width:
+                                                                  size.width *
+                                                                      0.12,
+                                                              child: FocusScope(
+                                                                child:
+                                                                    TextField(
+                                                                  controller:
+                                                                      value.discount_amount[
+                                                                          index],
+                                                                  // autofocus: true,
+                                                                  onTap: () {
+                                                                    value.discount_amount[index].selection = TextSelection(
+                                                                        baseOffset:
+                                                                            0,
+                                                                        extentOffset: value
+                                                                            .discount_amount[index]
+                                                                            .value
+                                                                            .text
+                                                                            .length);
+                                                                  },
 
-                                                            // maxLines: 1,
-                                                            // minLines: 1,
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .number,
-                                                            onSubmitted:
-                                                                (values) {
-                                                              Provider.of<Controller>(
-                                                                      context,
-                                                                      listen:
-                                                                          false)
-                                                                  .rawCalculation(
-                                                                      double
-                                                                          .parse(
-                                                                        value.bagList[index]
-                                                                            [
-                                                                            "s_rate_fix"],
-                                                                      ),
-                                                                      double.parse(value
-                                                                          .qty[
-                                                                              index]
-                                                                          .text),
-                                                                      double.parse(value
-                                                                          .discount_prercent[
-                                                                              index]
-                                                                          .text),
-                                                                      double.parse(value
-                                                                          .discount_amount[
-                                                                              index]
-                                                                          .text),
-                                                                      double.parse(
+                                                                  // autofocus: true,
+                                                                  style: GoogleFonts
+                                                                      .aBeeZee(
+                                                                    textStyle: Theme.of(
+                                                                            context)
+                                                                        .textTheme
+                                                                        .bodyText2,
+                                                                    fontSize:
+                                                                        17,
+                                                                    // fontWeight: FontWeight.bold,
+                                                                    color: P_Settings
+                                                                        .loginPagetheme,
+                                                                  ),
+                                                                  decoration:
+                                                                      InputDecoration(
+                                                                    isDense:
+                                                                        true,
+                                                                    contentPadding:
+                                                                        EdgeInsets
+                                                                            .all(0),
+                                                                    //border: InputBorder.none
+                                                                  ),
+
+                                                                  // maxLines: 1,
+                                                                  // minLines: 1,
+                                                                  keyboardType:
+                                                                      TextInputType
+                                                                          .number,
+                                                                  onSubmitted:
+                                                                      (values) {
+                                                                    Provider.of<Controller>(context, listen: false).rawCalculation(
+                                                                        double.parse(
                                                                           value.bagList[index]
                                                                               [
-                                                                              "tax"]),
-                                                                      double.parse(
-                                                                          value.bagList[index]
-                                                                              ["cess_per"]),
-                                                                      "0",
-                                                                      int.parse(widget.gtype!),
-                                                                      index,
-                                                                      false,
-                                                                      "disc_amt");
+                                                                              "s_rate_fix"],
+                                                                        ),
+                                                                        double.parse(value.qty[index].text),
+                                                                        double.parse(value.discount_prercent[index].text),
+                                                                        double.parse(value.discount_amount[index].text),
+                                                                        double.parse(value.bagList[index]["tax"]),
+                                                                        double.parse(value.bagList[index]["cess_per"]),
+                                                                        "0",
+                                                                        int.parse(widget.gtype!),
+                                                                        index,
+                                                                        false,
+                                                                        "disc_amt");
 
-                                                              Provider.of<Controller>(context, listen: false).addDeletebagItem(
-                                                                  "0",
-                                                                  value.bagList[index][
-                                                                      "item_id"],
-                                                                  value.bagList[index][
-                                                                          "s_rate_fix"]
-                                                                      .toString(),
-                                                                  value
-                                                                      .qty[
-                                                                          index]
-                                                                      .text,
-                                                                  context,
-                                                                  "save",
-                                                                  widget
-                                                                      .form_type,
-                                                                  value.gross,
-                                                                  double.parse(value
-                                                                      .discount_prercent[
-                                                                          index]
-                                                                      .text),
-                                                                  double.parse(value
-                                                                      .discount_amount[
-                                                                          index]
-                                                                      .text),
-                                                                  double.parse(
-                                                                      value.bagList[index]
-                                                                          ["taxable"]),
-                                                                  value.cgst_amt,
-                                                                  value.sgst_amt,
-                                                                  value.igst_amt,
-                                                                  value.cgst_per,
-                                                                  value.sgst_per,
-                                                                  value.igst_per,
-                                                                  double.parse(value.bagList[index]["cess_per"]),
-                                                                  double.parse(value.bagList[index]["cess_amt"]),
-                                                                  value.net_amt,
-                                                                  double.parse(value.bagList[index]["tax"]),
-                                                                  "0",
-                                                                  "cart");
-                                                            },
+                                                                    Provider.of<Controller>(context, listen: false).addDeletebagItem(
+                                                                        "0",
+                                                                        value.bagList[index]
+                                                                            [
+                                                                            "item_id"],
+                                                                        value.bagList[index]["s_rate_fix"]
+                                                                            .toString(),
+                                                                        value
+                                                                            .qty[
+                                                                                index]
+                                                                            .text,
+                                                                        context,
+                                                                        "save",
+                                                                        widget
+                                                                            .form_type,
+                                                                        value
+                                                                            .gross,
+                                                                        double.parse(value
+                                                                            .discount_prercent[
+                                                                                index]
+                                                                            .text),
+                                                                        double.parse(value
+                                                                            .discount_amount[
+                                                                                index]
+                                                                            .text),
+                                                                        double.parse(value.bagList[index]
+                                                                            [
+                                                                            "taxable"]),
+                                                                        value
+                                                                            .cgst_amt,
+                                                                        value
+                                                                            .sgst_amt,
+                                                                        value
+                                                                            .igst_amt,
+                                                                        value
+                                                                            .cgst_per,
+                                                                        value.sgst_per,
+                                                                        value.igst_per,
+                                                                        double.parse(value.bagList[index]["cess_per"]),
+                                                                        double.parse(value.bagList[index]["cess_amt"]),
+                                                                        value.net_amt,
+                                                                        double.parse(value.bagList[index]["tax"]),
+                                                                        "0",
+                                                                        "cart");
+                                                                  },
 
-                                                            textAlign:
-                                                                TextAlign.right,
-                                                            // controller: value.qty[index],
-                                                          ),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .right,
+                                                                  // controller: value.qty[index],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
                                                   // SizedBox(
                                                   //   height: size.height * 0.01,
                                                   // ),
@@ -888,21 +887,39 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                             P_Settings.bagText,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      "\u{20B9}${value.bagList[index]["net_total"]}",
-                                                      style:
-                                                          GoogleFonts.aBeeZee(
-                                                        textStyle:
-                                                            Theme.of(context)
-                                                                .textTheme
-                                                                .bodyText2,
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            P_Settings.redclr,
-                                                      ),
-                                                    ),
+                                                    widget.form_type == "3"
+                                                        ? Text(
+                                                            "\u{20B9}${value.bagList[index]["gross"]}",
+                                                            style: GoogleFonts
+                                                                .aBeeZee(
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: P_Settings
+                                                                  .redclr,
+                                                            ),
+                                                          )
+                                                        : Text(
+                                                            "\u{20B9}${value.bagList[index]["net_total"]}",
+                                                            style: GoogleFonts
+                                                                .aBeeZee(
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: P_Settings
+                                                                  .redclr,
+                                                            ),
+                                                          ),
                                                   ],
                                                 )
                                               ],
