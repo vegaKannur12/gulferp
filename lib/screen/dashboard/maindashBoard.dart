@@ -228,7 +228,7 @@ class _MainDashboardState extends State<MainDashboard> {
                                 pageBuilder: (_, __, ___) => SaleSearchItem(
                                       form_type: "3",
                                       remark: "",
-                                      gtype: "",
+                                      gtype: "1",
                                     )
                                 // OrderForm(widget.areaname,"return"),
                                 ),

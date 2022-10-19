@@ -421,7 +421,7 @@ class Controller extends ChangeNotifier {
             'form_type': form_type,
             'tax': tax_per.toString()
           };
-          print("body-----$body---$action");
+          print("addvdeltebody-----$body---$action");
           if (action != "delete") {
             if (action != "save" && page != "cart") {
               isLoading = true;
@@ -508,24 +508,30 @@ class Controller extends ChangeNotifier {
           bagList.clear();
           if (map != null) {
             for (var item in map) {
-              print("map....");
+              // print("map....");
               productListModel = ProductListModel.fromJson(item);
               bagList.add(item);
             }
           }
-          discount_prercent =
-              List.generate(bagList.length, (index) => TextEditingController());
-          discount_amount =
-              List.generate(bagList.length, (index) => TextEditingController());
+          if (form_type == "1" || form_type == "2") {
+            discount_prercent = List.generate(
+                bagList.length, (index) => TextEditingController());
+            discount_amount = List.generate(
+                bagList.length, (index) => TextEditingController());
+          } else if (form_type == "3") {
+            qty = List.generate(
+                bagList.length, (index) => TextEditingController());
+          }
+
           for (int i = 0; i < bagList.length; i++) {
             // print("qty------${productList[i]["qty"]}");
             qty[i].text = bagList[i]["qty"].toString();
-            discount_prercent[i].text = bagList[i]["disc_per"].toString();
-            discount_amount[i].text = bagList[i]["disc_amt"].toString();
+            if (form_type == "1" || form_type == "2") {
+              discount_prercent[i].text = bagList[i]["disc_per"].toString();
+              discount_amount[i].text = bagList[i]["disc_amt"].toString();
+            }
           }
-
-          print("bag list data........${bagList}");
-
+        print("baglist------$bagList");
           item_count = bagList.length;
           net_tot = 0.00;
           gro_tot = 0.00;

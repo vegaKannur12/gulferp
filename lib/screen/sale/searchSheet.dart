@@ -322,67 +322,21 @@ class SearchBottomSheet {
                                                                       true,
                                                                       index);
 
-                                                              if (formType ==
-                                                                      "1" ||
-                                                                  formType ==
-                                                                      "2") {
-                                                                Provider.of<Controller>(
-                                                                        context,
-                                                                        listen:
-                                                                            false)
-                                                                    .rawCalculation(
-                                                                        double
-                                                                            .parse(
-                                                                          value.searchList[index]
-                                                                              [
-                                                                              "s_rate_fix"],
-                                                                        ),
-                                                                        double.parse(value
-                                                                            .qtycontroller[
-                                                                                index]
-                                                                            .text),
-                                                                        double.parse(value
-                                                                            .discount_prercent[
-                                                                                index]
-                                                                            .text),
-                                                                        double.parse(value
-                                                                            .discount_amount[
-                                                                                index]
-                                                                            .text),
-                                                                        double.parse(value.searchList[index]
-                                                                            [
-                                                                            "gst"]),
-                                                                        double.parse(value.searchList[index]
-                                                                            [
-                                                                            "cess"]),
-                                                                        "0",
-                                                                        int.parse(gtype),
-                                                                        index,
-                                                                        false,
-                                                                        "");
-                                                              }
-
                                                               Provider.of<Controller>(
                                                                       context,
                                                                       listen:
                                                                           false)
-                                                                  .addDeletebagItem(
-                                                                      "0",
-                                                                      value.searchList[index]
-                                                                          [
-                                                                          "batch_id"],
-                                                                      value.searchList[index]
-                                                                          [
-                                                                          "s_rate_fix"],
-                                                                      value
+                                                                  .rawCalculation(
+                                                                      double
+                                                                          .parse(
+                                                                        value.searchList[index]
+                                                                            [
+                                                                            "s_rate_fix"],
+                                                                      ),
+                                                                      double.parse(value
                                                                           .qtycontroller[
                                                                               index]
-                                                                          .text,
-                                                                      context,
-                                                                      "save",
-                                                                      formType,
-                                                                      value
-                                                                          .gross,
+                                                                          .text),
                                                                       double.parse(value
                                                                           .discount_prercent[
                                                                               index]
@@ -391,33 +345,135 @@ class SearchBottomSheet {
                                                                           .discount_amount[
                                                                               index]
                                                                           .text),
-                                                                      0.0,
-                                                                      value
-                                                                          .cgst_amt,
-                                                                      value
-                                                                          .sgst_amt,
-                                                                      value.igst_amt,
-                                                                      value.cgst_per,
-                                                                      value.sgst_per,
-                                                                      value.igst_per,
                                                                       double.parse(
+                                                                          value.searchList[index]
+                                                                              [
+                                                                              "gst"]),
+                                                                      double.parse(
+                                                                          value.searchList[index]
+                                                                              ["cess"]),
+                                                                      "0",
+                                                                      int.parse(gtype),
+                                                                      index,
+                                                                      false,
+                                                                      "");
+                                                              if (formType ==
+                                                                  "3") {
+                                                                double gross = double.parse(
                                                                         value.searchList[index]
                                                                             [
-                                                                            "cess"],
-                                                                      ),
-                                                                      value.cess,
-                                                                      value.net_amt,
-                                                                      double.parse(value.searchList[index]["gst"]),
-                                                                      "0",
-                                                                      "");
-
-                                                              // await Provider.of<
-                                                              //             Controller>(
-                                                              //         context,
-                                                              //         listen: false)
-                                                              //     .getbagData1(
-                                                              //         context, "");
+                                                                            "s_rate_fix"]) *
+                                                                    double.parse(value
+                                                                        .qtycontroller[
+                                                                            index]
+                                                                        .text);
+                                                                Provider.of<Controller>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .addDeletebagItem(
+                                                                        "0",
+                                                                        value.searchList[index]
+                                                                            [
+                                                                            "batch_id"],
+                                                                        value.searchList[index]
+                                                                            [
+                                                                            "s_rate_fix"],
+                                                                        value
+                                                                            .qtycontroller[
+                                                                                index]
+                                                                            .text,
+                                                                        context,
+                                                                        "save",
+                                                                        formType,
+                                                                        gross,
+                                                                        double.parse(value
+                                                                            .discount_prercent[
+                                                                                index]
+                                                                            .text),
+                                                                        double.parse(value
+                                                                            .discount_amount[
+                                                                                index]
+                                                                            .text),
+                                                                        0.0,
+                                                                        value
+                                                                            .cgst_amt,
+                                                                        value
+                                                                            .sgst_amt,
+                                                                        value.igst_amt,
+                                                                        value.cgst_per,
+                                                                        value.sgst_per,
+                                                                        value.igst_per,
+                                                                        double.parse(
+                                                                          value.searchList[index]
+                                                                              [
+                                                                              "cess"],
+                                                                        ),
+                                                                        value.cess,
+                                                                        gross,
+                                                                        double.parse(value.searchList[index]["gst"]),
+                                                                        "0",
+                                                                        "");
+                                                              } else {
+                                                                Provider.of<Controller>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .addDeletebagItem(
+                                                                        "0",
+                                                                        value.searchList[index]
+                                                                            [
+                                                                            "batch_id"],
+                                                                        value.searchList[index]
+                                                                            [
+                                                                            "s_rate_fix"],
+                                                                        value
+                                                                            .qtycontroller[
+                                                                                index]
+                                                                            .text,
+                                                                        context,
+                                                                        "save",
+                                                                        formType,
+                                                                        value
+                                                                            .gross,
+                                                                        double.parse(value
+                                                                            .discount_prercent[
+                                                                                index]
+                                                                            .text),
+                                                                        double.parse(value
+                                                                            .discount_amount[
+                                                                                index]
+                                                                            .text),
+                                                                        0.0,
+                                                                        value
+                                                                            .cgst_amt,
+                                                                        value
+                                                                            .sgst_amt,
+                                                                        value
+                                                                            .igst_amt,
+                                                                        value.cgst_per,
+                                                                        value.sgst_per,
+                                                                        value.igst_per,
+                                                                        double.parse(
+                                                                          value.searchList[index]
+                                                                              [
+                                                                              "cess"],
+                                                                        ),
+                                                                        value.cess,
+                                                                        value.net_amt,
+                                                                        double.parse(value.searchList[index]["gst"]),
+                                                                        "0",
+                                                                        "");
+                                                              }
                                                             },
+
+                                                            // await Provider.of<
+                                                            //             Controller>(
+                                                            //         context,
+                                                            //         listen: false)
+                                                            //     .getbagData1(
+                                                            //         context, "");
+
                                                             child: Icon(
                                                                 Icons.add)),
                                                       ),

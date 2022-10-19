@@ -412,7 +412,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                   SizedBox(
                                                     height: size.height * 0.01,
                                                   ),
-                                                  widget.form_type == "0"
+                                                  widget.form_type == "3"
                                                       ? Container()
                                                       : Row(
                                                           mainAxisAlignment:
@@ -852,21 +852,39 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                             P_Settings.bagText,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      "\u{20B9}${value.bagList[index]["net_total"]}",
-                                                      style:
-                                                          GoogleFonts.aBeeZee(
-                                                        textStyle:
-                                                            Theme.of(context)
-                                                                .textTheme
-                                                                .bodyText2,
-                                                        fontSize: 15,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color:
-                                                            P_Settings.redclr,
-                                                      ),
-                                                    ),
+                                                    widget.form_type == "3"
+                                                        ? Text(
+                                                            "\u{20B9}${value.bagList[index]["gross"]}",
+                                                            style: GoogleFonts
+                                                                .aBeeZee(
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: P_Settings
+                                                                  .redclr,
+                                                            ),
+                                                          )
+                                                        : Text(
+                                                            "\u{20B9}${value.bagList[index]["net_total"]}",
+                                                            style: GoogleFonts
+                                                                .aBeeZee(
+                                                              textStyle: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: P_Settings
+                                                                  .redclr,
+                                                            ),
+                                                          ),
                                                   ],
                                                 )
                                               ],
