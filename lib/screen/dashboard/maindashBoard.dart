@@ -5,6 +5,7 @@ import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/screen/loginPage.dart';
 import 'package:gulferp/screen/sale/saleHome.dart';
 import 'package:gulferp/screen/sale/saleItemSelection.dart';
+import 'package:gulferp/screen/sale/saleSearchItem.dart';
 import 'package:gulferp/screen/searchPage/searchPage.dart';
 import 'package:gulferp/screen/vehicle%20Loading/vehicleLoading.dart';
 import 'package:gulferp/screen/vehicle%20Loading/vehicle_unloading.dart';
@@ -219,25 +220,38 @@ class _MainDashboardState extends State<MainDashboard> {
                       color: Colors.grey[200],
                       child: ListTile(
                         onTap: () async {
-                          Provider.of<Controller>(context, listen: false)
-                              .getItemCategory(context);
-                          List<Map<String, dynamic>> list =
-                              await Provider.of<Controller>(context,
-                                      listen: false)
-                                  .getProductDetails("0", "", "");
+                          await Provider.of<Controller>(context, listen: false)
+                              .getbagData1(context, "3", "");
                           Navigator.of(context).push(
                             PageRouteBuilder(
                                 opaque: false, // set to false
-                                pageBuilder: (_, __, ___) => SaleItemSelection(
-                                      list: list,
-                                      type: "",
+                                pageBuilder: (_, __, ___) => SaleSearchItem(
+                                      form_type: "3",
                                       remark: "",
-                                      formType: "3",
-                                      g_type: "1",
+                                      gtype: "",
                                     )
                                 // OrderForm(widget.areaname,"return"),
                                 ),
                           );
+                          // Provider.of<Controller>(context, listen: false)
+                          //     .getItemCategory(context);
+                          // List<Map<String, dynamic>> list =
+                          //     await Provider.of<Controller>(context,
+                          //             listen: false)
+                          //         .getProductDetails("0", "", "");
+                          // Navigator.of(context).push(
+                          //   PageRouteBuilder(
+                          //       opaque: false, // set to false
+                          //       pageBuilder: (_, __, ___) => SaleItemSelection(
+                          //             list: list,
+                          //             type: "",
+                          //             remark: "",
+                          //             formType: "3",
+                          //             g_type: "1",
+                          //           )
+                          //       // OrderForm(widget.areaname,"return"),
+                          //       ),
+                          // );
                         },
                         leading: Image.asset("asset/unloading.png",
                             // color: Colors.red,
