@@ -172,11 +172,11 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
           return Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                padding: const EdgeInsets.only(left: 10.0, right: 10,top: 10),
                 child: Card(
                   elevation: 12,
                   child: ListTile(
-                    tileColor: Colors.white,
+                    tileColor: Colors.grey[200],
                     onTap: () {
                       value.searchList.clear();
                       value.searchcontroller.clear();
@@ -247,6 +247,8 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
@@ -262,7 +264,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    "Stock :${value.bagList[index]["stock"]}",
+                                                    "Stock :\u{20B9}${value.bagList[index]["stock"]}",
                                                     style: GoogleFonts.aBeeZee(
                                                       textStyle:
                                                           Theme.of(context)
