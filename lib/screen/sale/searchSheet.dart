@@ -456,7 +456,7 @@ class SearchBottomSheet {
                                                 // //   width: size.width * 0.03,
                                                 // // ),
                                                 // Text(
-                                                //     "MRP :${value.searchList[index]["s_rate_2"]}"),
+                                                //     "Stock : :${value.searchList[index]["stock"]}"),
                                               ],
                                             ),
                                           );

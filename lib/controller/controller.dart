@@ -1712,11 +1712,12 @@ class Controller extends ChangeNotifier {
       if (value == true) {
         try {
           print("value-----$itemName");
-
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          print("branch_id--search-$branch_id");
+          
           Uri url = Uri.parse("$urlgolabl/search_products_list.php");
-          Map body = {
-            'item_name': itemName,
-          };
+          Map body = {'item_name': itemName, 'branch_id': branch_id};
           print("body-----$body");
           // isDownloaded = true;
           // isLoading = true;
