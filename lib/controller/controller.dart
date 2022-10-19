@@ -1001,7 +1001,7 @@ class Controller extends ChangeNotifier {
 
   ////////////////////////////////////////////
   historyData(BuildContext context, String action, String fromDate,
-      String tillDate) async {
+      String tillDate, String formType) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -1009,7 +1009,9 @@ class Controller extends ChangeNotifier {
           branch_id = prefs.getString("branch_id");
           // user_id = prefs.getString("user_id");
           print("history-----------$action----$branch_id----$user_id---");
-          Uri url = Uri.parse("$urlgolabl/sale_list.php");
+          Uri urlSale = Uri.parse("$urlgolabl/sale_list.php");
+          Uri urlSaleRet = Uri.parse("$urlgolabl/sale_return_list.php");
+
           Map body = {
             'branch_id': branch_id,
             'from_date': fromDate,
@@ -1020,30 +1022,51 @@ class Controller extends ChangeNotifier {
             isLoading = true;
             notifyListeners();
           }
+          if (formType == "1") {
+            http.Response response = await http.post(
+              urlSale,
+              body: body,
+            );
+            var map = jsonDecode(response.body);
+            print("history response-----------------${map}");
+            if (action != "delete") {
+              isLoading = false;
+              notifyListeners();
+            }
 
-          http.Response response = await http.post(
-            url,
-            body: body,
-          );
+            historyList.clear();
+            if (map != null) {
+              for (var item in map) {
+                historyList.add(item);
+              }
+            }
 
-          var map = jsonDecode(response.body);
-          print("history response-----------------${map}");
+            print("history list data........${historyList}");
+            // isLoading = false;
+            notifyListeners();
+          } else if (formType == "2") {
+            http.Response response = await http.post(
+              urlSaleRet,
+              body: body,
+            );
+            var map = jsonDecode(response.body);
+            print("history response-----------------${map}");
+            if (action != "delete") {
+              isLoading = false;
+              notifyListeners();
+            }
 
-          if (action != "delete") {
-            isLoading = false;
+            historyList.clear();
+            if (map != null) {
+              for (var item in map) {
+                historyList.add(item);
+              }
+            }
+
+            print("history list data........${historyList}");
+            // isLoading = false;
             notifyListeners();
           }
-
-          historyList.clear();
-          if (map != null) {
-            for (var item in map) {
-              historyList.add(item);
-            }
-          }
-
-          print("history list data........${historyList}");
-          // isLoading = false;
-          notifyListeners();
 
           /////////////// insert into local db /////////////////////
         } catch (e) {
