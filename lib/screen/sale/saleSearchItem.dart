@@ -3,9 +3,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
+import 'package:gulferp/screen/bag/salesBag.dart';
 import 'package:gulferp/screen/sale/searchSheet.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SaleSearchItem extends StatefulWidget {
   String form_type;
@@ -22,7 +24,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
   ValueNotifier<bool> visible = ValueNotifier(false);
   String? oldText;
   SearchBottomSheet searchSheet = SearchBottomSheet();
-
+  String? branch_id;
   @override
   Widget build(BuildContext context) {
     String? selectedtransaction;
@@ -31,8 +33,11 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
       bottomNavigationBar: BottomAppBar(
         // shape: shape,
         color: P_Settings.loginPagetheme,
-        child: GestureDetector(
-          onTap: () {
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: P_Settings.loginPagetheme, // background
+          ),
+          onPressed: () {
             showDialog(
                 context: context,
                 barrierDismissible: true,
@@ -115,31 +120,52 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                   );
                 });
           },
-          child: Padding(
-            padding: const EdgeInsets.all(.0),
-            child: Container(
-              height: size.height * 0.05,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Save",
-                    style: GoogleFonts.aBeeZee(
-                      textStyle: Theme.of(context).textTheme.bodyText2,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: P_Settings.buttonColor,
-                    ),
-                  )
-                  // if (centerLocations.contains(fabLocation)) const Spacer(),
-                ],
-              ),
+          child: Text(
+            'Save',
+            style: GoogleFonts.aBeeZee(
+              textStyle: Theme.of(context).textTheme.bodyText2,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              color: P_Settings.buttonColor,
             ),
           ),
         ),
       ),
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.all(8.0),
+        //     child: ElevatedButton(
+        //       style: ElevatedButton.styleFrom(primary: P_Settings.buttonColor),
+        //       onPressed: () async {
+        //         SharedPreferences prefs = await SharedPreferences.getInstance();
+        //         branch_id = prefs.getString("branch_id");
+        //         Navigator.push(
+        //             context,
+        //             PageRouteBuilder(
+        //                 opaque: false, // set to false
+        //                 pageBuilder: (_, __, ___) {
+        //                   return BagPage(
+        //                     branchId: branch_id,
+        //                     type: widget.type,
+        //                     form_type: widget.form_type,
+        //                     gtype: widget.gtype,
+        //                     remark: widget.remark,
+        //                   );
+        //                 }));
+        //       },
+        //       child: Text(
+        //         "View Data",
+        //         style: GoogleFonts.aBeeZee(
+        //           fontSize: 15,
+        //           fontWeight: FontWeight.bold,
+        //           color: P_Settings.loginPagetheme,
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(child: Consumer<Controller>(
         builder: (context, value, child) {
@@ -548,10 +574,10 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                                   value.cgst_per,
                                                                   value.sgst_per,
                                                                   value.igst_per,
-                                                                  value.bagList[index]["cess_per"],
-                                                                  value.bagList[index]["cess_amt"],
+                                                                  double.parse(value.bagList[index]["cess_per"]),
+                                                                  double.parse(value.bagList[index]["cess_amt"]),
                                                                   value.net_amt,
-                                                                  value.bagList[index]["tax"],
+                                                                  double.parse(value.bagList[index]["tax"]),
                                                                   "0",
                                                                   "cart");
                                                             },
