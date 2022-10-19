@@ -3,7 +3,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
+import 'package:gulferp/screen/history/history.dart';
 import 'package:gulferp/screen/sale/searchSheet.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
@@ -20,8 +22,18 @@ class SaleSearchItem extends StatefulWidget {
 
 class _SaleSearchItemState extends State<SaleSearchItem> {
   ValueNotifier<bool> visible = ValueNotifier(false);
+  String? todaydate;
+  DateTime now = DateTime.now();
+
   String? oldText;
   SearchBottomSheet searchSheet = SearchBottomSheet();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    todaydate = DateFormat('dd-MM-yyyy').format(now);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -141,6 +153,30 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
       ),
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
+        actions: [
+          widget.form_type == "3"
+              ? IconButton(
+                  onPressed: () {
+                    Provider.of<Controller>(context, listen: false)
+                        .unloadhistoryList
+                        .clear();
+                    Provider.of<Controller>(context, listen: false)
+                        .setDate(todaydate!, todaydate!);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HistoryPage(
+                                form_type: widget.form_type,
+                              )),
+                    );
+                  },
+                  icon: Container(
+                    height: 20,
+                    child: Image.asset("asset/history.png"),
+                  ),
+                )
+              : Text(""),
+        ],
       ),
       body: Consumer<Controller>(
         builder: (context, value, child) {
