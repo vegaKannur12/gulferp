@@ -167,12 +167,12 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
         //   ),
         // ],
       ),
-      body: SingleChildScrollView(child: Consumer<Controller>(
+      body: Consumer<Controller>(
         builder: (context, value, child) {
           return Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10.0, right: 10,top: 10),
+                padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
                 child: Card(
                   elevation: 12,
                   child: ListTile(
@@ -204,8 +204,8 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
               SizedBox(
                 height: size.height * 0.03,
               ),
-              Container(
-                height: size.height * 0.9,
+              Expanded(
+                // height: size.height * 0.7,
                 child: value.isLoading
                     ? SpinKitFadingCircle(
                         color: P_Settings.loginPagetheme,
@@ -762,7 +762,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
             ],
           );
         },
-      )),
+      ),
     );
   }
 }
