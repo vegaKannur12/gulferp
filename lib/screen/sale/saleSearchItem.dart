@@ -31,8 +31,11 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
       bottomNavigationBar: BottomAppBar(
         // shape: shape,
         color: P_Settings.loginPagetheme,
-        child: GestureDetector(
-          onTap: () {
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            primary: P_Settings.loginPagetheme, // background
+          ),
+          onPressed: () {
             showDialog(
                 context: context,
                 barrierDismissible: true,
@@ -115,25 +118,13 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                   );
                 });
           },
-          child: Padding(
-            padding: const EdgeInsets.all(.0),
-            child: Container(
-              height: size.height * 0.05,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Save",
-                    style: GoogleFonts.aBeeZee(
-                      textStyle: Theme.of(context).textTheme.bodyText2,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: P_Settings.buttonColor,
-                    ),
-                  )
-                  // if (centerLocations.contains(fabLocation)) const Spacer(),
-                ],
-              ),
+          child: Text(
+            'Save',
+            style: GoogleFonts.aBeeZee(
+              textStyle: Theme.of(context).textTheme.bodyText2,
+              fontSize: 17,
+              fontWeight: FontWeight.bold,
+              color: P_Settings.buttonColor,
             ),
           ),
         ),
@@ -146,11 +137,11 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
           return Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 10.0, right: 10),
+                padding: const EdgeInsets.only(left: 10.0, right: 10,top: 10),
                 child: Card(
                   elevation: 12,
                   child: ListTile(
-                    tileColor: Colors.green[100],
+                    tileColor: Colors.grey[200],
                     onTap: () {
                       value.searchList.clear();
                       value.searchcontroller.clear();
