@@ -230,7 +230,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                     title: Column(
                                       children: [
                                         Text(
-                                          value.bagList[index]["item_name"],
+                                          "${value.bagList[index]["item_name"]}",
                                           style: GoogleFonts.aBeeZee(
                                               textStyle: Theme.of(context)
                                                   .textTheme
@@ -285,7 +285,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                   Row(
                                                     children: [
                                                       Text(
-                                                        "Qty : ",
+                                                        "Qty       :",
                                                         style:
                                                             GoogleFonts.aBeeZee(
                                                           textStyle:
@@ -435,14 +435,14 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                     ],
                                                   ),
                                                   SizedBox(
-                                                    height: 10,
+                                                    height: size.height * 0.01,
                                                   ),
                                                   Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.end,
                                                     children: [
                                                       Text(
-                                                        "Disc  : ",
+                                                        "Disc amt: ",
                                                         style:
                                                             GoogleFonts.aBeeZee(
                                                           textStyle:
@@ -591,7 +591,165 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                                                         ),
                                                       ),
                                                     ],
-                                                  )
+                                                  ),
+                                                  // SizedBox(
+                                                  //   height: size.height * 0.01,
+                                                  // ),
+                                                  // Row(
+                                                  //   mainAxisAlignment:
+                                                  //       MainAxisAlignment.end,
+                                                  //   children: [
+                                                  //     Text(
+                                                  //       "Disc per : ",
+                                                  //       style:
+                                                  //           GoogleFonts.aBeeZee(
+                                                  //         textStyle:
+                                                  //             Theme.of(context)
+                                                  //                 .textTheme
+                                                  //                 .bodyText2,
+                                                  //         fontSize: 14,
+                                                  //         color: P_Settings
+                                                  //             .bagText,
+                                                  //       ),
+                                                  //     ),
+                                                  //     Container(
+                                                  //       width:
+                                                  //           size.width * 0.12,
+                                                  //       child: FocusScope(
+                                                  //         child: TextField(
+                                                  //           controller: value
+                                                  //                   .discount_prercent[
+                                                  //               index],
+                                                  //           // autofocus: true,
+                                                  //           onTap: () {
+                                                  //             value
+                                                  //                     .discount_prercent[
+                                                  //                         index]
+                                                  //                     .selection =
+                                                  //                 TextSelection(
+                                                  //                     baseOffset:
+                                                  //                         0,
+                                                  //                     extentOffset: value
+                                                  //                         .discount_prercent[
+                                                  //                             index]
+                                                  //                         .value
+                                                  //                         .text
+                                                  //                         .length);
+                                                  //           },
+
+                                                  //           // autofocus: true,
+                                                  //           style: GoogleFonts
+                                                  //               .aBeeZee(
+                                                  //             textStyle: Theme.of(
+                                                  //                     context)
+                                                  //                 .textTheme
+                                                  //                 .bodyText2,
+                                                  //             fontSize: 17,
+                                                  //             // fontWeight: FontWeight.bold,
+                                                  //             color: P_Settings
+                                                  //                 .loginPagetheme,
+                                                  //           ),
+                                                  //           decoration:
+                                                  //               InputDecoration(
+                                                  //             isDense: true,
+                                                  //             contentPadding:
+                                                  //                 EdgeInsets
+                                                  //                     .all(0),
+                                                  //             //border: InputBorder.none
+                                                  //           ),
+
+                                                  //           // maxLines: 1,
+                                                  //           // minLines: 1,
+                                                  //           keyboardType:
+                                                  //               TextInputType
+                                                  //                   .number,
+                                                  //           onSubmitted:
+                                                  //               (values) {
+                                                  //             Provider.of<Controller>(
+                                                  //                     context,
+                                                  //                     listen:
+                                                  //                         false)
+                                                  //                 .rawCalculation(
+                                                  //                     double
+                                                  //                         .parse(
+                                                  //                       value.bagList[index]
+                                                  //                           [
+                                                  //                           "s_rate_fix"],
+                                                  //                     ),
+                                                  //                     double.parse(value
+                                                  //                         .qty[
+                                                  //                             index]
+                                                  //                         .text),
+                                                  //                     double.parse(value
+                                                  //                         .discount_prercent[
+                                                  //                             index]
+                                                  //                         .text),
+                                                  //                     double.parse(value
+                                                  //                         .discount_amount[
+                                                  //                             index]
+                                                  //                         .text),
+                                                  //                     double.parse(
+                                                  //                         value.bagList[index]
+                                                  //                             [
+                                                  //                             "tax"]),
+                                                  //                     double.parse(
+                                                  //                         value.bagList[index]
+                                                  //                             ["cess_per"]),
+                                                  //                     "0",
+                                                  //                     int.parse(widget.gtype!),
+                                                  //                     index,
+                                                  //                     false,
+                                                  //                     "disc_per");
+
+                                                  //             Provider.of<Controller>(context, listen: false).addDeletebagItem(
+                                                  //                 "0",
+                                                  //                 value.bagList[index][
+                                                  //                     "item_id"],
+                                                  //                 value.bagList[index][
+                                                  //                         "s_rate_fix"]
+                                                  //                     .toString(),
+                                                  //                 value
+                                                  //                     .qty[
+                                                  //                         index]
+                                                  //                     .text,
+                                                  //                 context,
+                                                  //                 "save",
+                                                  //                 widget
+                                                  //                     .form_type,
+                                                  //                 value.gross,
+                                                  //                 double.parse(value
+                                                  //                     .discount_prercent[
+                                                  //                         index]
+                                                  //                     .text),
+                                                  //                 double.parse(value
+                                                  //                     .discount_amount[
+                                                  //                         index]
+                                                  //                     .text),
+                                                  //                 double.parse(
+                                                  //                     value.bagList[index]
+                                                  //                         ["taxable"]),
+                                                  //                 value.cgst_amt,
+                                                  //                 value.sgst_amt,
+                                                  //                 value.igst_amt,
+                                                  //                 value.cgst_per,
+                                                  //                 value.sgst_per,
+                                                  //                 value.igst_per,
+                                                  //                 double.parse(value.bagList[index]["cess_per"]),
+                                                  //                 double.parse(value.bagList[index]["cess_amt"]),
+                                                  //                 value.net_amt,
+                                                  //                 double.parse(value.bagList[index]["tax"]),
+                                                  //                 "0",
+                                                  //                 "cart");
+                                                  //           },
+
+                                                  //           textAlign:
+                                                  //               TextAlign.right,
+                                                  //           // controller: value.qty[index],
+                                                  //         ),
+                                                  //       ),
+                                                  //     ),
+                                                  //   ],
+                                                  // )
                                                 ],
                                               )
                                             ],

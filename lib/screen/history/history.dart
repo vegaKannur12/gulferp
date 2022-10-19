@@ -35,6 +35,11 @@ class _HistoryPageState extends State<HistoryPage> {
     date = DateFormat('dd-MM-yyyy kk:mm:ss').format(now);
     todaydate = DateFormat('dd-MM-yyyy').format(now);
     s = date!.split(" ");
+    widget.form_type == "3"
+        ? Provider.of<Controller>(context, listen: false)
+            .historyunloadvehicleData(context, "", todaydate!, todaydate!)
+        : Provider.of<Controller>(context, listen: false)
+            .historyData(context, "", todaydate!, todaydate!);
   }
 
   @override
@@ -76,7 +81,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   Container(
                     height: size.height * 0.08,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         IconButton(
                             onPressed: () {
@@ -130,17 +135,8 @@ class _HistoryPageState extends State<HistoryPage> {
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    // dropDownCustom(size,""),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      // dropDownCustom(size, ""),
-                      Flexible(
-                        child: Container(
-                          height: size.height * 0.05,
+                        Container(
+                          // height: size.height * 0.03,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               primary: P_Settings.loginPagetheme,
@@ -190,8 +186,67 @@ class _HistoryPageState extends State<HistoryPage> {
                               ),
                             ),
                           ),
-                        ),
-                      )
+                        )
+                      ],
+                    ),
+                    // dropDownCustom(size,""),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // dropDownCustom(size, ""),
+                      // Container(
+                      //   // height: size.height * 0.03,
+                      //   child: ElevatedButton(
+                      //     style: ElevatedButton.styleFrom(
+                      //       primary: P_Settings.loginPagetheme,
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius:
+                      //             BorderRadius.circular(2), // <-- Radius
+                      //       ),
+                      //     ),
+                      //     onPressed: () {
+                      //       String df;
+                      //       String tf;
+
+                      //       if (value.fromDate == null) {
+                      //         df = todaydate.toString();
+                      //       } else {
+                      //         df = value.fromDate.toString();
+                      //       }
+                      //       if (value.todate == null) {
+                      //         tf = todaydate.toString();
+                      //       } else {
+                      //         tf = value.todate.toString();
+                      //       }
+
+                      //       print(
+                      //           "splited----$df----------$tf---------$splitted");
+                      //       widget.form_type == "3"
+                      //           ? Provider.of<Controller>(context,
+                      //                   listen: false)
+                      //               .historyunloadvehicleData(
+                      //                   context, "", df, tf)
+                      //           : Provider.of<Controller>(context,
+                      //                   listen: false)
+                      //               .historyData(context, "", df, tf);
+                      //       // if (splitted != null && splitted.isNotEmpty) {
+                      //       //   Provider.of<Controller>(context, listen: false)
+                      //       //       .historyData(context, df, tf);
+                      //       // }
+                      //     },
+                      //     child: Text(
+                      //       "Apply",
+                      //       style: GoogleFonts.aBeeZee(
+                      //         textStyle:
+                      //             Theme.of(context).textTheme.bodyText2,
+                      //         fontSize: 17,
+                      //         fontWeight: FontWeight.bold,
+                      //         color: P_Settings.buttonColor,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // )
                     ],
                   ),
                   ValueListenableBuilder(
@@ -219,7 +274,8 @@ class _HistoryPageState extends State<HistoryPage> {
                       ? SpinKitFadingCircle(
                           color: P_Settings.loginPagetheme,
                         )
-                      : value.unloadhistoryList.length == 0 && value.historyList.length==0
+                      : value.unloadhistoryList.length == 0 &&
+                              value.historyList.length == 0
                           ? Center(
                               child: Container(
                                   height: size.height * 0.7,
@@ -290,25 +346,24 @@ class _HistoryPageState extends State<HistoryPage> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Row(
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Flexible(
-                                                        child: Text(
-                                                          "${value.unloadhistoryList[index]['Total Qty']}",
-                                                          style: GoogleFonts
-                                                              .aBeeZee(
-                                                            textStyle: Theme.of(
-                                                                    context)
-                                                                .textTheme
-                                                                .bodyText2,
-                                                            fontSize: 16,
-                                                            // fontWeight: FontWeight.bold,
-                                                            color: P_Settings
-                                                                .historyPageText,
-                                                          ),
+                                                      Text(
+                                                        "Items: ${value.unloadhistoryList[index]['Items']}",
+                                                        style:
+                                                            GoogleFonts.aBeeZee(
+                                                          textStyle:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                          fontSize: 16,
+                                                          // fontWeight: FontWeight.bold,
+                                                          color: P_Settings
+                                                              .historyPageText,
                                                         ),
                                                       ),
                                                       Text(
-                                                        " (Items: ${value.unloadhistoryList[index]['Items']})",
+                                                        "Total Qty : ${value.unloadhistoryList[index]['Total Qty']}",
                                                         style:
                                                             GoogleFonts.aBeeZee(
                                                           textStyle:
@@ -532,6 +587,8 @@ class _HistoryPageState extends State<HistoryPage> {
                                               ],
                                             ),
                                             title: Row(
+                                              // mainAxisAlignment: MainAxisAlignment.center,
+
                                               children: [
                                                 Flexible(
                                                   child: Text(
@@ -569,73 +626,90 @@ class _HistoryPageState extends State<HistoryPage> {
                                                 ),
                                               ],
                                             ),
-                                            subtitle: Padding(
-                                              padding:
-                                                  const EdgeInsets.only(top: 5),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Flexible(
-                                                        child: Text(
-                                                          "${value.historyList[index]['Customer Name']}",
-                                                          style: GoogleFonts
-                                                              .aBeeZee(
-                                                            textStyle: Theme.of(
-                                                                    context)
+                                            subtitle: Column(
+                                              // mainAxisAlignment:
+                                              //     MainAxisAlignment.start,
+                                              // crossAxisAlignment:
+                                              //     CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      "${value.historyList[index]['Customer Name']}  (Items: ${value.historyList[index]['Items']})",
+                                                      style:
+                                                          GoogleFonts.aBeeZee(
+                                                        textStyle:
+                                                            Theme.of(context)
                                                                 .textTheme
                                                                 .bodyText2,
-                                                            fontSize: 16,
-                                                            // fontWeight: FontWeight.bold,
-                                                            color: P_Settings
-                                                                .historyPageText,
-                                                          ),
-                                                        ),
+                                                        fontSize: 16,
+                                                        // fontWeight: FontWeight.bold,
+                                                        color: P_Settings
+                                                            .historyPageText,
                                                       ),
-                                                      Text(
-                                                        " (Items: ${value.historyList[index]['Items']})",
-                                                        style:
-                                                            GoogleFonts.aBeeZee(
-                                                          textStyle:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyText2,
-                                                          fontSize: 16,
-                                                          // fontWeight: FontWeight.bold,
-                                                          color: P_Settings
-                                                              .historyPageText,
-                                                        ),
+                                                    ),
+                                                    // Text(
+                                                    //   " (Items: ${value.historyList[index]['Items']})",
+                                                    //   style:
+                                                    //       GoogleFonts.aBeeZee(
+                                                    //     textStyle:
+                                                    //         Theme.of(context)
+                                                    //             .textTheme
+                                                    //             .bodyText2,
+                                                    //     fontSize: 16,
+                                                    //     // fontWeight: FontWeight.bold,
+                                                    //     color: P_Settings
+                                                    //         .historyPageText,
+                                                    //   ),
+                                                    // ),
+                                                    Text(
+                                                        "Total Qty  : ${value.historyList[index]['Total Qty']}")
+                                                  ],
+                                                ),
+                                                // SizedBox(
+                                                //   height: size.height * 0.01,
+                                                // ),
+                                                Divider(),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      "Total Price  : ",
+                                                      style:
+                                                          GoogleFonts.aBeeZee(
+                                                        textStyle:
+                                                            Theme.of(context)
+                                                                .textTheme
+                                                                .bodyText2,
+                                                        fontSize: 16,
+                                                        // fontWeight:
+                                                        //     FontWeight.bold,
+                                                        // color:
+                                                        //     P_Settings.redclr,
                                                       ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(
-                                                    height: size.height * 0.01,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        "\u{20B9}${value.historyList[index]['Total Amount']}",
-                                                        style:
-                                                            GoogleFonts.aBeeZee(
-                                                          textStyle:
-                                                              Theme.of(context)
-                                                                  .textTheme
-                                                                  .bodyText2,
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color:
-                                                              P_Settings.redclr,
-                                                        ),
+                                                    ),
+                                                    Text(
+                                                      "\u{20B9}${value.historyList[index]['Total Amount']}",
+                                                      style:
+                                                          GoogleFonts.aBeeZee(
+                                                        textStyle:
+                                                            Theme.of(context)
+                                                                .textTheme
+                                                                .bodyText2,
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color:
+                                                            P_Settings.redclr,
                                                       ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         );
