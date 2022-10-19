@@ -309,6 +309,12 @@ class SearchBottomSheet {
                                                                 left: 28.0),
                                                         child: GestureDetector(
                                                             onTap: () async {
+
+
+                                                              print("dhskjhdjks----${value
+                                                                          .discount_prercent[
+                                                                              index]
+                                                                          .text}");
                                                               oldText = value
                                                                   .qtycontroller[
                                                                       index]
@@ -455,8 +461,8 @@ class SearchBottomSheet {
                                                 // // SizedBox(
                                                 // //   width: size.width * 0.03,
                                                 // // ),
-                                                // Text(
-                                                //     "Stock : :${value.searchList[index]["stock"]}"),
+                                                Text(
+                                                    "Stock :${value.searchList[index]["stock"]}"),
                                               ],
                                             ),
                                           );

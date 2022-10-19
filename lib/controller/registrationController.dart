@@ -153,6 +153,9 @@ class RegistrationController extends ChangeNotifier {
       );
       var map = jsonDecode(response.body);
       print("login map ${map}");
+      isLoading = false;
+      notifyListeners();
+
       LoginModel loginModel;
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -171,9 +174,6 @@ class RegistrationController extends ChangeNotifier {
           prefs.setString("branch_name", loginModel.branchName!);
           prefs.setString("branch_prefix", loginModel.branchPrefix!);
         }
-
-        isLoading = false;
-        notifyListeners();
 
         Navigator.push(
           context,
