@@ -712,7 +712,7 @@ class SaleDetailsBottomSheet {
                                   }
                                   value.applyClicked[index] = true;
                                   print(
-                                      "quantity after updates.....$formType...${value.qty[index].text}");
+                                      "quantity after updates..${value.net_amt}...$formType...${value.qty[index].text}");
                                   Provider.of<Controller>(context,
                                           listen: false)
                                       .addDeletebagItem(
