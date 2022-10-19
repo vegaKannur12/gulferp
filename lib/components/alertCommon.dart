@@ -66,7 +66,7 @@ class AlertCommon {
                           //////////////////////////////////////////////////
 
                           await Provider.of<Controller>(context, listen: false)
-                              .historyData(context, "delete", df, tf);
+                              .historyData(context, "delete", df, tf,form_type);
 
                           Navigator.of(ctx).pop();
                         },

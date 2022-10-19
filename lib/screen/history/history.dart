@@ -39,7 +39,7 @@ class _HistoryPageState extends State<HistoryPage> {
         ? Provider.of<Controller>(context, listen: false)
             .historyunloadvehicleData(context, "", todaydate!, todaydate!)
         : Provider.of<Controller>(context, listen: false)
-            .historyData(context, "", todaydate!, todaydate!);
+            .historyData(context, "", todaydate!, todaydate!,widget.form_type);
   }
 
   @override
@@ -169,7 +169,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                           context, "", df, tf)
                                   : Provider.of<Controller>(context,
                                           listen: false)
-                                      .historyData(context, "", df, tf);
+                                      .historyData(context, "", df, tf,widget.form_type);
                               // if (splitted != null && splitted.isNotEmpty) {
                               //   Provider.of<Controller>(context, listen: false)
                               //       .historyData(context, df, tf);
@@ -610,7 +610,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                                   width: size.width * 0.03,
                                                 ),
                                                 Text(
-                                                  "- ${value.historyList[index]['Invoice Date']}",
+                                                  widget.form_type=="1" ? "- ${value.historyList[index]['Invoice Date']}":"- ${value.historyList[index]['Date']}",
                                                   style: GoogleFonts.aBeeZee(
                                                     textStyle: Theme.of(context)
                                                         .textTheme
@@ -638,7 +638,9 @@ class _HistoryPageState extends State<HistoryPage> {
                                                           .spaceBetween,
                                                   children: [
                                                     Text(
-                                                      "${value.historyList[index]['Customer Name']}  (Items: ${value.historyList[index]['Items']})",
+                                                      widget.form_type=="1"?
+                                                      "${value.historyList[index]['Customer Name']}  (Items: ${value.historyList[index]['Items']})":
+                                                      "${value.historyList[index]['Customer']}  (Items: ${value.historyList[index]['Items']})",
                                                       style:
                                                           GoogleFonts.aBeeZee(
                                                         textStyle:
@@ -693,7 +695,8 @@ class _HistoryPageState extends State<HistoryPage> {
                                                       ),
                                                     ),
                                                     Text(
-                                                      "\u{20B9}${value.historyList[index]['Total Amount']}",
+                                                      widget.form_type=="1"?
+                                                      "\u{20B9}${value.historyList[index]['Total Amount']}": "\u{20B9}${value.historyList[index]['Grand Total']}",
                                                       style:
                                                           GoogleFonts.aBeeZee(
                                                         textStyle:
