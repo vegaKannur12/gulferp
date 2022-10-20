@@ -367,6 +367,8 @@ class _SaleHomeState extends State<SaleHome> {
                                               color: P_Settings.buttonColor),
                                         ),
                                         onPressed: () async {
+                                          value.paymentMode = null;
+                                          value.partPaymentClicked=false;
                                           Provider.of<Controller>(context,
                                                   listen: false)
                                               .getItemCategory(context);

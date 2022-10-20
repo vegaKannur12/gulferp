@@ -14,8 +14,13 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   TextEditingController searchcontroller = TextEditingController();
-
+  String? paymentMode;
   bool fromDb = true;
+  double? payable;
+  double? balance;
+
+  bool partPaymentClicked = false;
+
   List<bool> addtoCart = [];
   List<TextEditingController> qtycontroller = [];
   List<TextEditingController> t2qtycontroller = [];
@@ -531,7 +536,7 @@ class Controller extends ChangeNotifier {
               discount_amount[i].text = bagList[i]["disc_amt"].toString();
             }
           }
-        print("baglist------$bagList");
+          print("baglist------$bagList");
           item_count = bagList.length;
           net_tot = 0.00;
           gro_tot = 0.00;
@@ -1285,15 +1290,17 @@ class Controller extends ChangeNotifier {
 
                 Future.delayed(Duration(seconds: 2), () {
                   Navigator.of(ct).pop(true);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SaleHome(
-                        formType: form_type,
-                        type: "",
+                  if (map["err_status"] == 0) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => SaleHome(
+                          formType: form_type,
+                          type: "",
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  }
 
                   // Navigator.pop(context);
                 });
@@ -1981,6 +1988,27 @@ class Controller extends ChangeNotifier {
 
   addToCartClicked(bool clicked, int index) {
     addtoCart[index] = clicked;
+    notifyListeners();
+  }
+
+  setPaymentMode(String mode, double payable1) {
+    print("mode----$mode");
+    paymentMode = mode;
+
+    if (mode == "1") {
+      partPaymentClicked = false;
+
+      payable = payable1;
+      balance = 0.0;
+    } else if (mode == "2") {
+      partPaymentClicked = false;
+
+      payable = 0.0;
+      balance = payable1;
+    } else if (mode == "3") {
+      partPaymentClicked = true;
+      balance = 0.0;
+    }
     notifyListeners();
   }
   ///////////////////////////////////////////

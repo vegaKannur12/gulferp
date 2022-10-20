@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/history/history.dart';
+import 'package:gulferp/screen/sale/paymentSheet.dart';
 import 'package:gulferp/screen/sale/searchSheet.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
@@ -23,6 +24,7 @@ class SaleSearchItem extends StatefulWidget {
 class _SaleSearchItemState extends State<SaleSearchItem> {
   ValueNotifier<bool> visible = ValueNotifier(false);
   String? todaydate;
+  PaymentBottomSheet paymentBottomSheet = PaymentBottomSheet();
   DateTime now = DateTime.now();
 
   String? oldText;
@@ -48,97 +50,106 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
             primary: P_Settings.loginPagetheme, // background
           ),
           onPressed: () {
-            showDialog(
-                context: context,
-                barrierDismissible: true,
-                builder: (BuildContext ctx) {
-                  return new AlertDialog(
-                    content: Text("Do you want to save ???"),
-                    actions: <Widget>[
-                      Consumer<Controller>(
-                        builder: (context, value, child) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: P_Settings.loginPagetheme),
-                                onPressed: () async {
-                                  widget.form_type == "1"
-                                      ? Provider.of<Controller>(context,
-                                              listen: false)
-                                          .saveCartDetails(
-                                              context,
-                                              widget.remark!,
-                                              "0",
-                                              "0",
-                                              "save",
-                                              widget.form_type,
-                                              value.cus_id!,
-                                              value.cusName1!,
-                                              "0",
-                                              value.dis_tot.toString(),
-                                              value.cess_total.toString(),
-                                              value.net_tot.toString(),
-                                              "0",
-                                              value.cgst_total.toString(),
-                                              value.sgst_total.toString(),
-                                              value.igst_total.toString(),
-                                              value.taxable_total.toString(),
-                                              value.total_qty.toString())
-                                      : widget.form_type == "2"
-                                          ? Provider.of<Controller>(context,
-                                                  listen: false)
-                                              .saveSaleReturnCartDetails(
-                                                  context,
-                                                  widget.remark!,
-                                                  "0",
-                                                  "0",
-                                                  "save",
-                                                  widget.form_type,
-                                                  value.cus_id!,
-                                                  value.cusName1!,
-                                                  "0",
-                                                  value.dis_tot.toString(),
-                                                  value.cess_total.toString(),
-                                                  value.net_tot.toString(),
-                                                  "0",
-                                                  value.cgst_total.toString(),
-                                                  value.sgst_total.toString(),
-                                                  value.igst_total.toString(),
-                                                  value.taxable_total
-                                                      .toString(),
-                                                  value.total_qty.toString())
-                                          : Provider.of<Controller>(context,
-                                                  listen: false)
-                                              .saveUnloadVehicleDetails(
-                                                  context,
-                                                  "0",
-                                                  "save",
-                                                  widget.form_type,
-                                                  "0");
-                                  // Navigator.of(ctx).pop();
-                                },
-                                child: Text("Ok"),
-                              ),
-                              SizedBox(
-                                width: size.width * 0.01,
-                              ),
-                              ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: P_Settings.loginPagetheme),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text("Cancel"),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ],
-                  );
-                });
+            if (widget.form_type == "1") {
+              paymentBottomSheet.showpaymentSheet(
+                  context, size, widget.form_type, widget.remark);
+            } else {
+              showDialog(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext ctx) {
+                    return new AlertDialog(
+                      content: Text("Do you want to save ???"),
+                      actions: <Widget>[
+                        Consumer<Controller>(
+                          builder: (context, value, child) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: P_Settings.loginPagetheme),
+                                  onPressed: () async {
+                                    print(
+                                        "widget.form_type ----${widget.form_type}");
+
+                                    widget.form_type == "1"
+                                        ? Provider.of<Controller>(context,
+                                                listen: false)
+                                            .saveCartDetails(
+                                                context,
+                                                widget.remark!,
+                                                "0",
+                                                "0",
+                                                "save",
+                                                widget.form_type,
+                                                value.cus_id!,
+                                                value.cusName1!,
+                                                "0",
+                                                value.dis_tot.toString(),
+                                                value.cess_total.toString(),
+                                                value.net_tot.toString(),
+                                                "0",
+                                                value.cgst_total.toString(),
+                                                value.sgst_total.toString(),
+                                                value.igst_total.toString(),
+                                                value.taxable_total.toString(),
+                                                value.total_qty.toString())
+                                        : widget.form_type == "2"
+                                            ? Provider.of<Controller>(context,
+                                                    listen: false)
+                                                .saveSaleReturnCartDetails(
+                                                    context,
+                                                    widget.remark!,
+                                                    "0",
+                                                    "0",
+                                                    "save",
+                                                    widget.form_type,
+                                                    value.cus_id!,
+                                                    value.cusName1!,
+                                                    "0",
+                                                    value.dis_tot.toString(),
+                                                    value.cess_total.toString(),
+                                                    value.net_tot.toString(),
+                                                    "0",
+                                                    value.cgst_total.toString(),
+                                                    value.sgst_total.toString(),
+                                                    value.igst_total.toString(),
+                                                    value.taxable_total
+                                                        .toString(),
+                                                    value.total_qty.toString())
+                                            : Provider.of<Controller>(context,
+                                                    listen: false)
+                                                .saveUnloadVehicleDetails(
+                                                    context,
+                                                    "0",
+                                                    "save",
+                                                    widget.form_type,
+                                                    "0");
+
+                                    // Navigator.of(ctx).pop();
+                                  },
+                                  child: Text("Ok"),
+                                ),
+                                SizedBox(
+                                  width: size.width * 0.01,
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: P_Settings.loginPagetheme),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text("Cancel"),
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ],
+                    );
+                  });
+            }
           },
           child: Text(
             'Save',
