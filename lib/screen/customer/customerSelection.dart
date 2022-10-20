@@ -189,8 +189,11 @@ class _CustomerSelectionState extends State<CustomerSelection> {
                 child: ListTile(
                   onTap: () {
                     Provider.of<Controller>(context, listen: false)
-                        .setCustomerName(item.customer.toString(),
-                            item.gtype.toString(), item.fLD3001.toString());
+                        .setCustomerName(
+                            item.customer.toString(),
+                            item.gtype.toString(),
+                            item.fLD3001.toString(),
+                            item.outstanding.toString());
                     Navigator.pop(context);
                   },
                   leading: CircleAvatar(

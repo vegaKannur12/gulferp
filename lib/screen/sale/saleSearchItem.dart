@@ -3,8 +3,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
-import 'package:gulferp/screen/bag/salesBag.dart';
+import 'package:gulferp/screen/history/history.dart';
 import 'package:gulferp/screen/sale/searchSheet.dart';
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,9 +23,19 @@ class SaleSearchItem extends StatefulWidget {
 
 class _SaleSearchItemState extends State<SaleSearchItem> {
   ValueNotifier<bool> visible = ValueNotifier(false);
+  String? todaydate;
+  DateTime now = DateTime.now();
+
   String? oldText;
   SearchBottomSheet searchSheet = SearchBottomSheet();
   String? branch_id;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    todaydate = DateFormat('dd-MM-yyyy').format(now);
+  }
+
   @override
   Widget build(BuildContext context) {
     String? selectedtransaction;
@@ -143,39 +154,30 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
       ),
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.all(8.0),
-        //     child: ElevatedButton(
-        //       style: ElevatedButton.styleFrom(primary: P_Settings.buttonColor),
-        //       onPressed: () async {
-        //         SharedPreferences prefs = await SharedPreferences.getInstance();
-        //         branch_id = prefs.getString("branch_id");
-        //         Navigator.push(
-        //             context,
-        //             PageRouteBuilder(
-        //                 opaque: false, // set to false
-        //                 pageBuilder: (_, __, ___) {
-        //                   return BagPage(
-        //                     branchId: branch_id,
-        //                     type: widget.type,
-        //                     form_type: widget.form_type,
-        //                     gtype: widget.gtype,
-        //                     remark: widget.remark,
-        //                   );
-        //                 }));
-        //       },
-        //       child: Text(
-        //         "View Data",
-        //         style: GoogleFonts.aBeeZee(
-        //           fontSize: 15,
-        //           fontWeight: FontWeight.bold,
-        //           color: P_Settings.loginPagetheme,
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ],
+        actions: [
+          widget.form_type == "3"
+              ? IconButton(
+                  onPressed: () {
+                    Provider.of<Controller>(context, listen: false)
+                        .unloadhistoryList
+                        .clear();
+                    Provider.of<Controller>(context, listen: false)
+                        .setDate(todaydate!, todaydate!);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HistoryPage(
+                                form_type: widget.form_type,
+                              )),
+                    );
+                  },
+                  icon: Container(
+                    height: 20,
+                    child: Image.asset("asset/history.png"),
+                  ),
+                )
+              : Text(""),
+        ],
       ),
       body: Consumer<Controller>(
         builder: (context, value, child) {

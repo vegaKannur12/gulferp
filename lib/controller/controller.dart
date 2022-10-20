@@ -41,6 +41,7 @@ class Controller extends ChangeNotifier {
   String? cartCount;
   String? selecttext;
   bool isSearch = false;
+  String? outstanding;
   var invoice;
   bool invoiceLoad = false;
   bool isListLoading = false;
@@ -531,7 +532,7 @@ class Controller extends ChangeNotifier {
               discount_amount[i].text = bagList[i]["disc_amt"].toString();
             }
           }
-        print("baglist------$bagList");
+          print("baglist------$bagList");
           item_count = bagList.length;
           net_tot = 0.00;
           gro_tot = 0.00;
@@ -584,11 +585,14 @@ class Controller extends ChangeNotifier {
 
 ////////////////////////////////////////////////////////////////////
 
-  setCustomerName(String cusName, String? gtype, String cusId) {
+  setCustomerName(
+      String cusName, String? gtype, String cusId, String outstanding) {
+        
     cusName1 = cusName;
     gtype1 = gtype;
     cus_id = cusId;
-    print("cysujkjj------$cusName1----$gtype");
+    outstanding = outstanding;
+    print("cysujkjj------$cusName1----$gtype--------$outstanding");
     notifyListeners();
   }
 
