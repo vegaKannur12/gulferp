@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
+import 'package:gulferp/screen/collection/collection.dart';
+import 'package:gulferp/screen/expense/expense.dart';
 import 'package:gulferp/screen/loginPage.dart';
 import 'package:gulferp/screen/sale/saleHome.dart';
 import 'package:gulferp/screen/sale/saleItemSelection.dart';
@@ -262,6 +264,105 @@ class _MainDashboardState extends State<MainDashboard> {
                         ),
                         title: Text(
                           "Vehicle Unloading",
+                          style: GoogleFonts.aBeeZee(
+                            textStyle: Theme.of(context).textTheme.bodyText2,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 30, top: 10),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Colors.grey[200],
+                      child: ListTile(
+                        onTap: () async {
+                          await Provider.of<Controller>(context, listen: false)
+                              .getbagData1(context, "3", "");
+                          Navigator.of(context).push(
+                            PageRouteBuilder(
+                                opaque: false, // set to false
+                                pageBuilder: (_, __, ___) => Collection(
+                                    form_type: "4", type: "Collection")
+                                // OrderForm(widget.areaname,"return"),
+                                ),
+                          );
+                          // Provider.of<Controller>(context, listen: false)
+                          //     .getItemCategory(context);
+                          // List<Map<String, dynamic>> list =
+                          //     await Provider.of<Controller>(context,
+                          //             listen: false)
+                          //         .getProductDetails("0", "", "");
+                          // Navigator.of(context).push(
+                          //   PageRouteBuilder(
+                          //       opaque: false, // set to false
+                          //       pageBuilder: (_, __, ___) => SaleItemSelection(
+                          //             list: list,
+                          //             type: "",
+                          //             remark: "",
+                          //             formType: "3",
+                          //             g_type: "1",
+                          //           )
+                          //       // OrderForm(widget.areaname,"return"),
+                          //       ),
+                          // );
+                        },
+                        leading: Image.asset("asset/collection1.png",
+                            // color: Colors.red,
+                            height: 30),
+                        trailing: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.black,
+                        ),
+                        title: Text(
+                          "Collection",
+                          style: GoogleFonts.aBeeZee(
+                            textStyle: Theme.of(context).textTheme.bodyText2,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 30, top: 10),
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Colors.grey[200],
+                      child: ListTile(
+                        onTap: () async {
+                          await Provider.of<Controller>(context, listen: false)
+                              .getbagData1(context, "3", "");
+                          Navigator.of(context).push(
+                            PageRouteBuilder(
+                                opaque: false, // set to false
+                                pageBuilder: (_, __, ___) =>
+                                    Expense(form_type: "5", type: "Expense")
+                                // OrderForm(widget.areaname,"return"),
+                                ),
+                          );
+                        },
+                        leading: Image.asset("asset/expense.png",
+                            // color: Colors.red,
+                            height: 30),
+                        trailing: Icon(
+                          Icons.arrow_forward,
+                          color: Colors.black,
+                        ),
+                        title: Text(
+                          "Expense",
                           style: GoogleFonts.aBeeZee(
                             textStyle: Theme.of(context).textTheme.bodyText2,
                             fontSize: 16,

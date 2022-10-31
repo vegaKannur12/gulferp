@@ -9,6 +9,7 @@ import 'package:gulferp/screen/sale/searchSheet.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SaleSearchItem extends StatefulWidget {
   String form_type;
@@ -29,7 +30,7 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
 
   String? oldText;
   SearchBottomSheet searchSheet = SearchBottomSheet();
-
+  String? branch_id;
   @override
   void initState() {
     // TODO: implement initState

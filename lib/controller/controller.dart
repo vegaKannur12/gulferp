@@ -46,6 +46,7 @@ class Controller extends ChangeNotifier {
   String? cartCount;
   String? selecttext;
   bool isSearch = false;
+  String? outstanding;
   var invoice;
   bool invoiceLoad = false;
   bool isListLoading = false;
@@ -589,11 +590,14 @@ class Controller extends ChangeNotifier {
 
 ////////////////////////////////////////////////////////////////////
 
-  setCustomerName(String cusName, String? gtype, String cusId) {
+  setCustomerName(
+      String cusName, String? gtype, String cusId, String outstanding) {
+        
     cusName1 = cusName;
     gtype1 = gtype;
     cus_id = cusId;
-    print("cysujkjj------$cusName1----$gtype");
+    outstanding = outstanding;
+    print("cysujkjj------$cusName1----$gtype--------$outstanding");
     notifyListeners();
   }
 
