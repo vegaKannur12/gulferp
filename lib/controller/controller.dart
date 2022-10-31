@@ -1292,7 +1292,7 @@ class Controller extends ChangeNotifier {
                   Navigator.of(ct).pop(true);
                   if (map["err_status"] == 0) {
                     Navigator.push(
-                      context,
+                      context,  
                       MaterialPageRoute(
                         builder: (context) => SaleHome(
                           formType: form_type,
