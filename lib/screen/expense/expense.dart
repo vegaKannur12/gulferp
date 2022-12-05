@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/dashboard/mainDashboard.dart';
+import 'package:gulferp/screen/history/history.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,8 @@ class Expense extends StatefulWidget {
 }
 
 class _ExpenseState extends State<Expense> {
+  ValueNotifier<bool> amountvis = ValueNotifier(false);
+
   DateTime now = DateTime.now();
   String? selected;
   ValueNotifier<bool> visible = ValueNotifier(false);
@@ -47,10 +50,31 @@ class _ExpenseState extends State<Expense> {
     double topInsets = MediaQuery.of(context).viewInsets.top;
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                // Provider.of<Controller>(context, listen: false)
+                //     .historyList
+                //     .clear();
+                // Provider.of<Controller>(context, listen: false)
+                //     .setDate(todaydate!, todaydate!);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HistoryPage(
+                            form_type: widget.form_type,
+                          )),
+                );
+              },
+              icon: Container(
+                  height: size.height * 0.03,
+                  child: Image.asset("asset/history.png")))
+        ],
         backgroundColor: P_Settings.loginPagetheme,
         title: Text(widget.type),
         leading: IconButton(
           onPressed: () {
+            FocusScope.of(context).requestFocus(FocusNode());
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => MainDashboard()),
@@ -165,60 +189,21 @@ class _ExpenseState extends State<Expense> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(
-                                  height: size.height * 0.02,
-                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 40, right: 40, top: 20.0),
                                   child: Container(
                                     width: size.height * 0.4,
                                     child: TextFormField(
-                                      controller: naration,
-                                      scrollPadding: EdgeInsets.only(
-                                          bottom:
-                                              topInsets + size.height * 0.34),
-                                      decoration: InputDecoration(
-                                          prefixIcon: Icon(
-                                            Icons.roller_shades,
-                                            color: Colors.grey,
-                                          ),
-                                          contentPadding: EdgeInsets.zero,
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.grey, width: 1.0),
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                          ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            borderSide: BorderSide(
-                                              color: Colors.grey,
-                                              width: 1.0,
-                                            ),
-                                          ),
-                                          hintStyle: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.grey[700],
-                                          ),
-                                          // hintText: "Naration",
-                                          labelText: 'Naration',
-                                          labelStyle: TextStyle(
-                                              color: P_Settings.bagText)),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 40, right: 40, top: 20.0),
-                                  child: Container(
-                                    width: size.height * 0.4,
-                                    child: TextFormField(
+                                      onChanged: (values) {
+                                        amountvis.value = false;
+                                      },
+                                      keyboardType: TextInputType.number,
+
                                       controller: amount,
-                                      scrollPadding: EdgeInsets.only(
-                                          bottom:
-                                              topInsets + size.height * 0.34),
+                                      // scrollPadding: EdgeInsets.only(
+                                      //     bottom:
+                                      //         topInsets + size.height * 0.34),
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(
                                             Icons.money_rounded,
@@ -244,7 +229,74 @@ class _ExpenseState extends State<Expense> {
                                             color: Colors.grey[700],
                                           ),
                                           hintText: "Amount",
-                                          labelText: 'Amount',
+
+                                          // labelText: 'Amount',
+                                          labelStyle: TextStyle(
+                                              color: P_Settings.bagText)),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: size.height * 0.01,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 40.0),
+                                  child: Row(
+                                    // mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      ValueListenableBuilder(
+                                          valueListenable: amountvis,
+                                          builder: (BuildContext context,
+                                              bool v, Widget? child) {
+                                            print("value===${visible.value}");
+                                            return Visibility(
+                                              visible: v,
+                                              child: Text(
+                                                "Please Enter Amount!!!",
+                                                style: TextStyle(
+                                                    color: Colors.red),
+                                              ),
+                                            );
+                                          }),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 40, right: 40, top: 20.0),
+                                  child: Container(
+                                    width: size.height * 0.4,
+                                    child: TextFormField(
+                                      controller: naration,
+                                      scrollPadding: EdgeInsets.only(
+                                          bottom:
+                                              topInsets + size.height * 0.34),
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(
+                                            Icons.note,
+                                            color: Colors.grey,
+                                          ),
+                                          contentPadding: EdgeInsets.zero,
+                                          focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                color: Colors.grey, width: 1.0),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                            borderSide: BorderSide(
+                                              color: Colors.grey,
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                          hintStyle: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.grey[700],
+                                          ),
+                                          // hintText: "Naration",
+                                          labelText: 'Remarks',
                                           labelStyle: TextStyle(
                                               color: P_Settings.bagText)),
                                     ),
@@ -277,7 +329,23 @@ class _ExpenseState extends State<Expense> {
                                               color: P_Settings.buttonColor),
                                         ),
                                         onPressed: () async {
-                                    print("save expence");
+                                          if (amount.text == null ||
+                                              amount.text.isEmpty) {
+                                            amountvis.value = true;
+                                          } else {
+                                            amountvis.value = false;
+                                            Provider.of<Controller>(context,
+                                                    listen: false)
+                                                .saveexpenseandCollection(
+                                                    context,
+                                                    "",
+                                                    "0",
+                                                    amount.text,
+                                                    naration.text,
+                                                    "",
+                                                    widget.form_type);
+                                            print("save expence");
+                                          }
                                         },
                                       ),
                                     ),

@@ -309,84 +309,44 @@ class SearchBottomSheet {
                                                         child: GestureDetector(
                                                             onTap: () async {
                                                               print(
-                                                                  "dhskjhdjks----${value.discount_prercent[index].text}");
+                                                                  "dhskjhdjks----${value.qtycontroller[index].text}");
                                                               oldText = value
                                                                   .qtycontroller[
                                                                       index]
                                                                   .text;
-                                                              Provider.of<Controller>(
-                                                                      context,
-                                                                      listen:
-                                                                          false)
-                                                                  .addToCartClicked(
-                                                                      true,
-                                                                      index);
-
-                                                              Provider.of<Controller>(
-                                                                      context,
-                                                                      listen:
-                                                                          false)
-                                                                  .rawCalculation(
-                                                                      double
-                                                                          .parse(
-                                                                        value.searchList[index]
-                                                                            [
-                                                                            "s_rate_fix"],
-                                                                      ),
-                                                                      double.parse(value
+                                                              if (value
                                                                           .qtycontroller[
                                                                               index]
-                                                                          .text),
-                                                                      double.parse(value
-                                                                          .discount_prercent[
-                                                                              index]
-                                                                          .text),
-                                                                      double.parse(value
-                                                                          .discount_amount[
-                                                                              index]
-                                                                          .text),
-                                                                      double.parse(
-                                                                          value.searchList[index]
-                                                                              [
-                                                                              "gst"]),
-                                                                      double.parse(
-                                                                          value.searchList[index]
-                                                                              ["cess"]),
-                                                                      "0",
-                                                                      int.parse(gtype),
-                                                                      index,
-                                                                      false,
-                                                                      "");
-                                                              if (formType ==
-                                                                  "3") {
-                                                                double gross = double.parse(
-                                                                        value.searchList[index]
-                                                                            [
-                                                                            "s_rate_fix"]) *
-                                                                    double.parse(value
-                                                                        .qtycontroller[
-                                                                            index]
-                                                                        .text);
+                                                                          .text !=
+                                                                      null &&
+                                                                  value
+                                                                      .qtycontroller[
+                                                                          index]
+                                                                      .text
+                                                                      .isNotEmpty) {
                                                                 Provider.of<Controller>(
                                                                         context,
                                                                         listen:
                                                                             false)
-                                                                    .addDeletebagItem(
-                                                                        "0",
-                                                                        value.searchList[index]
-                                                                            [
-                                                                            "batch_id"],
-                                                                        value.searchList[index]
-                                                                            [
-                                                                            "s_rate_fix"],
-                                                                        value
+                                                                    .addToCartClicked(
+                                                                        true,
+                                                                        index);
+
+                                                                Provider.of<Controller>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .rawCalculation(
+                                                                        double
+                                                                            .parse(
+                                                                          value.searchList[index]
+                                                                              [
+                                                                              "s_rate_fix"],
+                                                                        ),
+                                                                        double.parse(value
                                                                             .qtycontroller[
                                                                                 index]
-                                                                            .text,
-                                                                        context,
-                                                                        "save",
-                                                                        formType,
-                                                                        gross,
+                                                                            .text),
                                                                         double.parse(value
                                                                             .discount_prercent[
                                                                                 index]
@@ -395,26 +355,82 @@ class SearchBottomSheet {
                                                                             .discount_amount[
                                                                                 index]
                                                                             .text),
-                                                                        0.0,
-                                                                        value
-                                                                            .cgst_amt,
-                                                                        value
-                                                                            .sgst_amt,
-                                                                        value.igst_amt,
-                                                                        value.cgst_per,
-                                                                        value.sgst_per,
-                                                                        value.igst_per,
-                                                                        double.parse(
+                                                                        double.parse(value.searchList[index]
+                                                                            [
+                                                                            "gst"]),
+                                                                        double.parse(value.searchList[index]
+                                                                            [
+                                                                            "cess"]),
+                                                                        "0",
+                                                                        int.parse(gtype),
+                                                                        index,
+                                                                        false,
+                                                                        "");
+                                                              }
+                                                              if (formType ==
+                                                                  "3") {
+                                                                if (value
+                                                                            .qtycontroller[
+                                                                                index]
+                                                                            .text !=
+                                                                        null &&
+                                                                    value
+                                                                        .qtycontroller[
+                                                                            index]
+                                                                        .text
+                                                                        .isNotEmpty) {
+                                                                  double gross = double.parse(
                                                                           value.searchList[index]
                                                                               [
-                                                                              "cess"],
-                                                                        ),
-                                                                        value.cess,
-                                                                        gross,
-                                                                        double.parse(value.searchList[index]["gst"]),
-                                                                        "0",
-                                                                        "");
+                                                                              "s_rate_fix"]) *
+                                                                      double.parse(value
+                                                                          .qtycontroller[
+                                                                              index]
+                                                                          .text);
+                                                                  Provider.of<Controller>(context, listen: false).addDeletebagItem(
+                                                                      "0",
+                                                                      value.searchList[index]["batch_id"],
+                                                                      value.searchList[index]["s_rate_fix"],
+                                                                      value.rateList[index].text,
+                                                                      value.qtycontroller[index].text,
+                                                                      context,
+                                                                      "save",
+                                                                      formType,
+                                                                      gross,
+                                                                      double.parse(value.discount_prercent[index].text),
+                                                                      double.parse(value.discount_amount[index].text),
+                                                                      0.0,
+                                                                      value.cgst_amt,
+                                                                      value.sgst_amt,
+                                                                      value.igst_amt,
+                                                                      value.cgst_per,
+                                                                      value.sgst_per,
+                                                                      value.igst_per,
+                                                                      double.parse(
+                                                                        value.searchList[index]
+                                                                            [
+                                                                            "cess"],
+                                                                      ),
+                                                                      value.cess,
+                                                                      gross,
+                                                                      double.parse(value.searchList[index]["gst"]),
+                                                                      "0",
+                                                                      "");
+                                                                }
                                                               } else {
+                                                                // String ac;
+                                                                // if (value
+                                                                //         .rateList[
+                                                                //             index]
+                                                                //         .text ==
+                                                                //     null) {
+                                                                //   ac = "0.00";
+                                                                // } else {
+                                                                //   ac = value
+                                                                //       .rateList[
+                                                                //           index]
+                                                                //       .text;
+                                                                // }
                                                                 Provider.of<Controller>(
                                                                         context,
                                                                         listen:
@@ -427,6 +443,10 @@ class SearchBottomSheet {
                                                                         value.searchList[index]
                                                                             [
                                                                             "s_rate_fix"],
+                                                                        value
+                                                                            .rateList[
+                                                                                index]
+                                                                            .text,
                                                                         value
                                                                             .qtycontroller[
                                                                                 index]
@@ -449,8 +469,7 @@ class SearchBottomSheet {
                                                                             .cgst_amt,
                                                                         value
                                                                             .sgst_amt,
-                                                                        value
-                                                                            .igst_amt,
+                                                                        value.igst_amt,
                                                                         value.cgst_per,
                                                                         value.sgst_per,
                                                                         value.igst_per,
@@ -494,17 +513,34 @@ class SearchBottomSheet {
                                               //         context,
                                               //         "save");
                                             },
-                                            title: Text(
-                                              value.searchList[index]
-                                                  ["batch_name"],
-                                              style: GoogleFonts.aBeeZee(
-                                                  textStyle: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyText2,
-                                                  fontSize: 16,
-                                                  // fontWeight: FontWeight.bold,
-                                                  color: P_Settings
-                                                      .loginPagetheme),
+                                            title: Row(
+                                              children: [
+                                                // Text(
+                                                //  "${ value.searchList[index]
+                                                //       ["batch_id"]} - ",
+                                                //   style: GoogleFonts.aBeeZee(
+                                                //       textStyle: Theme.of(context)
+                                                //           .textTheme
+                                                //           .bodyText2,
+                                                //       fontSize: 16,
+                                                //       // fontWeight: FontWeight.bold,
+                                                //       color: Colors.grey),
+                                                // ),
+                                                Flexible(
+                                                  child: Text(
+                                                    "${value.searchList[index]["batch_id"]} - ${value.searchList[index]["batch_name"]}",
+                                                    style: GoogleFonts.aBeeZee(
+                                                        textStyle:
+                                                            Theme.of(context)
+                                                                .textTheme
+                                                                .bodyText2,
+                                                        fontSize: 16,
+                                                        // fontWeight: FontWeight.bold,
+                                                        color: P_Settings
+                                                            .loginPagetheme),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                             subtitle: Row(
                                               mainAxisAlignment:

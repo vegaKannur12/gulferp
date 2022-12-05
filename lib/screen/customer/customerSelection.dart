@@ -247,12 +247,21 @@ class _CustomerSelectionState extends State<CustomerSelection> {
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Row(
                           children: [
-                            Icon(Icons.phone, size: 13, color: Colors.green),
+                           Text(
+                              "Bal :",
+                              style: GoogleFonts.aBeeZee(
+                                textStyle:
+                                    Theme.of(context).textTheme.bodyText2,
+                                fontSize: 16,
+                                // fontWeight: FontWeight.bold,
+                                color: P_Settings.loginPagetheme,
+                              ),
+                            ),
                             SizedBox(
                               width: size.width * 0.01,
                             ),
                             Text(
-                              item.phone.toString(),
+                              item.outstanding.toString(),
                               style: GoogleFonts.aBeeZee(
                                 textStyle:
                                     Theme.of(context).textTheme.bodyText2,

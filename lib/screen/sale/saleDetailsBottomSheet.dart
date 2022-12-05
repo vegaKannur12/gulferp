@@ -15,6 +15,7 @@ class SaleDetailsBottomSheet {
       String batchocde,
       String itemName,
       String itemImg,
+      double actual_rate,
       double srate1,
       double stock,
       String qtyf,
@@ -718,6 +719,7 @@ class SaleDetailsBottomSheet {
                                       .addDeletebagItem(
                                           cart_id,
                                           itemId,
+                                          actual_rate.toString(),
                                           srate1.toString(),
                                           value.qty[index].text,
                                           context,

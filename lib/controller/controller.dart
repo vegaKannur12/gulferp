@@ -18,7 +18,10 @@ class Controller extends ChangeNotifier {
   bool fromDb = true;
   double? payable;
   double? balance;
-
+  bool? isReportLoading;
+  bool isvehLoading = false;
+  String? selectedpaymntMode;
+  double collExpBal = 0.0;
   bool partPaymentClicked = false;
 
   List<bool> addtoCart = [];
@@ -59,7 +62,12 @@ class Controller extends ChangeNotifier {
   List<String> filtereduniquelist = [];
   List<TextEditingController> discount_prercent = [];
   List<TextEditingController> discount_amount = [];
+  List<TextEditingController> rateList = [];
+
   List<Map<String, dynamic>> filteredproductList = [];
+  List<Map<String, dynamic>> reportsList = [];
+  List<Map<String, dynamic>> vehicleSettlemntList = [];
+
   List<Map<String, dynamic>> loadingList = [];
   List<Map<String, dynamic>> unloadingList = [];
   List<Map<String, dynamic>> searchList = [];
@@ -86,6 +94,8 @@ class Controller extends ChangeNotifier {
   List<Map<String, dynamic>> bagList = [];
   List<Map<String, dynamic>> historyList = [];
   List<Map<String, dynamic>> unloadhistoryList = [];
+  List<Map<String, dynamic>> expenseCollList = [];
+
   List<Map<String, dynamic>> infoList = [];
 
   List<TextEditingController> qty = [];
@@ -119,6 +129,8 @@ class Controller extends ChangeNotifier {
   double cess = 0.0;
   double disc_amt = 0.0;
   double net_amt = 0.0;
+  double? collectionVal;
+  double? expnVal;
 
   int item_count = 0;
   double? net_tot;
@@ -296,7 +308,9 @@ class Controller extends ChangeNotifier {
       invoice = map['invoice_no'];
       invoiceLoad = false;
       notifyListeners();
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
   }
 
   ////////////////////////////////////////////////////////////////////////////
@@ -373,6 +387,7 @@ class Controller extends ChangeNotifier {
   Future addDeletebagItem(
       String cart_id,
       String itemId,
+      String actualRate,
       String srate1,
       String qty,
       BuildContext context,
@@ -410,6 +425,7 @@ class Controller extends ChangeNotifier {
             'item_id': itemId,
             'event': event,
             'qty': qty,
+            'actual_rate': actualRate,
             'rate': srate1,
             'gross': gross.toString(),
             'disc_per': disc_per.toString(),
@@ -520,6 +536,8 @@ class Controller extends ChangeNotifier {
             }
           }
           if (form_type == "1" || form_type == "2") {
+            rateList = List.generate(
+                bagList.length, (index) => TextEditingController());
             discount_prercent = List.generate(
                 bagList.length, (index) => TextEditingController());
             discount_amount = List.generate(
@@ -533,6 +551,7 @@ class Controller extends ChangeNotifier {
             // print("qty------${productList[i]["qty"]}");
             qty[i].text = bagList[i]["qty"].toString();
             if (form_type == "1" || form_type == "2") {
+              rateList[i].text = bagList[i]["s_rate_fix"].toString();
               discount_prercent[i].text = bagList[i]["disc_per"].toString();
               discount_amount[i].text = bagList[i]["disc_amt"].toString();
             }
@@ -550,7 +569,7 @@ class Controller extends ChangeNotifier {
           taxable_total = 0.0;
           total_qty = 0.0;
           for (int i = 0; i < bagList.length; i++) {
-            net_tot = (net_tot! + double.parse(bagList[i]["net_total"]));
+            net_tot = net_tot! + double.parse(bagList[i]["net_total"]);
             gro_tot = gro_tot! + double.parse(bagList[i]["gross"]);
             disc_tot = disc_tot! + double.parse(bagList[i]["disc_amt"]);
             cess_total = cess_total! + double.parse(bagList[i]["cess_amt"]);
@@ -591,12 +610,11 @@ class Controller extends ChangeNotifier {
 ////////////////////////////////////////////////////////////////////
 
   setCustomerName(
-      String cusName, String? gtype, String cusId, String outstanding) {
-        
+      String cusName, String? gtype, String cusId, String outstanding2) {
     cusName1 = cusName;
     gtype1 = gtype;
     cus_id = cusId;
-    outstanding = outstanding;
+    outstanding = outstanding2;
     print("cysujkjj------$cusName1----$gtype--------$outstanding");
     notifyListeners();
   }
@@ -727,7 +745,7 @@ class Controller extends ChangeNotifier {
           };
           print("mbody-----$body");
           // isDownloaded = true;
-          isLoading = true;
+          isvehLoading = true;
           notifyListeners();
 
           http.Response response = await http.post(
@@ -737,7 +755,7 @@ class Controller extends ChangeNotifier {
           var map = jsonDecode(response.body);
           print("stock approval list-----------------$map");
 
-          isLoading = false;
+          isvehLoading = false;
           notifyListeners();
           loadingList.clear();
           if (map != null) {
@@ -842,39 +860,37 @@ class Controller extends ChangeNotifier {
           isLoading = false;
           notifyListeners();
 
-          if (map["err_status"] == 0) {
-            return showDialog(
-                context: context,
-                builder: (context) {
-                  Size size = MediaQuery.of(context).size;
+          return showDialog(
+              context: context,
+              builder: (ct) {
+                Size size = MediaQuery.of(context).size;
 
-                  Future.delayed(Duration(seconds: 2), () {
-                    Navigator.of(context).pop(true);
-                    getvehicleLoadingList(context);
-                    Navigator.of(context).push(
-                      PageRouteBuilder(
-                          opaque: false, // set to false
-                          pageBuilder: (_, __, ___) => MainDashboard()
-                          // OrderForm(widget.areaname,"return"),
-                          ),
-                    );
-                  });
-                  return AlertDialog(
-                      content: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        map["msg"].toString(),
-                        style: TextStyle(color: P_Settings.loginPagetheme),
-                      ),
-                      Icon(
-                        Icons.done,
-                        color: Colors.green,
-                      )
-                    ],
-                  ));
+                Future.delayed(Duration(seconds: 2), () {
+                  Navigator.of(ct).pop(true);
+                  getvehicleLoadingList(context);
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                        opaque: false, // set to false
+                        pageBuilder: (_, __, ___) => MainDashboard()
+                        // OrderForm(widget.areaname,"return"),
+                        ),
+                  );
                 });
-          }
+                return AlertDialog(
+                    content: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      map["msg"].toString(),
+                      style: TextStyle(color: P_Settings.loginPagetheme),
+                    ),
+                    Icon(
+                      Icons.done,
+                      color: Colors.green,
+                    )
+                  ],
+                ));
+              });
 
           // stock_approve_list.clear();
           // if (map != null) {
@@ -920,7 +936,7 @@ class Controller extends ChangeNotifier {
     flag = false;
 
     print(
-        "attribute---$tax_per----$qtyw-----$state_status--$rate---$disc_per----$disc_amount---$cess_per");
+        "attribute--$rate---$qtyw---$disc_per--$disc_amount--$tax_per---$cess_per---$method---$state_status--$disCalc----");
     if (method == "0") {
       /////////////////////////////////method=="0" - excluisive , method=1 - inclusive
       taxable_rate = rate;
@@ -941,8 +957,8 @@ class Controller extends ChangeNotifier {
       if (onSub) {
         discount_prercent[index].text = disc_per.toStringAsFixed(4);
       }
-      print("disc_per----$disc_per");
     }
+    print("disc_amt----$disc_amt----$disc_amount---$disCalc");
 
     if (disCalc == "disc_per") {
       print("yes hay---$disc_per");
@@ -955,11 +971,12 @@ class Controller extends ChangeNotifier {
 
     if (disCalc == "qty") {
       qty[index].text = qtyw.toString();
+      disc_amt = disc_amount;
 
       print("ces-per----$cess_per");
       // disc_amt = double.parse(discount_amount[index].text);
       // disc_per = double.parse(discount_prercent[index].text);
-      print("disc-amt qty----$disc_amt...$disc_per");
+      print("disc-amt qty----$disc_amt...$disc_per----$disCalc");
     }
 
     // if (disCalc == "rate") {
@@ -1009,7 +1026,7 @@ class Controller extends ChangeNotifier {
     print("netamount.cal...$net_amt");
 
     print(
-        "disc_per calcu mod=0..$tax..$gross..$cess. $disc_amt...$tax_per-----$net_amt");
+        "disc_per calcu mod=0.....$gross...$disc_amt.....$cess. ...$tax_per--$tax..---$net_amt");
     notifyListeners();
     return "success";
   }
@@ -1169,7 +1186,10 @@ class Controller extends ChangeNotifier {
       String sgst_total,
       String igst_total,
       String taxable_total,
-      String total_qty) async {
+      String total_qty,
+      String paymentMode,
+      String payable,
+      String balance) async {
     List<Map<String, dynamic>> jsonResult = [];
     // List<Map<String, dynamic>> itemmap = [];
 
@@ -1180,7 +1200,7 @@ class Controller extends ChangeNotifier {
     branch_id = prefs.getString("branch_id");
     user_id = prefs.getString("user_id");
 
-    print("datas--------$remark------$branch_id----$user_id");
+    print("datas--------$paymentMode------$payable----$balance");
     print("action........$action");
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
@@ -1190,32 +1210,14 @@ class Controller extends ChangeNotifier {
         jsonResult.clear();
         // itemmap.clear();
 
-        // bagList.map((e) {
-        //   itemmap["item_id"] = e["item_id"];
-        //   itemmap["qty"] = e["qty"];
-        //   itemmap["rate"] = e["rate"];
-        //   itemmap["tax"] = e["tax"];
-        //   itemmap["gross"] = e["gross"];
-        //   itemmap["disc_per"] = e["disc_per"];
-        //   itemmap["disc_amt"] = e["disc_amt"];
-        //   itemmap["taxable"] = e["taxable"];
-        //   itemmap["cgst_per"] = e["cgst_per"];
-        //   itemmap["cgst_amt"] = e["cgst_amt"];
-        //   itemmap["sgst_per"] = e["sgst_per"];
-        //   itemmap["sgst_amt"] = e["sgst_amt"];
-        //   itemmap["igst_per"] = e["igst_per"];
-        //   itemmap["igst_amt"] = e["igst_amt"];
-        //   itemmap["cess_per"] = e["cess_per"];
-        //   itemmap["cess_amt"] = e["cess_amt"];
-        //   itemmap["net_total"] = e["net_total"];
-        //   print("itemmap----$itemmap");
-        //   jsonResult.add(e);
-        // }).toList();
         jsonResult.clear();
+        print("bagList-save------$bagList-----");
 
         for (var i = 0; i < bagList.length; i++) {
           var itemmap = {
             "item_id": bagList[i]["item_id"],
+            "actual_rate": bagList[i]["actual_rate"],
+            "rate": bagList[i]["s_rate_fix"],
             "qty": bagList[i]["qty"],
             "tax": bagList[i]["tax"],
             "gross": bagList[i]["gross"],
@@ -1250,6 +1252,9 @@ class Controller extends ChangeNotifier {
           "s_total_igst": igst_total,
           "s_total_cess": total_cess,
           "net_total": net_total,
+          "payment_mode": paymentMode,
+          "payable": payable,
+          "balance": balance,
           "rounding": rounding,
           "s_grand_total": net_total,
           "staff_id": user_id,
@@ -1294,9 +1299,11 @@ class Controller extends ChangeNotifier {
 
                 Future.delayed(Duration(seconds: 2), () {
                   Navigator.of(ct).pop(true);
+                  Navigator.of(context).pop(true);
+
                   if (map["err_status"] == 0) {
                     Navigator.push(
-                      context,  
+                      context,
                       MaterialPageRoute(
                         builder: (context) => SaleHome(
                           formType: form_type,
@@ -1371,13 +1378,8 @@ class Controller extends ChangeNotifier {
   }
 
   /////////////////////unload vehicle save/////////////////////////////
-  saveUnloadVehicleDetails(
-    BuildContext context,
-    String event,
-    String action,
-    String form_type,
-    String os_id,
-  ) async {
+  saveUnloadVehicleDetails(BuildContext context, String event, String action,
+      String form_type, String os_id, String remarks) async {
     List<Map<String, dynamic>> jsonResult = [];
     // List<Map<String, dynamic>> itemmap = [];
 
@@ -1403,18 +1405,19 @@ class Controller extends ChangeNotifier {
           var itemmap = {
             "item_id": bagList[i]["item_id"],
             "qty": bagList[i]["qty"],
-            "s_rate_fix": bagList[i]["rate"],
+            "s_rate_fix": bagList[i]["s_rate_fix"],
           };
           jsonResult.add(itemmap);
           print("jsonResult----$jsonResult");
         }
-        print("jsonResult return ----$jsonResult");
+        print("jsonResult unload ----$jsonResult");
 
         Map masterMap = {
           "tot_qty": total_qty,
           "staff_id": user_id,
           "branch_id": branch_id,
           "event": event,
+          "remarks": remarks,
           "details": jsonResult
         };
 
@@ -1585,10 +1588,10 @@ class Controller extends ChangeNotifier {
         //   jsonResult.add(e);
         // }).toList();
         jsonResult.clear();
-
         for (var i = 0; i < bagList.length; i++) {
           var itemmap = {
             "item_id": bagList[i]["item_id"],
+            "rate": bagList[i]["s_rate_fix"],
             "qty": bagList[i]["qty"],
             "tax": bagList[i]["tax"],
             "gross": bagList[i]["gross"],
@@ -1779,6 +1782,8 @@ class Controller extends ChangeNotifier {
             searchList.length,
             (index) => TextEditingController(),
           );
+          rateList = List.generate(
+              searchList.length, (index) => TextEditingController());
           discount_prercent = List.generate(
               searchList.length, (index) => TextEditingController());
           discount_amount = List.generate(
@@ -1788,6 +1793,7 @@ class Controller extends ChangeNotifier {
           for (int i = 0; i < searchList.length; i++) {
             discount_prercent[i].text = "0";
             discount_amount[i].text = "0";
+            rateList[i].text = searchList[i]["s_rate_fix"];
           }
           isSearchLoading = false;
           // isLoading = false;
@@ -1931,39 +1937,37 @@ class Controller extends ChangeNotifier {
           isLoading = false;
           notifyListeners();
 
-          if (map["err_status"] == 0) {
-            return showDialog(
-                context: context,
-                builder: (context) {
-                  Size size = MediaQuery.of(context).size;
+          return showDialog(
+              context: context,
+              builder: (ct) {
+                Size size = MediaQuery.of(context).size;
 
-                  Future.delayed(Duration(seconds: 2), () {
-                    Navigator.of(context).pop(true);
-                    getStockApprovalList(context);
-                    Navigator.of(context).push(
-                      PageRouteBuilder(
-                          opaque: false, // set to false
-                          pageBuilder: (_, __, ___) => MainDashboard()
-                          // OrderForm(widget.areaname,"return"),
-                          ),
-                    );
-                  });
-                  return AlertDialog(
-                      content: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        map["msg"].toString(),
-                        style: TextStyle(color: P_Settings.loginPagetheme),
-                      ),
-                      Icon(
-                        Icons.done,
-                        color: Colors.green,
-                      )
-                    ],
-                  ));
+                Future.delayed(Duration(seconds: 2), () {
+                  Navigator.of(ct).pop(true);
+                  getStockApprovalList(context);
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                        opaque: false, // set to false
+                        pageBuilder: (_, __, ___) => MainDashboard()
+                        // OrderForm(widget.areaname,"return"),
+                        ),
+                  );
                 });
-          }
+                return AlertDialog(
+                    content: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      map["msg"].toString(),
+                      style: TextStyle(color: P_Settings.loginPagetheme),
+                    ),
+                    Icon(
+                      Icons.done,
+                      color: Colors.green,
+                    )
+                  ],
+                ));
+              });
 
           // stock_approve_list.clear();
           // if (map != null) {
@@ -2004,6 +2008,8 @@ class Controller extends ChangeNotifier {
 
       payable = payable1;
       balance = 0.0;
+
+      print("paybklkd----$payable");
     } else if (mode == "2") {
       partPaymentClicked = false;
 
@@ -2011,9 +2017,344 @@ class Controller extends ChangeNotifier {
       balance = payable1;
     } else if (mode == "3") {
       partPaymentClicked = true;
-      balance = 0.0;
+      balance = payable1;
     }
     notifyListeners();
   }
+
+  ////////////////////////////////////////////
+  calculateBal(double val, double net) {
+    balance = net - val;
+    notifyListeners();
+  }
+
+  setInitialValFrPaymentSheet() {
+    selectedpaymntMode = null;
+    partPaymentClicked = false;
+    paymentMode = null;
+    balance = null;
+    payable = null;
+    notifyListeners();
+  }
+
   ///////////////////////////////////////////
+  saveexpenseandCollection(BuildContext context, String? cusId, String event,
+      String? amt, String? narration, String? os_id, String formType) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          user_id = prefs.getString("user_id");
+          print("szfcdzfdxf----------$cusId----$amt----$narration---$formType");
+          Uri url = Uri.parse("$urlgolabl/save_expense_collection.php");
+          Map body = {
+            "s_customer_id": cusId,
+            "event": event,
+            "amt": amt,
+            "narration": narration,
+            "staff_id": user_id,
+            "branch_id": branch_id,
+            "os_id": os_id,
+            "form_type": formType,
+          };
+          // var jsonBody = jsonEncode(body);
+
+          print("save_expense_collection body-----$body");
+          isLoading = true;
+          notifyListeners();
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          print("save_expense_collection response-----------------${map}");
+
+          isLoading = false;
+          notifyListeners();
+
+          return showDialog(
+              context: context,
+              builder: (ct) {
+                Size size = MediaQuery.of(context).size;
+
+                Future.delayed(Duration(seconds: 2), () {
+                  Navigator.of(ct).pop(true);
+
+                  // getStockApprovalList(context);
+                  if (map["err_status"] == 0) {
+                    Navigator.of(context).push(
+                      PageRouteBuilder(
+                          opaque: false, // set to false
+                          pageBuilder: (_, __, ___) => MainDashboard()
+                          // OrderForm(widget.areaname,"return"),
+                          ),
+                    );
+                  }
+                });
+                return AlertDialog(
+                    content: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      map["msg"].toString(),
+                      style: TextStyle(color: P_Settings.loginPagetheme),
+                    ),
+                    Icon(
+                      Icons.done,
+                      color: Colors.green,
+                    )
+                  ],
+                ));
+              });
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print("error...$e");
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  historyExpenseAndCollectionData(BuildContext context, String action,
+      String fromDate, String tillDate, String formType) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          // user_id = prefs.getString("user_id");
+          print(
+              "history unload-----------$fromDate----$branch_id----$formType---");
+          Uri url = Uri.parse("$urlgolabl/expense_collection_list.php");
+          Map body = {
+            'branch_id': branch_id,
+            'from_date': fromDate,
+            'till_date': tillDate,
+            'form_type': formType
+          };
+          print("expense_collection_list body-----$body");
+          if (action != "delete") {
+            isLoading = true;
+            notifyListeners();
+          }
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          print("expense_collection_list response-----------------${map}");
+
+          if (action != "delete") {
+            isLoading = false;
+            notifyListeners();
+          }
+
+          expenseCollList.clear();
+          if (map != null) {
+            for (var item in map) {
+              expenseCollList.add(item);
+            }
+          }
+
+          print("expenseCollList data........${expenseCollList}");
+          // isLoading = false;
+          notifyListeners();
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print("error...$e");
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+
+  ///////////////report/////////////////////////////////////////////
+  itemwisereports(
+      BuildContext context, String fromDate, String tillDate) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          // user_id = prefs.getString("user_id");
+          print("history unload---------$branch_id----$user_id---");
+          Uri url = Uri.parse("$urlgolabl/itemwise_sale_report.php");
+          Map body = {
+            'vehicle_id': branch_id,
+            'from_date': fromDate,
+            'till_date': tillDate
+          };
+          print("itemwise body-----$body");
+
+          isReportLoading = true;
+          notifyListeners();
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          print("itemwise report--------------${map}");
+
+          // if (action != "delete") {
+          //   isLoading = false;
+          //   notifyListeners();
+          // }
+
+          reportsList.clear();
+          if (map != null) {
+            for (var item in map) {
+              reportsList.add(item);
+            }
+          }
+
+          print("reportsList list data........${reportsList}");
+          isReportLoading = false;
+          notifyListeners();
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print("error...$e");
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+
+////////////////////////////////////////////////////////////////////////////////////
+  stockreports(
+    BuildContext context,
+  ) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          // user_id = prefs.getString("user_id");
+          print("history unload---------$branch_id----$user_id---");
+          Uri url = Uri.parse("$urlgolabl/stock_report.php");
+          Map body = {
+            'vehicle_id': branch_id,
+          };
+          print("stock unload body-----$body");
+
+          isReportLoading = true;
+          notifyListeners();
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          print("stock report-------------${map}");
+
+          // if (action != "delete") {
+          //   isLoading = false;
+          //   notifyListeners();
+          // }
+
+          reportsList.clear();
+          if (map != null) {
+            for (var item in map) {
+              reportsList.add(item);
+            }
+          }
+
+          print("reportsList list data........${reportsList}");
+          isReportLoading = false;
+          notifyListeners();
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print("error...$e");
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+
+  ///////////////////////////////////////////////
+  vehicleSettlement(
+    BuildContext context,
+  ) async {
+    double coll = 0.0;
+    double exp = 0.0;
+
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          // user_id = prefs.getString("user_id");
+          print("history unload---------$branch_id----$user_id---");
+          Uri url = Uri.parse("$urlgolabl/vehicle_settlement_list.php");
+          Map body = {
+            'vehicle_id': branch_id,
+            // 'from_date': fromDate,
+            // 'till_date': tillDate
+          };
+          print("vehicle settlemnt body-----$body");
+
+          isReportLoading = true;
+          notifyListeners();
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          print("vehicle settlemnt-----------------${map}");
+
+          // if (action != "delete") {
+          //   isLoading = false;
+          //   notifyListeners();
+          // }
+
+          vehicleSettlemntList.clear();
+          if (map != null) {
+            for (var item in map) {
+              vehicleSettlemntList.add(item);
+            }
+          }
+
+          print("vehicle settlemnt....${vehicleSettlemntList}");
+
+          for (int i = 0; i < vehicleSettlemntList.length; i++) {
+            if (vehicleSettlemntList[i]["flag"] == "2") {
+              coll = coll + double.parse(vehicleSettlemntList[i]["amt"]);
+            } else {
+              exp = exp + double.parse(vehicleSettlemntList[i]["amt"]);
+            }
+          }
+          collectionVal = coll;
+          expnVal = exp;
+          collExpBal = coll - exp;
+
+          print("colll-----$coll----$exp $collExpBal");
+          isReportLoading = false;
+          notifyListeners();
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print("error...$e");
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
 }

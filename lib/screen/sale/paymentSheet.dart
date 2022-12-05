@@ -7,17 +7,21 @@ import 'package:gulferp/controller/controller.dart';
 import 'package:provider/provider.dart';
 
 class PaymentBottomSheet {
+  ValueNotifier<bool> visible = ValueNotifier(false);
+
   // TextEditingController searchcontroller = TextEditingController();
   TextEditingController payblecontroller = TextEditingController();
   String? oldText;
-  String? selected;
+  // String? selected;
   List paymentOptions = [
     {"id": "1", "value": "cash"},
     {"id": "2", "value": "credit"},
     {"id": "3", "value": "part payment"}
   ];
-  showpaymentSheet(BuildContext context, Size size, String formType,String? remark) {
+  showpaymentSheet(
+      BuildContext context, Size size, String formType, String? remark) {
     // searchcontroller.text = "";
+    payblecontroller.clear();
     return showModalBottomSheet<void>(
       isScrollControlled: true,
       context: context,
@@ -129,6 +133,7 @@ class PaymentBottomSheet {
                               Flexible(
                                 child: Container(
                                   width: size.width * 0.3,
+                                  height: size.height * 0.05,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     border: Border.all(
@@ -138,7 +143,7 @@ class PaymentBottomSheet {
                                   ),
                                   child: DropdownButton<String>(
                                     isExpanded: true,
-                                    value: selected,
+                                    value: value.selectedpaymntMode,
                                     // value: selected,
                                     // isDense: true,
                                     hint: Padding(
@@ -168,13 +173,16 @@ class PaymentBottomSheet {
                                             )))
                                         .toList(),
                                     onChanged: (item) {
+                                      visible.value = false;
+
                                       print("clicked--$item");
                                       if (item != null) {
-                                        selected = item;
+                                        value.selectedpaymntMode = item;
                                         Provider.of<Controller>(context,
                                                 listen: false)
                                             .setPaymentMode(
-                                                selected!, value.net_tot!);
+                                                value.selectedpaymntMode!,
+                                                value.net_tot!);
 
                                         // splitted = selected!.split(',');
 
@@ -227,6 +235,21 @@ class PaymentBottomSheet {
                                             color: Colors.green),
                                         controller: payblecontroller,
                                         textAlign: TextAlign.end,
+                                        onChanged: (values) {
+                                          print("vajjj-----$values");
+                                          if (values != null &&
+                                              values.isNotEmpty) {
+                                            Provider.of<Controller>(context,
+                                                    listen: false)
+                                                .calculateBal(
+                                                    double.parse(values),
+                                                    value.net_tot!);
+                                          }
+
+                                          // value.balance = value.net_tot! -
+                                          //     double.parse(
+                                          //         values);
+                                        },
                                         onSubmitted: (values) {
                                           value.balance = value.net_tot! -
                                               double.parse(
@@ -281,6 +304,19 @@ class PaymentBottomSheet {
                             ],
                           ),
                         ),
+                        ValueListenableBuilder(
+                            valueListenable: visible,
+                            builder:
+                                (BuildContext context, bool v, Widget? child) {
+                              print("value===${visible.value}");
+                              return Visibility(
+                                visible: v,
+                                child: Text(
+                                  "Select payment mode!!!",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              );
+                            }),
                         Padding(
                           padding: const EdgeInsets.only(
                             left: 18.0,
@@ -296,7 +332,39 @@ class PaymentBottomSheet {
                                     style: ElevatedButton.styleFrom(
                                         primary: P_Settings.loginPagetheme),
                                     onPressed: () {
-                                      Provider.of<Controller>(context,
+                                      print(
+                                          "kkajdks--------${Provider.of<Controller>(context, listen: false).partPaymentClicked}");
+                                      String payableVal;
+                                      // if (Provider.of<Controller>(context,
+                                      //         listen: false)
+                                      //     .partPaymentClicked = true) {
+                                      //   if (payblecontroller.text == null ||
+                                      //       payblecontroller.text.isEmpty) {
+                                      //     payableVal = "0";
+                                      //   } else {
+                                      //     payableVal = payblecontroller.text;
+                                      //     print(
+                                      //         "paybale-------${payblecontroller.text}");
+                                      //   }
+                                      // } else {
+                                      //   payableVal = value.payable.toString();
+                                      // }
+                                      if (value.paymentMode == "3") {
+                                        if (payblecontroller.text == null ||
+                                            payblecontroller.text.isEmpty) {
+                                          payableVal = "0";
+                                        } else {
+                                          payableVal = payblecontroller.text;
+                                          print(
+                                              "paybale-------${payblecontroller.text}");
+                                        }
+                                      } else {
+                                        payableVal = value.payable.toString();
+                                      }
+
+                                      if (value.paymentMode != null) {
+                                        visible.value = false;
+                                        Provider.of<Controller>(context,
                                                 listen: false)
                                             .saveCartDetails(
                                                 context,
@@ -316,7 +384,14 @@ class PaymentBottomSheet {
                                                 value.sgst_total.toString(),
                                                 value.igst_total.toString(),
                                                 value.taxable_total.toString(),
-                                                value.total_qty.toString());
+                                                value.total_qty.toString(),
+                                                value.paymentMode.toString(),
+                                                payableVal,
+                                                value.balance.toString());
+                                        // payblecontroller.clear();
+                                      } else {
+                                        visible.value = true;
+                                      }
                                     },
                                     child: Text(
                                       "Apply",

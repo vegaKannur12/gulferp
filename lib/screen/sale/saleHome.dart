@@ -202,77 +202,255 @@ class _SaleHomeState extends State<SaleHome> {
                                         ),
                                       );
                                     }),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 40.0, top: 10),
-                                      child: Container(
-                                          child: OutlinedButton(
-                                        child: Text(
-                                          'Choose Customer',
-                                          style: GoogleFonts.aBeeZee(
-                                              textStyle: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: P_Settings.loginPagetheme),
-                                        ),
-                                        onPressed: () async {
-                                          List<Map<String, dynamic>> list = [];
-                                          if (selected == null) {
-                                            visible.value = true;
-                                          } else {
-                                            visible.value = false;
 
-                                            list =
-                                                await Provider.of<Controller>(
-                                                        context,
-                                                        listen: false)
-                                                    .getCustomerList(selected!);
-                                          }
-
-                                          print("list-----$list");
-                                          if (list.length > 0) {
-                                            Navigator.of(context).push(
-                                              PageRouteBuilder(
-                                                  opaque: false, // set to false
-                                                  pageBuilder: (_, __, ___) =>
-                                                      CustomerSelection(
-                                                        list: list,
-                                                        selected: splitted[0],
-                                                        selectedRoute:
-                                                            splitted[1],
-                                                        // remark: remrk.text,
-                                                      )
-                                                  // OrderForm(widget.areaname,"return"),
-                                                  ),
-                                            );
-                                          }
-                                        },
-                                      )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 18.0, top: 10),
-                                      child: Text(
-                                        value.cusName1 == null
-                                            ? "customer"
-                                            : value.cusName1.toString(),
-                                        // "customer",
+                                SizedBox(
+                                  height: size.height * 0.014,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 41.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Choose Customer',
                                         style: GoogleFonts.aBeeZee(
                                             textStyle: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2,
                                             fontSize: 16,
-                                            fontStyle: FontStyle.italic,
+                                            // fontWeight: FontWeight.bold,
                                             color: P_Settings.loginPagetheme),
                                       ),
-                                    )
-                                  ],
+                                    ],
+                                  ),
                                 ),
+                                SizedBox(
+                                  height: size.height * 0.01,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 40.0, right: 40),
+                                  child: Container(
+                                    // height: size.height * 0.06,
+                                    child: Autocomplete<Map<String, dynamic>>(
+                                      optionsBuilder:
+                                          (TextEditingValue values) {
+                                        if (values.text.isEmpty) {
+                                          return [];
+                                        } else {
+                                          return value.customerList.where(
+                                              (suggestion) =>
+                                                  suggestion["Customer"]
+                                                      .toLowerCase()
+                                                      .contains(values.text
+                                                          .toLowerCase()));
+                                        }
+                                      },
+                                      displayStringForOption:
+                                          (Map<String, dynamic> option) =>
+                                              option["Customer"],
+                                      // onSelected: (value) {
+                                      //   setState(() {
+                                         
+                                      //   });
+                                      // },
+                                      fieldViewBuilder: (BuildContext context,
+                                          fieldText,
+                                          FocusNode fieldFocusNode,
+                                          VoidCallback onFieldSubmitted) {
+                                        return Container(
+                                          height: size.height * 0.08,
+                                          child: TextFormField(
+                                            scrollPadding: EdgeInsets.only(
+                                                bottom: topInsets +
+                                                    size.height * 0.4),
+                                            onChanged: (value) {
+                                              cusVisible.value = false;
+                                            },
+                                            // scrollPadding: EdgeInsets.only(
+                                            //     top: 500,),
+                                            maxLines: 1,
+                                            decoration: InputDecoration(
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: const BorderSide(
+                                                  color: Colors.grey,
+                                                ),
+                                                // borderRadius:
+                                                //     BorderRadius.circular(25.0),
+                                              ),
+                                              border: OutlineInputBorder(
+                                                gapPadding: 1,
+                                                // borderRadius:
+                                                //     BorderRadius.circular(20),
+                                                borderSide: BorderSide(
+                                                  color: Colors.black,
+                                                  width: 3,
+                                                ),
+                                              ),
+
+                                              hintText: 'customer',
+                                              helperText: ' ', // th
+                                              suffixIcon: IconButton(
+                                                onPressed: fieldText.clear,
+                                                icon: Icon(
+                                                  Icons.clear,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                            // validator: (value) {
+                                            //   if (value == null ||
+                                            //       value.isEmpty) {
+                                            //     return 'Please choose customer!!';
+                                            //   }
+                                            //   return null;
+                                            // },
+                                            textInputAction:
+                                                TextInputAction.next,
+
+                                            controller: fieldText,
+                                            focusNode: fieldFocusNode,
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: P_Settings.loginPagetheme,
+                                              // fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      optionsViewBuilder: (BuildContext context,
+                                          AutocompleteOnSelected<
+                                                  Map<String, dynamic>>
+                                              onSelected,
+                                          Iterable<Map<String, dynamic>>
+                                              options) {
+                                        return Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Material(
+                                            child: Container(
+                                              height: size.height * 0.2,
+                                              width: size.width * 0.7,
+                                              child: ListView.builder(
+                                                shrinkWrap: true,
+                                                padding: EdgeInsets.all(2.0),
+                                                itemCount: options.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  final Map<String, dynamic>
+                                                      option =
+                                                      options.elementAt(index);
+                                                  print("option----${option}");
+                                                  return Container(
+                                                    height: size.height * 0.05,
+                                                    child: ListTile(
+                                                      // tileColor: Colors.amber,
+                                                      onTap: () {
+                                                        onSelected(option);
+                                                        print(
+                                                            "optionaid------$option");
+                                                        Provider.of<Controller>(
+                                                                context,
+                                                                listen: false)
+                                                            .setCustomerName(
+                                                                option["Customer"]
+                                                                    .toString(),
+                                                                option["g_type"]
+                                                                    .toString(),
+                                                               option["FLD3001"]
+                                                                    .toString(),
+                                                                option["Outstanding"]
+                                                                    .toString(),);
+                                                      },
+                                                      title: Text(
+                                                          option["Customer"]
+                                                              .toString(),
+                                                          style: TextStyle(
+                                                              fontSize: 15,
+                                                              color: Colors
+                                                                  .black)),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.start,
+                                //   children: [
+                                //     Padding(
+                                //       padding: const EdgeInsets.only(
+                                //           left: 40.0, top: 10),
+                                //       child: Container(
+                                //           child: OutlinedButton(
+                                //         child: Text(
+                                //           'Choose Customer',
+                                //           style: GoogleFonts.aBeeZee(
+                                //               textStyle: Theme.of(context)
+                                //                   .textTheme
+                                //                   .bodyText2,
+                                //               fontSize: 12,
+                                //               fontWeight: FontWeight.bold,
+                                //               color: P_Settings.loginPagetheme),
+                                //         ),
+                                //         onPressed: () async {
+                                //           List<Map<String, dynamic>> list = [];
+                                //           if (selected == null) {
+                                //             visible.value = true;
+                                //           } else {
+                                //             visible.value = false;
+
+                                //             list =
+                                //                 await Provider.of<Controller>(
+                                //                         context,
+                                //                         listen: false)
+                                //                     .getCustomerList(selected!);
+                                //           }
+
+                                //           print("list-----$list");
+                                //           if (list.length > 0) {
+                                //             Navigator.of(context).push(
+                                //               PageRouteBuilder(
+                                //                   opaque: false, // set to false
+                                //                   pageBuilder: (_, __, ___) =>
+                                //                       CustomerSelection(
+                                //                         list: list,
+                                //                         selected: splitted[0],
+                                //                         selectedRoute:
+                                //                             splitted[1],
+                                //                         // remark: remrk.text,
+                                //                       )
+                                //                   // OrderForm(widget.areaname,"return"),
+                                //                   ),
+                                //             );
+                                //           }
+                                //         },
+                                //       )),
+                                //     ),
+                                //     Padding(
+                                //       padding: const EdgeInsets.only(
+                                //           left: 18.0, top: 10),
+                                //       child: Text(
+                                //         value.cusName1 == null
+                                //             ? "customer"
+                                //             : value.cusName1.toString(),
+                                //         // "customer",
+                                //         style: GoogleFonts.aBeeZee(
+                                //             textStyle: Theme.of(context)
+                                //                 .textTheme
+                                //                 .bodyText2,
+                                //             fontSize: 16,
+                                //             fontStyle: FontStyle.italic,
+                                //             color: P_Settings.loginPagetheme),
+                                //       ),
+                                //     )
+                                //   ],
+                                // ),
                                 ValueListenableBuilder(
                                     valueListenable: cusVisible,
                                     builder: (BuildContext context, bool v,
@@ -282,7 +460,7 @@ class _SaleHomeState extends State<SaleHome> {
                                         visible: v,
                                         child: Padding(
                                           padding: const EdgeInsets.only(
-                                              top: 6, bottom: 2.0, left: 40),
+                                              top: 0, bottom: 2.0, left: 41),
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.start,
@@ -368,7 +546,7 @@ class _SaleHomeState extends State<SaleHome> {
                                         ),
                                         onPressed: () async {
                                           value.paymentMode = null;
-                                          value.partPaymentClicked=false;
+                                          value.partPaymentClicked = false;
                                           Provider.of<Controller>(context,
                                                   listen: false)
                                               .getItemCategory(context);
@@ -560,6 +738,8 @@ class _SaleHomeState extends State<SaleHome> {
                   }
                   print("route id-----${splitted[0]}");
                 }
+                Provider.of<Controller>(context, listen: false)
+                    .getCustomerList(selected!);
               },
             ),
           ),

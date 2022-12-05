@@ -10,8 +10,7 @@ import 'package:provider/provider.dart';
 
 import 'screen/dynamicRow.dart';
 
-// registration id
-// DZNFEJY9OTOA
+//Company key-------DZNFEJY9OTOA
 void requestPermission() async {
   var status = await Permission.storage.status;
   // var statusbl= await Permission.bluetooth.status;

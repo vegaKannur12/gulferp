@@ -17,6 +17,7 @@ class VehicleLoading extends StatefulWidget {
 class _VehicleLoadingState extends State<VehicleLoading> {
   @override
   Widget build(BuildContext context) {
+    Size size=MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
@@ -75,7 +76,7 @@ class _VehicleLoadingState extends State<VehicleLoading> {
                                     children: [
                                       Text(
                                           "Qty :    ${value.vehicle_loading_detaillist[index]["qty"]} ,"),
-                                          // Spacer(),
+                                      // Spacer(),
                                       Padding(
                                         padding:
                                             const EdgeInsets.only(left: 14.0),
@@ -123,9 +124,58 @@ class _VehicleLoadingState extends State<VehicleLoading> {
                                 ),
                               ),
                               onPressed: () {
-                                Provider.of<Controller>(context, listen: false)
-                                    .saveVehicleLoadingList(
-                                        context, widget.os_id);
+                                showDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (BuildContext ctx) {
+                                      return new AlertDialog(
+                                        content:
+                                            Text("Do you want to Approve ???"),
+                                        actions: <Widget>[
+                                          Consumer<Controller>(
+                                            builder: (context, value, child) {
+                                              return Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                            primary: P_Settings
+                                                                .loginPagetheme),
+                                                    onPressed: () async {
+                                                      Provider.of<Controller>(
+                                                              context,
+                                                              listen: false)
+                                                          .saveVehicleLoadingList(
+                                                              context,
+                                                              widget.os_id);
+
+                                                      // Navigator.of(ctx).pop();
+                                                    },
+                                                    child: Text("Ok"),
+                                                  ),
+                                                  SizedBox(
+                                                    width: size.width * 0.01,
+                                                  ),
+                                                  ElevatedButton(
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                            primary: P_Settings
+                                                                .loginPagetheme),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    },
+                                                    child: Text("Cancel"),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    });
                               },
                             ),
                           ),

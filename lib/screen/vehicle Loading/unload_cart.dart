@@ -111,6 +111,7 @@ class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
                         return listItemFunction(
                           value.bagList[index]["item_id"],
                           value.bagList[index]["item_name"],
+                          double.parse(value.bagList[index]["actual_rate"]),
                           double.parse(value.bagList[index]["s_rate_fix"]),
                           double.parse(value.bagList[index]["qty"]),
                           size,
@@ -129,9 +130,9 @@ class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
                       child: GestureDetector(
                         onTap: (() async {
                           print("save unload data...");
-                          Provider.of<Controller>(context, listen: false)
-                              .saveUnloadVehicleDetails(
-                                  context, "0", "save", widget.form_type, "0");
+                          // Provider.of<Controller>(context, listen: false)
+                          //     .saveUnloadVehicleDetails(
+                          //         context, "0", "save", widget.form_type, "0");
                         }),
                         child: Container(
                           width: size.width * 0.9,
@@ -170,6 +171,7 @@ class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
   Widget listItemFunction(
     String item_id,
     String itemName,
+    double actual_rate,
     double srate1,
     double qty,
     Size size,
@@ -217,6 +219,7 @@ class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
                       batch_code!,
                       itemName,
                       "",
+                      actual_rate,
                       srate1,
                       stock,
                       qty.toString(),
@@ -395,6 +398,7 @@ class _UnloadVehicleCartState extends State<UnloadVehicleCart> {
                                                   .addDeletebagItem(
                                                       cart_id,
                                                       item_id,
+                                                      actual_rate.toString(),
                                                       srate1.toString(),
                                                       qty.toString(),
                                                       context,

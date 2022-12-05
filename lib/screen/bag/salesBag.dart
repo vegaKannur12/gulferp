@@ -111,6 +111,7 @@ class _BagPageState extends State<BagPage> {
                         return listItemFunction(
                           value.bagList[index]["item_id"],
                           value.bagList[index]["item_name"],
+                          double.parse(value.bagList[index]["actual_rate"]),
                           double.parse(value.bagList[index]["s_rate_fix"]),
                           double.parse(value.bagList[index]["qty"]),
                           size,
@@ -211,7 +212,7 @@ class _BagPageState extends State<BagPage> {
                                         value.sgst_total.toString(),
                                         value.igst_total.toString(),
                                         value.taxable_total.toString(),
-                                        value.total_qty.toString())
+                                        value.total_qty.toString(),"","","")
                                 : Provider.of<Controller>(context,
                                         listen: false)
                                     .saveSaleReturnCartDetails(
@@ -274,6 +275,7 @@ class _BagPageState extends State<BagPage> {
   Widget listItemFunction(
       String item_id,
       String itemName,
+      double actual_rate,
       double srate1,
       double qty,
       Size size,
@@ -355,6 +357,7 @@ class _BagPageState extends State<BagPage> {
                       batch_code!,
                       itemName,
                       "",
+                      actual_rate,
                       srate1,
                       stock,
                       qty.toString(),
@@ -609,6 +612,7 @@ class _BagPageState extends State<BagPage> {
                                                   .addDeletebagItem(
                                                       cart_id,
                                                       item_id,
+                                                      actual_rate.toString(),
                                                       srate1.toString(),
                                                       qty.toString(),
                                                       context,
