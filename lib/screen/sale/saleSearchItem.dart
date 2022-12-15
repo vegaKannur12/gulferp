@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:gulferp/components/commonColor.dart';
+import 'package:gulferp/components/customSnackbar.dart';
 import 'package:gulferp/controller/controller.dart';
 import 'package:gulferp/screen/history/history.dart';
 import 'package:gulferp/screen/sale/paymentSheet.dart';
@@ -25,7 +26,9 @@ class SaleSearchItem extends StatefulWidget {
 class _SaleSearchItemState extends State<SaleSearchItem> {
   TextEditingController naration = TextEditingController();
   ValueNotifier<bool> visible = ValueNotifier(false);
+  String? selected;
   String? todaydate;
+  CustomSnackbar snack = CustomSnackbar();
   PaymentBottomSheet paymentBottomSheet = PaymentBottomSheet();
   DateTime now = DateTime.now();
 
@@ -70,106 +73,121 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
               Provider.of<Controller>(context, listen: false).bagList.length ==
                       0
                   ? null
-                  : showDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (BuildContext ctx) {
-                        return new AlertDialog(
-                          content: Text("Do you want to save ???"),
-                          actions: <Widget>[
-                            Consumer<Controller>(
-                              builder: (context, value, child) {
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          primary: P_Settings.loginPagetheme),
-                                      onPressed: () async {
-                                        print(
-                                            "widget.form_type ----${widget.form_type}");
+                  : widget.form_type == "3" && selected == null
+                      ? snack.showSnackbar(context, "Please Select Branch !!!", "")
+                      : showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (BuildContext ctx) {
+                            return new AlertDialog(
+                              content: Text("Do you want to save ???"),
+                              actions: <Widget>[
+                                Consumer<Controller>(
+                                  builder: (context, value, child) {
+                                    return Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              primary:
+                                                  P_Settings.loginPagetheme),
+                                          onPressed: () async {
+                                            print(
+                                                "widget.form_type ----${widget.form_type}");
 
-                                        // widget.form_type == "1"
-                                        //     ? Provider.of<Controller>(context,
-                                        //             listen: false)
-                                        //         .saveCartDetails(
-                                        //             context,
-                                        //             widget.remark!,
-                                        //             "0",
-                                        //             "0",
-                                        //             "save",
-                                        //             widget.form_type,
-                                        //             value.cus_id!,
-                                        //             value.cusName1!,
-                                        //             "0",
-                                        //             value.dis_tot.toString(),
-                                        //             value.cess_total.toString(),
-                                        //             value.net_tot.toString(),
-                                        //             "0",
-                                        //             value.cgst_total.toString(),
-                                        //             value.sgst_total.toString(),
-                                        //             value.igst_total.toString(),
-                                        //             value.taxable_total
-                                        //                 .toString(),
-                                        //             value.total_qty.toString(),
-                                        //             value.paymentMode.toString(),
-                                        //             value.payable.toString(),
-                                        //             value.balance.toString())
-                                        //     :
-                                        widget.form_type == "2"
-                                            ? Provider.of<Controller>(context,
-                                                    listen: false)
-                                                .saveSaleReturnCartDetails(
-                                                    context,
-                                                    widget.remark!,
-                                                    "0",
-                                                    "0",
-                                                    "save",
-                                                    widget.form_type,
-                                                    value.cus_id!,
-                                                    value.cusName1!,
-                                                    "0",
-                                                    value.dis_tot.toString(),
-                                                    value.cess_total.toString(),
-                                                    value.net_tot.toString(),
-                                                    "0",
-                                                    value.cgst_total.toString(),
-                                                    value.sgst_total.toString(),
-                                                    value.igst_total.toString(),
-                                                    value.taxable_total
-                                                        .toString(),
-                                                    value.total_qty.toString())
-                                            : Provider.of<Controller>(context,
-                                                    listen: false)
-                                                .saveUnloadVehicleDetails(
-                                                    context,
-                                                    "0",
-                                                    "save",
-                                                    widget.form_type,
-                                                    "0",naration.text);
+                                            // widget.form_type == "1"
+                                            //     ? Provider.of<Controller>(context,
+                                            //             listen: false)
+                                            //         .saveCartDetails(
+                                            //             context,
+                                            //             widget.remark!,
+                                            //             "0",
+                                            //             "0",
+                                            //             "save",
+                                            //             widget.form_type,
+                                            //             value.cus_id!,
+                                            //             value.cusName1!,
+                                            //             "0",
+                                            //             value.dis_tot.toString(),
+                                            //             value.cess_total.toString(),
+                                            //             value.net_tot.toString(),
+                                            //             "0",
+                                            //             value.cgst_total.toString(),
+                                            //             value.sgst_total.toString(),
+                                            //             value.igst_total.toString(),
+                                            //             value.taxable_total
+                                            //                 .toString(),
+                                            //             value.total_qty.toString(),
+                                            //             value.paymentMode.toString(),
+                                            //             value.payable.toString(),
+                                            //             value.balance.toString())
+                                            //     :
+                                            widget.form_type == "2"
+                                                ? Provider.of<Controller>(
+                                                        context,
+                                                        listen: false)
+                                                    .saveSaleReturnCartDetails(
+                                                        context,
+                                                        widget.remark!,
+                                                        "0",
+                                                        "0",
+                                                        "save",
+                                                        widget.form_type,
+                                                        value.cus_id!,
+                                                        value.cusName1!,
+                                                        "0",
+                                                        value.dis_tot
+                                                            .toString(),
+                                                        value.cess_total
+                                                            .toString(),
+                                                        value.net_tot
+                                                            .toString(),
+                                                        "0",
+                                                        value.cgst_total
+                                                            .toString(),
+                                                        value.sgst_total
+                                                            .toString(),
+                                                        value.igst_total
+                                                            .toString(),
+                                                        value.taxable_total
+                                                            .toString(),
+                                                        value.total_qty
+                                                            .toString())
+                                                : Provider.of<Controller>(
+                                                        context,
+                                                        listen: false)
+                                                    .saveUnloadVehicleDetails(
+                                                        context,
+                                                        "0",
+                                                        "save",
+                                                        widget.form_type,
+                                                        "0",
+                                                        naration.text,
+                                                        selected.toString());
 
-                                        // Navigator.of(ctx).pop();
-                                      },
-                                      child: Text("Ok"),
-                                    ),
-                                    SizedBox(
-                                      width: size.width * 0.01,
-                                    ),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          primary: P_Settings.loginPagetheme),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text("Cancel"),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ],
-                        );
-                      });
+                                            // Navigator.of(ctx).pop();
+                                          },
+                                          child: Text("Ok"),
+                                        ),
+                                        SizedBox(
+                                          width: size.width * 0.01,
+                                        ),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              primary:
+                                                  P_Settings.loginPagetheme),
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text("Cancel"),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          });
             }
           },
           child: Text(
@@ -214,43 +232,44 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
         builder: (context, value, child) {
           return Column(
             children: [
+              widget.form_type == "3" ? dropDownBranchList(size) : Container(),
               widget.form_type == "3"
                   ? Padding(
-                    padding: const EdgeInsets.only(top:10.0),
-                    child: Container(
-                      width: size.height * 0.46,
-                      child: TextFormField(
-                        controller: naration,
-                        scrollPadding: EdgeInsets.only(
-                            bottom: topInsets + size.height * 0.34),
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.note,
-                              color: Colors.grey,
-                            ),
-                            contentPadding: EdgeInsets.zero,
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: Colors.grey, width: 1.0),
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: BorderSide(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Container(
+                        width: size.height * 0.46,
+                        child: TextFormField(
+                          controller: naration,
+                          scrollPadding: EdgeInsets.only(
+                              bottom: topInsets + size.height * 0.34),
+                          decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.note,
                                 color: Colors.grey,
-                                width: 1.0,
                               ),
-                            ),
-                            hintStyle: TextStyle(
-                              fontSize: 15,
-                              color: Colors.grey[700],
-                            ),
-                            // hintText: "Naration",
-                            labelText: 'Remarks',
-                            labelStyle: TextStyle(color: P_Settings.bagText)),
+                              contentPadding: EdgeInsets.zero,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 1.0),
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                  width: 1.0,
+                                ),
+                              ),
+                              hintStyle: TextStyle(
+                                fontSize: 15,
+                                color: Colors.grey[700],
+                              ),
+                              // hintText: "Naration",
+                              labelText: 'Remarks',
+                              labelStyle: TextStyle(color: P_Settings.bagText)),
+                        ),
                       ),
-                    ),
-                  )
+                    )
                   : Container(),
               Padding(
                 padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
@@ -1178,6 +1197,73 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
           );
         },
       ),
+    );
+  }
+
+  Widget dropDownBranchList(Size size) {
+    return Consumer<Controller>(
+      builder: (context, value, child) {
+        return Padding(
+          padding: const EdgeInsets.only(left: 0, right: 0, top: 20),
+          child: Container(
+            width: size.height * 0.46,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              border: Border.all(
+                  color: P_Settings.loginPagetheme,
+                  style: BorderStyle.solid,
+                  width: 0.4),
+            ),
+            child: DropdownButton<String>(
+              isExpanded: true,
+              value: selected,
+              // isDense: true,
+              hint: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Select Branch"),
+              ),
+              autofocus: true,
+              underline: SizedBox(),
+              elevation: 0,
+
+              items: value.vehicle_list
+                  .map((item) => DropdownMenuItem<String>(
+                      // value: "${item.rId},${item.route}",
+                      value: item["UID"],
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              item["BranchName"].toString(),
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                        ],
+                      )))
+                  .toList(),
+              onChanged: (item) {
+                print("clicked");
+                if (item != null) {
+                  setState(() {
+                    selected = item;
+                    print("selected---$selected");
+                  });
+
+                  // // splitted = selected!.split(",");
+                  // if (selected != null) {
+                  //   visible.value = false;
+                  // } else {
+                  //   visible.value = true;
+                  // }
+
+                }
+              },
+            ),
+          ),
+        );
+      },
     );
   }
 }

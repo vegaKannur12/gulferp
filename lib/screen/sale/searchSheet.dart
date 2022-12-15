@@ -68,10 +68,18 @@ class SearchBottomSheet {
                                         .setIssearch(true);
                                     // value = searchcontroll.text;
                                     print("valuess----$values");
+                                    if (formType == "3") {
+                                      Provider.of<Controller>(context,
+                                              listen: false)
+                                          .unLoadsearchItem(context, values);
+                                    } else {
 
-                                    Provider.of<Controller>(context,
-                                            listen: false)
-                                        .searchItem(context, values);
+                                      print("jfjd-----${value.rate_type}");
+                                      Provider.of<Controller>(context,
+                                              listen: false)
+                                          .searchItem(context, values,
+                                              value.rate_type.toString());
+                                    }
                                   } else {
                                     Provider.of<Controller>(context,
                                             listen: false)
@@ -528,7 +536,7 @@ class SearchBottomSheet {
                                                 // ),
                                                 Flexible(
                                                   child: Text(
-                                                    "${value.searchList[index]["batch_id"]} - ${value.searchList[index]["batch_name"]}",
+                                                    "${value.searchList[index]["batch_code"]} - ${value.searchList[index]["batch_name"]}",
                                                     style: GoogleFonts.aBeeZee(
                                                         textStyle:
                                                             Theme.of(context)

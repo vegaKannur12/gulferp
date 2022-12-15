@@ -173,6 +173,9 @@ class _MainDashboardState extends State<MainDashboard> {
                                           listen: false)
                                       .itemwisereports(
                                           context, todaydate!, todaydate!);
+                                  Provider.of<Controller>(context,
+                                          listen: false)
+                                      .setDate(todaydate!, todaydate!);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -366,6 +369,8 @@ class _MainDashboardState extends State<MainDashboard> {
                             await Provider.of<Controller>(context,
                                     listen: false)
                                 .getbagData1(context, "3", "");
+                            Provider.of<Controller>(context, listen: false)
+                                .getVehicleList(context);
                             Navigator.of(context).push(
                               PageRouteBuilder(
                                   opaque: false, // set to false
@@ -515,6 +520,9 @@ class _MainDashboardState extends State<MainDashboard> {
                             //     .getTransactionList(context);
                             Provider.of<Controller>(context, listen: false)
                                 .setIssearch(false);
+
+                            Provider.of<Controller>(context, listen: false)
+                                .rate_type = "";
                             Navigator.push(
                               context,
                               MaterialPageRoute(

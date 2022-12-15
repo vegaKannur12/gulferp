@@ -193,7 +193,8 @@ class _CustomerSelectionState extends State<CustomerSelection> {
                             item.customer.toString(),
                             item.gtype.toString(),
                             item.fLD3001.toString(),
-                            item.outstanding.toString());
+                            item.outstanding.toString(),
+                            item.rate_type.toString());
                     Navigator.pop(context);
                   },
                   leading: CircleAvatar(
@@ -247,7 +248,7 @@ class _CustomerSelectionState extends State<CustomerSelection> {
                         padding: const EdgeInsets.only(bottom: 8.0),
                         child: Row(
                           children: [
-                           Text(
+                            Text(
                               "Bal :",
                               style: GoogleFonts.aBeeZee(
                                 textStyle:
@@ -310,6 +311,7 @@ class _AZItem extends ISuspensionBean {
   String? route;
   String? outstanding;
   String? gtype;
+  String? rate_type;
 
   _AZItem(
       {this.tag,
@@ -320,7 +322,8 @@ class _AZItem extends ISuspensionBean {
       this.email,
       this.route,
       this.outstanding,
-      this.gtype});
+      this.gtype,
+      this.rate_type});
 
   @override
   String getSuspensionTag() => tag!;

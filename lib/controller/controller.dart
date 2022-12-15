@@ -14,6 +14,9 @@ import 'package:http/http.dart' as http;
 
 class Controller extends ChangeNotifier {
   TextEditingController searchcontroller = TextEditingController();
+  TextEditingController customerControllerSale = TextEditingController();
+  TextEditingController customerControllerColl = TextEditingController();
+  bool brLoading = false;
   String? paymentMode;
   bool fromDb = true;
   double? payable;
@@ -23,7 +26,7 @@ class Controller extends ChangeNotifier {
   String? selectedpaymntMode;
   double collExpBal = 0.0;
   bool partPaymentClicked = false;
-
+  String? rate_type;
   List<bool> addtoCart = [];
   List<TextEditingController> qtycontroller = [];
   List<TextEditingController> t2qtycontroller = [];
@@ -97,6 +100,7 @@ class Controller extends ChangeNotifier {
   List<Map<String, dynamic>> expenseCollList = [];
 
   List<Map<String, dynamic>> infoList = [];
+  List<Map<String, dynamic>> vehicle_list = [];
 
   List<TextEditingController> qty = [];
   List<TextEditingController> qty1 = [];
@@ -610,12 +614,13 @@ class Controller extends ChangeNotifier {
 ////////////////////////////////////////////////////////////////////
 
   setCustomerName(
-      String cusName, String? gtype, String cusId, String outstanding2) {
+      String cusName, String? gtype, String cusId, String outstanding2,String rateType) {
     cusName1 = cusName;
     gtype1 = gtype;
     cus_id = cusId;
     outstanding = outstanding2;
-    print("cysujkjj------$cusName1----$gtype--------$outstanding");
+    rate_type=rateType;
+    print("cysujkjj------$cusName1----$gtype----$cus_id----$outstanding----$rate_type");
     notifyListeners();
   }
 
@@ -1379,7 +1384,7 @@ class Controller extends ChangeNotifier {
 
   /////////////////////unload vehicle save/////////////////////////////
   saveUnloadVehicleDetails(BuildContext context, String event, String action,
-      String form_type, String os_id, String remarks) async {
+      String form_type, String os_id, String remarks, String brId) async {
     List<Map<String, dynamic>> jsonResult = [];
     // List<Map<String, dynamic>> itemmap = [];
 
@@ -1416,6 +1421,7 @@ class Controller extends ChangeNotifier {
           "tot_qty": total_qty,
           "staff_id": user_id,
           "branch_id": branch_id,
+          "to_branch_id": brId,
           "event": event,
           "remarks": remarks,
           "details": jsonResult
@@ -1750,17 +1756,17 @@ class Controller extends ChangeNotifier {
   }
 
   //////////////////////////////////////////////////////////////////////
-  searchItem(BuildContext context, String itemName) async {
+  searchItem(BuildContext context, String itemName,String rateType)async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
-          print("value-----$itemName");
+          print("value-----$itemName---$rateType");
           SharedPreferences prefs = await SharedPreferences.getInstance();
           branch_id = prefs.getString("branch_id");
           print("branch_id--search-$branch_id");
 
           Uri url = Uri.parse("$urlgolabl/search_products_list.php");
-          Map body = {'item_name': itemName, 'branch_id': branch_id};
+          Map body = {'item_name': itemName, 'branch_id': branch_id,'rate_type':rateType};
           print("body-----$body");
           // isDownloaded = true;
           // isLoading = true;
@@ -1778,6 +1784,66 @@ class Controller extends ChangeNotifier {
             searchList.add(item);
           }
           print("searchList------$searchList");
+          qtycontroller = List.generate(
+            searchList.length,
+            (index) => TextEditingController(),
+          );
+          rateList = List.generate(
+              searchList.length, (index) => TextEditingController());
+          discount_prercent = List.generate(
+              searchList.length, (index) => TextEditingController());
+          discount_amount = List.generate(
+              searchList.length, (index) => TextEditingController());
+          addtoCart = List.generate(searchList.length, (index) => false);
+
+          for (int i = 0; i < searchList.length; i++) {
+            discount_prercent[i].text = "0";
+            discount_amount[i].text = "0";
+            rateList[i].text = searchList[i]["s_rate_fix"];
+          }
+          isSearchLoading = false;
+          // isLoading = false;
+          notifyListeners();
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print(e);
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+
+///////////////////////////////////////////////////////////////////////////////
+  unLoadsearchItem(BuildContext context, String itemName) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          print("value-----$itemName");
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          print("branch_id--search-$branch_id");
+
+          Uri url = Uri.parse("$urlgolabl/search_products_list_1.php");
+          Map body = {'item_name': itemName, 'branch_id': branch_id};
+          print("body-----$body");
+          // isDownloaded = true;
+          // isLoading = true;
+          isSearchLoading = true;
+          notifyListeners();
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+          var map = jsonDecode(response.body);
+
+          searchList.clear();
+          for (var item in map) {
+            searchList.add(item);
+          }
+          print("unload  searchList------$searchList");
           qtycontroller = List.generate(
             searchList.length,
             (index) => TextEditingController(),
@@ -2346,6 +2412,60 @@ class Controller extends ChangeNotifier {
 
           print("colll-----$coll----$exp $collExpBal");
           isReportLoading = false;
+          notifyListeners();
+
+          /////////////// insert into local db /////////////////////
+        } catch (e) {
+          print("error...$e");
+          // return null;
+          return [];
+        }
+      }
+    });
+  }
+
+  /////////////////////////////////////////////////////////////////
+  getVehicleList(
+    BuildContext context,
+  ) async {
+    NetConnection.networkConnection(context).then((value) async {
+      if (value == true) {
+        try {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          branch_id = prefs.getString("branch_id");
+          // user_id = prefs.getString("user_id");
+          print("vehicle list unload---------$branch_id----$user_id---");
+          Uri url = Uri.parse("$urlgolabl/vehicle_list.php");
+          Map body = {
+            'branch_id': branch_id,
+          };
+          print("vehicle list body----$body");
+
+          brLoading = true;
+          notifyListeners();
+
+          http.Response response = await http.post(
+            url,
+            body: body,
+          );
+
+          var map = jsonDecode(response.body);
+          print("vehicle list------------${map}");
+
+          // if (action != "delete") {
+          //   isLoading = false;
+          //   notifyListeners();
+          // }
+
+          vehicle_list.clear();
+          if (map != null) {
+            for (var item in map) {
+              vehicle_list.add(item);
+            }
+          }
+
+          print("vehicle_list list data........${vehicle_list}");
+          brLoading = false;
           notifyListeners();
 
           /////////////// insert into local db /////////////////////

@@ -43,7 +43,7 @@ class _SettlementReportState extends State<SettlementReport> {
       appBar: AppBar(
         backgroundColor: P_Settings.loginPagetheme,
         title: Text(
-          "Settlement Report",
+          "Pending Settlement Report",
           style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
         ),
       ),
@@ -64,60 +64,63 @@ class _SettlementReportState extends State<SettlementReport> {
                       )),
             );
           } else {
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 11.0, left: 8, right: 8),
-                  child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: 180,
-                        child: Text(
-                          "Series",
-                          style: GoogleFonts.aBeeZee(
-                            // textStyle: Theme.of(context).textTheme.bodyText2,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+            return SingleChildScrollView(
+              physics: ScrollPhysics(),
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 11.0, left: 8, right: 8),
+                    child: Row(
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: size.width * 0.4,
+                          child: Text(
+                            "Series",
+                            style: GoogleFonts.aBeeZee(
+                              // textStyle: Theme.of(context).textTheme.bodyText2,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: 100,
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "Collection",
-                          style: GoogleFonts.aBeeZee(
-                            // textStyle: Theme.of(context).textTheme.bodyText2,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                        Container(
+                          width: size.width * 0.25,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "Collection",
+                            style: GoogleFonts.aBeeZee(
+                              // textStyle: Theme.of(context).textTheme.bodyText2,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
-                      ),
-                      Container(
-                        width: 100,
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "Expense",
-                          style: GoogleFonts.aBeeZee(
-                            // textStyle: Theme.of(context).textTheme.bodyText2,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                        Container(
+                          width: size.width * 0.25,
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            "Expense",
+                            style: GoogleFonts.aBeeZee(
+                              // textStyle: Theme.of(context).textTheme.bodyText2,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Divider(),
-                SizedBox(
-                  height: size.height * 0.02,
-                ),
-                Expanded(
-                  child: ListView.builder(
+                  Divider(),
+                  SizedBox(
+                    height: size.height * 0.01,
+                  ),
+                  ListView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: value.vehicleSettlemntList.length + 1,
                     itemBuilder: (context, index) {
@@ -133,11 +136,11 @@ class _SettlementReportState extends State<SettlementReport> {
                                     child: Row(
                                       children: [
                                         Container(
-                                          width: 180,
+                                          width: size.width * 0.4,
                                           // color: Colors.green,
                                         ),
                                         Container(
-                                          width: 100,
+                                          width: size.width * 0.25,
                                           alignment: Alignment.centerRight,
 
                                           // color: Colors.green,
@@ -150,7 +153,7 @@ class _SettlementReportState extends State<SettlementReport> {
                                           ),
                                         ),
                                         Container(
-                                          width: 100,
+                                          width: size.width * 0.25,
                                           alignment: Alignment.centerRight,
                                           // color: Colors.red,
                                           child: Text(
@@ -167,14 +170,13 @@ class _SettlementReportState extends State<SettlementReport> {
                                 : Row(
                                     children: [
                                       Container(
-                                        width: 180,
+                                        width: size.width * 0.4,
                                         child: Text(
-                                            value.vehicleSettlemntList[index]
-                                                ["series"]),
+                                            "${value.vehicleSettlemntList[index]["series"]}"),
                                       ),
                                       Container(
                                         alignment: Alignment.centerRight,
-                                        width: 100,
+                                        width: size.width * 0.25,
                                         child: Text(value.vehicleSettlemntList[
                                                     index]["flag"] ==
                                                 "2"
@@ -184,7 +186,7 @@ class _SettlementReportState extends State<SettlementReport> {
                                       ),
                                       Container(
                                         alignment: Alignment.centerRight,
-                                        width: 100,
+                                        width: size.width * 0.25,
                                         child: Text(value.vehicleSettlemntList[
                                                     index]["flag"] ==
                                                 "1"
@@ -200,59 +202,59 @@ class _SettlementReportState extends State<SettlementReport> {
                       );
                     },
                   ),
-                ),
-                Column(
-                  children: [
-                    // Container(
-                    //   width: double.infinity,
-                    //   height: size.height * 0.06,
+                  Column(
+                    children: [
+                      // Container(
+                      //   width: double.infinity,
+                      //   height: size.height * 0.06,
 
-                    //   child: Row(
-                    //     children: [
-                    //       Container(
-                    //         width: 180,
-                    //         color: Colors.green,
-                    //       ),
-                    //       Container(
-                    //         width: 100,
-                    //         color: Colors.green,
-                    //       ),
-                    //       Container(
-                    //         width: 100,
-                    //         color: Colors.red,
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    Container(
-                      width: double.infinity,
-                      height: size.height * 0.06,
-                      color: Colors.yellow,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            "Balance  : ",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
-                            child: Text(
-                              " ${value.collExpBal.toString()}",
-                              style: GoogleFonts.aBeeZee(
-                                // textStyle: Theme.of(context).textTheme.bodyText2,
-                                fontSize: 19,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                      //   child: Row(
+                      //     children: [
+                      //       Container(
+                      //         width: 180,
+                      //         color: Colors.green,
+                      //       ),
+                      //       Container(
+                      //         width: 100,
+                      //         color: Colors.green,
+                      //       ),
+                      //       Container(
+                      //         width: 100,
+                      //         color: Colors.red,
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      Container(
+                        width: double.infinity,
+                        height: size.height * 0.06,
+                        color: Colors.yellow,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              "Balance  : ",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: Text(
+                                " ${value.collExpBal.toString()}",
+                                style: GoogleFonts.aBeeZee(
+                                  // textStyle: Theme.of(context).textTheme.bodyText2,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             );
           }
         },

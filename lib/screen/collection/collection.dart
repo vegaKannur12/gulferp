@@ -43,6 +43,7 @@ class _CollectionState extends State<Collection> {
     Provider.of<Controller>(context, listen: false).cusName1 = null;
     Provider.of<Controller>(context, listen: false).cus_id = null;
     Provider.of<Controller>(context, listen: false).gtype1 = null;
+    // Provider.of<Controller>(context, listen: false).customerControllerColl.clear();
     Provider.of<Controller>(context, listen: false).outstanding = null;
   }
 
@@ -218,13 +219,13 @@ class _CollectionState extends State<Collection> {
                                           visible: v,
                                           child: Padding(
                                             padding: const EdgeInsets.only(
-                                                top: 6, bottom: 2.0, left: 40),
+                                                top: 6, bottom: 2.0, left: 41),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  "Please choose  Route",
+                                                  "Please Choose  Route!!!",
                                                   style: GoogleFonts.aBeeZee(
                                                       // textStyle: Theme.of(context)
                                                       //     .textTheme
@@ -272,6 +273,10 @@ class _CollectionState extends State<Collection> {
                                             fieldText,
                                             FocusNode fieldFocusNode,
                                             VoidCallback onFieldSubmitted) {
+                                          Provider.of<Controller>(context,
+                                                      listen: false)
+                                                  .customerControllerColl =
+                                              fieldText;
                                           return Container(
                                             height: size.height * 0.08,
                                             child: TextFormField(
@@ -308,7 +313,12 @@ class _CollectionState extends State<Collection> {
                                                 suffixIcon: IconButton(
                                                   onPressed: () {
                                                     fieldText.clear();
-                                                    value.gtype1 = null;
+
+                                                    setState(() {
+                                                      value.outstanding = null;
+                                                      value.gtype1 = null;
+                                                      value.cus_id = null;
+                                                    });
                                                   },
                                                   icon: Icon(
                                                     Icons.clear,
@@ -383,6 +393,8 @@ class _CollectionState extends State<Collection> {
                                                                 .toString(),
                                                             option["Outstanding"]
                                                                 .toString(),
+                                                            option["rate_type"]
+                                                                .toString(),
                                                           );
                                                         },
                                                         title: Text(
@@ -402,6 +414,41 @@ class _CollectionState extends State<Collection> {
                                         },
                                       ),
                                     ),
+                                  ),
+                                  Container(
+                                    transform: Matrix4.translationValues(
+                                        0.0, -13.0, 0.0),
+                                    child: ValueListenableBuilder(
+                                        valueListenable: cusVisible,
+                                        builder: (BuildContext context, bool v,
+                                            Widget? child) {
+                                          print("value===${visible.value}");
+                                          return Visibility(
+                                            visible: v,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 0,
+                                                  bottom: 2.0,
+                                                  left: 41),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "Please Choose  Customer!!!",
+                                                    style: GoogleFonts.aBeeZee(
+                                                        // textStyle: Theme.of(context)
+                                                        //     .textTheme
+                                                        //     .bodyText2,
+                                                        // fontSize: 15,
+                                                        // fontWeight: FontWeight.bold,
+                                                        color: Colors.red),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }),
                                   ),
                                   // Row(
                                   //   mainAxisAlignment: MainAxisAlignment.start,
@@ -479,8 +526,10 @@ class _CollectionState extends State<Collection> {
 
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 40, right: 40, top: 0),
+                                        left: 41, right: 40, top: 0),
                                     child: Container(
+                                        transform: Matrix4.translationValues(
+                                            0.0, -13.0, 0.0),
                                         width: size.height * 0.4,
                                         child: Row(
                                           children: [
@@ -511,8 +560,10 @@ class _CollectionState extends State<Collection> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
-                                        left: 40, right: 40, top: 20.0),
+                                        left: 40, right: 40, top: 7.0),
                                     child: Container(
+                                      transform: Matrix4.translationValues(
+                                          0.0, -13.0, 0.0),
                                       width: size.height * 0.4,
                                       child: TextFormField(
                                         onChanged: (values) {
@@ -552,35 +603,43 @@ class _CollectionState extends State<Collection> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.01,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 40.0),
-                                    child: Row(
-                                      // mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        ValueListenableBuilder(
-                                            valueListenable: amountvis,
-                                            builder: (BuildContext context,
-                                                bool v, Widget? child) {
-                                              print("value===${visible.value}");
-                                              return Visibility(
-                                                visible: v,
-                                                child: Text(
-                                                  "Please Enter Amount!!!",
-                                                  style: TextStyle(
-                                                      color: Colors.red),
-                                                ),
-                                              );
-                                            }),
-                                      ],
+                                  // SizedBox(
+                                  //   height: size.height * 0.01,
+                                  // ),
+                                  Container(
+                                    transform: Matrix4.translationValues(
+                                        0.0, -8.0, 0.0),
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 41.0),
+                                      child: Row(
+                                        // mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          ValueListenableBuilder(
+                                              valueListenable: amountvis,
+                                              builder: (BuildContext context,
+                                                  bool v, Widget? child) {
+                                                print(
+                                                    "value===${visible.value}");
+                                                return Visibility(
+                                                  visible: v,
+                                                  child: Text(
+                                                    "Please Enter Amount!!!",
+                                                    style: TextStyle(
+                                                        color: Colors.red),
+                                                  ),
+                                                );
+                                              }),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 40, right: 40, top: 20.0),
                                     child: Container(
+                                      transform: Matrix4.translationValues(
+                                          0.0, -19.0, 0.0),
                                       width: size.height * 0.4,
                                       child: TextFormField(
                                         controller: naration,
@@ -619,38 +678,10 @@ class _CollectionState extends State<Collection> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: size.height * 0.015,
-                                  ),
-                                  ValueListenableBuilder(
-                                      valueListenable: cusVisible,
-                                      builder: (BuildContext context, bool v,
-                                          Widget? child) {
-                                        print("value===${visible.value}");
-                                        return Visibility(
-                                          visible: v,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 0, bottom: 2.0, left: 40),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Please choose  Customer",
-                                                  style: GoogleFonts.aBeeZee(
-                                                      // textStyle: Theme.of(context)
-                                                      //     .textTheme
-                                                      //     .bodyText2,
-                                                      // fontSize: 15,
-                                                      // fontWeight: FontWeight.bold,
-                                                      color: Colors.red),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        );
-                                      }),
+                                  // SizedBox(
+                                  //   height: size.height * 0.015,
+                                  // ),
+
                                   SizedBox(
                                     height: size.height * 0.015,
                                   ),
@@ -775,6 +806,9 @@ class _CollectionState extends State<Collection> {
                 if (item != null) {
                   setState(() {
                     selected = item;
+                    Provider.of<Controller>(context, listen: false)
+                        .customerControllerColl
+                        .clear();
                   });
 
                   splitted = selected!.split(",");
@@ -784,8 +818,12 @@ class _CollectionState extends State<Collection> {
                     visible.value = true;
                   }
                   print("route id-----${splitted[0]}");
+
                   Provider.of<Controller>(context, listen: false)
                       .getCustomerList(selected!);
+                  setState(() {
+                    value.outstanding = null;
+                  });
                 }
               },
             ),

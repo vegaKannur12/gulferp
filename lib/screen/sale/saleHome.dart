@@ -42,6 +42,8 @@ class _SaleHomeState extends State<SaleHome> {
     Provider.of<Controller>(context, listen: false).cusName1 = null;
     Provider.of<Controller>(context, listen: false).cus_id = null;
     Provider.of<Controller>(context, listen: false).gtype1 = null;
+    Provider.of<Controller>(context, listen: false).outstanding = null;
+    // Provider.of<Controller>(context, listen: false).customerControllerSale.clear();
   }
 
   @override
@@ -188,7 +190,7 @@ class _SaleHomeState extends State<SaleHome> {
                                                 MainAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "Please choose  Route",
+                                                "Please Choose  Route!!!",
                                                 style: GoogleFonts.aBeeZee(
                                                     textStyle: Theme.of(context)
                                                         .textTheme
@@ -251,13 +253,16 @@ class _SaleHomeState extends State<SaleHome> {
                                               option["Customer"],
                                       // onSelected: (value) {
                                       //   setState(() {
-                                         
+
                                       //   });
                                       // },
                                       fieldViewBuilder: (BuildContext context,
                                           fieldText,
                                           FocusNode fieldFocusNode,
                                           VoidCallback onFieldSubmitted) {
+                                        Provider.of<Controller>(context,
+                                                listen: false)
+                                            .customerControllerSale = fieldText;
                                         return Container(
                                           height: size.height * 0.08,
                                           child: TextFormField(
@@ -291,7 +296,12 @@ class _SaleHomeState extends State<SaleHome> {
                                               hintText: 'customer',
                                               helperText: ' ', // th
                                               suffixIcon: IconButton(
-                                                onPressed: fieldText.clear,
+                                                onPressed: () {
+                                                  fieldText.clear();
+                                                  value.gtype1 = null;
+                                                  value.outstanding = null;
+                                                  value.cus_id = null;
+                                                },
                                                 icon: Icon(
                                                   Icons.clear,
                                                   color: Colors.black,
@@ -353,14 +363,18 @@ class _SaleHomeState extends State<SaleHome> {
                                                                 context,
                                                                 listen: false)
                                                             .setCustomerName(
-                                                                option["Customer"]
-                                                                    .toString(),
-                                                                option["g_type"]
-                                                                    .toString(),
-                                                               option["FLD3001"]
-                                                                    .toString(),
-                                                                option["Outstanding"]
-                                                                    .toString(),);
+                                                          option["Customer"]
+                                                              .toString(),
+                                                          option["g_type"]
+                                                              .toString(),
+                                                          option["FLD3001"]
+                                                              .toString(),
+                                                          option["Outstanding"]
+                                                              .toString(),
+                                                              option["rate_type"]
+                                                              .toString(),
+
+                                                        );
                                                       },
                                                       title: Text(
                                                           option["Customer"]
@@ -451,38 +465,43 @@ class _SaleHomeState extends State<SaleHome> {
                                 //     )
                                 //   ],
                                 // ),
-                                ValueListenableBuilder(
-                                    valueListenable: cusVisible,
-                                    builder: (BuildContext context, bool v,
-                                        Widget? child) {
-                                      print("value===${visible.value}");
-                                      return Visibility(
-                                        visible: v,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 0, bottom: 2.0, left: 41),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "Please choose  Customer",
-                                                style: GoogleFonts.aBeeZee(
-                                                    textStyle: Theme.of(context)
-                                                        .textTheme
-                                                        .bodyText2,
-                                                    fontSize: 15,
-                                                    // fontWeight: FontWeight.bold,
-                                                    color: Colors.red),
-                                              ),
-                                            ],
+                                Container(
+                                  transform: Matrix4.translationValues(
+                                      0.0, -13.0, 0.0),
+                                  child: ValueListenableBuilder(
+                                      valueListenable: cusVisible,
+                                      builder: (BuildContext context, bool v,
+                                          Widget? child) {
+                                        print("value===${visible.value}");
+                                        return Visibility(
+                                          visible: v,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 0, bottom: 2.0, left: 41),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Please Choose  Customer!!!",
+                                                  style: GoogleFonts.aBeeZee(
+                                                      textStyle:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText2,
+                                                      fontSize: 15,
+                                                      // fontWeight: FontWeight.bold,
+                                                      color: Colors.red),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    }),
+                                        );
+                                      }),
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(
-                                      left: 40, right: 40, top: 10.0),
+                                      left: 40, right: 40, top: 1.0),
                                   child: Container(
                                     width: size.height * 0.4,
                                     child: TextFormField(
@@ -558,7 +577,8 @@ class _SaleHomeState extends State<SaleHome> {
                                                   .getProductDetails(
                                                       "0", "", widget.formType);
                                           print("value.gtype------${list}");
-                                          if (value.gtype1 == null) {
+                                          if (value.cus_id == null ||
+                                              value.cus_id!.isEmpty) {
                                             cusVisible.value = true;
                                           } else {
                                             cusVisible.value = false;
@@ -728,6 +748,9 @@ class _SaleHomeState extends State<SaleHome> {
                 if (item != null) {
                   setState(() {
                     selected = item;
+                    Provider.of<Controller>(context, listen: false)
+                        .customerControllerSale
+                        .clear();
                   });
 
                   splitted = selected!.split(",");
@@ -738,6 +761,12 @@ class _SaleHomeState extends State<SaleHome> {
                   }
                   print("route id-----${splitted[0]}");
                 }
+                // setState(() {
+
+                // });
+                // Provider.of<Controller>(context, listen: false)
+                //     .customerController
+                //     .clear();
                 Provider.of<Controller>(context, listen: false)
                     .getCustomerList(selected!);
               },

@@ -50,7 +50,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         .setIssearch(true);
                     value = searchcontroll.text;
                     Provider.of<Controller>(context, listen: false)
-                        .searchItem(context, value);
+                        .searchItem(context, value,Provider.of<Controller>(context, listen: false).rate_type.toString());
                   } else {
                     Provider.of<Controller>(context, listen: false)
                         .setIssearch(false);
@@ -106,7 +106,12 @@ class _SearchScreenState extends State<SearchScreen> {
                       subtitle: Row(
                         children: [
                           Text(
-                              "SRate1 : \u{20B9}${value.searchList[index]["s_rate_fix"]}"),
+                              "Stock :  ${value.searchList[index]["stock"]}"),
+                          Padding(
+                            padding: const EdgeInsets.only(left:18.0),
+                            child: Text(
+                                "SRate1 : \u{20B9}${value.searchList[index]["s_rate_fix"]}"),
+                          ),
                           // SizedBox(
                           //   width: size.width * 0.03,
                           // ),

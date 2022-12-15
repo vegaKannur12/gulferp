@@ -57,120 +57,125 @@ class _ReportsState extends State<Reports> {
         builder: (context, value, child) {
           return Column(
             children: [
-             widget.reportType=="1"? Container(
-                height: size.height * 0.08,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    IconButton(
-                        onPressed: () {
-                          // String df;
-                          // String tf;
-                          dateFind.selectDateFind(context, "from date");
-                          // if (value.fromDate == null) {
-                          //   df = todaydate.toString();
-                          // } else {
-                          //   df = value.fromDate.toString();
-                          // }
-                          // if (value.todate == null) {
-                          //   tf = todaydate.toString();
-                          // } else {
-                          //   tf = value.todate.toString();
-                          // }
-                          // Provider.of<Controller>(context, listen: false)
-                          //     .historyData(context, splitted[0], "",
-                          //         df, tf);
-                        },
-                        icon: Icon(
-                          Icons.calendar_month,
-                          color: P_Settings.loginPagetheme,
-                        )),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: Text(
-                        value.fromDate == null
-                            ? todaydate.toString()
-                            : value.fromDate.toString(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                        onPressed: () {
-                          dateFind.selectDateFind(context, "to date");
-                        },
-                        icon: Icon(Icons.calendar_month)),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: Text(
-                        value.todate == null
-                            ? todaydate.toString()
-                            : value.todate.toString(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[700],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      // height: size.height * 0.03,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: P_Settings.loginPagetheme,
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(2), // <-- Radius
+              widget.reportType == "1"
+                  ? Container(
+                      height: size.height * 0.08,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                // String df;
+                                // String tf;
+                                dateFind.selectDateFind(context, "from date");
+                                // if (value.fromDate == null) {
+                                //   df = todaydate.toString();
+                                // } else {
+                                //   df = value.fromDate.toString();
+                                // }
+                                // if (value.todate == null) {
+                                //   tf = todaydate.toString();
+                                // } else {
+                                //   tf = value.todate.toString();
+                                // }
+                                // Provider.of<Controller>(context, listen: false)
+                                //     .historyData(context, splitted[0], "",
+                                //         df, tf);
+                              },
+                              icon: Icon(
+                                Icons.calendar_month,
+                                color: P_Settings.loginPagetheme,
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              value.fromDate == null
+                                  ? todaydate.toString()
+                                  : value.fromDate.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[700],
+                              ),
+                            ),
                           ),
-                        ),
-                        onPressed: () {
-                          String df;
-                          String tf;
-
-                          if (value.fromDate == null) {
-                            df = todaydate.toString();
-                          } else {
-                            df = value.fromDate.toString();
-                          }
-                          if (value.todate == null) {
-                            tf = todaydate.toString();
-                          } else {
-                            tf = value.todate.toString();
-                          }
-
-                          print(
-                              "splited----$df----------$tf---------$splitted");
-                          widget.reportType == "1"
-                              ? Provider.of<Controller>(context, listen: false)
-                                  .itemwisereports(context, df, tf)
-                              : Provider.of<Controller>(context, listen: false)
-                                  .stockreports(
-                                  context,
-                                );
-                        },
-                        child: Text(
-                          "Apply",
-                          style: GoogleFonts.aBeeZee(
-                            textStyle: Theme.of(context).textTheme.bodyText2,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                            color: P_Settings.buttonColor,
+                          IconButton(
+                              onPressed: () {
+                                dateFind.selectDateFind(context, "to date");
+                              },
+                              icon: Icon(Icons.calendar_month)),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: Text(
+                              value.todate == null
+                                  ? todaydate.toString()
+                                  : value.todate.toString(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[700],
+                              ),
+                            ),
                           ),
-                        ),
+                          Container(
+                            // height: size.height * 0.03,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: P_Settings.loginPagetheme,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.circular(2), // <-- Radius
+                                ),
+                              ),
+                              onPressed: () {
+                                String df;
+                                String tf;
+
+                                if (value.fromDate == null) {
+                                  df = todaydate.toString();
+                                } else {
+                                  df = value.fromDate.toString();
+                                }
+                                if (value.todate == null) {
+                                  tf = todaydate.toString();
+                                } else {
+                                  tf = value.todate.toString();
+                                }
+
+                                print(
+                                    "splited----$df----------$tf---------$splitted");
+                                widget.reportType == "1"
+                                    ? Provider.of<Controller>(context,
+                                            listen: false)
+                                        .itemwisereports(context, df, tf)
+                                    : Provider.of<Controller>(context,
+                                            listen: false)
+                                        .stockreports(
+                                        context,
+                                      );
+                              },
+                              child: Text(
+                                "Apply",
+                                style: GoogleFonts.aBeeZee(
+                                  textStyle:
+                                      Theme.of(context).textTheme.bodyText2,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                  color: P_Settings.buttonColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
+                      // dropDownCustom(size,""),
                     )
-                  ],
-                ),
-                // dropDownCustom(size,""),
-              ):Container(),
+                  : Container(),
               value.isReportLoading!
                   ? Container(
-                    height: size.height * 0.7,
-                    child: SpinKitCircle(
+                      height: size.height * 0.7,
+                      child: SpinKitCircle(
                         color: P_Settings.loginPagetheme,
                       ),
-                  )
+                    )
                   : value.reportsList.length == 0
                       ? Center(
                           child: Container(
@@ -186,67 +191,119 @@ class _ReportsState extends State<Reports> {
                           child: ListView.builder(
                           itemCount: value.reportsList.length,
                           itemBuilder: (context, index) {
-                            return Card(
-                              child: ListTile(
-                                onTap: () {
-                                  // historyInfo.showinfoSheet(
-                                  //   context,
-                                  //   size,
-                                  //   widget.form_type,
-                                  // );
-                                },
-                                // trailing: Wrap(
-                                //   spacing: 10,
-                                //   children: [],
-                                // ),
-                                title: Column(
-                                  children: [
-                                    Row(
+                            return Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: ListTile(
+                                    onTap: () {
+                                      // historyInfo.showinfoSheet(
+                                      //   context,
+                                      //   size,
+                                      //   widget.form_type,
+                                      // );
+                                    },
+                                    // trailing: Wrap(
+                                    //   spacing: 10,
+                                    //   children: [],
+                                    // ),
+                                    title: Column(
                                       children: [
-                                        Text(
-                                          "${value.reportsList[index]['item_name']} ",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 16,
-                                            // fontWeight: FontWeight.bold,
-                                            color: P_Settings.loginPagetheme,
-                                          ),
+                                        Row(
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                "${value.reportsList[index]['item_name']} ",
+                                                style: GoogleFonts.aBeeZee(
+                                                  textStyle: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText2,
+                                                  fontSize: 16,
+                                                  // fontWeight: FontWeight.bold,
+                                                  color:
+                                                      P_Settings.loginPagetheme,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                       
+                                        SizedBox(
+                                          height: size.height * 0.01,
+                                        ),
+                                        Row(
+                                          children: [
+                                            widget.reportType == "2"
+                                                ? Text(
+                                                    "Stock : ",
+                                                    style: GoogleFonts.aBeeZee(
+                                                      textStyle:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText2,
+                                                      fontSize: 16,
+                                                      // fontWeight: FontWeight.bold,
+                                                      color: Colors.grey[600],
+                                                    ),
+                                                  )
+                                                : widget.reportType == "1"
+                                                    ? Text(
+                                                        "Qty : ",
+                                                        style:
+                                                            GoogleFonts.aBeeZee(
+                                                          textStyle:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                          fontSize: 16,
+                                                          // fontWeight: FontWeight.bold,
+                                                          color:
+                                                              Colors.grey[600],
+                                                        ),
+                                                      )
+                                                    : Container(),
+                                            widget.reportType == "2"
+                                                ? Text(
+                                                    "${value.reportsList[index]['stock']} ",
+                                                    style: GoogleFonts.aBeeZee(
+                                                      textStyle:
+                                                          Theme.of(context)
+                                                              .textTheme
+                                                              .bodyText2,
+                                                      fontSize: 16,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.grey[600],
+                                                    ),
+                                                  )
+                                                : widget.reportType == "1"
+                                                    ? Text(
+                                                        "${value.reportsList[index]['qty']} ",
+                                                        style:
+                                                            GoogleFonts.aBeeZee(
+                                                          textStyle:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText2,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold, 
+                                                          color:
+                                                              Colors.grey[600],
+                                                        ),
+                                                      )
+                                                    : Container(),
+                                          ],
+                                        )
                                       ],
                                     ),
-                                  widget.reportType=="2"?  Row(
-                                      children: [
-                                        Text(
-                                          "Stock : ",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 16,
-                                            // fontWeight: FontWeight.bold,
-                                            color:Colors.grey[600],
-                                          ),
-                                        ),
-                                        Text(
-                                          "${value.reportsList[index]['stock']} ",
-                                          style: GoogleFonts.aBeeZee(
-                                            textStyle: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.grey[600],
-                                          ),
-                                        ),
-                                       
-                                      ],
-                                    ):Container()
-                                  ],
+                                  ),
                                 ),
-                              ),
+                                Divider(
+                                  thickness: 1,
+                                  indent: 10,
+                                  endIndent: 10,
+                                )
+                              ],
                             );
                           },
                         ))
