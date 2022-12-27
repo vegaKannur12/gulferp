@@ -74,7 +74,8 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                       0
                   ? null
                   : widget.form_type == "3" && selected == null
-                      ? snack.showSnackbar(context, "Please Select Branch !!!", "")
+                      ? snack.showSnackbar(
+                          context, "Please Select Branch !!!", "")
                       : showDialog(
                           context: context,
                           barrierDismissible: true,
@@ -202,6 +203,11 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
         ),
       ),
       appBar: AppBar(
+        title: Text(widget.form_type == "1"
+            ? "Sale"
+            : widget.form_type == "2"
+                ? "Sale Return"
+                : "Vehicle Unloading"),
         backgroundColor: P_Settings.loginPagetheme,
         actions: [
           widget.form_type == "3"
@@ -1257,7 +1263,6 @@ class _SaleSearchItemState extends State<SaleSearchItem> {
                   // } else {
                   //   visible.value = true;
                   // }
-
                 }
               },
             ),

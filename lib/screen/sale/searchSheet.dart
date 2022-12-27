@@ -73,7 +73,6 @@ class SearchBottomSheet {
                                               listen: false)
                                           .unLoadsearchItem(context, values);
                                     } else {
-
                                       print("jfjd-----${value.rate_type}");
                                       Provider.of<Controller>(context,
                                               listen: false)

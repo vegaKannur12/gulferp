@@ -45,7 +45,7 @@ class RegistrationController extends ChangeNotifier {
       if (value == true) {
         try {
           Uri url =
-              Uri.parse("http://trafiqerp.in/order/fj/get_registration.php");
+              Uri.parse("https://trafiqerp.in/order/fj/get_registration.php");
           Map body = {
             'company_code': company_code,
             'fcode': fingerprints,
