@@ -38,7 +38,7 @@ class _LoginPageState extends State<LoginPage> {
           body: SafeArea(
             child: SingleChildScrollView(
               // reverse: true,
-              child: Consumer<Controller>(
+              child: Consumer<RegistrationController>(
                 builder: (context, value, child) {
                   return Form(
                     key: _formKey,
