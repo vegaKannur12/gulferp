@@ -613,14 +613,15 @@ class Controller extends ChangeNotifier {
 
 ////////////////////////////////////////////////////////////////////
 
-  setCustomerName(
-      String cusName, String? gtype, String cusId, String outstanding2,String rateType) {
+  setCustomerName(String cusName, String? gtype, String cusId,
+      String outstanding2, String rateType) {
     cusName1 = cusName;
     gtype1 = gtype;
     cus_id = cusId;
     outstanding = outstanding2;
-    rate_type=rateType;
-    print("cysujkjj------$cusName1----$gtype----$cus_id----$outstanding----$rate_type");
+    rate_type = rateType;
+    print(
+        "cysujkjj------$cusName1----$gtype----$cus_id----$outstanding----$rate_type");
     notifyListeners();
   }
 
@@ -1756,7 +1757,7 @@ class Controller extends ChangeNotifier {
   }
 
   //////////////////////////////////////////////////////////////////////
-  searchItem(BuildContext context, String itemName,String rateType)async {
+  searchItem(BuildContext context, String itemName, String rateType) async {
     NetConnection.networkConnection(context).then((value) async {
       if (value == true) {
         try {
@@ -1766,7 +1767,11 @@ class Controller extends ChangeNotifier {
           print("branch_id--search-$branch_id");
 
           Uri url = Uri.parse("$urlgolabl/search_products_list.php");
-          Map body = {'item_name': itemName, 'branch_id': branch_id,'rate_type':rateType};
+          Map body = {
+            'item_name': itemName,
+            'branch_id': branch_id,
+            'rate_type': rateType
+          };
           print("body-----$body");
           // isDownloaded = true;
           // isLoading = true;
